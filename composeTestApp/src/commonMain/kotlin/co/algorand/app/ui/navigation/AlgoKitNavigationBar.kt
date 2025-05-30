@@ -1,0 +1,113 @@
+package co.algorand.app.ui.navigation
+
+import algokit_walletsdk_kmp.composetestapp.generated.resources.Res
+import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_global
+import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_home
+import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+
+@Composable
+fun AlgoKitNavigationBar(
+    navController: NavController,
+    displayCoreActionsBottomSheet: () -> Unit
+) {
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+    NavigationBar(
+        containerColor = PeraTheme.colors.tabBarBackground
+    ) {
+        topLevelRoutes.forEachIndexed { _, navigationItem ->
+            NavigationBarItem(
+                selected = navigationItem::class.qualifiedName == currentDestination?.route,
+                label = {
+                    (navigationItem.type as? TopLevelRoute.Type.NavButton)?.let {
+                        Text(it.label)
+                    }
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(navigationItem.details.icon),
+                        contentDescription = "",
+                    )
+                },
+                onClick = {
+                    when (navigationItem.type) {
+                        TopLevelRoute.Type.CircularButton -> displayCoreActionsBottomSheet()
+                        is TopLevelRoute.Type.NavButton -> {
+                            navController.navigate(navigationItem) {
+                                popUpTo(navController.graph.findStartDestination().navigatorName) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
+                    }
+                },
+                colors = NavigationBarItemDefaults.colors().copy(
+                    selectedTextColor = PeraTheme.colors.tabBarIconActive,
+                    unselectedTextColor = PeraTheme.colors.tabBarIconNonActive,
+                    selectedIconColor = PeraTheme.colors.tabBarIconActive,
+                    unselectedIconColor = PeraTheme.colors.tabBarIconNonActive,
+                    selectedIndicatorColor = Color.Transparent
+                )
+            )
+        }
+    }
+}
+
+data class TopLevelRouteDetails<T : Any>(val name: String, val route: T, val icon: DrawableResource)
+
+private val topLevelRoutes: List<TopLevelRoute> = listOf(Accounts, Discover, Settings)
+
+sealed interface TopLevelRoute {
+    val type: Type
+    val details: TopLevelRouteDetails<*>
+
+    sealed interface Type {
+        data class NavButton(val label: String) : Type
+        data object CircularButton : Type
+    }
+}
+
+@Serializable
+data object Accounts : TopLevelRoute {
+    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Accounts")
+    override val details = TopLevelRouteDetails(
+        name = "Accounts",
+        route = this,
+        icon = Res.drawable.ic_home
+    )
+}
+
+@Serializable
+data object Discover : TopLevelRoute {
+    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Discover")
+    override val details = TopLevelRouteDetails(
+        name = "Search",
+        route = this,
+        icon = Res.drawable.ic_global
+    )
+}
+
+@Serializable
+data object Settings : TopLevelRoute {
+    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Settings")
+    override val details = TopLevelRouteDetails(
+        name = "Settings",
+        route = this,
+        icon = Res.drawable.ic_settings
+    )
+}
