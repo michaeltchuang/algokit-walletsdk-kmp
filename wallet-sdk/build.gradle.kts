@@ -93,6 +93,9 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.webview.multiplatform.mobile)
+            implementation(libs.compose.webview.multiplatform)
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

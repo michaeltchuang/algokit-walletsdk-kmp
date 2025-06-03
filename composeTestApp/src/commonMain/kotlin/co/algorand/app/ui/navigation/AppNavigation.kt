@@ -19,6 +19,8 @@ import co.algorand.app.ui.screens.PeraTypographyPreviewScreenNavigation
 import co.algorand.app.ui.screens.QrScannerScreen
 import co.algorand.app.ui.screens.QrScannerScreenNavigation
 import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.webview.PeraWebViewPlatformScreen
+import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 
 @Composable
 fun AppNavigation() {
@@ -54,6 +56,9 @@ fun AppNavigation() {
             }
             composable<QrScannerScreenNavigation> {
                 QrScannerScreen()
+            }
+            composable<WebViewPlatformScreenNavigation> {
+                PeraWebViewPlatformScreen("https://github.com/michaeltchuang/algokit-walletsdk-kmp")
             }
         }
         CoreActionsBottomSheet(paddingValues, isBottomSheetVisible)
