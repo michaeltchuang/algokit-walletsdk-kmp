@@ -1,6 +1,6 @@
 [versions]
 agp = "8.7.3"
-algoSdk = "2.7.0"
+algoSdk = "2.8.2"
 algoGoMobilesdk = "1.0.1"
 android-compileSdk = "35"
 android-discover-staging = "4"
