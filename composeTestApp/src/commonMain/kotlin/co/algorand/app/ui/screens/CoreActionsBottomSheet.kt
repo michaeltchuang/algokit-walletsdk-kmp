@@ -21,7 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -46,7 +46,7 @@ fun CoreActionsBottomSheet(
         ModalBottomSheet(
             onDismissRequest = { isVisible.value = false },
             sheetState = sheetState,
-            windowInsets = WindowInsets(bottom = paddingValues.calculateBottomPadding()),
+            // windowInsets = WindowInsets(bottom = paddingValues.calculateBottomPadding()),
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -112,12 +112,12 @@ private fun CoreActionItem(
         Column {
             Text(
                 text = title,
-                style = PeraTheme.typography.body.regular.sans,
+                style = AlgoKitTheme.typography.body.regular.sans,
                 maxLines = 2
             )
             Text(
                 text = description,
-                style = PeraTheme.typography.footnote.sans,
+                style = AlgoKitTheme.typography.footnote.sans,
                 maxLines = 3
             )
         }

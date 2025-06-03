@@ -8,7 +8,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 
 @Composable
-@Preview
 internal fun App() {
     KoinApplication(
         application = initKoinConfig

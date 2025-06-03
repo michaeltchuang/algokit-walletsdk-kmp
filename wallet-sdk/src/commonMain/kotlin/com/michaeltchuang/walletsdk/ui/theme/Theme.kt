@@ -36,7 +36,7 @@ fun AlgoKitTheme(
 @Composable
 internal expect fun SystemAppearance(isDark: Boolean)
 
-object PeraTheme {
+object AlgoKitTheme {
     val colors: PeraColor
         @Composable
         get() = LocalCustomColors.current

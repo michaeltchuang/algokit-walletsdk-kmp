@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewScreen
 
 @Composable
@@ -22,7 +22,7 @@ fun DiscoverScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxSize().background(PeraTheme.colors.background)
+        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background)
     ) {
         AlgoKitWebViewScreen(
             modifier = Modifier.fillMaxSize(),

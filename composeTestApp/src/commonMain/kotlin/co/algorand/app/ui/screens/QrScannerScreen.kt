@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.michaeltchuang.walletsdk.qr.presentation.view.QrScanner
 import com.michaeltchuang.walletsdk.qr.presentation.view.QrScannerViewEvent
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -48,7 +48,7 @@ fun QrScannerScreen() {
         sheetContent = {
                 Text(
                     modifier = Modifier.padding(16.dp).fillMaxWidth(),
-                    style = PeraTheme.typography.body.large.sansMedium,
+                    style = AlgoKitTheme.typography.body.large.sansMedium,
                     text = scannedQr,
                     textAlign = TextAlign.Center
                 )

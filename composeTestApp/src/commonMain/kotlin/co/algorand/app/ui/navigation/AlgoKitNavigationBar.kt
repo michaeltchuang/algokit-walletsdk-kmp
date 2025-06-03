@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -26,7 +26,7 @@ fun AlgoKitNavigationBar(
 ) {
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     NavigationBar(
-        containerColor = PeraTheme.colors.tabBarBackground
+        containerColor = AlgoKitTheme.colors.tabBarBackground
     ) {
         topLevelRoutes.forEachIndexed { _, navigationItem ->
             NavigationBarItem(
@@ -57,10 +57,10 @@ fun AlgoKitNavigationBar(
                     }
                 },
                 colors = NavigationBarItemDefaults.colors().copy(
-                    selectedTextColor = PeraTheme.colors.tabBarIconActive,
-                    unselectedTextColor = PeraTheme.colors.tabBarIconNonActive,
-                    selectedIconColor = PeraTheme.colors.tabBarIconActive,
-                    unselectedIconColor = PeraTheme.colors.tabBarIconNonActive,
+                    selectedTextColor = AlgoKitTheme.colors.tabBarIconActive,
+                    unselectedTextColor = AlgoKitTheme.colors.tabBarIconNonActive,
+                    selectedIconColor = AlgoKitTheme.colors.tabBarIconActive,
+                    unselectedIconColor = AlgoKitTheme.colors.tabBarIconNonActive,
                     selectedIndicatorColor = Color.Transparent
                 )
             )

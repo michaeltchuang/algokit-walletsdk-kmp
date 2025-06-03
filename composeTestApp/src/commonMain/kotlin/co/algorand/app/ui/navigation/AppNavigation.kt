@@ -19,7 +19,7 @@ import co.algorand.app.ui.screens.PeraTypographyPreviewScreenNavigation
 import co.algorand.app.ui.screens.QrScannerScreen
 import co.algorand.app.ui.screens.QrScannerScreenNavigation
 import co.algorand.app.utils.Constants
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 
@@ -32,7 +32,7 @@ fun AppNavigation() {
 
     Scaffold(
         modifier = Modifier
-            .background(color = PeraTheme.colors.background)
+            .background(color = AlgoKitTheme.colors.background)
             .fillMaxSize(),
         topBar = {
             TopBar()
