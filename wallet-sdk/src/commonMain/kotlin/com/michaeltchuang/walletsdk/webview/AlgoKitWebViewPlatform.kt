@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data object WebViewPlatformScreenNavigation
 
 @Composable
-fun PeraWebViewPlatformScreen(url: String) {
+fun AlgoKitWebViewPlatformScreen(url: String) {
     val webViewController by rememberWebViewController()
     WebViewPlatform(webViewController = webViewController)
     LaunchedEffect(Unit) {

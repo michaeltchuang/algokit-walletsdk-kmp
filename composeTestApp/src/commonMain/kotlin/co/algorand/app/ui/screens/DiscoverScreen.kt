@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
-import com.michaeltchuang.walletsdk.webview.PeraWebViewScreen
+import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewScreen
 
 @Composable
 fun DiscoverScreen(
@@ -24,7 +24,7 @@ fun DiscoverScreen(
         verticalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier.fillMaxSize().background(PeraTheme.colors.background)
     ) {
-        PeraWebViewScreen(
+        AlgoKitWebViewScreen(
             modifier = Modifier.fillMaxSize(),
             url = "https://github.com/michaeltchuang/algokit-walletsdk-kmp"
         )

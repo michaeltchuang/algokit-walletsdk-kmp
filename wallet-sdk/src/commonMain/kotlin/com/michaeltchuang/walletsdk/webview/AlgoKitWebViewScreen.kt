@@ -6,7 +6,7 @@ import com.multiplatform.webview.web.WebView
 import com.multiplatform.webview.web.rememberWebViewState
 
 @Composable
-fun PeraWebViewScreen(
+fun AlgoKitWebViewScreen(
     modifier: Modifier,
     url: String,
 ) {
