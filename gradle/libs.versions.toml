@@ -75,6 +75,7 @@ okhttp = "4.12.0"
 paging = "3.3.6"
 peraCompactDecimalFormat = "1.0.1"
 peraWalletConnect = "1.0.1"
+qrkit = "3.0.5"
 retrofit = "2.11.0"
 review = "2.0.2"
 room = "2.7.0-alpha10"
@@ -184,6 +185,7 @@ zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", ve
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 webview-multiplatform-mobile = { module = "io.github.final-class:webview-multiplatform-mobile", version.ref = "webviewMultiplatform" }
 compose-webview-multiplatform = { module = "io.github.kevinnzou:compose-webview-multiplatform", version.ref = "composeWebview" }
+qr-kit = { module = "network.chaintech:qr-kit", version.ref = "qrkit" }
 
 # Wallet SDK - Security / Blockchain / Crypto
 algosdk = { module = "com.algorand:algosdk", version.ref = "algoSdk" }

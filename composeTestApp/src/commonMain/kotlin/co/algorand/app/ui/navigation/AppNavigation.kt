@@ -9,6 +9,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,12 +23,14 @@ import co.algorand.app.utils.Constants
 import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
     val isBottomSheetVisible = remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
 
     Scaffold(
@@ -56,7 +59,11 @@ fun AppNavigation() {
                 PeraTypographyPreviewScreen()
             }
             composable<QrScannerScreenNavigation> {
-                QrScannerScreen()
+                QrScannerScreen {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
             }
             composable<WebViewPlatformScreenNavigation> {
                 AlgoKitWebViewPlatformScreen(Constants.REPO_URL)

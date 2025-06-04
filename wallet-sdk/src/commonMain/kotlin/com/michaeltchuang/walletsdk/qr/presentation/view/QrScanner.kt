@@ -3,12 +3,9 @@ package com.michaeltchuang.walletsdk.qr.presentation.view
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
-import kotlinx.serialization.Serializable
-
-@Serializable
-data object QrScannerNavigation
+import qrscanner.CameraLens
+import qrscanner.QrScanner
 
 sealed interface QrScannerViewEvent {
     data object PauseCamera : QrScannerViewEvent
@@ -16,15 +13,21 @@ sealed interface QrScannerViewEvent {
 }
 
 @Composable
-fun QrScanner(
-    viewEvent: State<QrScannerViewEvent>,
+fun AlgoKitQrScanner(
     modifier: Modifier = Modifier,
     onQrScanned: (String) -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        BarcodeScanner(viewEvent = viewEvent) { result ->
-            result.getDataOrNull()?.let(onQrScanned)
-        }
-        CameraOverlay()
+        QrScanner(
+            modifier = modifier,
+            flashlightOn = false,
+            cameraLens = CameraLens.Back,
+            openImagePicker = false,
+            onCompletion = {
+                onQrScanned(it)
+            },
+            imagePickerHandler = {},
+            onFailure = {},
+        )
     }
 }

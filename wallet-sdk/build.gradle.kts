@@ -96,6 +96,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.webview.multiplatform.mobile)
             implementation(libs.compose.webview.multiplatform)
+            implementation(libs.qr.kit)
 
         }
         iosMain.dependencies {
