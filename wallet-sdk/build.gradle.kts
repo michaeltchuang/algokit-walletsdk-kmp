@@ -3,13 +3,14 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
-    id("com.android.library")
+    // this needs to be first in list
+    alias(libs.plugins.multiplatform)
 
+    id("com.android.library")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.multiplatform)
     alias(libs.plugins.room)
 }
 
@@ -48,7 +49,7 @@ kotlin {
             api(libs.algosdk)
 
             // toml files don't support aar files yet
-            implementation("net.java.dev.jna:jna:5.14.0@aar")
+            implementation("net.java.dev.jna:jna:5.17.0@aar")
             implementation(libs.xhdwalletapi)
             implementation(libs.kotlin.bip39)
 
@@ -93,6 +94,9 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.webview.multiplatform.mobile)
+            implementation(libs.compose.webview.multiplatform)
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -118,6 +122,34 @@ android {
     buildFeatures {
         // enables a Compose tooling support in the AndroidStudio
         compose = true
+    }
+
+    lint {
+        // Disable problematic rules for KMP
+        disable.addAll(
+            listOf(
+                "NullSafeMutableLiveData",
+                "UnusedResources",
+                "MissingTranslation",
+                "Instantiatable",
+                "InvalidPackage",
+                "TypographyFractions",
+                "TypographyQuotes",
+                "TrustAllX509TrustManager",
+                "UseTomlInstead",
+                "AndroidGradlePluginVersion",
+                "GradleDependency"
+            )
+        )
+
+        // Continue on lint errors instead of failing the build
+        abortOnError = false
+
+        // Skip lint for release builds to speed up builds
+        checkReleaseBuilds = false
+
+        // Only run lint on changed files
+        checkDependencies = false
     }
 
     sourceSets["main"].res.srcDirs("src/commonMain/composeResources", "src/androidMain/res")

@@ -27,10 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import co.algorand.app.openUrl
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import com.michaeltchuang.walletsdk.ui.theme.LocalThemeIsDark
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
@@ -44,9 +44,9 @@ fun SettingsScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxSize().background(PeraTheme.colors.background)
+        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background)
     ) {
-        Text(text = stringResource(Res.string.nav_settings), color = PeraTheme.colors.textMain)
+        Text(text = stringResource(Res.string.nav_settings), color = AlgoKitTheme.colors.textMain)
 
         var isDark by LocalThemeIsDark.current
         val icon = remember(isDark) {
@@ -82,7 +82,7 @@ fun SettingsScreen(
 
         TextButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
-            onClick = { openUrl("https://github.com/perawallet/pera-android") },
+            onClick = { navController.navigate(WebViewPlatformScreenNavigation)},
         ) {
             Text(stringResource(Res.string.open_github))
         }

@@ -18,7 +18,10 @@ import co.algorand.app.ui.screens.PeraTypographyPreviewScreen
 import co.algorand.app.ui.screens.PeraTypographyPreviewScreenNavigation
 import co.algorand.app.ui.screens.QrScannerScreen
 import co.algorand.app.ui.screens.QrScannerScreenNavigation
-import com.michaeltchuang.walletsdk.ui.theme.PeraTheme
+import co.algorand.app.utils.Constants
+import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
+import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 
 @Composable
 fun AppNavigation() {
@@ -29,7 +32,7 @@ fun AppNavigation() {
 
     Scaffold(
         modifier = Modifier
-            .background(color = PeraTheme.colors.background)
+            .background(color = AlgoKitTheme.colors.background)
             .fillMaxSize(),
         topBar = {
             TopBar()
@@ -54,6 +57,9 @@ fun AppNavigation() {
             }
             composable<QrScannerScreenNavigation> {
                 QrScannerScreen()
+            }
+            composable<WebViewPlatformScreenNavigation> {
+                AlgoKitWebViewPlatformScreen(Constants.REPO_URL)
             }
         }
         CoreActionsBottomSheet(paddingValues, isBottomSheetVisible)
