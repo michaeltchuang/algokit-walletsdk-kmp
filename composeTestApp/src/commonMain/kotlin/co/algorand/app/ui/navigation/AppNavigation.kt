@@ -25,6 +25,7 @@ import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 import kotlinx.coroutines.launch
 
+
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -64,6 +65,9 @@ fun AppNavigation() {
                         snackbarHostState.showSnackbar(it)
                     }
                 }
+            }
+            composable<WebViewPlatformScreenNavigation> {
+                AlgoKitWebViewPlatformScreen(Constants.REPO_URL)
             }
             composable<WebViewPlatformScreenNavigation> {
                 AlgoKitWebViewPlatformScreen(Constants.REPO_URL)
