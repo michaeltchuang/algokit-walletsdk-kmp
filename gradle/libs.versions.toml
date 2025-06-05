@@ -63,7 +63,6 @@ lifecycle = "2.9.0"
 lifecycleExt = "2.2.0"
 lottie = "6.6.2"
 material = "1.12.0"
-mockito = "5.4.0"
 mockk = "1.13.13"
 moshi = "1.15.1"
 mpAndroidChart = "3.1.0"
@@ -75,6 +74,7 @@ okhttp = "4.12.0"
 paging = "3.3.6"
 peraCompactDecimalFormat = "1.0.1"
 peraWalletConnect = "1.0.1"
+qrkit = "3.0.5"
 retrofit = "2.11.0"
 review = "2.0.2"
 room = "2.7.0-alpha10"
@@ -169,8 +169,6 @@ room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 # Image Loading / Animations / Video Player
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoPlayer" }
-glide-image = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpAndroidChart" }
@@ -178,12 +176,15 @@ mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "
 # Sensors - Bluetooth / Camera
 biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 ble = { module = "no.nordicsemi.android:ble", version.ref = "ble" }
+qr-kit = { module = "network.chaintech:qr-kit", version.ref = "qrkit" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing" }
 
 # Wallet SDK - Logging
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
-webview-multiplatform-mobile = { module = "io.github.final-class:webview-multiplatform-mobile", version.ref = "webviewMultiplatform" }
+
+# Webview
 compose-webview-multiplatform = { module = "io.github.kevinnzou:compose-webview-multiplatform", version.ref = "composeWebview" }
+webview-multiplatform-mobile = { module = "io.github.final-class:webview-multiplatform-mobile", version.ref = "webviewMultiplatform" }
 
 # Wallet SDK - Security / Blockchain / Crypto
 algosdk = { module = "com.algorand:algosdk", version.ref = "algoSdk" }
@@ -216,7 +217,6 @@ kotlinfixture = { module = "com.appmattus.fixture:fixture", version.ref = "kotli
 kover-plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
 lifecycle-runtime-testing = { module = "androidx.lifecycle:lifecycle-runtime-testing", version.ref = "lifecycle" }
-mockito = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 runner = { module = "androidx.test:runner", version.ref = "runner" }
@@ -256,8 +256,8 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 buildConfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildConfig" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

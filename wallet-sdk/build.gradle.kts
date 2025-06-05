@@ -65,7 +65,6 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(compose.uiTooling)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.zxing.android.embedded)
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
@@ -96,6 +95,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.webview.multiplatform.mobile)
             implementation(libs.compose.webview.multiplatform)
+            implementation(libs.qr.kit)
 
         }
         iosMain.dependencies {
