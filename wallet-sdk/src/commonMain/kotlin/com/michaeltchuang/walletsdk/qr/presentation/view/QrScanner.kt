@@ -7,11 +7,6 @@ import androidx.compose.ui.Modifier
 import qrscanner.CameraLens
 import qrscanner.QrScanner
 
-sealed interface QrScannerViewEvent {
-    data object PauseCamera : QrScannerViewEvent
-    data object ResumeCamera : QrScannerViewEvent
-}
-
 @Composable
 fun AlgoKitQrScanner(
     modifier: Modifier = Modifier,
