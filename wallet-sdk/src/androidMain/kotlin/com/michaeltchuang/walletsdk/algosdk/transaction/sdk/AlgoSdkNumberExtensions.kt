@@ -1,0 +1,23 @@
+ 
+
+package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
+
+import com.algorand.algosdk.sdk.Uint64
+import java.math.BigInteger
+
+internal object AlgoSdkNumberExtensions {
+
+    fun Long.toUint64(): Uint64 {
+        return Uint64().apply {
+            upper = shr(Int.SIZE_BITS)
+            lower = and(Int.MAX_VALUE.toLong())
+        }
+    }
+
+    fun BigInteger.toUint64(): Uint64 {
+        return Uint64().apply {
+            upper = shr(Int.SIZE_BITS).toLong()
+            lower = and(UInt.MAX_VALUE.toLong().toBigInteger()).toLong()
+        }
+    }
+}

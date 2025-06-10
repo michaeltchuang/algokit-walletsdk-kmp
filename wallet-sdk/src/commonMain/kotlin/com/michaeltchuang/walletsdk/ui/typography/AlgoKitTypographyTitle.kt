@@ -14,21 +14,21 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-internal fun getPeraTypographyTitle(): PeraTypography.Title {
-    return PeraTypography.Title(
-        regular = getPeraTypographyTitleRegular(),
-        large = getPeraTypographyTitleLarge(),
-        small = getPeraTypographyTitleSmall()
+internal fun getAlgoKitTypographyTitle(): AlgoKitTypography.Title {
+    return AlgoKitTypography.Title(
+        regular = getAlgoKitTypographyTitleRegular(),
+        large = getAlgoKitTypographyTitleLarge(),
+        small = getAlgoKitTypographyTitleSmall()
     )
 }
 
 @Composable
-private fun getPeraTypographyTitleRegular(): PeraTypography.Title.TitleRegular {
+private fun getAlgoKitTypographyTitleRegular(): AlgoKitTypography.Title.TitleRegular {
     val titleStyle = TextStyle(
         fontSize = 32.sp,
         lineHeight = 40.sp,
     )
-    return PeraTypography.Title.TitleRegular(
+    return AlgoKitTypography.Title.TitleRegular(
         sans = titleStyle.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
         ),
@@ -42,12 +42,12 @@ private fun getPeraTypographyTitleRegular(): PeraTypography.Title.TitleRegular {
 }
 
 @Composable
-private fun getPeraTypographyTitleLarge(): PeraTypography.Title.TitleLarge {
+private fun getAlgoKitTypographyTitleLarge(): AlgoKitTypography.Title.TitleLarge {
     val titleStyle = TextStyle(
         fontSize = 36.sp,
         lineHeight = 48.sp,
     )
-    return PeraTypography.Title.TitleLarge(
+    return AlgoKitTypography.Title.TitleLarge(
         sans = titleStyle.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
         ),
@@ -64,12 +64,12 @@ private fun getPeraTypographyTitleLarge(): PeraTypography.Title.TitleLarge {
 }
 
 @Composable
-private fun getPeraTypographyTitleSmall(): PeraTypography.Title.TitleSmall {
+private fun getAlgoKitTypographyTitleSmall(): AlgoKitTypography.Title.TitleSmall {
     val titleStyle = TextStyle(
         fontSize = 28.sp,
         lineHeight = 32.sp,
     )
-    return PeraTypography.Title.TitleSmall(
+    return AlgoKitTypography.Title.TitleSmall(
         sans = titleStyle.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
         ),

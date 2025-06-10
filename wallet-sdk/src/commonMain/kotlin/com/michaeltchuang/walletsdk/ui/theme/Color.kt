@@ -3,9 +3,9 @@ package com.michaeltchuang.walletsdk.ui.theme
 import androidx.compose.ui.graphics.Color
 
 object ThemedColors {
-    val defaultColor: PeraColor = AlgoKitLightColor
+    val defaultColor: AlgoKitColor = AlgoKitLightColor
 
-    fun getColorsByMode(isDarkMode: Boolean): PeraColor {
+    fun getColorsByMode(isDarkMode: Boolean): AlgoKitColor {
         return if (isDarkMode) AlgoKitDarkColor else AlgoKitLightColor
     }
 }
@@ -107,7 +107,7 @@ object ColorPalette {
     val Yellow100 = Color(0xFFFFFBD4)
 }
 
-interface PeraColor {
+interface AlgoKitColor {
 
     val background: Color
     val backgroundSecondary: Color
@@ -152,7 +152,6 @@ interface PeraColor {
     val buttonHelperDisabledBg: Color
     val buttonHelperIcon: Color
     val buttonHelperDisabledIcon: Color
-    val buttonHelperPeraIcon: Color
 
     val buttonSquareBg: Color
     val buttonSquareFocusBg: Color

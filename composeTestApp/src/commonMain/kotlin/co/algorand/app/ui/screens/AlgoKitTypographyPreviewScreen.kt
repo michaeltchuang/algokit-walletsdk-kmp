@@ -14,19 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.michaeltchuang.walletsdk.ui.typography.PeraTypography
+import com.michaeltchuang.walletsdk.ui.typography.AlgoKitTypography
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object PeraTypographyPreviewScreenNavigation
+data object AlgoKitTypographyPreviewScreenNavigation
 
 @Composable
-fun PeraTypographyPreviewScreen() {
+fun AlgoKitTypographyPreviewScreen() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         TitlePreview()
@@ -38,143 +39,143 @@ fun PeraTypographyPreviewScreen() {
 
 @Composable
 private fun TitlePreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Title Small")
         Text(
             text = "Sans",
-            style = typography.title.small.sans
+            style = typography.title.small.sans,
         )
         Text(
             text = "Sans Medium",
-            style = typography.title.small.sansMedium
+            style = typography.title.small.sansMedium,
         )
         SectionTitle("Title Regular")
         Text(
             text = "Sans",
-            style = typography.title.regular.sans
+            style = typography.title.regular.sans,
         )
         Text(
             text = "Sans Medium",
-            style = typography.title.regular.sansMedium
+            style = typography.title.regular.sansMedium,
         )
         Text(
             text = "Sans Bold",
-            style = typography.title.regular.sansBold
+            style = typography.title.regular.sansBold,
         )
         SectionTitle("Title Large")
         Text(
             text = "Sans",
-            style = typography.title.large.sans
+            style = typography.title.large.sans,
         )
         Text(
             text = "Sans Medium",
-            style = typography.title.large.sansMedium
+            style = typography.title.large.sansMedium,
         )
         Text(
             text = "Mono",
-            style = typography.title.large.mono
+            style = typography.title.large.mono,
         )
         Text(
             text = "Medium",
-            style = typography.title.large.monoMedium
+            style = typography.title.large.monoMedium,
         )
     }
 }
 
 @Composable
 private fun BodyPreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Body Regular")
         Text(
             text = "Sans",
-            style = typography.body.regular.sans
+            style = typography.body.regular.sans,
         )
         Text(
             text = "Sans Medium",
-            style = typography.body.regular.sansMedium
+            style = typography.body.regular.sansMedium,
         )
         Text(
             text = "Sans Bold",
-            style = typography.body.regular.sansBold
+            style = typography.body.regular.sansBold,
         )
         Text(
             text = "Mono",
-            style = typography.body.regular.mono
+            style = typography.body.regular.mono,
         )
         Text(
             text = "Mono Medium",
-            style = typography.body.regular.monoMedium
+            style = typography.body.regular.monoMedium,
         )
         SectionTitle("Body Large")
         Text(
             text = "Sans",
-            style = typography.body.large.sans
+            style = typography.body.large.sans,
         )
         Text(
             text = "Sans Medium",
-            style = typography.body.large.sansMedium
+            style = typography.body.large.sansMedium,
         )
         Text(
             text = "Mono",
-            style = typography.body.large.mono
+            style = typography.body.large.mono,
         )
     }
 }
 
 @Composable
 private fun FootnotePreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Footnote")
         Text(
             text = "Sans",
-            style = typography.footnote.sans
+            style = typography.footnote.sans,
         )
         Text(
             text = "Sans Bold",
-            style = typography.footnote.sansBold
+            style = typography.footnote.sansBold,
         )
         Text(
             text = "Sans Medium",
-            style = typography.footnote.sansMedium
+            style = typography.footnote.sansMedium,
         )
         Text(
             text = "Mono",
-            style = typography.footnote.mono
+            style = typography.footnote.mono,
         )
         Text(
             text = "Mono Medium",
-            style = typography.footnote.monoMedium
+            style = typography.footnote.monoMedium,
         )
     }
 }
 
 @Composable
 private fun CaptionPreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Caption")
         Text(
             text = "Sans",
-            style = typography.caption.sans
+            style = typography.caption.sans,
         )
         Text(
             text = "Sans Bold",
-            style = typography.caption.sansBold
+            style = typography.caption.sansBold,
         )
         Text(
             text = "Sans Medium",
-            style = typography.caption.sansMedium
+            style = typography.caption.sansMedium,
         )
         Text(
             text = "Mono",
-            style = typography.caption.mono
+            style = typography.caption.mono,
         )
         Text(
             text = "Mono Medium",
-            style = typography.caption.monoMedium
+            style = typography.caption.monoMedium,
         )
     }
 }
@@ -182,11 +183,12 @@ private fun CaptionPreview() {
 @Composable
 private fun SectionTitle(title: String) {
     Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
-            .padding(horizontal = 16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+                .padding(horizontal = 16.dp),
         text = title,
-        style = PeraTypography().body.large.sansMedium
+        style = AlgoKitTypography().body.large.sansMedium,
     )
 }

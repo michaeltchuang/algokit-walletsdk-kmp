@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.michaeltchuang.walletsdk.ui.typography.PeraTypography
+import com.michaeltchuang.walletsdk.ui.typography.AlgoKitTypography
 
 val LocalCustomColors = staticCompositionLocalOf {
     ThemedColors.defaultColor
@@ -37,11 +37,11 @@ fun AlgoKitTheme(
 internal expect fun SystemAppearance(isDark: Boolean)
 
 object AlgoKitTheme {
-    val colors: PeraColor
+    val colors: AlgoKitColor
         @Composable
         get() = LocalCustomColors.current
 
     val typography
         @Composable
-        get() = PeraTypography()
+        get() = AlgoKitTypography()
 }

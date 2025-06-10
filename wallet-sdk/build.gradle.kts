@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
 }
 
@@ -35,7 +36,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             baseName = "common"
@@ -47,12 +48,12 @@ kotlin {
         androidMain.dependencies {
             // will turn this to implementation when app module references are moved to common
             api(libs.algosdk)
+            api(libs.algorand.go.mobile)
 
             // toml files don't support aar files yet
             implementation("net.java.dev.jna:jna:5.17.0@aar")
             implementation(libs.xhdwalletapi)
             implementation(libs.kotlin.bip39)
-
             implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
             implementation(libs.androidx.compose.foundation)
@@ -68,6 +69,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             api(libs.napier)
@@ -96,7 +98,6 @@ kotlin {
             implementation(libs.webview.multiplatform.mobile)
             implementation(libs.compose.webview.multiplatform)
             implementation(libs.qr.kit)
-
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -138,8 +139,8 @@ android {
                 "TrustAllX509TrustManager",
                 "UseTomlInstead",
                 "AndroidGradlePluginVersion",
-                "GradleDependency"
-            )
+                "GradleDependency",
+            ),
         )
 
         // Continue on lint errors instead of failing the build

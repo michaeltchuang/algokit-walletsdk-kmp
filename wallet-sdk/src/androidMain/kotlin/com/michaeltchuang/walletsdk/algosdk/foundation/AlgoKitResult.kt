@@ -1,6 +1,6 @@
+ 
 
-
-package com.michaeltchuang.walletsdk.foundation
+package com.michaeltchuang.walletsdk.algosdk.foundation
 
 sealed class AlgoKitResult<out T : Any> {
 
