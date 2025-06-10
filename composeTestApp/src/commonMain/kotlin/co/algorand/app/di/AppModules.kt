@@ -6,11 +6,13 @@ import org.koin.dsl.koinConfiguration
 
 expect fun nativeConfig(): KoinAppDeclaration
 
-val initKoinConfig = koinConfiguration {
-    includes(nativeConfig())
-    modules(appModules())
-}
+val initKoinConfig =
+    koinConfiguration {
+        includes(nativeConfig())
+        modules(appModules())
+    }
 
-fun appModules() = listOf(
-    provideViewModelModules
-)
+fun appModules() =
+    listOf(
+        provideViewModelModules,
+    )

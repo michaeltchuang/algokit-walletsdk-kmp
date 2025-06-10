@@ -28,8 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.michaeltchuang.walletsdk.ui.theme.LocalThemeIsDark
 import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.theme.LocalThemeIsDark
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -40,19 +40,22 @@ fun SettingsScreen(
     snackbarViewModel: SnackbarViewModel,
     tag: String,
 ) {
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background)
+        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background),
     ) {
         Text(text = stringResource(Res.string.nav_settings), color = AlgoKitTheme.colors.textMain)
 
         var isDark by LocalThemeIsDark.current
-        val icon = remember(isDark) {
-            if (isDark) Res.drawable.ic_light_mode
-            else Res.drawable.ic_dark_mode
-        }
+        val icon =
+            remember(isDark) {
+                if (isDark) {
+                    Res.drawable.ic_light_mode
+                } else {
+                    Res.drawable.ic_dark_mode
+                }
+            }
 
         ElevatedButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
@@ -61,7 +64,7 @@ fun SettingsScreen(
                 Icon(vectorResource(icon), contentDescription = null)
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                 Text(stringResource(Res.string.theme))
-            }
+            },
         )
 
         ElevatedButton(
@@ -69,7 +72,7 @@ fun SettingsScreen(
             onClick = { navController.navigate(AlgoKitTypographyPreviewScreenNavigation) },
             content = {
                 Text("Typography")
-            }
+            },
         )
 
         ElevatedButton(
@@ -77,12 +80,12 @@ fun SettingsScreen(
             onClick = { navController.navigate(QrScannerScreenNavigation) },
             content = {
                 Text("QR scanner")
-            }
+            },
         )
 
         TextButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
-            onClick = { navController.navigate(WebViewPlatformScreenNavigation)},
+            onClick = { navController.navigate(WebViewPlatformScreenNavigation) },
         ) {
             Text(stringResource(Res.string.open_github))
         }

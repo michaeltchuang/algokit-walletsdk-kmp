@@ -10,6 +10,5 @@ fun SnackBarLayout(
     hostState: SnackbarHostState,
 ) {
     LaunchedEffect(Unit) {
-
     }
 }

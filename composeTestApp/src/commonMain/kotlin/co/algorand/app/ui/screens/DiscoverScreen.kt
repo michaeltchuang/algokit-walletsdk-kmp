@@ -18,15 +18,14 @@ fun DiscoverScreen(
     snackbarViewModel: SnackbarViewModel,
     tag: String,
 ) {
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background)
+        modifier = Modifier.fillMaxSize().background(AlgoKitTheme.colors.background),
     ) {
         AlgoKitWebViewScreen(
             modifier = Modifier.fillMaxSize(),
-            url = "https://github.com/michaeltchuang/algokit-walletsdk-kmp"
+            url = "https://github.com/michaeltchuang/algokit-walletsdk-kmp",
         )
     }
 }

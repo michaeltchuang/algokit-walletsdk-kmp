@@ -25,7 +25,6 @@ import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -34,9 +33,10 @@ fun AppNavigation() {
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxSize(),
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxSize(),
         topBar = {
             TopBar()
         },
@@ -63,7 +63,8 @@ fun AppNavigation() {
                     scope.launch {
                         snackbarHostState.showSnackbar(
                             message = it,
-                            duration = SnackbarDuration.Short)
+                            duration = SnackbarDuration.Short,
+                        )
                     }
                 }
             }

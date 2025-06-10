@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -25,7 +26,7 @@ kotlin {
                 }
             }
         }
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
+        // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
@@ -39,7 +40,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             baseName = "composeTestApp"
@@ -88,7 +89,6 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-
     }
 }
 
@@ -110,7 +110,7 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/res")
     }
-    //https://developer.android.com/studio/test/gradle-managed-devices
+    // https://developer.android.com/studio/test/gradle-managed-devices
     @Suppress("UnstableApiUsage")
     testOptions {
         managedDevices.devices {
@@ -130,17 +130,18 @@ android {
     }
     packaging {
         resources {
-            excludes += listOf(
-                "META-INF/DEPENDENCIES.md",
-                "META-INF/NOTICE.md",
-                "META-INF/LICENSE.md",
-                "META-INF/LICENSE.txt",
-                "META-INF/NOTICE.txt",
-                "META-INF/ASL2.0.md",
-                "lib/libnarcissus-macos-64.dylib",
-                "lib/libnarcissus-win-32.dll",
-                "lib/libnarcissus-win-64.dll"
-            )
+            excludes +=
+                listOf(
+                    "META-INF/DEPENDENCIES.md",
+                    "META-INF/NOTICE.md",
+                    "META-INF/LICENSE.md",
+                    "META-INF/LICENSE.txt",
+                    "META-INF/NOTICE.txt",
+                    "META-INF/ASL2.0.md",
+                    "lib/libnarcissus-macos-64.dylib",
+                    "lib/libnarcissus-win-32.dll",
+                    "lib/libnarcissus-win-64.dll",
+                )
         }
     }
 
@@ -158,8 +159,8 @@ android {
                 "TrustAllX509TrustManager",
                 "UseTomlInstead",
                 "AndroidGradlePluginVersion",
-                "GradleDependency"
-            )
+                "GradleDependency",
+            ),
         )
 
         // Continue on lint errors instead of failing the build
