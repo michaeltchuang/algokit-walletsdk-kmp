@@ -7,6 +7,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import co.algorand.app.AndroidApp
+import com.michaeltchuang.walletsdk.algosdk.di.algoSdkModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 
 class AndroidApp : Application() {
     companion object {

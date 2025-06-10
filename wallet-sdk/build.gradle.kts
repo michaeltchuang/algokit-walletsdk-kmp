@@ -47,12 +47,12 @@ kotlin {
         androidMain.dependencies {
             // will turn this to implementation when app module references are moved to common
             api(libs.algosdk)
+            api(libs.algorand.go.mobile)
 
             // toml files don't support aar files yet
             implementation("net.java.dev.jna:jna:5.17.0@aar")
             implementation(libs.xhdwalletapi)
             implementation(libs.kotlin.bip39)
-
             implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
             implementation(libs.androidx.compose.foundation)
@@ -68,6 +68,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             api(libs.napier)
