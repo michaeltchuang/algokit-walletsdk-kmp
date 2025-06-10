@@ -40,7 +40,7 @@ fun AccountsScreen(
             Button(onClick = {
                 showSheet = true
             }) {
-                Text(text = "Algokit BottomSheet")
+                Text(text = "AlgoKit WalletSDK BottomSheet")
             }
         }
     }

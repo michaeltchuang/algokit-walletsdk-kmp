@@ -14,14 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.michaeltchuang.walletsdk.ui.typography.PeraTypography
+import com.michaeltchuang.walletsdk.ui.typography.AlgoKitTypography
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object PeraTypographyPreviewScreenNavigation
+data object AlgoKitTypographyPreviewScreenNavigation
 
 @Composable
-fun PeraTypographyPreviewScreen() {
+fun AlgoKitTypographyPreviewScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +38,7 @@ fun PeraTypographyPreviewScreen() {
 
 @Composable
 private fun TitlePreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Title Small")
         Text(
@@ -84,7 +84,7 @@ private fun TitlePreview() {
 
 @Composable
 private fun BodyPreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Body Regular")
         Text(
@@ -125,7 +125,7 @@ private fun BodyPreview() {
 
 @Composable
 private fun FootnotePreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Footnote")
         Text(
@@ -153,7 +153,7 @@ private fun FootnotePreview() {
 
 @Composable
 private fun CaptionPreview() {
-    val typography = PeraTypography()
+    val typography = AlgoKitTypography()
     Column {
         SectionTitle("Caption")
         Text(
@@ -187,6 +187,6 @@ private fun SectionTitle(title: String) {
             .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
             .padding(horizontal = 16.dp),
         text = title,
-        style = PeraTypography().body.large.sansMedium
+        style = AlgoKitTypography().body.large.sansMedium
     )
 }

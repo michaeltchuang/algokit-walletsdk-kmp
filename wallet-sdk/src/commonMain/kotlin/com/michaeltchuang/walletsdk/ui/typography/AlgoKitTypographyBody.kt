@@ -14,20 +14,20 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-internal fun getPeraTypographyBody(): PeraTypography.Body {
-    return PeraTypography.Body(
-        regular = getPeraTypographyBodyRegular(),
-        large = getPeraTypographyBodyLarge()
+internal fun getAlgoKitTypographyBody(): AlgoKitTypography.Body {
+    return AlgoKitTypography.Body(
+        regular = getAlgoKitTypographyBodyRegular(),
+        large = getAlgoKitTypographyBodyLarge()
     )
 }
 
 @Composable
-private fun getPeraTypographyBodyRegular(): PeraTypography.Body.BodyRegular {
+private fun getAlgoKitTypographyBodyRegular(): AlgoKitTypography.Body.BodyRegular {
     val body = TextStyle(
         fontSize = 15.sp,
         lineHeight = 24.sp
     )
-    return PeraTypography.Body.BodyRegular(
+    return AlgoKitTypography.Body.BodyRegular(
         sans = body.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
         ),
@@ -47,12 +47,12 @@ private fun getPeraTypographyBodyRegular(): PeraTypography.Body.BodyRegular {
 }
 
 @Composable
-private fun getPeraTypographyBodyLarge(): PeraTypography.Body.BodyLarge {
+private fun getAlgoKitTypographyBodyLarge(): AlgoKitTypography.Body.BodyLarge {
     val body = TextStyle(
         fontSize = 19.sp,
         lineHeight = 28.sp
     )
-    return PeraTypography.Body.BodyLarge(
+    return AlgoKitTypography.Body.BodyLarge(
         sans = body.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
         ),

@@ -14,12 +14,12 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-internal fun getPeraTypographyCaption(): PeraTypography.Caption {
+internal fun getAlgoKitTypographyCaption(): AlgoKitTypography.Caption {
     val caption = TextStyle(
         fontSize = 11.sp,
         lineHeight = 16.sp
     )
-    return PeraTypography.Caption(
+    return AlgoKitTypography.Caption(
         sans = caption.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
         ),

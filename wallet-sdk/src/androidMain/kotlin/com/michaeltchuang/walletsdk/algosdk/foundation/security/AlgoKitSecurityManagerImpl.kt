@@ -4,10 +4,10 @@ package com.michaeltchuang.walletsdk.algosdk.foundation.security
 
 import javax.inject.Inject
 
-internal class PeraSecurityManagerImpl @Inject constructor(
+internal class AlgoKitSecurityManagerImpl @Inject constructor(
     private val securityManager: SecurityManager,
     private val securityProvidersFactory: SecurityProvidersFactory
-) : PeraSecurityManager {
+) : AlgoKitSecurityManager {
 
     override fun initializeSecurityManager() {
         val securityProviders = securityProvidersFactory.getProviders()

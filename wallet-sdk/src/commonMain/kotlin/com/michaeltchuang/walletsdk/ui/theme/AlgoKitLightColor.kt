@@ -2,7 +2,7 @@ package com.michaeltchuang.walletsdk.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object AlgoKitLightColor : PeraColor {
+object AlgoKitLightColor : AlgoKitColor {
 
     override val background = ColorPalette.White
     override val backgroundSecondary = ColorPalette.Gray50
@@ -47,7 +47,6 @@ object AlgoKitLightColor : PeraColor {
     override val buttonHelperDisabledBg = ColorPalette.Gray100
     override val buttonHelperIcon = ColorPalette.White
     override val buttonHelperDisabledIcon = ColorPalette.Gray500
-    override val buttonHelperPeraIcon = ColorPalette.Yellow400
 
     override val buttonSquareBg = ColorPalette.Turquoise700Alpha12
     override val buttonSquareFocusBg = ColorPalette.Turquoise700Alpha28

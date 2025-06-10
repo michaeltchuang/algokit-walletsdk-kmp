@@ -14,12 +14,12 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-fun getPeraTypographyFootnote(): PeraTypography.Footnote {
+fun getAlgoKitTypographyFootnote(): AlgoKitTypography.Footnote {
     val footnote = TextStyle(
         fontSize = 13.sp,
         lineHeight = 20.sp
     )
-    return PeraTypography.Footnote(
+    return AlgoKitTypography.Footnote(
         sans = footnote.copy(
             fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
         ),
