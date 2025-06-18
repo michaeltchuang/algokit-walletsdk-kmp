@@ -55,7 +55,7 @@ kotlinxDatetime = "0.6.2"
 kotlinxSerialization = "1.7.3"
 kover = "0.8.3"
 ksp = "2.0.21-1.0.27"
-ktlint = "0.39.0"
+ktlint = "12.3.0"
 ktor = "3.0.0"
 ktorContentNegotiation = "3.0.0"
 legacySupport = "1.0.0"
@@ -215,7 +215,6 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinfixture = { module = "com.appmattus.fixture:fixture", version.ref = "kotlinfixture" }
 kover-plugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
-ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
 lifecycle-runtime-testing = { module = "androidx.lifecycle:lifecycle-runtime-testing", version.ref = "lifecycle" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
@@ -259,5 +258,6 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }

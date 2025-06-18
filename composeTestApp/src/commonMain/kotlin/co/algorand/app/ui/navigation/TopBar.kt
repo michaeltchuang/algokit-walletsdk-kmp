@@ -15,10 +15,10 @@ import org.jetbrains.compose.resources.stringResource
 fun TopBar() {
     TopAppBar(
         colors =
-        TopAppBarDefaults.topAppBarColors(
-            containerColor = AlgoKitTheme.colors.background,
-            titleContentColor = AlgoKitTheme.colors.textMain,
-        ),
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = AlgoKitTheme.colors.background,
+                titleContentColor = AlgoKitTheme.colors.textMain,
+            ),
         title = {
             Text(
                 stringResource(resource = Res.string.app_bar_header),

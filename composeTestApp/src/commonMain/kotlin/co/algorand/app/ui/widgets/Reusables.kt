@@ -43,9 +43,9 @@ fun AlgorandButton(
         // colors = ButtonDefaults.buttonColors(colorResource(Color.)),
         shape = RoundedCornerShape(8.dp),
         modifier =
-        Modifier
-            .width(190.dp)
-            .height(50.dp),
+            Modifier
+                .width(190.dp)
+                .height(50.dp),
     ) {
         Text(
             stringResource(resource = stringResourceId),
@@ -60,8 +60,8 @@ fun AlgorandButton(
 fun AlgorandDivider() {
     HorizontalDivider(
         modifier =
-        Modifier
-            .width(300.dp),
+            Modifier
+                .width(300.dp),
         thickness = 1.dp,
         color = Color.Gray,
     )
@@ -89,9 +89,9 @@ fun PassphraseField(
         },
         colors = OutlinedTextFieldDefaults.colors(),
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 30.dp, end = 30.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 30.dp, end = 30.dp),
     )
 }
 

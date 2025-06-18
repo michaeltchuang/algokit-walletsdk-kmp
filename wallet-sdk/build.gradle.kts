@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
 }
 
@@ -38,7 +39,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
             //baseName = "common"
@@ -106,7 +107,6 @@ kotlin {
             implementation(libs.webview.multiplatform.mobile)
             implementation(libs.compose.webview.multiplatform)
             implementation(libs.qr.kit)
-
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -148,8 +148,8 @@ android {
                 "TrustAllX509TrustManager",
                 "UseTomlInstead",
                 "AndroidGradlePluginVersion",
-                "GradleDependency"
-            )
+                "GradleDependency",
+            ),
         )
 
         // Continue on lint errors instead of failing the build

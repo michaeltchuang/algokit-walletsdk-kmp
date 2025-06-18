@@ -1,10 +1,8 @@
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
 import com.algorand.algosdk.crypto.Address
-import com.algorand.algosdk.sdk.Sdk
 import com.algorand.algosdk.transaction.Transaction
 import com.algorand.algosdk.util.Encoder
-/*import com.algorand.wallet.analytics.domain.service.PeraExceptionLogger*/
 import foundation.algorand.xhdwalletapi.Bip32DerivationType
 import foundation.algorand.xhdwalletapi.KeyContext
 import foundation.algorand.xhdwalletapi.XHDWalletAPIAndroid

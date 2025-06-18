@@ -26,21 +26,21 @@ fun AccountsScreen(
     navController: NavController,
     snackbarViewModel: SnackbarViewModel,
     tag: String,
-    accountsViewModel: AccountsViewModel = koinViewModel()
+    accountsViewModel: AccountsViewModel = koinViewModel(),
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showSheet by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column {
             Text(text = "Accounts Screen")
             Button(onClick = {
                 showSheet = true
             }) {
-                Text(text = "Algokit BottomSheet")
+                Text(text = "AlgoKit WalletSDK BottomSheet")
             }
         }
     }
@@ -48,9 +48,11 @@ fun AccountsScreen(
     if (showSheet) {
         ModalBottomSheet(
             onDismissRequest = { showSheet = false },
-            sheetState = sheetState
+            sheetState = sheetState,
         ) {
-            AlgoKitBip39Screen("borrow among leopard smooth trade cake profit proud matrix bottom goose charge oxygen shine punch hotel era monitor fossil violin tip notice any visit")
+            AlgoKitBip39Screen(
+                "borrow among leopard smooth trade cake profit proud matrix bottom goose charge oxygen shine punch hotel era monitor fossil violin tip notice any visit",
+            )
         }
     }
 }

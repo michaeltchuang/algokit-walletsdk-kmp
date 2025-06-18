@@ -3,7 +3,7 @@ package com.michaeltchuang.walletsdk.ui.typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 
-data class PeraTypography(
+data class AlgoKitTypography(
     val title: Title,
     val body: Body,
     val footnote: Footnote,
@@ -71,9 +71,9 @@ data class PeraTypography(
 }
 
 @Composable
-fun PeraTypography() = PeraTypography(
-    title = getPeraTypographyTitle(),
-    body = getPeraTypographyBody(),
-    footnote = getPeraTypographyFootnote(),
-    caption = getPeraTypographyCaption()
+fun AlgoKitTypography() = AlgoKitTypography(
+    title = getAlgoKitTypographyTitle(),
+    body = getAlgoKitTypographyBody(),
+    footnote = getAlgoKitTypographyFootnote(),
+    caption = getAlgoKitTypographyCaption()
 )

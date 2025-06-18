@@ -22,11 +22,11 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun AlgoKitNavigationBar(
     navController: NavController,
-    displayCoreActionsBottomSheet: () -> Unit
+    displayCoreActionsBottomSheet: () -> Unit,
 ) {
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     NavigationBar(
-        containerColor = AlgoKitTheme.colors.tabBarBackground
+        containerColor = AlgoKitTheme.colors.tabBarBackground,
     ) {
         topLevelRoutes.forEachIndexed { _, navigationItem ->
             NavigationBarItem(
@@ -56,13 +56,14 @@ fun AlgoKitNavigationBar(
                         }
                     }
                 },
-                colors = NavigationBarItemDefaults.colors().copy(
-                    selectedTextColor = AlgoKitTheme.colors.tabBarIconActive,
-                    unselectedTextColor = AlgoKitTheme.colors.tabBarIconNonActive,
-                    selectedIconColor = AlgoKitTheme.colors.tabBarIconActive,
-                    unselectedIconColor = AlgoKitTheme.colors.tabBarIconNonActive,
-                    selectedIndicatorColor = Color.Transparent
-                )
+                colors =
+                    NavigationBarItemDefaults.colors().copy(
+                        selectedTextColor = AlgoKitTheme.colors.tabBarIconActive,
+                        unselectedTextColor = AlgoKitTheme.colors.tabBarIconNonActive,
+                        selectedIconColor = AlgoKitTheme.colors.tabBarIconActive,
+                        unselectedIconColor = AlgoKitTheme.colors.tabBarIconNonActive,
+                        selectedIndicatorColor = Color.Transparent,
+                    ),
             )
         }
     }
@@ -78,6 +79,7 @@ sealed interface TopLevelRoute {
 
     sealed interface Type {
         data class NavButton(val label: String) : Type
+
         data object CircularButton : Type
     }
 }
@@ -85,29 +87,32 @@ sealed interface TopLevelRoute {
 @Serializable
 data object Accounts : TopLevelRoute {
     override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Accounts")
-    override val details = TopLevelRouteDetails(
-        name = "Accounts",
-        route = this,
-        icon = Res.drawable.ic_home
-    )
+    override val details =
+        TopLevelRouteDetails(
+            name = "Accounts",
+            route = this,
+            icon = Res.drawable.ic_home,
+        )
 }
 
 @Serializable
 data object Discover : TopLevelRoute {
     override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Discover")
-    override val details = TopLevelRouteDetails(
-        name = "Search",
-        route = this,
-        icon = Res.drawable.ic_global
-    )
+    override val details =
+        TopLevelRouteDetails(
+            name = "Search",
+            route = this,
+            icon = Res.drawable.ic_global,
+        )
 }
 
 @Serializable
 data object Settings : TopLevelRoute {
     override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Settings")
-    override val details = TopLevelRouteDetails(
-        name = "Settings",
-        route = this,
-        icon = Res.drawable.ic_settings
-    )
+    override val details =
+        TopLevelRouteDetails(
+            name = "Settings",
+            route = this,
+            icon = Res.drawable.ic_settings,
+        )
 }
