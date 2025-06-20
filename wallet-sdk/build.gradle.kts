@@ -42,7 +42,6 @@ kotlin {
         it.binaries.framework {
             baseName = "common"
             isStatic = true
-
         }
     }
 

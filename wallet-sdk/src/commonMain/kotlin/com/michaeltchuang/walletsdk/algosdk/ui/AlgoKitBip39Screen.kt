@@ -28,7 +28,7 @@ import com.michaeltchuang.walletsdk.algosdk.getEntropyFromMnemonic
 import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-private const val SAMPLE_STRING =
+private const val SAMPLE_HD_MNEMONIC =
     "borrow among leopard smooth trade cake profit proud matrix bottom goose charge oxygen shine punch hotel era monitor fossil violin tip notice any visit"
 
 @Composable
@@ -51,7 +51,7 @@ fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
             }
         }
         Button(onClick = {
-            entropy = getEntropyFromMnemonic(SAMPLE_STRING)
+            entropy = getEntropyFromMnemonic(SAMPLE_HD_MNEMONIC)
             even(AlgoKitEvent.ACCOUNT_CREATED)
         }) {
             Text("Account Create")
@@ -70,5 +70,5 @@ fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
 @Preview
 @Composable
 fun AlgoKitBip39ScreenPreview() {
-    AlgoKitBip39Screen() {}
+    AlgoKitBip39Screen {}
 }
