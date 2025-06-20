@@ -32,7 +32,7 @@ private const val SAMPLE_HD_MNEMONIC =
     "borrow among leopard smooth trade cake profit proud matrix bottom goose charge oxygen shine punch hotel era monitor fossil violin tip notice any visit"
 
 @Composable
-fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
+fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
     Column(
         Modifier.fillMaxHeight(0.5f).fillMaxWidth()
             .background(color = AlgoKitTheme.colors.background),
@@ -41,7 +41,7 @@ fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
         var entropy by remember { mutableStateOf("") }
 
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-            IconButton(onClick = { even(AlgoKitEvent.ClOSE) }) {
+            IconButton(onClick = { onAlgoKitEvent(AlgoKitEvent.CLOSE_BOTTOM_SHEET) }) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Icon Button",
@@ -52,9 +52,9 @@ fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
         }
         Button(onClick = {
             entropy = getEntropyFromMnemonic(SAMPLE_HD_MNEMONIC)
-            even(AlgoKitEvent.ACCOUNT_CREATED)
+            onAlgoKitEvent(AlgoKitEvent.HD_ACCOUNT_CREATED)
         }) {
-            Text("Account Create")
+            Text("Create HD Account")
         }
         Spacer(modifier = Modifier.size(16.dp))
         Text(
@@ -65,7 +65,6 @@ fun AlgoKitBip39Screen(even: (event: AlgoKitEvent) -> Unit) {
         )
     }
 }
-
 
 @Preview
 @Composable

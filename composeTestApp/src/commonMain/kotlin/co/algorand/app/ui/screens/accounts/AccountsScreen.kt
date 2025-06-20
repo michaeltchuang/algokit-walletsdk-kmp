@@ -45,13 +45,11 @@ fun AccountsScreen(
     if (showSheet) {
         OnBoardingBottomSheet {
             when (it) {
-                AlgoKitEvent.ClOSE -> {
+                AlgoKitEvent.CLOSE_BOTTOM_SHEET -> {
                     showSheet = false
                 }
-
-                AlgoKitEvent.ACCOUNT_CREATED -> {
-
-                }
+                AlgoKitEvent.HD_ACCOUNT_CREATED,
+                AlgoKitEvent.ALGO25_ACCOUNT_CREATED -> { }
             }
         }
     }
