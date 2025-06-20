@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     // this needs to be first in list
     alias(libs.plugins.multiplatform)
@@ -16,8 +16,6 @@ plugins {
 }
 
 kotlin {
-    val xcframeworkName = "Common"
-    val xcf = XCFramework(xcframeworkName)
 
     androidTarget {
         compilations.all {
@@ -42,12 +40,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            //baseName = "common"
-            isStatic = true
-           baseName = xcframeworkName
-            // Specify CFBundleIdentifier to uniquely identify the framework
-            binaryOption("bundleId", "org.example.${xcframeworkName}")
-            xcf.add(this)
+            baseName = "common"
             isStatic = true
 
         }
