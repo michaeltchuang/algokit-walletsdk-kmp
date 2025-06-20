@@ -16,6 +16,7 @@ plugins {
 }
 
 kotlin {
+
     androidTarget {
         compilations.all {
             compileTaskProvider {
