@@ -15,8 +15,9 @@ class RecoverWithPassphrasePreviewUseCase(
         mnemonics: String,
     ): String {
         val entropy = algokitBip39Sdk.getEntropyFromMnemonic(mnemonics)
-        val mnemonicCode = Mnemonics.MnemonicCode(entropy!!)
-        val seed = Bip39Seed(mnemonicCode.toSeed())
-        return seed.value.toHexString()
+        return entropy?.toHexString()?.toString() ?: ""
+//        val mnemonicCode = Mnemonics.MnemonicCode(entropy!!)
+//        val seed = Bip39Seed(mnemonicCode.toSeed())
+//        return seed.value.toHexString()
     }
 }
