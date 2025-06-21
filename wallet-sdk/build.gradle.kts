@@ -75,6 +75,7 @@ kotlin {
         commonMain.dependencies {
             api(libs.napier)
 
+            implementation("fr.acinq.bitcoin:bitcoin-kmp:0.24.0")
             implementation(compose.animation)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
