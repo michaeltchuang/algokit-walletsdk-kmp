@@ -6,7 +6,7 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.mapper.RawTransactionMap
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.RawTransaction
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.payload.RawTransactionPayload
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdk
-import com.michaeltchuang.walletsdk.algosdk.foundation.json.JsonSerializer
+import com.michaeltchuang.walletsdk.foundation.json.JsonSerializer
 
 internal class ParseTransactionMessagePackUseCase(
     private val jsonSerializer: JsonSerializer,

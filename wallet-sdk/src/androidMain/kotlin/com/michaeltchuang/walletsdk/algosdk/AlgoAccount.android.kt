@@ -1,7 +1,13 @@
 package com.michaeltchuang.walletsdk.algosdk
 
-internal actual fun createAlgo25Account(){}
+import com.michaeltchuang.walletsdk.algosdk.domain.usecase.RecoverWithPassphrasePreviewUseCase
+import org.koin.core.context.GlobalContext.get
 
-internal actual fun recoverAlgo25Account(mnemonic: String) {}
+internal actual fun createAlgo25Account() {}
+
+internal actual fun recoverAlgo25Account(mnemonic: String) {
+//    val useCase: RecoverWithPassphrasePreviewUseCase = get().get()
+//    return useCase.getAccount(mnemonic)
+}
 
 internal actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray) {}

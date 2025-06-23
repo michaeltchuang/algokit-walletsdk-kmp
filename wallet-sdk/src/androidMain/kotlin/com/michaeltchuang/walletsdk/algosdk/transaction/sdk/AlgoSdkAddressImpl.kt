@@ -4,7 +4,7 @@ package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
 import android.util.Base64
 import com.algorand.algosdk.sdk.Sdk
-import com.michaeltchuang.walletsdk.algosdk.encryption.domain.manager.Base64Manager
+import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.AlgorandAddress
 
 internal class AlgoSdkAddressImpl(

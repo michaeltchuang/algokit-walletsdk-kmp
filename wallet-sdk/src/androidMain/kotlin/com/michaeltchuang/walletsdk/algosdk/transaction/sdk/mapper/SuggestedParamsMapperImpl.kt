@@ -4,7 +4,7 @@ package com.michaeltchuang.walletsdk.algosdk.transaction.sdk.mapper
 
 import android.util.Base64
 import com.algorand.algosdk.sdk.SuggestedParams
-import com.michaeltchuang.walletsdk.algosdk.encryption.domain.manager.Base64Manager
+import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SuggestedTransactionParams
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SuggestedTransactionParams.TransactionFee.FeeType
 

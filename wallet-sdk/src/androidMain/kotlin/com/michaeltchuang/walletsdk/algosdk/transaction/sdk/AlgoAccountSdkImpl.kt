@@ -5,7 +5,7 @@ package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 import com.algorand.algosdk.account.Account
 import com.algorand.algosdk.sdk.Sdk
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
-import com.michaeltchuang.walletsdk.algosdk.encryption.domain.utils.clearFromMemory
+import com.michaeltchuang.walletsdk.encryption.domain.utils.clearFromMemory
 import java.security.NoSuchAlgorithmException
 
 internal class AlgoAccountSdkImpl: AlgoAccountSdk {
