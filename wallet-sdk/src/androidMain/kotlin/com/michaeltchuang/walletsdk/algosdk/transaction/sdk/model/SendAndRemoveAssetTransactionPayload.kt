@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model
 
@@ -9,5 +9,5 @@ data class SendAndRemoveAssetTransactionPayload(
     val receiverAddress: String,
     val assetId: Long,
     val amount: BigInteger,
-    val noteInByteArray: ByteArray?
+    val noteInByteArray: ByteArray?,
 )

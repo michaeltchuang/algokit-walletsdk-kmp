@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model
 
@@ -31,5 +31,5 @@ data class RawTransaction(
     val stateHash: String?,
     val assetIdBeingConfigured: Long?,
     val assetConfigParameters: AssetConfigParameters?,
-    val groupId: String?
+    val groupId: String?,
 )

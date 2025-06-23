@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.bip39.model
 
@@ -7,5 +7,5 @@ data class HdKeyAddress(
     val index: HdKeyAddressIndex,
     val privateKey: ByteArray,
     val publicKey: ByteArray,
-    val derivationType: HdKeyAddressDerivationType
+    val derivationType: HdKeyAddressDerivationType,
 )

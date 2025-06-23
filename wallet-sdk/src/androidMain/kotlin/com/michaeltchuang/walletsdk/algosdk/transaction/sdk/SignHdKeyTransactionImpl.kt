@@ -1,14 +1,5 @@
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
-import com.algorand.algosdk.crypto.Address
-import com.algorand.algosdk.transaction.Transaction
-import com.algorand.algosdk.util.Encoder
-import foundation.algorand.xhdwalletapi.Bip32DerivationType
-import foundation.algorand.xhdwalletapi.KeyContext
-import foundation.algorand.xhdwalletapi.XHDWalletAPIAndroid
-import foundation.algorand.xhdwalletapi.XHDWalletAPIBase.Companion.getBIP44PathFromContext
-import java.nio.charset.StandardCharsets
-
 /*
 internal class SignHdKeyTransactionImpl (
     private val peraExceptionLogger: PeraExceptionLogger
@@ -63,12 +54,13 @@ internal class SignHdKeyTransactionImpl (
         return txIdPrefix + tx
     }
 
-    */
+ */
 /*
-    * currently cards arbitrary signing uses a prefix MX that is not supported
-    * in xHD library. SignData is basically rawSign with a validation step before
-    * it, but since we can't validate the prefix MX...we're calling rawSign directly
-    *//*
+ * currently cards arbitrary signing uses a prefix MX that is not supported
+ * in xHD library. SignData is basically rawSign with a validation step before
+ * it, but since we can't validate the prefix MX...we're calling rawSign directly
+ */
+/*
 
     override fun signLegacyArbitaryData(
         transactionByteArray: ByteArray,

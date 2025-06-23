@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.foundation
 
@@ -49,7 +49,10 @@ class EventDelegate<ViewEvent> : EventViewModel<ViewEvent> {
     private val _viewEvent = MutableSharedFlow<ViewEvent>()
     override val viewEvent: Flow<ViewEvent> = _viewEvent.asSharedFlow()
 
-    fun sendEvent(scope: CoroutineScope, newEvent: ViewEvent) {
+    fun sendEvent(
+        scope: CoroutineScope,
+        newEvent: ViewEvent,
+    ) {
         scope.launch {
             sendEvent(newEvent)
         }

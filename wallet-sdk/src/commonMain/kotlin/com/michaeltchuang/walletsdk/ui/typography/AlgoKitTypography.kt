@@ -7,13 +7,12 @@ data class AlgoKitTypography(
     val title: Title,
     val body: Body,
     val footnote: Footnote,
-    val caption: Caption
+    val caption: Caption,
 ) {
-
     data class Title(
         val regular: TitleRegular,
         val large: TitleLarge,
-        val small: TitleSmall
+        val small: TitleSmall,
     ) {
         data class TitleRegular(
             val sans: TextStyle,
@@ -25,31 +24,31 @@ data class AlgoKitTypography(
             val sans: TextStyle,
             val sansMedium: TextStyle,
             val mono: TextStyle,
-            val monoMedium: TextStyle
+            val monoMedium: TextStyle,
         )
 
         data class TitleSmall(
             val sans: TextStyle,
-            val sansMedium: TextStyle
+            val sansMedium: TextStyle,
         )
     }
 
     data class Body(
         val regular: BodyRegular,
-        val large: BodyLarge
+        val large: BodyLarge,
     ) {
         data class BodyRegular(
             val sans: TextStyle,
             val sansMedium: TextStyle,
             val sansBold: TextStyle,
             val mono: TextStyle,
-            val monoMedium: TextStyle
+            val monoMedium: TextStyle,
         )
 
         data class BodyLarge(
             val sans: TextStyle,
             val sansMedium: TextStyle,
-            val mono: TextStyle
+            val mono: TextStyle,
         )
     }
 
@@ -58,7 +57,7 @@ data class AlgoKitTypography(
         val sansBold: TextStyle,
         val sansMedium: TextStyle,
         val mono: TextStyle,
-        val monoMedium: TextStyle
+        val monoMedium: TextStyle,
     )
 
     data class Caption(
@@ -66,14 +65,15 @@ data class AlgoKitTypography(
         val sansBold: TextStyle,
         val sansMedium: TextStyle,
         val mono: TextStyle,
-        val monoMedium: TextStyle
+        val monoMedium: TextStyle,
     )
 }
 
 @Composable
-fun AlgoKitTypography() = AlgoKitTypography(
-    title = getAlgoKitTypographyTitle(),
-    body = getAlgoKitTypographyBody(),
-    footnote = getAlgoKitTypographyFootnote(),
-    caption = getAlgoKitTypographyCaption()
-)
+fun AlgoKitTypography() =
+    AlgoKitTypography(
+        title = getAlgoKitTypographyTitle(),
+        body = getAlgoKitTypographyBody(),
+        footnote = getAlgoKitTypographyFootnote(),
+        caption = getAlgoKitTypographyCaption(),
+    )

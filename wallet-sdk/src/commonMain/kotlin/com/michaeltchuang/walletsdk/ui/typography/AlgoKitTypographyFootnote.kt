@@ -15,25 +15,31 @@ import org.jetbrains.compose.resources.Font
 
 @Composable
 fun getAlgoKitTypographyFootnote(): AlgoKitTypography.Footnote {
-    val footnote = TextStyle(
-        fontSize = 13.sp,
-        lineHeight = 20.sp
-    )
-    return AlgoKitTypography.Footnote(
-        sans = footnote.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
-        ),
-        sansBold = footnote.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold)),
-        ),
-        sansMedium = footnote.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
-        ),
-        mono = footnote.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
-        ),
-        monoMedium = footnote.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium)),
+    val footnote =
+        TextStyle(
+            fontSize = 13.sp,
+            lineHeight = 20.sp,
         )
+    return AlgoKitTypography.Footnote(
+        sans =
+            footnote.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
+            ),
+        sansBold =
+            footnote.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold)),
+            ),
+        sansMedium =
+            footnote.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
+            ),
+        mono =
+            footnote.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
+            ),
+        monoMedium =
+            footnote.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium)),
+            ),
     )
 }

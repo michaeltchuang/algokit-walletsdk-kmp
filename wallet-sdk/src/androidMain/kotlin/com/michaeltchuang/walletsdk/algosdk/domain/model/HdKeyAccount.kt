@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.domain.model
 
@@ -10,7 +10,7 @@ data class HdKeyAccount(
     val account: Int,
     val change: Int,
     val keyIndex: Int,
-    val derivationType: Int
+    val derivationType: Int,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

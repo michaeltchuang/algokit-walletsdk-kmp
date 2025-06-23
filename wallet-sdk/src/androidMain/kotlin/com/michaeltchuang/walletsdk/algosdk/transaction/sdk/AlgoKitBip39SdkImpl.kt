@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
@@ -24,9 +24,10 @@ internal class AlgoKitBip39SdkImpl() : AlgoKitBip39Sdk {
 
     override fun getMnemonicFromEntropy(entropy: ByteArray): String? {
         return try {
-            val mnemonic = Mnemonics.MnemonicCode(entropy).words.joinToString(" ") { charArray ->
-                String(charArray)
-            }
+            val mnemonic =
+                Mnemonics.MnemonicCode(entropy).words.joinToString(" ") { charArray ->
+                    String(charArray)
+                }
             mnemonic
         } catch (e: Exception) {
             null

@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model
 
@@ -9,5 +9,5 @@ enum class RawTransactionType {
     ASSET_CONFIGURATION,
     KEYREG_TRANSACTION,
     HEARTBEAT_TRANSACTION,
-    UNDEFINED
+    UNDEFINED,
 }

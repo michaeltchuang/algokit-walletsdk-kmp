@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model.payload
 
@@ -32,5 +32,5 @@ internal data class RawTransactionPayload(
     @SerializedName("apsu") val stateHash: String? = null,
     @SerializedName("caid") val assetIdBeingConfigured: Long? = null,
     @SerializedName("apar") val decodedAssetConfigParameters: RawTransactionAssetConfigParametersPayload? = null,
-    @SerializedName("grp") val groupId: String? = null
+    @SerializedName("grp") val groupId: String? = null,
 )

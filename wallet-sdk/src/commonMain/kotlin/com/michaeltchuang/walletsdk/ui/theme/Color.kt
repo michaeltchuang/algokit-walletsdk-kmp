@@ -11,7 +11,6 @@ object ThemedColors {
 }
 
 object ColorPalette {
-
     val Transparent = Color(0x00000000)
 
     val White = Color(0xFFFFFFFF)
@@ -108,7 +107,6 @@ object ColorPalette {
 }
 
 interface AlgoKitColor {
-
     val background: Color
     val backgroundSecondary: Color
     val systemElements: Color

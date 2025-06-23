@@ -49,7 +49,8 @@ fun AccountsScreen(
                     showSheet = false
                 }
                 AlgoKitEvent.HD_ACCOUNT_CREATED,
-                AlgoKitEvent.ALGO25_ACCOUNT_CREATED -> { }
+                AlgoKitEvent.ALGO25_ACCOUNT_CREATED,
+                -> { }
             }
         }
     }

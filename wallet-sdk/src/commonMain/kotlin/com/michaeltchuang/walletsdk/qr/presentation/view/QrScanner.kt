@@ -10,7 +10,7 @@ import qrscanner.QrScanner
 @Composable
 fun AlgoKitQrScanner(
     modifier: Modifier = Modifier,
-    onQrScanned: (String) -> Unit
+    onQrScanned: (String) -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         QrScanner(

@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model.payload
 
@@ -15,5 +15,5 @@ internal data class RawTransactionAssetConfigParametersPayload(
     @SerializedName("m") val managerAddress: String?,
     @SerializedName("r") val reserveAddress: String?,
     @SerializedName("f") val frozenAddress: String?,
-    @SerializedName("c") val clawbackAddress: String?
+    @SerializedName("c") val clawbackAddress: String?,
 )
