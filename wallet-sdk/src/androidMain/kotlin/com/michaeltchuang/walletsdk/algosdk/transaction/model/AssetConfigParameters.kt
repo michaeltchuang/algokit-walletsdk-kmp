@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model
 
@@ -13,5 +13,5 @@ data class AssetConfigParameters(
     val managerAddress: String?,
     val reserveAddress: String?,
     val frozenAddress: String?,
-    val clawbackAddress: String?
+    val clawbackAddress: String?,
 )

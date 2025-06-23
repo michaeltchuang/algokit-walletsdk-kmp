@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.builders
 
@@ -8,28 +8,32 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.AlgoTransactio
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SuggestedTransactionParams
 import javax.inject.Inject
 
-internal class AlgoTransactionBuilderImpl @Inject constructor(
-    private val algoSdk: AlgoSdk
-) : AlgoTransactionBuilder {
+internal class AlgoTransactionBuilderImpl
+    @Inject
+    constructor(
+        private val algoSdk: AlgoSdk,
+    ) : AlgoTransactionBuilder {
+        override fun invoke(
+            payload: AlgoTransactionPayload,
+            params: SuggestedTransactionParams,
+        ): Transaction.AlgoTransaction {
+            val txnByteArray = createTxnByteArray(payload, params)
+            return Transaction.AlgoTransaction(payload.senderAddress, txnByteArray)
+        }
 
-    override fun invoke(
-        payload: AlgoTransactionPayload,
-        params: SuggestedTransactionParams
-    ): Transaction.AlgoTransaction {
-        val txnByteArray = createTxnByteArray(payload, params)
-        return Transaction.AlgoTransaction(payload.senderAddress, txnByteArray)
-    }
-
-    private fun createTxnByteArray(payload: AlgoTransactionPayload, params: SuggestedTransactionParams): ByteArray {
-        return with(payload) {
-            algoSdk.createAlgoTransferTxn(
-                senderAddress = senderAddress,
-                receiverAddress = receiverAddress,
-                amount = amount,
-                isMax = isMaxAmount,
-                noteInByteArray = noteInByteArray,
-                suggestedTransactionParams = params
-            )
+        private fun createTxnByteArray(
+            payload: AlgoTransactionPayload,
+            params: SuggestedTransactionParams,
+        ): ByteArray {
+            return with(payload) {
+                algoSdk.createAlgoTransferTxn(
+                    senderAddress = senderAddress,
+                    receiverAddress = receiverAddress,
+                    amount = amount,
+                    isMax = isMaxAmount,
+                    noteInByteArray = noteInByteArray,
+                    suggestedTransactionParams = params,
+                )
+            }
         }
     }
-}

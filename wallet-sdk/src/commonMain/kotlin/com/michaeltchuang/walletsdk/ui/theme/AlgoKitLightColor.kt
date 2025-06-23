@@ -3,7 +3,6 @@ package com.michaeltchuang.walletsdk.ui.theme
 import androidx.compose.ui.graphics.Color
 
 object AlgoKitLightColor : AlgoKitColor {
-
     override val background = ColorPalette.White
     override val backgroundSecondary = ColorPalette.Gray50
     override val systemElements = ColorPalette.Black

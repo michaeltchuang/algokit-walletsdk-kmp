@@ -1,10 +1,10 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.domain.model
 
 data class Algo25Account(
     val address: String,
-    val secretKey: ByteArray
+    val secretKey: ByteArray,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

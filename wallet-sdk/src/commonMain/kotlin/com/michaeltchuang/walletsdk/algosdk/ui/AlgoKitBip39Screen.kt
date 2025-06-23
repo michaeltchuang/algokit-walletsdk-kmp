@@ -36,7 +36,7 @@ fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
     Column(
         Modifier.fillMaxHeight(0.5f).fillMaxWidth()
             .background(color = AlgoKitTheme.colors.background),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         var entropy by remember { mutableStateOf("") }
 
@@ -46,7 +46,7 @@ fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
                     imageVector = Icons.Default.Close,
                     contentDescription = "Icon Button",
                     tint = AlgoKitTheme.colors.textMain,
-                    modifier = Modifier.size(48.dp).padding(8.dp)
+                    modifier = Modifier.size(48.dp).padding(8.dp),
                 )
             }
         }
@@ -60,8 +60,8 @@ fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
         Text(
             modifier = Modifier.wrapContentSize(),
             text = entropy,
-            color = AlgoKitTheme.colors.textMain ,
-            fontSize = 18.sp
+            color = AlgoKitTheme.colors.textMain,
+            fontSize = 18.sp,
         )
     }
 }

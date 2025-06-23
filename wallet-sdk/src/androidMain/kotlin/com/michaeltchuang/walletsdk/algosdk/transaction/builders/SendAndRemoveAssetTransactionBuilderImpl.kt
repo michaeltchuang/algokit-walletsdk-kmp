@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.builders
 
@@ -8,31 +8,32 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SendAndRemoveA
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SuggestedTransactionParams
 import javax.inject.Inject
 
-internal class SendAndRemoveAssetTransactionBuilderImpl @Inject constructor(
-    private val algoSdk: AlgoSdk
-) : SendAndRemoveAssetTransactionBuilder {
+internal class SendAndRemoveAssetTransactionBuilderImpl
+    @Inject
+    constructor(
+        private val algoSdk: AlgoSdk,
+    ) : SendAndRemoveAssetTransactionBuilder {
+        override fun invoke(
+            payload: SendAndRemoveAssetTransactionPayload,
+            params: SuggestedTransactionParams,
+        ): Transaction.SendAndRemoveAssetTransaction {
+            val txnByteArray = createTxnByteArray(payload, params)
+            return Transaction.SendAndRemoveAssetTransaction(payload.senderAddress, txnByteArray)
+        }
 
-    override fun invoke(
-        payload: SendAndRemoveAssetTransactionPayload,
-        params: SuggestedTransactionParams
-    ): Transaction.SendAndRemoveAssetTransaction {
-        val txnByteArray = createTxnByteArray(payload, params)
-        return Transaction.SendAndRemoveAssetTransaction(payload.senderAddress, txnByteArray)
-    }
-
-    private fun createTxnByteArray(
-        payload: SendAndRemoveAssetTransactionPayload,
-        params: SuggestedTransactionParams
-    ): ByteArray {
-        return with(payload) {
-            algoSdk.createSendAndRemoveAssetTxn(
-                senderAddress = senderAddress,
-                receiverAddress = receiverAddress,
-                assetId = assetId,
-                amount = amount,
-                noteInByteArray = noteInByteArray,
-                suggestedTransactionParams = params
-            )
+        private fun createTxnByteArray(
+            payload: SendAndRemoveAssetTransactionPayload,
+            params: SuggestedTransactionParams,
+        ): ByteArray {
+            return with(payload) {
+                algoSdk.createSendAndRemoveAssetTxn(
+                    senderAddress = senderAddress,
+                    receiverAddress = receiverAddress,
+                    assetId = assetId,
+                    amount = amount,
+                    noteInByteArray = noteInByteArray,
+                    suggestedTransactionParams = params,
+                )
+            }
         }
     }
-}

@@ -25,27 +25,30 @@ internal fun getEntropyFromMnemonic(mnemonic: String): String {
     val bip39WordList = PassphraseKeywordUtils.predefinedWords
 
     // Convert words to indices
-    val indices = words.map { word ->
-        val index = bip39WordList.indexOf(word.lowercase())
-        if (index == -1) {
-            throw IllegalArgumentException("Word '$word' not found in BIP39 wordlist")
+    val indices =
+        words.map { word ->
+            val index = bip39WordList.indexOf(word.lowercase())
+            if (index == -1) {
+                throw IllegalArgumentException("Word '$word' not found in BIP39 wordlist")
+            }
+            index
         }
-        index
-    }
 
     // Convert indices to 11-bit binary and concatenate
-    val binaryString = indices.joinToString("") { index ->
-        index.toString(2).padStart(11, '0')
-    }
+    val binaryString =
+        indices.joinToString("") { index ->
+            index.toString(2).padStart(11, '0')
+        }
 
     // Split into entropy and checksum (for 24 words: 256 bits entropy + 8 bits checksum)
     val entropyBits = binaryString.substring(0, 256)
     val checksumBits = binaryString.substring(256)
 
     // Convert entropy bits to bytes
-    val entropyBytes = entropyBits.chunked(8).map { byte ->
-        byte.toInt(2).toByte()
-    }.toByteArray()
+    val entropyBytes =
+        entropyBits.chunked(8).map { byte ->
+            byte.toInt(2).toByte()
+        }.toByteArray()
 
     // Verify checksum (optional but recommended)
     // val computedChecksum = sha256(entropyBytes).first().toString(2).padStart(8, '0')

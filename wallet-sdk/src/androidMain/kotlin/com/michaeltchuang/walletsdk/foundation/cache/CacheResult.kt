@@ -1,12 +1,10 @@
 package com.michaeltchuang.walletsdk.foundation.cache
 
 sealed class CacheResult<T> {
-
     data class Success<T>(
         val data: T,
-        val creationTimestamp: Long
+        val creationTimestamp: Long,
     ) : CacheResult<T>() {
-
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -25,7 +23,7 @@ sealed class CacheResult<T> {
             fun <T> create(data: T): Success<T> {
                 return Success(
                     data,
-                    createCreationTimestamp()
+                    createCreationTimestamp(),
                 )
             }
         }
@@ -35,9 +33,8 @@ sealed class CacheResult<T> {
         val exception: Throwable,
         val previouslyCachedData: T? = null,
         val previouslyCachedDataCreationTimestamp: Long? = null,
-        val code: Int? = null
+        val code: Int? = null,
     ) : CacheResult<T>() {
-
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false
@@ -57,13 +54,13 @@ sealed class CacheResult<T> {
             fun <T> create(
                 exception: Throwable,
                 previousData: Success<T>? = null,
-                code: Int? = null
+                code: Int? = null,
             ): Error<T> {
                 return Error(
                     exception,
                     previousData?.data,
                     previousData?.creationTimestamp,
-                    code = code
+                    code = code,
                 )
             }
         }

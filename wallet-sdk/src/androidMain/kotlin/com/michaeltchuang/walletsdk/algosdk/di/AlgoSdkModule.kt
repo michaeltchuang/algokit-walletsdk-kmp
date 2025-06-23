@@ -6,9 +6,9 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoKitBip39Sdk
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoKitBip39SdkImpl
 import org.koin.dsl.module
 
-val algoSdkModule = module {
-    single { AlgoAccountSdkImpl() }
-    single<AlgoKitBip39Sdk> { AlgoKitBip39SdkImpl() }
-    factory { RecoverWithPassphrasePreviewUseCase(get()) }
-}
-
+val algoSdkModule =
+    module {
+        single { AlgoAccountSdkImpl() }
+        single<AlgoKitBip39Sdk> { AlgoKitBip39SdkImpl() }
+        factory { RecoverWithPassphrasePreviewUseCase(get()) }
+    }

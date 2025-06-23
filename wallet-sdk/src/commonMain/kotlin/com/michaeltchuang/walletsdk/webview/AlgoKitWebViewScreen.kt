@@ -10,5 +10,5 @@ fun AlgoKitWebViewScreen(
     modifier: Modifier,
     url: String,
 ) {
-    WebView(rememberWebViewState(url= url), modifier = modifier)
+    WebView(rememberWebViewState(url = url), modifier = modifier)
 }

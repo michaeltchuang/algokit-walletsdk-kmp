@@ -17,50 +17,60 @@ import org.jetbrains.compose.resources.Font
 internal fun getAlgoKitTypographyBody(): AlgoKitTypography.Body {
     return AlgoKitTypography.Body(
         regular = getAlgoKitTypographyBodyRegular(),
-        large = getAlgoKitTypographyBodyLarge()
+        large = getAlgoKitTypographyBodyLarge(),
     )
 }
 
 @Composable
 private fun getAlgoKitTypographyBodyRegular(): AlgoKitTypography.Body.BodyRegular {
-    val body = TextStyle(
-        fontSize = 15.sp,
-        lineHeight = 24.sp
-    )
-    return AlgoKitTypography.Body.BodyRegular(
-        sans = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
-        ),
-        sansMedium = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium))
-        ),
-        sansBold = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold))
-        ),
-        mono = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal))
-        ),
-        monoMedium = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium))
+    val body =
+        TextStyle(
+            fontSize = 15.sp,
+            lineHeight = 24.sp,
         )
+    return AlgoKitTypography.Body.BodyRegular(
+        sans =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
+            ),
+        sansMedium =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
+            ),
+        sansBold =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold)),
+            ),
+        mono =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
+            ),
+        monoMedium =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium)),
+            ),
     )
 }
 
 @Composable
 private fun getAlgoKitTypographyBodyLarge(): AlgoKitTypography.Body.BodyLarge {
-    val body = TextStyle(
-        fontSize = 19.sp,
-        lineHeight = 28.sp
-    )
-    return AlgoKitTypography.Body.BodyLarge(
-        sans = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal))
-        ),
-        sansMedium = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium))
-        ),
-        mono = body.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal))
+    val body =
+        TextStyle(
+            fontSize = 19.sp,
+            lineHeight = 28.sp,
         )
+    return AlgoKitTypography.Body.BodyLarge(
+        sans =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
+            ),
+        sansMedium =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
+            ),
+        mono =
+            body.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
+            ),
     )
 }

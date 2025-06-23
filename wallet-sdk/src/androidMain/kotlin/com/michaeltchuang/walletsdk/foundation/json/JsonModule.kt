@@ -20,6 +20,7 @@ internal object JsonModule {
 }
 */
 
-val jsonModule = module {
-    single { AndroidLogger() }
-}
+val jsonModule =
+    module {
+        single { AndroidLogger() }
+    }

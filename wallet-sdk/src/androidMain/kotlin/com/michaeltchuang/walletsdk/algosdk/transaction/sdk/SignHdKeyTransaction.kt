@@ -6,7 +6,7 @@ interface SignHdKeyTransaction {
         seed: ByteArray,
         account: Int,
         change: Int,
-        key: Int
+        key: Int,
     ): ByteArray?
 
     fun signLegacyArbitaryData(
@@ -14,6 +14,6 @@ interface SignHdKeyTransaction {
         seed: ByteArray,
         account: Int,
         change: Int,
-        key: Int
+        key: Int,
     ): ByteArray?
 }

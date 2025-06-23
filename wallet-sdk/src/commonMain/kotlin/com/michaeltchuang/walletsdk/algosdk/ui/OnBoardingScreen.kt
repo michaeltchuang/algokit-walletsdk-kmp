@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 enum class AlgoKitEvent() {
     CLOSE_BOTTOM_SHEET,
     HD_ACCOUNT_CREATED,
-    ALGO25_ACCOUNT_CREATED
+    ALGO25_ACCOUNT_CREATED,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +24,7 @@ fun OnBoardingBottomSheet(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
             onAlgoKitEvent(AlgoKitEvent.CLOSE_BOTTOM_SHEET)
         },
         sheetState = sheetState,
-        dragHandle = null
+        dragHandle = null,
     ) {
         AlgoKitBip39Screen {
             when (it) {
@@ -35,7 +35,8 @@ fun OnBoardingBottomSheet(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
                     }
                 }
                 AlgoKitEvent.HD_ACCOUNT_CREATED,
-                AlgoKitEvent.ALGO25_ACCOUNT_CREATED -> {
+                AlgoKitEvent.ALGO25_ACCOUNT_CREATED,
+                -> {
                     onAlgoKitEvent(it)
                 }
             }

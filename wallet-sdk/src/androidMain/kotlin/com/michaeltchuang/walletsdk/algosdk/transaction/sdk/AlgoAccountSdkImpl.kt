@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
@@ -8,14 +8,15 @@ import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.encryption.domain.utils.clearFromMemory
 import java.security.NoSuchAlgorithmException
 
-internal class AlgoAccountSdkImpl: AlgoAccountSdk {
+internal class AlgoAccountSdkImpl : AlgoAccountSdk {
     override fun createAlgo25Account(): Algo25Account? {
         return try {
             var secretKey = Sdk.generateSK()
-            val output = Algo25Account(
-                address = Sdk.generateAddressFromSK(secretKey),
-                secretKey = secretKey.copyOf()
-            )
+            val output =
+                Algo25Account(
+                    address = Sdk.generateAddressFromSK(secretKey),
+                    secretKey = secretKey.copyOf(),
+                )
             secretKey.clearFromMemory()
             output
         } catch (e: Exception) {
@@ -35,10 +36,11 @@ internal class AlgoAccountSdkImpl: AlgoAccountSdk {
         return try {
             var secretKey = Sdk.mnemonicToPrivateKey(mnemonic)
 
-            val output = Algo25Account(
-                address = Sdk.generateAddressFromSK(secretKey),
-                secretKey = secretKey.copyOf()
-            )
+            val output =
+                Algo25Account(
+                    address = Sdk.generateAddressFromSK(secretKey),
+                    secretKey = secretKey.copyOf(),
+                )
             secretKey.clearFromMemory()
             output
         } catch (e: Exception) {

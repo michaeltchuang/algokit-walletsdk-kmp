@@ -15,25 +15,31 @@ import org.jetbrains.compose.resources.Font
 
 @Composable
 internal fun getAlgoKitTypographyCaption(): AlgoKitTypography.Caption {
-    val caption = TextStyle(
-        fontSize = 11.sp,
-        lineHeight = 16.sp
-    )
-    return AlgoKitTypography.Caption(
-        sans = caption.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
-        ),
-        sansMedium = caption.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
-        ),
-        sansBold = caption.copy(
-            fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold)),
-        ),
-        mono = caption.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
-        ),
-        monoMedium = caption.copy(
-            fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium)),
+    val caption =
+        TextStyle(
+            fontSize = 11.sp,
+            lineHeight = 16.sp,
         )
+    return AlgoKitTypography.Caption(
+        sans =
+            caption.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_regular, FontWeight.Normal)),
+            ),
+        sansMedium =
+            caption.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_medium, FontWeight.Medium)),
+            ),
+        sansBold =
+            caption.copy(
+                fontFamily = FontFamily(Font(Res.font.dmsans_bold, FontWeight.Bold)),
+            ),
+        mono =
+            caption.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_regular, FontWeight.Normal)),
+            ),
+        monoMedium =
+            caption.copy(
+                fontFamily = FontFamily(Font(Res.font.dmmono_medium, FontWeight.Medium)),
+            ),
     )
 }

@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class SingleInMemoryLocalCache<T> {
-
     val cacheFlow: StateFlow<CacheResult<T>?>
         get() = _cacheFlow
     private val _cacheFlow = MutableStateFlow<CacheResult<T>?>(null)

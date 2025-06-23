@@ -1,11 +1,10 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.model.payload
 
 import com.google.gson.annotations.SerializedName
 
 internal enum class RawTransactionTypePayload {
-
     @SerializedName("pay")
     PAY_TRANSACTION,
 
@@ -24,5 +23,5 @@ internal enum class RawTransactionTypePayload {
     @SerializedName("hb")
     HEARTBEAT_TRANSACTION,
 
-    UNDEFINED
+    UNDEFINED,
 }

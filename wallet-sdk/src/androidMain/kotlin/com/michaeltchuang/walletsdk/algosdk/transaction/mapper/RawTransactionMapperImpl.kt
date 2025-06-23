@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.mapper
 
@@ -10,9 +10,8 @@ internal class RawTransactionMapperImpl(
     private val algoSdkAddress: AlgoSdkAddress,
     private val rawTransactionTypeMapper: RawTransactionTypeMapper,
     private val assetConfigParametersMapper: AssetConfigParametersMapper,
-    private val applicationCallStateSchemaMapper: ApplicationCallStateSchemaMapper
+    private val applicationCallStateSchemaMapper: ApplicationCallStateSchemaMapper,
 ) : RawTransactionMapper {
-
     override fun invoke(payload: RawTransactionPayload): RawTransaction {
         return RawTransaction(
             amount = payload.amount,
@@ -41,7 +40,7 @@ internal class RawTransactionMapperImpl(
             stateHash = payload.stateHash,
             assetIdBeingConfigured = payload.assetIdBeingConfigured,
             assetConfigParameters = assetConfigParametersMapper(payload.decodedAssetConfigParameters),
-            groupId = payload.groupId
+            groupId = payload.groupId,
         )
     }
 }

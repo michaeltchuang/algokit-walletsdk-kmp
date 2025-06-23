@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 internal class InMemoryLocalCache<KEY, VALUE> : LocalCache<KEY, VALUE> {
-
     private val cacheFlow = MutableStateFlow(HashMap<KEY, VALUE>())
 
     private val lockObject: Any = Any()
@@ -20,7 +19,10 @@ internal class InMemoryLocalCache<KEY, VALUE> : LocalCache<KEY, VALUE> {
         }
     }
 
-    override fun put(key: KEY, value: VALUE) {
+    override fun put(
+        key: KEY,
+        value: VALUE,
+    ) {
         updateFlow {
             it[key] = value
         }

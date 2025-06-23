@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
@@ -10,14 +10,13 @@ import java.math.BigInteger
 
 internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMapper) :
     AlgoSdk {
-
     override fun createAssetTransferTxn(
         senderAddress: String,
         receiverAddress: String,
         amount: BigInteger,
         assetId: Long,
         noteInByteArray: ByteArray?,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makeAssetTransferTxn(
             senderAddress,
@@ -26,7 +25,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             amount.toUint64(),
             noteInByteArray,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
-            assetId
+            assetId,
         )
     }
 
@@ -36,7 +35,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         amount: BigInteger,
         isMax: Boolean,
         noteInByteArray: ByteArray?,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makePaymentTxn(
             senderAddress,
@@ -44,32 +43,32 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             amount.toUint64(),
             noteInByteArray,
             if (isMax) receiverAddress else "",
-            suggestedParamsMapper(suggestedTransactionParams, addGenesis = true)
+            suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
         )
     }
 
     override fun createRekeyTxn(
         rekeyAddress: String,
         rekeyAdminAddress: String,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makeRekeyTxn(
             rekeyAddress,
             rekeyAdminAddress,
-            suggestedParamsMapper(suggestedTransactionParams, addGenesis = true)
+            suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
         )
     }
 
     override fun createAddAssetTxn(
         address: String,
         assetId: Long,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makeAssetAcceptanceTxn(
             address,
             null,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
-            assetId
+            assetId,
         )
     }
 
@@ -77,7 +76,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         senderAddress: String,
         creatorPublicKey: String,
         assetId: Long,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makeAssetTransferTxn(
             senderAddress,
@@ -86,7 +85,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             0L.toUint64(),
             null,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
-            assetId
+            assetId,
         )
     }
 
@@ -96,7 +95,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         assetId: Long,
         amount: BigInteger,
         noteInByteArray: ByteArray?,
-        suggestedTransactionParams: SuggestedTransactionParams
+        suggestedTransactionParams: SuggestedTransactionParams,
     ): ByteArray {
         return Sdk.makeAssetTransferTxn(
             senderAddress,
@@ -105,7 +104,7 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             amount.toUint64(),
             noteInByteArray,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
-            assetId
+            assetId,
         )
     }
 

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 internal data class Pagination<T>(
     @SerializedName("next") val next: String?,
-    @SerializedName("results") val results: List<T>
+    @SerializedName("results") val results: List<T>,
 )

@@ -1,4 +1,4 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model
 
@@ -9,5 +9,5 @@ data class AlgoTransactionPayload(
     val receiverAddress: String,
     val amount: BigInteger,
     val noteInByteArray: ByteArray?,
-    val isMaxAmount: Boolean
+    val isMaxAmount: Boolean,
 )

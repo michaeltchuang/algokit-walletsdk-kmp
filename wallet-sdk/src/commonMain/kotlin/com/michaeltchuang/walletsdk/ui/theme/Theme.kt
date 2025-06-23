@@ -10,22 +10,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.michaeltchuang.walletsdk.ui.typography.AlgoKitTypography
 
-val LocalCustomColors = staticCompositionLocalOf {
-    ThemedColors.defaultColor
-}
+val LocalCustomColors =
+    staticCompositionLocalOf {
+        ThemedColors.defaultColor
+    }
 
 val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 @Composable
-fun AlgoKitTheme(
-    content: @Composable () -> Unit
-) {
+fun AlgoKitTheme(content: @Composable () -> Unit) {
     val systemIsDark = isSystemInDarkTheme()
     val isDarkState = remember { mutableStateOf(systemIsDark) }
     val customColors = ThemedColors.getColorsByMode(isDarkState.value)
     CompositionLocalProvider(
         LocalThemeIsDark provides isDarkState,
-        LocalCustomColors provides customColors
+        LocalCustomColors provides customColors,
     ) {
         val isDark by isDarkState
         SystemAppearance(!isDark)

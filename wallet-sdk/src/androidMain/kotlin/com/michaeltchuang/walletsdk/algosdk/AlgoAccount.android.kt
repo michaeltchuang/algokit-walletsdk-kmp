@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.algosdk
 
-import com.michaeltchuang.walletsdk.algosdk.domain.usecase.RecoverWithPassphrasePreviewUseCase
 import org.koin.core.context.GlobalContext.get
 
 internal actual fun createAlgo25Account() {}

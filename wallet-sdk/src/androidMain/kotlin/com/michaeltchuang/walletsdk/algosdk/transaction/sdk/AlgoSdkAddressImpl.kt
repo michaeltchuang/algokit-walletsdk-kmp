@@ -1,16 +1,15 @@
- 
+
 
 package com.michaeltchuang.walletsdk.algosdk.transaction.sdk
 
 import android.util.Base64
 import com.algorand.algosdk.sdk.Sdk
-import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.AlgorandAddress
+import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 
 internal class AlgoSdkAddressImpl(
-    private val base64Manager: Base64Manager
+    private val base64Manager: Base64Manager,
 ) : AlgoSdkAddress {
-
     override fun isValid(address: String): Boolean {
         return try {
             Sdk.isValidAddress(address)
@@ -29,11 +28,12 @@ internal class AlgoSdkAddressImpl(
     }
 
     override fun generateAddressFromPublicKey(addressBase64: String): AlgorandAddress? {
-        val publicKey = try {
-            base64Manager.decode(addressBase64, Base64.DEFAULT)
-        } catch (exception: Exception) {
-            return null
-        }
+        val publicKey =
+            try {
+                base64Manager.decode(addressBase64, Base64.DEFAULT)
+            } catch (exception: Exception) {
+                return null
+            }
         return generateAddressFromPublicKey(publicKey)
     }
 }
