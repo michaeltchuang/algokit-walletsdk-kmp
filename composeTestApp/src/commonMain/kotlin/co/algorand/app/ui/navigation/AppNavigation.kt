@@ -4,33 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import co.algorand.app.ui.screens.AlgoKitTypographyPreviewScreen
-import co.algorand.app.ui.screens.AlgoKitTypographyPreviewScreenNavigation
-import co.algorand.app.ui.screens.QrScannerScreen
-import co.algorand.app.ui.screens.QrScannerScreenNavigation
-import co.algorand.app.utils.Constants
-import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
-import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
-import kotlinx.coroutines.launch
+import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
     val isBottomSheetVisible = remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
 
     Scaffold(
         modifier =
@@ -44,7 +32,7 @@ fun AppNavigation() {
             SnackbarHost(hostState = snackbarHostState, modifier = Modifier)
         },
         bottomBar = {
-            AlgoKitNavigationBar(navController) {
+            AppNavigationBar(navController) {
                 isBottomSheetVisible.value = true
             }
         },
@@ -55,25 +43,6 @@ fun AppNavigation() {
             modifier = Modifier.padding(paddingValues = paddingValues),
         ) {
             getBottomNavigationGraph(navController, snackbarHostState)
-            composable<AlgoKitTypographyPreviewScreenNavigation> {
-                AlgoKitTypographyPreviewScreen()
-            }
-            composable<QrScannerScreenNavigation> {
-                QrScannerScreen {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = it,
-                            duration = SnackbarDuration.Short,
-                        )
-                    }
-                }
-            }
-            composable<WebViewPlatformScreenNavigation> {
-                AlgoKitWebViewPlatformScreen(Constants.REPO_URL)
-            }
-            composable<WebViewPlatformScreenNavigation> {
-                AlgoKitWebViewPlatformScreen(Constants.REPO_URL)
-            }
         }
     }
 }

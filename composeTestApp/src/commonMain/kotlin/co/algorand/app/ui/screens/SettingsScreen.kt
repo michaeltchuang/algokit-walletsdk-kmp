@@ -28,8 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.michaeltchuang.walletsdk.ui.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.ui.theme.LocalThemeIsDark
+import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.designsystem.theme.LocalThemeIsDark
 import com.michaeltchuang.walletsdk.webview.WebViewPlatformScreenNavigation
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -67,21 +67,21 @@ fun SettingsScreen(
             },
         )
 
-        ElevatedButton(
+     /*   ElevatedButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
             onClick = { navController.navigate(AlgoKitTypographyPreviewScreenNavigation) },
             content = {
                 Text("Typography")
             },
-        )
+        )*/
 
-        ElevatedButton(
+   /*     ElevatedButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
             onClick = { navController.navigate(QrScannerScreenNavigation) },
             content = {
                 Text("QR scanner")
             },
-        )
+        )*/
 
         TextButton(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
