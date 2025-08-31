@@ -22,8 +22,8 @@ import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistratio
 import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.utils.toShortenedAddress
 import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIconRoundShape
+import com.michaeltchuang.walletsdk.utils.toShortenedAddress
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -49,7 +49,7 @@ fun AccountItem(
         ) {
             AlgoKitIconRoundShape(
                 modifier = Modifier,
-                imageVector =  vectorResource(getWalletIcon(account.registrationType)),
+                imageVector = vectorResource(getWalletIcon(account.registrationType)),
                 contentDescription = "Wallet Icon",
             )
             Column(
@@ -80,7 +80,7 @@ fun AccountItem(
 fun getWalletIcon(localAccount: AccountRegistrationType): DrawableResource =
     when (localAccount) {
         is AccountRegistrationType.HdKey -> {
-           Res.drawable.ic_hd_wallet
+            Res.drawable.ic_hd_wallet
         }
 
         is AccountRegistrationType.Algo25 -> {

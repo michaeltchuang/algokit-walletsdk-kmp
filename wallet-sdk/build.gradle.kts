@@ -71,7 +71,6 @@ kotlin {
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
             implementation(libs.koin.android)
-            implementation(libs.datastore.preferences)
         }
         commonMain.dependencies {
             api(libs.napier)

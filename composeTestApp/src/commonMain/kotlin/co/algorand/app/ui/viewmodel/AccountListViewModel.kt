@@ -17,7 +17,7 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
-    /*  private val Sdk: Sdk,*/
+    // private val Sdk: Sdk,
     private val stateDelegate: StateDelegate<AccountsState>,
     private val eventDelegate: EventDelegate<AccountsEvent>,
 ) : ViewModel(),
@@ -29,24 +29,24 @@ class AccountListViewModel(
         stateDelegate.setDefaultState(AccountsState.Idle)
     }
 
-        fun fetchAccounts() {
-            stateDelegate.updateState { AccountsState.Loading }
-            viewModelScope.launch {
-                try {
-                 //   accountLite = Sdk.fetchAccountLite()
-                    stateDelegate.updateState {
-                        AccountsState.Content(dummyAccountData())
-                    }
-                } catch (e: Exception) {
-                    stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
-                    eventDelegate.sendEvent(
-                        AccountsEvent.ShowError(
-                            e.message ?: "Failed to fetch accounts.",
-                        ),
-                    )
+    fun fetchAccounts() {
+        stateDelegate.updateState { AccountsState.Loading }
+        viewModelScope.launch {
+            try {
+                //   accountLite = Sdk.fetchAccountLite()
+                stateDelegate.updateState {
+                    AccountsState.Content(dummyAccountData())
                 }
+            } catch (e: Exception) {
+                stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
+                eventDelegate.sendEvent(
+                    AccountsEvent.ShowError(
+                        e.message ?: "Failed to fetch accounts.",
+                    ),
+                )
             }
         }
+    }
 
     /*    fun deleteAccount(address: String) {
             stateDelegate.updateState { AccountsState.Loading }
@@ -93,7 +93,7 @@ class AccountListViewModel(
     private fun dummyAccountData(): List<AccountLite> {
         return listOf(
             AccountLite("address1", "name1", AccountRegistrationType.HdKey),
-            AccountLite("address2", "name2", AccountRegistrationType.HdKey)
+            AccountLite("address2", "name2", AccountRegistrationType.HdKey),
         )
     }
 }

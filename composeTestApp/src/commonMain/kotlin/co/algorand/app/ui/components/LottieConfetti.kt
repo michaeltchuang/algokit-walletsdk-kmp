@@ -24,7 +24,7 @@ fun LottieConfetti(modifier: Modifier = Modifier) {
     }
 
     val composition by rememberLottieComposition(
-        LottieCompositionSpec.JsonString(animationData)
+        LottieCompositionSpec.JsonString(animationData),
     )
     val progress by animateLottieCompositionAsState(
         composition,

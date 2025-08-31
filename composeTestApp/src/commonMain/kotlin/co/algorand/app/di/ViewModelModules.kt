@@ -30,13 +30,14 @@ val provideViewModelModules =
 
         viewModel<RecoverPassphraseViewModel> {
             RecoverPassphraseViewModel(
-                get()
+                get(),
             )
         }
 
         viewModel<CreateAccountNameViewModel> {
             CreateAccountNameViewModel(
-                get(), get()
+                get(),
+                get(),
             )
         }
     }
