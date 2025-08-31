@@ -39,7 +39,6 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
@@ -96,11 +95,20 @@ kotlin {
 
 android {
     namespace = "co.algorand.app"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
 
         applicationId = "co.algorand.app.androidApp"
         versionCode = 1

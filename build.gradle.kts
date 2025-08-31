@@ -40,6 +40,14 @@ allprojects {
         mavenCentral()
         maven(url = "https://jitpack.io")
     }
+    afterEvaluate {
+        tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.KtLintCheckTask> {
+            exclude("**/generated/**")
+        }
+        tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.KtLintFormatTask> {
+            exclude("**/generated/**")
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {
