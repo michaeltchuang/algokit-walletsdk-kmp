@@ -1,0 +1,5 @@
+root = true
+
+[*.kt]
+ktlint_standard_function-name-case = disabled
+ktlint_function_naming = disabled
