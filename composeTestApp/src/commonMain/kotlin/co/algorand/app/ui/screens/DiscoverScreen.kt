@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import co.algorand.app.utils.Constants.REPO_URL
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
+import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewScreen
 
 @Composable
 fun DiscoverScreen(
@@ -27,6 +27,9 @@ fun DiscoverScreen(
                 .fillMaxSize()
                 .background(AlgoKitTheme.colors.background),
     ) {
-        AlgoKitWebViewPlatformScreen(REPO_URL)
+        AlgoKitWebViewScreen(
+            modifier = Modifier.fillMaxSize(),
+            REPO_URL,
+        )
     }
 }
