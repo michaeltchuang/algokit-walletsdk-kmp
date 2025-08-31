@@ -71,6 +71,7 @@ kotlin {
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.config)
             implementation(libs.koin.android)
+            implementation(libs.datastore.preferences)
         }
         commonMain.dependencies {
             api(libs.napier)
@@ -100,6 +101,9 @@ kotlin {
             implementation(libs.webview.multiplatform.mobile)
             implementation(libs.compose.webview.multiplatform)
             implementation(libs.qr.kit)
+            implementation(libs.navigation.compose)
+            implementation(libs.datastore)
+            implementation(libs.datastore.preferences)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

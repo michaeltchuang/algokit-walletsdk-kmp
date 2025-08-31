@@ -118,4 +118,6 @@ fun ShowSnackbar(message: String) {
     }
 }
 
-annotation class SuppressLint(val value: String)
+annotation class SuppressLint(
+    val value: String,
+)
