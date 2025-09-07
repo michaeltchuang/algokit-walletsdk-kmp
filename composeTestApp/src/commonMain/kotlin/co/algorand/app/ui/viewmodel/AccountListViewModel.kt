@@ -42,23 +42,23 @@ class AccountListViewModel(
         }
     }
 
-        fun deleteAccount(address: String) {
-            stateDelegate.updateState { AccountsState.Loading }
-            viewModelScope.launch {
-                try {
-                    nameRegistrationUseCase.deleteAccount(address)
-                    eventDelegate.sendEvent(AccountsEvent.ShowMessage("Account deleted successfully."))
-                    fetchAccounts() // Refresh the list after deletion
-                } catch (e: Exception) {
-                    stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
-                    eventDelegate.sendEvent(
-                        AccountsEvent.ShowError(
-                            e.message ?: "Failed to delete account.",
-                        ),
-                    )
-                }
+    fun deleteAccount(address: String) {
+        stateDelegate.updateState { AccountsState.Loading }
+        viewModelScope.launch {
+            try {
+                nameRegistrationUseCase.deleteAccount(address)
+                eventDelegate.sendEvent(AccountsEvent.ShowMessage("Account deleted successfully."))
+                fetchAccounts() // Refresh the list after deletion
+            } catch (e: Exception) {
+                stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
+                eventDelegate.sendEvent(
+                    AccountsEvent.ShowError(
+                        e.message ?: "Failed to delete account.",
+                    ),
+                )
             }
         }
+    }
 
     sealed interface AccountsState {
         data object Idle : AccountsState

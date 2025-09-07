@@ -15,5 +15,5 @@ val initKoinConfig =
 
 fun appModules() =
     listOf(
-        provideViewModelModules
+        provideViewModelModules,
     ).plus(walletSdkKoinModules)
