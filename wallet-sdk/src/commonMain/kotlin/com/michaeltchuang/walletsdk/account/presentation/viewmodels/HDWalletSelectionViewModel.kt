@@ -3,6 +3,8 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdEntropy
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdWalletSummaries
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate

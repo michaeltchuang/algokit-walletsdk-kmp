@@ -103,6 +103,8 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.datastore)
             implementation(libs.datastore.preferences)
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

@@ -1,5 +1,6 @@
 package co.algorand.app.di
 
+import com.michaeltchuang.walletsdk.foundation.di.walletSdkKoinModules
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.includes
 import org.koin.dsl.koinConfiguration
@@ -14,5 +15,5 @@ val initKoinConfig =
 
 fun appModules() =
     listOf(
-        provideViewModelModules,
-    )
+        provideViewModelModules
+    ).plus(walletSdkKoinModules)

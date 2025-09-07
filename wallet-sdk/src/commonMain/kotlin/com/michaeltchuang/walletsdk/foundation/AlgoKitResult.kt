@@ -1,8 +1,8 @@
 package com.michaeltchuang.walletsdk.foundation
 
 sealed class AlgoKitResult<out T : Any> {
-    data class Success<out T : Any>(val data: T) : AlgoKitResult<T>()
 
+    data class Success<out T : Any>(val data: T) : AlgoKitResult<T>()
     data class Error(val exception: Exception, val code: Int? = null) : AlgoKitResult<Nothing>()
 
     val isSuccess: Boolean
@@ -27,7 +27,7 @@ sealed class AlgoKitResult<out T : Any> {
 
     suspend fun <R> use(
         onSuccess: (suspend (T) -> R),
-        onFailed: (suspend (Exception, Int?) -> R),
+        onFailed: (suspend (Exception, Int?) -> R)
     ): R {
         return when (this) {
             is Success -> onSuccess.invoke(data)

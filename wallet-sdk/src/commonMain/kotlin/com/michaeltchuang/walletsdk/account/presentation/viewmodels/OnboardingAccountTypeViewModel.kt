@@ -3,21 +3,23 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
+import com.michaeltchuang.walletsdk.algosdk.createAlgo25Account
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.utils.CreationType
+import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class OnboardingAccountTypeViewModel(
-    /*  private val androidEncryptionManager: AndroidEncryptionManager,
-      private val aesPlatformManager: AESPlatformManager,
-      private val runtimeAwareSdk: RuntimeAwareSdk,
-      private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,
-      private val hdSeedRepository: HdSeedRepository,
-      private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
+  /*  private val androidEncryptionManager: AndroidEncryptionManager,
+    private val aesPlatformManager: AESPlatformManager,
+    private val runtimeAwareSdk: RuntimeAwareSdk,
+    private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,*/
+ /*   private val hdSeedRepository: HdSeedRepository,*/
+  /*  private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -31,16 +33,16 @@ class OnboardingAccountTypeViewModel(
     }
 
     private fun hasAnySeedExist() {
-        viewModelScope.launch {
-            /*     hdSeedRepository.hasAnySeed().let { hasAnySeed ->
-                     stateDelegate.updateState {
-                         ViewState.Content(hasAnySeed)
-                     }
-                 }*/
+    /*    viewModelScope.launch {
+            hdSeedRepository.hasAnySeed().let { hasAnySeed ->
+                stateDelegate.updateState {
+                    ViewState.Content(hasAnySeed)
+                }
+            }
             stateDelegate.updateState {
                 ViewState.Content(false)
             }
-        }
+        }*/
     }
 
     fun createHdKeyAccount() {
@@ -66,11 +68,11 @@ class OnboardingAccountTypeViewModel(
         }
     }
 
-    fun createAlgo25Account() {
+    fun createAlgoAccount() {
         viewModelScope.launch {
-    /*        try {
-                runtimeAwareSdk.createAlgo25Account()?.let {
-                    val secretKey = it.secretKey.toByteArray()
+            try {
+                createAlgo25Account()?.let {
+                    val secretKey = it.secretKey
                     val accountCreation = AccountCreation(
                         address = it.address,
                         customName = null,
@@ -78,16 +80,15 @@ class OnboardingAccountTypeViewModel(
                         type = AccountCreation.Type.Algo25(secretKey),
                         creationType = CreationType.CREATE
                     )
-                    eventDelegate.sendEvent(com.michaeltchuang.walletsdk.runtimeaware.account.ui.viewmodel.OnboardingAccountTypeViewModel.ViewEvent.AccountCreated(accountCreation))
+                    // Store the account creation data in the manager
+                    AccountCreationManager.storePendingAccountCreation(accountCreation = accountCreation)
+                    eventDelegate.sendEvent(ViewEvent.AccountCreated(accountCreation = accountCreation))
                 } ?: run {
                     displayError("Failed to create account")
                 }
             } catch (e: Exception) {
                 displayError(e.message ?: "Unknown error")
-            }*/
-            // Store the account creation data in the manager
-            AccountCreationManager.storePendingAccountCreation(mockAccountCreation())
-            eventDelegate.sendEvent(ViewEvent.AccountCreated(mockAccountCreation()))
+            }
         }
     }
 

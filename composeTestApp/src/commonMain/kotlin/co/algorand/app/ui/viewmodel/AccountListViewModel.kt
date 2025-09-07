@@ -1,15 +1,9 @@
 package co.algorand.app.ui.viewmodel
 
-/*import com.michaeltchuang.walletsdk..Sdk
-import com.michaeltchuang.walletsdk..account.domain.model.custom.AccountLite
-import com.michaeltchuang.walletsdk..foundation.EventDelegate
-import com.michaeltchuang.walletsdk..foundation.EventViewModel
-import com.michaeltchuang.walletsdk..foundation.StateDelegate
-import com.michaeltchuang.walletsdk..foundation.StateViewModel*/
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistrationType
 import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
+import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
@@ -17,7 +11,7 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
-    // private val Sdk: Sdk,
+    private val nameRegistrationUseCase: NameRegistrationUseCase,
     private val stateDelegate: StateDelegate<AccountsState>,
     private val eventDelegate: EventDelegate<AccountsEvent>,
 ) : ViewModel(),
@@ -33,9 +27,9 @@ class AccountListViewModel(
         stateDelegate.updateState { AccountsState.Loading }
         viewModelScope.launch {
             try {
-                //   accountLite = Sdk.fetchAccountLite()
+                accountLite = nameRegistrationUseCase.getAccountLite()
                 stateDelegate.updateState {
-                    AccountsState.Content(dummyAccountData())
+                    AccountsState.Content(accountLite)
                 }
             } catch (e: Exception) {
                 stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
@@ -48,11 +42,11 @@ class AccountListViewModel(
         }
     }
 
-    /*    fun deleteAccount(address: String) {
+        fun deleteAccount(address: String) {
             stateDelegate.updateState { AccountsState.Loading }
             viewModelScope.launch {
                 try {
-                    Sdk.deleteAccount(address)
+                    nameRegistrationUseCase.deleteAccount(address)
                     eventDelegate.sendEvent(AccountsEvent.ShowMessage("Account deleted successfully."))
                     fetchAccounts() // Refresh the list after deletion
                 } catch (e: Exception) {
@@ -64,7 +58,7 @@ class AccountListViewModel(
                     )
                 }
             }
-        }*/
+        }
 
     sealed interface AccountsState {
         data object Idle : AccountsState
@@ -88,12 +82,5 @@ class AccountListViewModel(
         data class ShowMessage(
             val message: String,
         ) : AccountsEvent
-    }
-
-    private fun dummyAccountData(): List<AccountLite> {
-        return listOf(
-            AccountLite("address1", "name1", AccountRegistrationType.HdKey),
-            AccountLite("address2", "name2", AccountRegistrationType.HdKey),
-        )
     }
 }

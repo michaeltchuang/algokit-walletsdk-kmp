@@ -25,15 +25,15 @@ internal actual fun SystemAppearance(isDark: Boolean) {
 }
 
 actual class ThemePreferenceRepository actual constructor(context: Any?) {
-    private val stateFlow = MutableStateFlow<ThemePreference?>(null)
+    private val stateFlow = MutableStateFlow<ThemePreference>(ThemePreference.SYSTEM)
     private val defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults
 
     init {
         val saved = defaults.objectForKey(THEME_KEY) as? String
-        stateFlow.value = saved?.let { name -> ThemePreference.entries.find { it.name == name } }
+        stateFlow.value = saved?.let { name -> ThemePreference.entries.find { it.name == name } }?: ThemePreference.SYSTEM
     }
 
-    actual fun getSavedThemePreferenceFlow(): Flow<ThemePreference?> = stateFlow.asStateFlow()
+    actual fun getSavedThemePreferenceFlow(): Flow<ThemePreference> = stateFlow.asStateFlow()
 
     actual suspend fun saveThemePreference(pref: ThemePreference) {
         withContext(Dispatchers.Default) {

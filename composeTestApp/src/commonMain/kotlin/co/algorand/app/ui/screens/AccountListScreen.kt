@@ -110,7 +110,7 @@ fun AccountListScreen(
             state = state,
             onDeleteAccount = { address ->
                 scope.launch {
-                    //   viewModel.deleteAccount(address)
+                    viewModel.deleteAccount(address)
                 }
             },
         )
@@ -261,7 +261,7 @@ private fun handleBottomSheetEvent(
 
         AlgoKitEvent.ALGO25_ACCOUNT_CREATED,
         AlgoKitEvent.HD_ACCOUNT_CREATED,
-        -> {
+            -> {
             onAccountCreated()
         }
     }

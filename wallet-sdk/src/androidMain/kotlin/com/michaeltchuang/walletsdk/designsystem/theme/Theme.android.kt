@@ -32,9 +32,9 @@ internal actual fun SystemAppearance(isDark: Boolean) {
 actual class ThemePreferenceRepository actual constructor(context: Any?) {
     private val ctx = context as? Context ?: error("Android Context required")
     fun themeToString(pref: ThemePreference): String = pref.name
-    fun stringToTheme(str: String?): ThemePreference? =
-        ThemePreference.entries.find { it.name == str }
-    actual fun getSavedThemePreferenceFlow(): Flow<ThemePreference?> =
+    fun stringToTheme(str: String?): ThemePreference =
+        ThemePreference.entries.find { it.name == str }?: ThemePreference.SYSTEM
+    actual fun getSavedThemePreferenceFlow(): Flow<ThemePreference> =
         ctx.dataStore.data.map { preferences ->
             stringToTheme(preferences[THEME_KEY])
         }
