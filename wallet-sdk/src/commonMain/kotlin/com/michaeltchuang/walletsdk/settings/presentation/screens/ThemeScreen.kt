@@ -46,7 +46,7 @@ fun ThemeScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val currentThemePreference by themeRepository.getSavedThemePreferenceFlow()
-        .collectAsState(initial = ThemePreference.SYSTEM)
+        .collectAsState(initial = null)
     val systemDark = isSystemInDarkTheme()
     val isDark = LocalThemeIsDark.current
 

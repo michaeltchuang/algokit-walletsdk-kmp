@@ -3,6 +3,8 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
+import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetMaxHdSeedId
 import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
@@ -11,9 +13,9 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import kotlinx.coroutines.launch
 
 class CreateAccountNameViewModel(
-    /* private val nameRegistrationUseCase: NameRegistrationUseCase,
-     private val aesPlatformManager: AESPlatformManager,
-     private val getMaxHdSeedId: GetMaxHdSeedId,*/
+    private val nameRegistrationUseCase: NameRegistrationUseCase,
+   /* private val aesPlatformManager: AESPlatformManager,
+    private val getMaxHdSeedId: GetMaxHdSeedId,*/
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -27,21 +29,18 @@ class CreateAccountNameViewModel(
     private var walletId: Int? = null
 
     fun addNewAccount(accountCreation: AccountCreation, customName: String? = null) {
-        /*      val updatedAccountCreation = customName?.let {
+              val updatedAccountCreation = customName?.let {
                   accountCreation.copy(customName = it,)
               } ?: accountCreation
               viewModelScope.launch {
                   try {
                       nameRegistrationUseCase.addNewAccount(updatedAccountCreation)
+                      AccountCreationManager.clearPendingAccountCreation()
                       eventDelegate.sendEvent(ViewEvent.FinishedAccountCreation)
                   } catch (e: Exception) {
                       displayError(e.message ?: "Unknown error")
                   }
-              }*/
-        viewModelScope.launch {
-            AccountCreationManager.clearPendingAccountCreation()
-            eventDelegate.sendEvent(ViewEvent.FinishedAccountCreation)
-        }
+              }
 
     }
 

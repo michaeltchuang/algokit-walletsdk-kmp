@@ -71,7 +71,7 @@ fun DeveloperSettingsScreen(navController: NavController, onClick: (message: Str
             Res.drawable.ic_wallet,
             stringResource(Res.string.create_legacy_algo25_account)
         ) {
-            viewModel.createAlgo25Account()
+            viewModel.createAlgoAccount()
         }
     }
 

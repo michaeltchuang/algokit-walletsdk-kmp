@@ -110,7 +110,7 @@ fun AccountListScreen(
             state = state,
             onDeleteAccount = { address ->
                 scope.launch {
-                    //   viewModel.deleteAccount(address)
+                    viewModel.deleteAccount(address)
                 }
             },
         )

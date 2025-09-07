@@ -49,7 +49,7 @@ object AlgoKitTheme {
 }
 
 expect class ThemePreferenceRepository(context: Any? = null) {
-    fun getSavedThemePreferenceFlow(): Flow<ThemePreference?>
+    fun getSavedThemePreferenceFlow(): Flow<ThemePreference>
     suspend fun saveThemePreference(pref: ThemePreference)
 }
 

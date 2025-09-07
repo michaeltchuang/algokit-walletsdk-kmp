@@ -1,7 +1,7 @@
 package com.michaeltchuang.walletsdk.algosdk
 
-internal expect fun createAlgo25Account()
+import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 
-internal expect fun recoverAlgo25Account(mnemonic: String)
+expect fun createAlgo25Account(): Algo25Account?
 
-internal expect fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray)
+expect fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray)
