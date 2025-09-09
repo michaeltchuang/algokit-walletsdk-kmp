@@ -1,5 +1,7 @@
 package com.michaeltchuang.walletsdk.account.di
 
+import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationHdKeyTypeMapper
+import com.michaeltchuang.walletsdk.account.data.mapper.entity.DefaultAccountCreationHdKeyTypeMapperImpl
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AccountAdditionUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddAlgo25Account
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddAlgo25AccountUseCase
@@ -28,7 +30,7 @@ val accountCoreModule = module {
     single { GetAccountRegistrationTypeUseCase(get()) }
 
     single { NameRegistrationUseCase(get(), get(), get(), get(), get(), get()) }
-    /*    single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl(get()) }
+    single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl() }
 
-        single { RecoverPassphraseUseCase(get(), get()) }*/
+    /*single { RecoverPassphraseUseCase(get(), get()) }*/
 }

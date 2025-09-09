@@ -10,12 +10,14 @@ import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class CreateAccountNameViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
-   /* private val aesPlatformManager: AESPlatformManager,
-    private val getMaxHdSeedId: GetMaxHdSeedId,*/
+  /*  private val aesPlatformManager: AESPlatformManager,*/
+    private val getMaxHdSeedId: GetMaxHdSeedId,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -57,11 +59,11 @@ class CreateAccountNameViewModel(
     }
 
     private fun handleHDAccount(seedId: Int?) {
-        /*      viewModelScope.launch(Dispatchers.IO) {
+              viewModelScope.launch(Dispatchers.IO) {
                   val resolvedId = seedId ?: ((getMaxHdSeedId.invoke() ?: 0) + 1)
                   walletId = resolvedId
                   stateDelegate.updateState { ViewState.Content(walletId) }
-              }*/
+              }
     }
 
     private fun handleAlgo25Account() {

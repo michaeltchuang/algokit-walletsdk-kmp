@@ -1,5 +1,3 @@
-
-
 package com.michaeltchuang.walletsdk.algosdk.bip39.sdk
 
 import cash.z.ecc.android.bip39.Mnemonics

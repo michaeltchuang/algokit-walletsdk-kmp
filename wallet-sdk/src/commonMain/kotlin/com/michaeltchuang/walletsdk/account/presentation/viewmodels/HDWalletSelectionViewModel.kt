@@ -2,21 +2,28 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationHdKeyTypeMapper
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdEntropy
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdWalletSummaries
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
+import com.michaeltchuang.walletsdk.algosdk.createBip39Wallet
+import com.michaeltchuang.walletsdk.algosdk.getBip39Wallet
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.utils.CreationType
+import com.michaeltchuang.walletsdk.utils.clearFromMemory
+import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class HDWalletSelectionViewModel(
-   /* private val aesPlatformManager: AESPlatformManager,
+/*    private val aesPlatformManager: AESPlatformManager,*/
     private val getHdWalletSummaries: GetHdWalletSummaries,
     private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,
     private val getHdEntropy: GetHdEntropy,
-    private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
+/*    private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -30,7 +37,7 @@ class HDWalletSelectionViewModel(
 
     fun loadLocalWallets() {
         stateDelegate.updateState { ViewState.Loading }
-/*        viewModelScope.launch {
+        viewModelScope.launch {
             val walletItemPreviews = getHdWalletSummaries()?.map {
                 WalletItemPreview(
                     seedId = it.seedId,
@@ -46,14 +53,14 @@ class HDWalletSelectionViewModel(
                     walletItemPreviews = walletItemPreviews,
                 )
             }
-        }*/
+        }
     }
 
     fun createNewHdAccount(seedId: Int, maxAccountIndex: Int) {
-    /*    viewModelScope.launch {
+        viewModelScope.launch {
             val entropy = getHdEntropy(seedId) ?: return@launch
             val nextHdAccountIndex = maxAccountIndex + 1
-            val wallet = algorandBip39WalletProvider.getBip39Wallet(entropy)
+            val wallet = getBip39Wallet(entropy)
             val index = HdKeyAddressIndex(nextHdAccountIndex, changeIndex = 0, keyIndex = 0)
             val hdKeyAddress = wallet.generateAddress(index)
             val accountCreation = AccountCreation(
@@ -72,12 +79,12 @@ class HDWalletSelectionViewModel(
                     accountCreation
                 )
             )
-        }*/
+        }
     }
 
     fun createHdKeyAccount() {
-     /*   viewModelScope.launch {
-            val wallet = algorandBip39WalletProvider.createBip39Wallet()
+        viewModelScope.launch {
+            val wallet = createBip39Wallet()
             val hdKeyAddress = wallet.generateAddress(HdKeyAddressIndex())
             val hdKeyType =
                 accountCreationHdKeyTypeMapper(
@@ -99,7 +106,7 @@ class HDWalletSelectionViewModel(
                     accountCreation
                 )
             )
-        }*/
+        }
     }
 
     private fun displayError(message: String) {

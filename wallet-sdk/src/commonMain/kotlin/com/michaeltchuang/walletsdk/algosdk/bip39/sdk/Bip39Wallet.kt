@@ -1,5 +1,3 @@
-
-
 package com.michaeltchuang.walletsdk.algosdk.bip39.sdk
 
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy

@@ -1,5 +1,3 @@
-
-
 package com.michaeltchuang.walletsdk.algosdk.bip39.model
 
 data class HdKeyAddress(

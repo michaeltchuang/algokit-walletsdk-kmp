@@ -46,13 +46,12 @@ internal class HdSeedRepositoryImpl(
     override suspend fun getSeedIdIfExistingEntropy(entropy: ByteArray): Int? {
         val entities = hdSeedDao.getAll()
 
- /*       for (entity in entities) {
-            val decryptedEntropy = aesPlatformManager.decryptByteArray(entity.encryptedEntropy)
-            if (entropy.contentEquals(decryptedEntropy)) {
+        for (entity in entities) {
+           // val decryptedEntropy = aesPlatformManager.decryptByteArray(entity.encryptedEntropy)
+            if (entropy.contentEquals(entity.encryptedEntropy)) {
                 return entity.seedId
             }
         }
-*/
         return null
     }
 
@@ -96,8 +95,8 @@ internal class HdSeedRepositoryImpl(
     override suspend fun getEntropy(seedId: Int): ByteArray? {
         return withContext(coroutineDispatcher) {
             val encryptedSK = hdSeedDao.get(seedId)?.encryptedEntropy
-           // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
-            ByteArray(0)
+          //  encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
+            encryptedSK
         }
     }
 
@@ -105,7 +104,7 @@ internal class HdSeedRepositoryImpl(
         return withContext(coroutineDispatcher) {
             val encryptedSK = hdSeedDao.get(seedId)?.encryptedSeed
            // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
-            ByteArray(0)
+            encryptedSK
         }
     }
 }

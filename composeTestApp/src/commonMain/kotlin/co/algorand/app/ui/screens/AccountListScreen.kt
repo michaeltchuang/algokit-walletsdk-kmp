@@ -208,7 +208,6 @@ private fun AccountsList(
         ) {
             items(
                 accounts,
-                key = { it.customName },
             ) { account ->
                 AccountItem(account) { address ->
                     onDeleteAccount(address)

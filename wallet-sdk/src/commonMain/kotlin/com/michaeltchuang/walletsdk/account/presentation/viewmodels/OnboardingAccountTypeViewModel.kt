@@ -2,9 +2,12 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationHdKeyTypeMapper
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.createAlgo25Account
+import com.michaeltchuang.walletsdk.algosdk.createBip39Wallet
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
@@ -16,10 +19,9 @@ import kotlinx.coroutines.launch
 class OnboardingAccountTypeViewModel(
   /*  private val androidEncryptionManager: AndroidEncryptionManager,
     private val aesPlatformManager: AESPlatformManager,
-    private val runtimeAwareSdk: RuntimeAwareSdk,
-    private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,*/
- /*   private val hdSeedRepository: HdSeedRepository,*/
-  /*  private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
+    private val runtimeAwareSdk: RuntimeAwareSdk, */
+    private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,
+    private val hdSeedRepository: HdSeedRepository,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -33,21 +35,18 @@ class OnboardingAccountTypeViewModel(
     }
 
     private fun hasAnySeedExist() {
-    /*    viewModelScope.launch {
+        viewModelScope.launch {
             hdSeedRepository.hasAnySeed().let { hasAnySeed ->
                 stateDelegate.updateState {
                     ViewState.Content(hasAnySeed)
                 }
             }
-            stateDelegate.updateState {
-                ViewState.Content(false)
-            }
-        }*/
+        }
     }
 
     fun createHdKeyAccount() {
         viewModelScope.launch {
-            /*      val wallet = algorandBip39WalletProvider.createBip39Wallet()
+                  val wallet = createBip39Wallet()
                   val hdKeyAddress = wallet.generateAddress(HdKeyAddressIndex(0, 0, 0))
                   val hdKeyType =
                       accountCreationHdKeyTypeMapper(
@@ -61,10 +60,10 @@ class OnboardingAccountTypeViewModel(
                       isBackedUp = false,
                       type = hdKeyType,
                       creationType = CreationType.CREATE
-                  )*/
+                  )
             // Store the account creation data in the manager
-            AccountCreationManager.storePendingAccountCreation(mockAccountCreation())
-            eventDelegate.sendEvent(ViewEvent.AccountCreated(mockAccountCreation()))
+            AccountCreationManager.storePendingAccountCreation(accountCreation)
+            eventDelegate.sendEvent(ViewEvent.AccountCreated(accountCreation))
         }
     }
 
@@ -109,14 +108,4 @@ class OnboardingAccountTypeViewModel(
         data class Error(val message: String) : ViewEvent
     }
 
-}
-
-fun mockAccountCreation(): AccountCreation {
-    return AccountCreation(
-        address = "ASDFGHJKLASDFGHJKL",
-        customName = null,
-        isBackedUp = false,
-        type = AccountCreation.Type.Algo25(ByteArray(32)),
-        creationType = CreationType.CREATE
-    )
 }
