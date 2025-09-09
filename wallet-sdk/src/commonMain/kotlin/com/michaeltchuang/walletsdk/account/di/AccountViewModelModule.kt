@@ -15,11 +15,14 @@ internal val viewModelModule = module {
         OnboardingAccountTypeViewModel(
             get(),
             get(),
+            get(),
+            get()
         )
     }
 
     viewModel {
         CreateAccountNameViewModel(
+            get(),
             get(),
             get(),
             get(),
@@ -30,6 +33,9 @@ internal val viewModelModule = module {
         HDWalletSelectionViewModel(
             get(),
             get(),
+            get(),
+            get(),
+            get()
         )
     }
 

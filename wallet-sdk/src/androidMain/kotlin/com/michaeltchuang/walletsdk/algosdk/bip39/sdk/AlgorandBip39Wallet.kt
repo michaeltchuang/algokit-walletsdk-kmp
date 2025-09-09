@@ -18,6 +18,8 @@ import foundation.algorand.xhdwalletapi.KeyContext
 import foundation.algorand.xhdwalletapi.XHDWalletAPIAndroid
 import foundation.algorand.xhdwalletapi.XHDWalletAPIBase.Companion.fromSeed
 import foundation.algorand.xhdwalletapi.XHDWalletAPIBase.Companion.getBIP44PathFromContext
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
 
 internal class AlgorandBip39Wallet internal constructor(private val entropy: Bip39Entropy) :
     Bip39Wallet {
@@ -26,6 +28,9 @@ internal class AlgorandBip39Wallet internal constructor(private val entropy: Bip
         private var walletApi: XHDWalletAPIAndroid?
 
         init {
+            Security.removeProvider("BC")
+            Security.insertProviderAt(BouncyCastleProvider(), 0)
+
             val mnemonicCode = Mnemonics.MnemonicCode(entropy.value)
             seed = Bip39Seed(mnemonicCode.toSeed())
             mnemonic = Bip39Mnemonic(mnemonicCode.words.map { it.toString() })

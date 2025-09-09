@@ -45,6 +45,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 private const val CONFETTI_DURATION = 5000L
 private val FAB_PADDING = 32.dp
+private const val TAG = "AccountListScreen"
 
 @Composable
 fun AccountListScreen(
@@ -208,12 +209,11 @@ private fun AccountsList(
         ) {
             items(
                 accounts,
-                key = { it.customName },
             ) { account ->
                 AccountItem(account) { address ->
                     onDeleteAccount(address)
                 }
-                Log.d("AccountItem", "Total accounts: ${accounts.size}")
+                Log.d(TAG, "Total accounts: ${accounts.size}")
             }
         }
     }

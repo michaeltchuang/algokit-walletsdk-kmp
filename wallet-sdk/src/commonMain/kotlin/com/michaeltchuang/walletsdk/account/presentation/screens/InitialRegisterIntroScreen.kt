@@ -45,6 +45,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+private const val TAG = "InitialRegisterIntroScreen"
+
 @Composable
 fun InitialRegisterIntroScreen(navController: NavController = rememberNavController()) {
 
@@ -58,7 +60,7 @@ fun InitialRegisterIntroScreen(navController: NavController = rememberNavControl
                 }
 
                 is OnboardingAccountTypeViewModel.ViewEvent.Error -> {
-                    Log.d("InitialRegisterIntroScreen", it.message)
+                    Log.d(TAG, it.message)
                 }
             }
         }

@@ -51,6 +51,7 @@ import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+private const val TAG = "HdWalletSelectionScreen"
 
 @Composable
 fun HdWalletSelectionScreen(
@@ -63,11 +64,11 @@ fun HdWalletSelectionScreen(
             when (it) {
                 is HDWalletSelectionViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
-                    Log.d("CreateAccountTypeScreen", it.accountCreation.address)
+                    Log.d(TAG, it.accountCreation.address)
                 }
 
                 is HDWalletSelectionViewModel.ViewEvent.Error -> {
-                    Log.d("CreateAccountTypeScreen", it.message)
+                    Log.d(TAG, it.message)
                 }
             }
         }

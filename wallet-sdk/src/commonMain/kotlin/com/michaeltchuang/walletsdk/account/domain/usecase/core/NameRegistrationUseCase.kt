@@ -36,11 +36,8 @@ class NameRegistrationUseCase(
         }
     }
 
-    suspend fun deleteHdKeyAccount(address: String) {
-        deleteHdKeyAccountUseCase(address)
-    }
-
     suspend fun deleteAccount(address: String) {
         deleteAlgo25AccountUseCase(address)
+        deleteHdKeyAccountUseCase(address)
     }
 }
