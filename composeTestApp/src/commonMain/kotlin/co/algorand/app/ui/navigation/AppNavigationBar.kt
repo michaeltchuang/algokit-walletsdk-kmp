@@ -68,7 +68,11 @@ fun AppNavigationBar(
     }
 }
 
-data class TopLevelRouteDetails<T : Any>(val name: String, val route: T, val icon: DrawableResource)
+data class TopLevelRouteDetails<T : Any>(
+    val name: String,
+    val route: T,
+    val icon: DrawableResource,
+)
 
 private val topLevelRoutes: List<TopLevelRoute> = listOf(Accounts, Discover)
 

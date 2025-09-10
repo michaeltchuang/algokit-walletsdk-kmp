@@ -1,7 +1,7 @@
-import java.net.URI
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import java.net.URI
 
 plugins {
     // this needs to be first in list
@@ -64,7 +64,7 @@ kotlin {
                     products = {
                         add("x-hd-wallet-api")
                     },
-                    branch = "fix/swiftlint"
+                    branch = "fix/swiftlint",
                 )
             }
         }
