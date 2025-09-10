@@ -1,8 +1,8 @@
 package co.algorand.app.ui.navigation
 
-import algokit_walletsdk_kmp.composetestapp.generated.resources.Res
-import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_home
-import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_settings
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.Res
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_home
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem

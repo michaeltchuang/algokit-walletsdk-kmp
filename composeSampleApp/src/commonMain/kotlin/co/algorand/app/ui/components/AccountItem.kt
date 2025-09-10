@@ -1,8 +1,8 @@
 package co.algorand.app.ui.components
 
-import algokit_walletsdk_kmp.composetestapp.generated.resources.Res
-import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_hd_wallet
-import algokit_walletsdk_kmp.composetestapp.generated.resources.ic_wallet
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.Res
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_hd_wallet
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_wallet
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
