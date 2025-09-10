@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta03"
+    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta04"
 }
 
 kotlin {
@@ -37,6 +37,7 @@ kotlin {
     }
 
     listOf(
+        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
@@ -79,7 +80,6 @@ kotlin {
             implementation("net.java.dev.jna:jna:5.17.0@aar")
             implementation(libs.xhdwalletapi)
             implementation(libs.kotlin.bip39)
-            implementation(compose.uiTooling)
             implementation(libs.androidx.activityCompose)
             implementation(libs.androidx.compose.foundation)
             implementation(libs.androidx.lifecycle.runtime.compose)
