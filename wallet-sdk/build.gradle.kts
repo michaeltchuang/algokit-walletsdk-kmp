@@ -1,3 +1,4 @@
+import java.net.URI
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -13,6 +14,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
+    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta03"
 }
 
 kotlin {
@@ -35,13 +37,35 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
-    ).forEach {
-        it.binaries.framework {
-            baseName = "common"
-            isStatic = true
+    ).forEach { iosTarget ->
+        iosTarget.compilations {
+            val main by getting {
+                cinterops.create("AlgorandXhdIosSdk")
+            }
+        }
+    }
+
+    swiftPackageConfig {
+        create("AlgorandXhdIosSdk") {
+            minIos = "15.0"
+            dependency {
+                remotePackageVersion(
+                    url = URI("https://github.com/krzyzanowskim/CryptoSwift.git"),
+                    products = {
+                        add("CryptoSwift")
+                    },
+                    version = "1.8.4",
+                )
+                remotePackageBranch(
+                    url = uri("https://github.com/michaeltchuang/algorand-devrel-xHD-Wallet-API-swift.git"),
+                    products = {
+                        add("x-hd-wallet-api")
+                    },
+                    branch = "fix/swiftlint"
+                )
+            }
         }
     }
 
@@ -119,9 +143,15 @@ kotlin {
 
 android {
     namespace = "com.michaeltchuang.walletsdk"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
@@ -171,7 +201,6 @@ room {
 dependencies {
     add("kspAndroid", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
-    add("kspIosX64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspCommonMainMetadata", libs.room.compiler)
 }

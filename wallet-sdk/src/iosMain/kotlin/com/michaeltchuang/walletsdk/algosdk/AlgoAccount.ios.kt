@@ -11,6 +11,11 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import io.ktor.utils.io.core.toByteArray
 import kotlin.random.Random
+import AlgorandXhdIosSdk.xHdSwiftBridge
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
+val contentFromSwift = xHdSwiftBridge().toMD5WithValue(value = "someString")
 
 actual fun createAlgo25Account(): Algo25Account? {
     return Algo25Account(generateRandomAddress(), ByteArray(25))
@@ -89,8 +94,10 @@ private fun generate24WordMnemonic(): String {
 
 private fun generate25WordMnemonic(): String {
     return """
-            Lorem ipsum dolor sit amet consectetur adipiscing elit 
-            Mauris ornare orci et facilisis condimentum 
-            Nunc imperdiet ultricies mi nec mattis erat In volutpat tempus tortor
+        abandon abandon abandon abandon abandon 
+        abandon abandon abandon abandon abandon 
+        abandon abandon abandon abandon abandon 
+        abandon abandon abandon abandon abandon 
+        abandon abandon abandon abandon abandon
         """.trimIndent().lowercase()
 }
