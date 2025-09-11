@@ -5,5 +5,5 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.CustomHdSeedInfo
 
 
 internal interface CustomHdSeedInfoEntityMapper {
-    operator fun invoke(entropyInformation: CustomHdSeedInfo): CustomHdSeedInfoEntity
+    operator fun invoke(customHdSeedInfo: CustomHdSeedInfo): CustomHdSeedInfoEntity
 }
