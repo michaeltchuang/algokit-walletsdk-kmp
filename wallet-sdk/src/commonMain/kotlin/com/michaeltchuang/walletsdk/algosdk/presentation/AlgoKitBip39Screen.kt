@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.michaeltchuang.walletsdk.algosdk.getEntropyFromMnemonic
+import com.michaeltchuang.walletsdk.algosdk.AlgoKitBip39
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -51,7 +51,7 @@ fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
             }
         }
         Button(onClick = {
-            entropy = getEntropyFromMnemonic(SAMPLE_HD_MNEMONIC)
+            entropy = AlgoKitBip39.getEntropyFromMnemonic(SAMPLE_HD_MNEMONIC)
             onAlgoKitEvent(AlgoKitEvent.HD_ACCOUNT_CREATED)
         }) {
             Text("Create HD Account")

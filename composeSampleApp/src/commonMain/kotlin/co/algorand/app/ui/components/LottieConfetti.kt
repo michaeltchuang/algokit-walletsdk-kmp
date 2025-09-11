@@ -1,6 +1,6 @@
 package co.algorand.app.ui.components
 
-import algokit_walletsdk_kmp.composetestapp.generated.resources.Res
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.Res
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
