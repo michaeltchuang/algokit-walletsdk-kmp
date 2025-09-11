@@ -2,7 +2,7 @@ package com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase
 
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountType
-import com.michaeltchuang.walletsdk.algosdk.getEntropyFromMnemonic
+import com.michaeltchuang.walletsdk.algosdk.AlgoKitBip39.getEntropyFromMnemonic
 import com.michaeltchuang.walletsdk.algosdk.recoverAlgo25Account
 import com.michaeltchuang.walletsdk.utils.CreationType
 import com.michaeltchuang.walletsdk.utils.toShortenedAddress
