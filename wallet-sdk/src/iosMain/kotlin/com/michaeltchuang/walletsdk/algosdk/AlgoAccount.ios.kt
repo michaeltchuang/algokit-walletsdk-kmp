@@ -21,6 +21,10 @@ val contentFromSwift = xHdWalletApiBridge().toMD5WithValue(
     value = WalletSdkConstants.SAMPLE_HD_MNEMONIC
 )
 
+
+actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
+    return Algo25Account(generateRandomAddress(), ByteArray(25))
+}
 actual fun createAlgo25Account(): Algo25Account? {
     return Algo25Account(generateRandomAddress(), ByteArray(25))
 }

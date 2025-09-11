@@ -12,6 +12,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.core.GetLocalAccountU
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.DeleteAlgo25Account
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccounts
+import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
 import org.koin.dsl.module
 
 val accountCoreModule = module {
@@ -32,5 +33,5 @@ val accountCoreModule = module {
     single { NameRegistrationUseCase(get(), get(), get(), get(), get(), get()) }
     single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl() }
 
-    /*single { RecoverPassphraseUseCase(get(), get()) }*/
+    single { RecoverPassphraseUseCase() }
 }

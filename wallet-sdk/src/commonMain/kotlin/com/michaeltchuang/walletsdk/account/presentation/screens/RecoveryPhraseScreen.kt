@@ -33,17 +33,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
+import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountType
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.RecoverPassphraseViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitPrimaryButton
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.RecoverPassphraseViewModel
 import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.SAMPLE_ALGO25_MNEMONIC
 import com.michaeltchuang.walletsdk.utils.splitMnemonic
@@ -59,7 +62,7 @@ fun RecoveryPhraseScreen(
     mnemonicString: String,
     snackBar: (message: String) -> Unit,
 ) {
-    /*val context = LocalContext.current*/
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val viewModel: RecoverPassphraseViewModel = koinViewModel()
     var mnemonic by rememberSaveable { mutableStateOf(mnemonicString) }
     var mnemonicList by rememberSaveable { mutableStateOf(mnemonicString.splitMnemonic()) }
@@ -106,12 +109,12 @@ fun RecoveryPhraseScreen(
                 ) {
                     IconButton(
                         onClick = {
-           /*                 context.getTextFromClipboard()?.let {
+                            clipboardManager.getText()?.text?.let {
                                 viewModel.onClipBoardPastedMnemonic(it) {
                                     mnemonicList = it.splitMnemonic()
                                     mnemonic = it
                                 }
-                            }*/
+                            }
                         },
                         modifier = Modifier
                             .size(32.dp)
@@ -152,7 +155,7 @@ fun RecoveryPhraseScreen(
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally),
                 {
-                  /*  when (mnemonicList.size) {
+                    when (mnemonicList.size) {
                         OnboardingAccountType.Algo25.wordCount -> {
                             viewModel.onRecoverAccount(
                                 mnemonic,
@@ -161,7 +164,7 @@ fun RecoveryPhraseScreen(
                         }
 
                         OnboardingAccountType.HdKey.wordCount -> {}
-                    }*/
+                    }
                 },
                 text = stringResource(Res.string.finish_account_creation),
             )
