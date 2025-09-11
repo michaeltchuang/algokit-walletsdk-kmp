@@ -44,7 +44,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach {
         it.binaries.framework {
-            baseName = "composeTestApp"
+            baseName = "composeSampleApp"
             isStatic = true
         }
     }
