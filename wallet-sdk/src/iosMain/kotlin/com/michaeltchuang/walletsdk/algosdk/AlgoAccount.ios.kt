@@ -12,6 +12,10 @@ import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import io.ktor.utils.io.core.toByteArray
 import kotlin.random.Random
 
+
+actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
+    return Algo25Account(generateRandomAddress(), ByteArray(25))
+}
 actual fun createAlgo25Account(): Algo25Account? {
     return Algo25Account(generateRandomAddress(), ByteArray(25))
 }

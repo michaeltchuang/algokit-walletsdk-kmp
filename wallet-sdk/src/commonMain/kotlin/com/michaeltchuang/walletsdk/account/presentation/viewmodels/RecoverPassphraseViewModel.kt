@@ -5,14 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountType
+import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import com.michaeltchuang.walletsdk.utils.splitMnemonic
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RecoverPassphraseViewModel(
-    /*private val context: Application,
-    private val recoverPassphrasePreviewUseCase: RecoverPassphraseUseCase,*/
+    private val recoverPassphrasePreviewUseCase: RecoverPassphraseUseCase,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(), EventViewModel<RecoverPassphraseViewModel.ViewEvent> by eventDelegate {
 
@@ -20,17 +24,17 @@ class RecoverPassphraseViewModel(
     fun onRecoverAccount(
         mnemonic: String, onboardingAccountType: OnboardingAccountType
     ) {
-        /*    viewModelScope.launch(Dispatchers.IO) {
-                recoverPassphrasePreviewUseCase.validateEnteredMnemonics(
-                    mnemonic, onboardingAccountType
-                ).collectLatest { accountCreation ->
-                    accountCreation?.let {
-                        // Store the account creation data in the manager
-                        AccountCreationManager.storePendingAccountCreation(it)
-                        eventDelegate.sendEvent(ViewEvent.NavigateToAccountNameScreen(it))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            recoverPassphrasePreviewUseCase.validateEnteredMnemonics(
+                mnemonic, onboardingAccountType
+            ).collectLatest { accountCreation ->
+                accountCreation?.let {
+                    // Store the account creation data in the manager
+                    AccountCreationManager.storePendingAccountCreation(it)
+                    eventDelegate.sendEvent(ViewEvent.NavigateToAccountNameScreen(it))
                 }
-            }*/
+            }
+        }
     }
 
     fun onClipBoardPastedMnemonic(mnemonic: String, isValid: () -> Unit) {

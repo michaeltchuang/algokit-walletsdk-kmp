@@ -47,9 +47,7 @@ internal val viewModelModule = module {
     }
 
     viewModel {
-        RecoverPassphraseViewModel(
-            get(),
-        )
+        RecoverPassphraseViewModel(get(), get())
     }
 }
 
