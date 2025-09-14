@@ -8,7 +8,7 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.model.payload.RawTransac
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdk
 import com.michaeltchuang.walletsdk.foundation.json.JsonSerializer
 
-internal class ParseTransactionMessagePackUseCase(
+/*internal class ParseTransactionMessagePackUseCase(
     private val jsonSerializer: JsonSerializer,
     private val rawTransactionMapper: RawTransactionMapper,
     private val algoSdk: AlgoSdk,
@@ -28,4 +28,4 @@ internal class ParseTransactionMessagePackUseCase(
                 ?: return null
         return rawTransactionMapper(rawTransactionPayload)
     }
-}
+}*/

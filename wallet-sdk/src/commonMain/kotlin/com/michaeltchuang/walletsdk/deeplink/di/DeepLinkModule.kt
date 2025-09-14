@@ -18,12 +18,12 @@ val deepLinkModule = module {
     single<PeraUriParser> { PeraUriParserImpl() }
 
     // Provide ParseDeepLinkPayload
-/*    single<ParseDeepLinkPayload> {
+    single<ParseDeepLinkPayload> {
         ParseDeepLinkPayloadImpl(
             peraUriParser = get(),
             mnemonicQueryParser = MnemonicQueryParser(get()),
         )
-    }*/
+    }
 
     // Provide CreateDeepLink
     single<CreateDeepLink> {

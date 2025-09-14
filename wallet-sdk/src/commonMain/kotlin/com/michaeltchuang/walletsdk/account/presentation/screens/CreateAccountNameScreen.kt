@@ -47,8 +47,8 @@ import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitPrimaryButton
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import com.michaeltchuang.walletsdk.utils.Log
+import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import com.michaeltchuang.walletsdk.utils.toShortenedAddress
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

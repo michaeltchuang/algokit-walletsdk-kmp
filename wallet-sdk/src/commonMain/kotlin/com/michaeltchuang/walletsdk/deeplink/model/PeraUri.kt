@@ -1,5 +1,8 @@
 package com.michaeltchuang.walletsdk.deeplink.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 internal data class PeraUri(
     val scheme: String?,
     val host: String?,

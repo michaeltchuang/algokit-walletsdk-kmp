@@ -1,8 +1,8 @@
 package com.michaeltchuang.walletsdk.deeplink.parser.query
 
+/*
 import com.michaeltchuang.walletsdk.deeplink.model.PeraUri
 
-/*import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 
 internal class UrlQueryParser(
     private val base64Manager: Base64Manager
@@ -20,4 +20,5 @@ internal class UrlQueryParser(
     private companion object {
         const val URL_QUERY_KEY = "url"
     }
-}*/
+}
+*/

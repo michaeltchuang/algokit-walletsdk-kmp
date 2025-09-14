@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.deeplink.builder
 
-import com.michaeltchuang.walletsdk.deeplink.builder.DeepLinkBuilder
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLinkPayload
 import com.michaeltchuang.walletsdk.deeplink.model.NotificationGroupType
