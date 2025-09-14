@@ -35,9 +35,9 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.RecoverAnAccoun
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseScreen
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
+import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSuccessScreen
 import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.REPO_URL

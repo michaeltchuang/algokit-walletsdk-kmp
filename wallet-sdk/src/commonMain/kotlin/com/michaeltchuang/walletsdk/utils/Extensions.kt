@@ -1,8 +1,6 @@
 package com.michaeltchuang.walletsdk.utils
 
-import androidx.compose.ui.platform.ClipboardManager
 import androidx.navigation.NavController
-import kotlin.io.encoding.Base64
 
 fun ByteArray.clearFromMemory(): ByteArray {
     // Overwrite the byte array contents with zeros

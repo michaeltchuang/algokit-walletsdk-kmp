@@ -7,13 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.utils.navigateWithArgument
+import org.koin.compose.viewmodel.koinViewModel
 import qrscanner.CameraLens
 import qrscanner.QrScanner
 
@@ -23,10 +28,10 @@ fun QRCodeScannerScreen(
     onQrScanned: (String) -> Unit,
     closeSheet: () -> Unit
 ) {
-    //val viewModel: QRScannerViewModel = koinViewModel()
+    val viewModel: QRScannerViewModel = koinViewModel()
     val hasProcessedResult = remember { mutableStateOf(false) }
 
-/*    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
                 is QRScannerViewModel.ViewEvent.NavigateToRecoveryPhraseScreen -> {
@@ -45,7 +50,7 @@ fun QRCodeScannerScreen(
                 }
             }
         }
-    }*/
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +62,7 @@ fun QRCodeScannerScreen(
             openImagePicker = false,
             onCompletion = {
                 if (!hasProcessedResult.value) {
-                  //  viewModel.handleDeeplink(it)
+                    viewModel.handleDeeplink(it)
                     hasProcessedResult.value = true
                 }
             },

@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetMaxHdSeedId
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch

@@ -1,8 +1,9 @@
-/*
 package com.michaeltchuang.walletsdk.foundation.json
 
+import kotlin.reflect.KType
+
+
 interface JsonSerializer {
-    fun toJson(payload: Any?): String
-    fun <T> fromJson(json: String, type: Class<T>): T?
+    fun <T> toJson(payload: T, type: KType): String
+    fun <T> fromJson(jsonString: String, type: KType): T?
 }
-*/
