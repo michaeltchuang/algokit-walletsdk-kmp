@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import co.algorand.app.utils.Constants.REPO_URL
+import co.algorand.app.utils.SampleAppConstants.REPO_URL
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewScreen
 

@@ -1,6 +1,7 @@
 package co.algorand.app.ui.navigation
 
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.Res
+import algokit_walletsdk_kmp.composesampleapp.generated.resources.app_name
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_qr_scan
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_settings
 import androidx.compose.foundation.clickable
@@ -22,6 +23,7 @@ import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +38,7 @@ fun TopBar() {
             ),
         title = {
             Text(
-                "AlgoKit Wallet",
+                stringResource(Res.string.app_name),
                 maxLines = 1,
             )
         },
