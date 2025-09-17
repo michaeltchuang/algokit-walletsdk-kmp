@@ -9,8 +9,12 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.core.DeleteAlgo25Acco
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.DeleteHdKeyAccountUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.GetAccountRegistrationTypeUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.GetLocalAccountUseCase
+import com.michaeltchuang.walletsdk.account.domain.usecase.core.GetLocalAccountsUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.DeleteAlgo25Account
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAccountMnemonic
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAccountMnemonicUseCase
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccounts
 import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
 import org.koin.dsl.module
@@ -26,8 +30,12 @@ val accountCoreModule = module {
 
     single { DeleteHdKeyAccountUseCase(get(), get(), get()) }
 
-    single { GetLocalAccountUseCase(get(), get(), get()) }
-    single<GetLocalAccounts> { get<GetLocalAccountUseCase>() }
+    single { GetLocalAccountsUseCase(get(), get(), get()) }
+    single<GetLocalAccounts> { get<GetLocalAccountsUseCase>() }
+    single { GetLocalAccountUseCase(get()) }
+    single<GetLocalAccount> { get<GetLocalAccountUseCase>() }
+    single { GetAccountMnemonicUseCase(get(), get(), get()) }
+    single<GetAccountMnemonic> { get<GetAccountMnemonicUseCase>() }
     single { GetAccountRegistrationTypeUseCase(get()) }
 
     single { NameRegistrationUseCase(get(), get(), get(), get(), get(), get()) }

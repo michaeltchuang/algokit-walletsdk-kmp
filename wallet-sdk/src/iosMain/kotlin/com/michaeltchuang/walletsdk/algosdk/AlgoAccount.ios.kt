@@ -23,13 +23,15 @@ val contentFromSwift = xHdWalletApiBridge().toMD5WithValue(
 
 
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
-    return Algo25Account(generateRandomAddress(), ByteArray(25))
+    return Algo25Account(generateRandomAddress(), ByteArray(32))
 }
 actual fun createAlgo25Account(): Algo25Account? {
-    return Algo25Account(generateRandomAddress(), ByteArray(25))
+    return Algo25Account(generateRandomAddress(), ByteArray(32))
 }
 
-actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray) {}
+actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray):String? {
+    return getMnemonicFromEntropy(secretKey)
+}
 
 
 actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet {
@@ -64,17 +66,17 @@ private fun getBit39Wallet(): Bip39Wallet {
 
         override fun generateAddress(index: HdKeyAddressIndex): HdKeyAddress {
             return HdKeyAddress(
-                address = "ASDFGHJKLASDFGHJKL",
+                address = generateRandomAddress(),
                 index = HdKeyAddressIndex(0),
-                privateKey = ByteArray(0),
-                publicKey = ByteArray(0),
+                privateKey = ByteArray(32),
+                publicKey = ByteArray(32),
                 derivationType = HdKeyAddressDerivationType.Peikert
             )
         }
 
         override fun generateAddressLite(index: HdKeyAddressIndex): HdKeyAddressLite {
             return HdKeyAddressLite(
-                address = "ASDFGHJKLASDFGHJKL",
+                address = generateRandomAddress(),
                 index = HdKeyAddressIndex(0),
             )
         }
@@ -95,14 +97,4 @@ private fun generateRandomAddress(): String {
     return (1..addressLength)
         .map { alphabet[Random.nextInt(alphabet.length)] }
         .joinToString("")
-}
-
-private fun generate25WordMnemonic(): String {
-    return """
-        abandon abandon abandon abandon abandon 
-        abandon abandon abandon abandon abandon 
-        abandon abandon abandon abandon abandon 
-        abandon abandon abandon abandon abandon 
-        abandon abandon abandon abandon abandon
-        """.trimIndent().lowercase()
 }

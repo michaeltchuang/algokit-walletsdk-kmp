@@ -27,6 +27,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdKeyAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdKeyAccountUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdSeedUseCase
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAlgo25SecretKey
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdEntropy
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdWalletSummaries
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetMaxHdSeedId
@@ -47,6 +48,7 @@ val localAccountsModule = module {
     }
 
     factory { SaveAlgo25Account(get<Algo25AccountRepository>()::addAccount) }
+    factory { GetAlgo25SecretKey(get<Algo25AccountRepository>()::getSecretKey) }
 
 
     single<HdKeyDao> { get<AlgoKitDatabase>().hdKeyDao() }

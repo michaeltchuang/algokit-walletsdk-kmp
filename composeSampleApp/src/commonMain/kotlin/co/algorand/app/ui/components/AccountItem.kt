@@ -3,6 +3,7 @@ package co.algorand.app.ui.components
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.Res
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_hd_wallet
 import algokit_walletsdk_kmp.composesampleapp.generated.resources.ic_wallet
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistrationType
 import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
@@ -31,7 +33,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun AccountItem(
     account: AccountLite,
-    onDelete: (address: String) -> Unit,
+    onAccountItemClick: (address: String) -> Unit,
 ) {
     Card(
         modifier =
@@ -55,10 +57,13 @@ fun AccountItem(
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth(.9f)
+                        .fillMaxWidth(.8f)
                         .padding(horizontal = 8.dp),
             ) {
                 Text(
+                    modifier = Modifier.clickable(onClick = {
+                        onAccountItemClick(account.address)
+                    }),
                     text = account.customName.ifEmpty { account.address.toShortenedAddress() },
                     style = typography.body.large.sansMedium,
                 )
@@ -68,11 +73,7 @@ fun AccountItem(
                 )
             }
 
-            IconButton(onClick = {
-                onDelete(account.address)
-            }) {
-                Icon(Icons.Default.Delete, contentDescription = "Delete Account")
-            }
+            Text(text = ("\u00A6")+"***", fontSize = 16.sp,style = typography.footnote.sansMedium)
         }
     }
 }
@@ -125,7 +126,7 @@ fun AccountItemPreview() {
     AlgoKitTheme {
         AccountItem(
             account = sampleAccount,
-            onDelete = { /* Preview - no action */ },
+            onAccountItemClick = { /* Preview - no action */ },
         )
     }
 }

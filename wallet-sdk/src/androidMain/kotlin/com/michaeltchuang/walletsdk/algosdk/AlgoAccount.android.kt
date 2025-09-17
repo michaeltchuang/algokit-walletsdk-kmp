@@ -13,7 +13,9 @@ actual fun createAlgo25Account(): Algo25Account? {
     return AlgoAccountSdkImpl().createAlgo25Account()
 }
 
-actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray) {}
+actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
+    return AlgoAccountSdkImpl().getMnemonicFromAlgo25SecretKey(secretKey = secretKey)
+}
 
 actual fun createBip39Wallet(): Bip39Wallet {
     return AlgorandBip39WalletProvider().createBip39Wallet()

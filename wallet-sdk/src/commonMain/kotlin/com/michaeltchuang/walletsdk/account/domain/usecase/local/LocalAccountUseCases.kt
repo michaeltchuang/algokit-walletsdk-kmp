@@ -1,8 +1,10 @@
 package com.michaeltchuang.walletsdk.account.domain.usecase.local
 
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistrationType
+import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.domain.model.local.HdWalletSummary
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
+import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
 
 
 internal fun interface SaveAlgo25Account {
@@ -21,6 +23,9 @@ fun interface GetLocalAccounts {
     suspend operator fun invoke(): List<LocalAccount>
 }
 
+fun interface GetLocalAccount {
+    suspend operator fun invoke(address: String): LocalAccount?
+}
 internal fun interface SaveHdKeyAccount {
     suspend operator fun invoke(account: LocalAccount.HdKey, privateKey: ByteArray)
 }
@@ -44,4 +49,12 @@ fun interface GetMaxHdSeedId {
 
 fun interface GetHdEntropy {
     suspend operator fun invoke(seedId: Int): ByteArray?
+}
+
+fun interface GetAccountMnemonic {
+    suspend operator fun invoke(address: String): AlgoKitResult<AccountMnemonic>
+}
+
+fun interface GetAlgo25SecretKey {
+    suspend operator fun invoke(address: String): ByteArray?
 }
