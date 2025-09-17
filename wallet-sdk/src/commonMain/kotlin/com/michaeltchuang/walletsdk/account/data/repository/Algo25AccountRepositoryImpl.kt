@@ -16,7 +16,7 @@ internal class Algo25AccountRepositoryImpl(
     private val algo25Dao: Algo25Dao,
     private val algo25EntityMapper: Algo25EntityMapper,
     private val algo25Mapper: Algo25Mapper,
- /*   private val aesPlatformManager: AESPlatformManager,*/
+    /*   private val aesPlatformManager: AESPlatformManager,*/
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : Algo25AccountRepository {
 
@@ -75,8 +75,8 @@ internal class Algo25AccountRepositoryImpl(
     override suspend fun getSecretKey(address: String): ByteArray? {
         return withContext(coroutineDispatcher) {
             val encryptedSK = algo25Dao.get(address)?.encryptedSecretKey
-           // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
-            ByteArray(0)
+            // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
+            encryptedSK
         }
     }
 }

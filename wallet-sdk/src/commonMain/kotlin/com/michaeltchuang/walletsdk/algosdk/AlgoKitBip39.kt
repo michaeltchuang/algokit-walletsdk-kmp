@@ -64,7 +64,7 @@ object AlgoKitBip39 {
 
     fun getMnemonicFromEntropy(entropy: ByteArray): String {
         val mnemonic = MnemonicCode.toMnemonics(entropy)
-        return mnemonic.toString()
+        return mnemonic.joinToString(" ")
     }
 
     fun generate24WordMnemonic(): String {

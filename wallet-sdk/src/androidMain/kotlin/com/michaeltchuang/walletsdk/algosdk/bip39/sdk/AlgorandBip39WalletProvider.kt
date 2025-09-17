@@ -10,8 +10,9 @@ internal class AlgorandBip39WalletProvider : Bip39WalletProvider {
     }
 
     override fun createBip39Wallet(): Bip39Wallet {
-        // val entropy = AlgoKitBip39.getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic()).to()
+       //  val entropy = AlgoKitBip39.getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic())
         val entropy = Mnemonics.MnemonicCode(Mnemonics.WordCount.COUNT_24).toEntropy()
+      //  return AlgorandBip39Wallet(Bip39Entropy(entropy.toByteArray()))
         return AlgorandBip39Wallet(Bip39Entropy(entropy))
     }
 }

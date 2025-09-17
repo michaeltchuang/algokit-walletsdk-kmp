@@ -61,6 +61,8 @@ fun AccountListScreen(
     var showConfetti by remember { mutableStateOf(false) }
     var qrScanClick by rememberSaveable { mutableStateOf(false) }
     var settingsClick by rememberSaveable { mutableStateOf(false) }
+    var onAccountItemClick by rememberSaveable { mutableStateOf(false) }
+    var address by rememberSaveable { mutableStateOf("") }
     // val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -68,12 +70,14 @@ fun AccountListScreen(
         ACTIONS.qrClickEvent.collect {
             qrScanClick = it
             settingsClick = false
+            onAccountItemClick = false
             showSheet = it
         }
     }
     LaunchedEffect(Unit) {
         ACTIONS.settingsClickEvent.collect {
             qrScanClick = false
+            onAccountItemClick = false
             settingsClick = it
             showSheet = it
         }
@@ -94,6 +98,7 @@ fun AccountListScreen(
                 onClick = {
                     settingsClick = false
                     qrScanClick = false
+                    onAccountItemClick = false
                     showSheet = true
                 },
                 modifier = Modifier.padding(end = FAB_PADDING, bottom = FAB_PADDING),
@@ -109,9 +114,12 @@ fun AccountListScreen(
     ) { padding ->
         AccountListContent(
             state = state,
-            onDeleteAccount = { address ->
+            onAccountItemClick = { it ->
                 scope.launch {
-                    viewModel.deleteAccount(address)
+                    address = it
+                    onAccountItemClick = true
+                    showSheet = true
+                    //viewModel.deleteAccount(address)
                 }
             },
         )
@@ -122,6 +130,12 @@ fun AccountListScreen(
         accounts = viewModel.accountLite.size,
         launchQRScanScreen = qrScanClick,
         launchSettingsScreen = settingsClick,
+        launchAccountStatusScreen = onAccountItemClick,
+        address = address,
+        onAccountDeleted = {
+            showSheet = false
+            viewModel.fetchAccounts()
+        }
     ) { event ->
         handleBottomSheetEvent(
             event = event,
@@ -146,7 +160,7 @@ fun AccountListScreen(
 @Composable
 private fun AccountListContent(
     state: AccountListViewModel.AccountsState,
-    onDeleteAccount: (String) -> Unit,
+    onAccountItemClick: (String) -> Unit,
 ) {
     when (state) {
         AccountListViewModel.AccountsState.Idle -> {
@@ -160,7 +174,7 @@ private fun AccountListContent(
         is AccountListViewModel.AccountsState.Content -> {
             AccountsList(
                 accounts = state.accounts,
-                onDeleteAccount = onDeleteAccount,
+                onAccountItemClick = onAccountItemClick,
             )
         }
 
@@ -199,7 +213,7 @@ private fun CenteredLoader() {
 @Composable
 private fun AccountsList(
     accounts: List<AccountLite>,
-    onDeleteAccount: (String) -> Unit,
+    onAccountItemClick: (String) -> Unit,
 ) {
     if (accounts.isEmpty()) {
         CenteredMessage("No accounts found. Tap '+' to add one!")
@@ -211,7 +225,7 @@ private fun AccountsList(
                 accounts,
             ) { account ->
                 AccountItem(account) { address ->
-                    onDeleteAccount(address)
+                    onAccountItemClick(address)
                 }
                 Log.d(TAG, "Total accounts: ${accounts.size}")
             }
@@ -261,7 +275,7 @@ private fun handleBottomSheetEvent(
 
         AlgoKitEvent.ALGO25_ACCOUNT_CREATED,
         AlgoKitEvent.HD_ACCOUNT_CREATED,
-        -> {
+            -> {
             onAccountCreated()
         }
     }
