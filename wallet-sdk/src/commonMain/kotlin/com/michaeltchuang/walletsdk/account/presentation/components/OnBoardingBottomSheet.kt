@@ -139,7 +139,9 @@ fun OnBoardingBottomSheetNavHost(
                             .background(color = AlgoKitTheme.colors.background)
                             .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.Top
-                    ) {}
+                    ) {
+                        InitialRegisterIntroScreen(navController)
+                    }
                 }
                 composable(AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name) {
                     OnboardingAccountTypeScreen(navController) {
@@ -248,7 +250,7 @@ fun startDestination(
         launchAccountStatusScreen -> AlgoKitScreens.ACCOUNT_STATUS_SCREEN.name
         launchSettingsScreen -> AlgoKitScreens.SETTINGS_SCREEN.name
         qrScanFlow -> AlgoKitScreens.QR_CODE_SCANNER_SCREEN.name
-        accounts == 0 -> AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name
+        accounts == 0 -> AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name
         else -> AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name
     }
 }

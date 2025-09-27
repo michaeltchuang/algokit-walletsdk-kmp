@@ -136,7 +136,7 @@ private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             onClick = {
-             //   viewModel.createHdKeyAccount()
+                viewModel.createHdKeyAccount()
             },
             text = stringResource(Res.string.create_a_new_wallet),
             leftIcon = {
