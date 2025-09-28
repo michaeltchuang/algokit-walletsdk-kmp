@@ -41,6 +41,10 @@ actual fun createBip39Wallet(): Bip39Wallet {
     return getBit39Wallet()
 }
 
+actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray?{
+    return AlgoKitBip39.getSeedFromEntropy(entropy)
+}
+
 private fun getBit39Wallet(): Bip39Wallet {
 
     return object : Bip39Wallet {
