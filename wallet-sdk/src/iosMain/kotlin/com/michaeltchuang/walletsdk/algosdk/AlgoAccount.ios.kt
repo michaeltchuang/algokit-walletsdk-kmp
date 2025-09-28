@@ -10,27 +10,64 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
-import fr.acinq.bitcoin.MnemonicCode
+import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlin.random.Random
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.*
+import platform.Foundation.NSData
+import platform.Foundation.dataWithBytes
 
 @OptIn(ExperimentalForeignApi::class)
-val contentFromSwift = xHdWalletApiBridge().toMD5WithValue(
-    value = WalletSdkConstants.SAMPLE_HD_MNEMONIC
-)
+fun ByteArray.toNSData(): NSData {
+    return this.usePinned { pinned ->
+        NSData.dataWithBytes(
+            bytes = pinned.addressOf(0),
+            length = this.size.toULong()
+        )
+    }
+}
 
+private fun String.fromBase64ToByteArray(): ByteArray {
+    return try {
+        this.decodeBase64Bytes()
+    } catch (e: Exception) {
+        println("Ktor Base64 decode error: ${e.message}")
+        ByteArray(0)
+    }
+}
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
-    return Algo25Account(generateRandomAddress(), ByteArray(32))
+    val secretKey = xHdWalletApiBridge().getAlgo25SecretKeyWithMnemonic(
+        mnemonic = mnemonic
+    )
+    val address = xHdWalletApiBridge().generateAddressFromSKWithSecretKey(
+        secretKey = secretKey
+    )
+    return Algo25Account(address, secretKey.fromBase64ToByteArray())
 }
+@OptIn(ExperimentalForeignApi::class)
 actual fun createAlgo25Account(): Algo25Account? {
-    return Algo25Account(generateRandomAddress(), ByteArray(32))
+    val secretKey = xHdWalletApiBridge().getAlgo25SecretKeyWithMnemonic(
+        mnemonic = null
+    )
+    val address = xHdWalletApiBridge().generateAddressFromSKWithSecretKey(
+        secretKey = secretKey
+    )
+    return Algo25Account(address, secretKey.fromBase64ToByteArray())
 }
 
-actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray):String? {
-    return getMnemonicFromEntropy(secretKey)
+@OptIn(ExperimentalForeignApi::class)
+actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
+    var mnemonic: String? = null
+    try {
+        mnemonic =
+            xHdWalletApiBridge().getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
+    } catch (e: Exception) {
+        println("ERROR: ${e.message}")
+    }
+    return mnemonic
 }
 
 
@@ -88,11 +125,6 @@ private fun getBit39Wallet(): Bip39Wallet {
         override fun invalidate() {}
     }
 }
-
-private fun getMnemonicFromEntropy(entropy: ByteArray): String {
-        val mnemonic = MnemonicCode.toMnemonics(entropy)
-        return mnemonic.toString()
-    }
 
 private fun generateRandomAddress(): String {
     val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" // Base32 characters

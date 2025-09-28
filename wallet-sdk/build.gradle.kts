@@ -1,7 +1,14 @@
+import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getting
+import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.kotlin
+import org.gradle.kotlin.dsl.libs
+import org.gradle.kotlin.dsl.room
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import java.net.URI
+
 
 plugins {
     // this needs to be first in list
@@ -14,7 +21,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta04"
+    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta05"
 }
 
 kotlin {
@@ -43,21 +50,31 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.compilations {
             val main by getting {
-                cinterops.create("AlgorandXhdIosSdk")
+                cinterops {
+                    create("AlgorandXhdIosSdk") {
+                        definitionFile.set(project.file("src/swift/xcframework/AlgoSDK.def"))
+                    }
+                }
             }
         }
     }
 
     swiftPackageConfig {
         create("AlgorandXhdIosSdk") {
-            minIos = "15.0"
+            customPackageSourcePath = "${layout.projectDirectory.asFile.path}/src/iosMain/swift"
+            minIos = "16.2"
             dependency {
+                localBinary(
+                    path = "${layout.projectDirectory.asFile.path}/src/iosMain/xcframeworks/AlgoSDK.xcframework.zip",
+                    packageName = "AlgoSDK",
+                    exportToKotlin = false,
+                )
                 remotePackageVersion(
-                    url = URI("https://github.com/krzyzanowskim/CryptoSwift.git"),
+                    url = uri("https://github.com/Electric-Coin-Company/MnemonicSwift.git"),
                     products = {
-                        add("CryptoSwift")
+                        add("MnemonicSwift")
                     },
-                    version = "1.8.4",
+                    version = "2.2.5",
                 )
                 remotePackageBranch(
                     url = uri("https://github.com/michaeltchuang/algorand-devrel-xHD-Wallet-API-swift.git"),
@@ -118,6 +135,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.kotlinx.serialization)
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.utils)
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
@@ -202,5 +220,6 @@ dependencies {
     add("kspAndroid", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
     add("kspCommonMainMetadata", libs.room.compiler)
 }

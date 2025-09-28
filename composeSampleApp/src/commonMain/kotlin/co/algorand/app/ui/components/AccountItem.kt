@@ -8,12 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -61,9 +57,10 @@ fun AccountItem(
                         .padding(horizontal = 8.dp),
             ) {
                 Text(
-                    modifier = Modifier.clickable(onClick = {
-                        onAccountItemClick(account.address)
-                    }),
+                    modifier =
+                        Modifier.clickable(onClick = {
+                            onAccountItemClick(account.address)
+                        }),
                     text = account.customName.ifEmpty { account.address.toShortenedAddress() },
                     style = typography.body.large.sansMedium,
                 )
@@ -73,7 +70,7 @@ fun AccountItem(
                 )
             }
 
-            Text(text = ("\u00A6")+"***", fontSize = 16.sp,style = typography.footnote.sansMedium)
+            Text(text = ("\u00A6") + "***", fontSize = 16.sp, style = typography.footnote.sansMedium)
         }
     }
 }

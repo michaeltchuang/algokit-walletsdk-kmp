@@ -26,7 +26,9 @@ internal class GetAccountMnemonicUseCase(
     private suspend fun getAlgo25Mnemonic(address: String): AlgoKitResult<AccountMnemonic> {
         val secretKey =
             getAlgo25SecretKey(address) ?: return AlgoKitResult.Error(IllegalArgumentException())
-        val mnemonic = getMnemonicFromAlgo25SecretKey(secretKey)
+        val mnemonic = getMnemonicFromAlgo25SecretKey(secretKey) ?: return AlgoKitResult.Error(
+            IllegalArgumentException()
+        )
         return getAccountMnemonic(mnemonic, AccountMnemonic.AccountType.Algo25)
     }
 
