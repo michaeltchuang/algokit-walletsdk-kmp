@@ -14,7 +14,6 @@ import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.utils.CreationType
-import com.michaeltchuang.walletsdk.utils.clearFromMemory
 import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
@@ -70,8 +69,6 @@ class HDWalletSelectionViewModel(
                 type = accountCreationHdKeyTypeMapper(entropy, hdKeyAddress, seedId),
                 creationType = CreationType.CREATE
             )
-            entropy.clearFromMemory()
-            wallet.invalidate()
             // Store the account creation data in the manager
             AccountCreationManager.storePendingAccountCreation(accountCreation)
             eventDelegate.sendEvent(

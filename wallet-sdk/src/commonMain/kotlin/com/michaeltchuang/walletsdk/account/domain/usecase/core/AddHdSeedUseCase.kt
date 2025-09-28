@@ -4,7 +4,9 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.CustomHdSeedInfo
 import com.michaeltchuang.walletsdk.account.domain.repository.custom.CustomHdSeedInfoRepository
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetSeedIdIfExistingEntropy
+import com.michaeltchuang.walletsdk.algosdk.getSeedFromEntropy
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
+import com.michaeltchuang.walletsdk.utils.clearFromMemory
 
 
 internal class AddHdSeedUseCase(
@@ -23,13 +25,10 @@ internal class AddHdSeedUseCase(
     }
 
     private suspend fun createNewSeed(entropy: ByteArray): AlgoKitResult<Int> {
-     /*   val seed =
-            runtimeAwareSdk.algoKitBit39Sdk()?.getSeedFromEntropy(entropy.base64EncodeToString())
-                ?.base64DecodeToByteArray()
-                ?: return AlgoKitResult.Error(Exception("Failed to generate seed from entropy"))*/
-        val newSeedId = addHdSeed(entropy.copyOf(), entropy)
+        val seed = getSeedFromEntropy(entropy) ?: return AlgoKitResult.Error(Exception("Failed to generate seed from entropy"))
+        val newSeedId = addHdSeed(seed.copyOf(), entropy)
         setCustomInfo(newSeedId)
-       // seed.clearFromMemory()
+        seed.clearFromMemory()
         return AlgoKitResult.Success(newSeedId)
     }
 
