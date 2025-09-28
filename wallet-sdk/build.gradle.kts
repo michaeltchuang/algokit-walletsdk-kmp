@@ -51,16 +51,14 @@ kotlin {
         iosTarget.compilations {
             val main by getting {
                 cinterops {
-                    create("AlgorandXhdIosSdk") {
-                        definitionFile.set(project.file("src/swift/xcframework/AlgoSDK.def"))
-                    }
+                    create("AlgorandIosSdk")
                 }
             }
         }
     }
 
     swiftPackageConfig {
-        create("AlgorandXhdIosSdk") {
+        create("AlgorandIosSdk") {
             customPackageSourcePath = "${layout.projectDirectory.asFile.path}/src/iosMain/swift"
             minIos = "16.2"
             dependency {

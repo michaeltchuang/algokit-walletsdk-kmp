@@ -1,6 +1,6 @@
 package com.michaeltchuang.walletsdk.algosdk
 
-import AlgorandXhdIosSdk.xHdWalletApiBridge
+import AlgorandIosSdk.spmAlgoApiBridge
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Mnemonic
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Seed
@@ -39,20 +39,20 @@ private fun String.fromBase64ToByteArray(): ByteArray {
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
-    val secretKey = xHdWalletApiBridge().getAlgo25SecretKeyWithMnemonic(
+    val secretKey = spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
         mnemonic = mnemonic
     )
-    val address = xHdWalletApiBridge().generateAddressFromSKWithSecretKey(
+    val address = spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
         secretKey = secretKey
     )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
 }
 @OptIn(ExperimentalForeignApi::class)
 actual fun createAlgo25Account(): Algo25Account? {
-    val secretKey = xHdWalletApiBridge().getAlgo25SecretKeyWithMnemonic(
+    val secretKey = spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
         mnemonic = null
     )
-    val address = xHdWalletApiBridge().generateAddressFromSKWithSecretKey(
+    val address = spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
         secretKey = secretKey
     )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
@@ -63,7 +63,7 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
     var mnemonic: String? = null
     try {
         mnemonic =
-            xHdWalletApiBridge().getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
+            spmAlgoApiBridge().getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
     } catch (e: Exception) {
         println("ERROR: ${e.message}")
     }

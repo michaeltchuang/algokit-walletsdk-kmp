@@ -3,7 +3,7 @@ import x_hd_wallet_api
 import MnemonicSwift
 import AlgoSDK
 
-@objcMembers public class xHdWalletApiBridge: NSObject {
+@objcMembers public class spmAlgoApiBridge: NSObject {
 
     public func getHdPublicKey(mnemonic: String) -> String {
 
