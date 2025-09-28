@@ -11,3 +11,5 @@ expect fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray):String?
 
 expect fun getBip39Wallet(entropy: ByteArray): Bip39Wallet
 expect fun createBip39Wallet(): Bip39Wallet
+
+expect fun getSeedFromEntropy(entropy: ByteArray): ByteArray?
