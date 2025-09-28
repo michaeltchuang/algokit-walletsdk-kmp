@@ -1,11 +1,15 @@
 package com.michaeltchuang.walletsdk.deeplink.model
 
+import kotlinx.serialization.Serializable
+
 
 /**
  * Model classes for supported DeepLinks & AppLinks
  * Can be tested by executing the command below;
  * adb shell am start -a android.intent.action.VIEW -d "DEEPLINK" com.algorand.android
  */
+
+@Serializable
 sealed interface DeepLink {
 
     /**
@@ -85,6 +89,8 @@ sealed interface DeepLink {
      * &fee=2000000
      * &note=Consensus%2Bparticipation%2Bftw
      */
+
+    @Serializable
     data class KeyReg(
         val senderAddress: String,
         val type: String,

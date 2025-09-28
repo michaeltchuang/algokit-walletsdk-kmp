@@ -1,6 +1,9 @@
 package com.michaeltchuang.walletsdk.utils
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 
 fun ByteArray.clearFromMemory(): ByteArray {
     // Overwrite the byte array contents with zeros
@@ -8,46 +11,33 @@ fun ByteArray.clearFromMemory(): ByteArray {
     return ByteArray(0)
 }
 
-/*fun Context.getTextFromClipboard(): String? {
-    val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java) ?: return ""
-    return clipboard.getTextFromClipboard()
+val jsonConfig = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
 }
 
-fun ClipboardManager.getTextFromClipboard(): String? {
-    val firstClip = primaryClip?.getItemAt(0)?.text?.toString().orEmpty()
-    return when (getClipboardMimeType(primaryClipDescription)) {
-        MIMETYPE_TEXT_PLAIN -> firstClip
-        MIMETYPE_TEXT_HTML -> HtmlCompat.fromHtml(firstClip, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            .toString()
-
-        else -> null
-    }
+inline fun <reified T> SavedStateHandle.setObject(value: T) {
+    this["data"] = jsonConfig.encodeToString(serializer<T>(), value)
 }
 
-private fun getClipboardMimeType(clipDescription: ClipDescription?): String? {
-    return clipDescription?.let { safeClipDescription ->
-        when {
-            safeClipDescription.hasMimeType(MIMETYPE_TEXT_HTML) -> MIMETYPE_TEXT_HTML
-            safeClipDescription.hasMimeType(MIMETYPE_TEXT_PLAIN) -> MIMETYPE_TEXT_PLAIN
-            else -> null
-        }
-    }
-}*/
+inline fun <reified T> SavedStateHandle.getObject(): T? {
+    val json = this.get<String>("data") ?: return null
+    return jsonConfig.decodeFromString(serializer<T>(), json)
+}
 
-
-fun <T> NavController.navigateWithArgument(route: String, bundle: T) {
+inline fun <reified T> NavController.navigateWithArgument(route: String, bundle: T) {
     setData(bundle)
     navigate(route)
 }
 
-private fun <T> NavController.setData(data: T) {
+inline fun <reified T> NavController.setData(data: T) {
     currentBackStackEntry
-        ?.savedStateHandle
-        ?.set("data", data)
+        ?.savedStateHandle?.setObject(data )
+
 }
 
-fun <T> NavController.getData(): T? {
+inline fun <reified T> NavController.getData(): T? {
     return this.previousBackStackEntry
         ?.savedStateHandle
-        ?.get<T>("data")
+        ?.getObject()
 }
