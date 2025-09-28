@@ -1,0 +1,177 @@
+{
+  "originHash" : "695552b85450f4327b8b00f9f77fe1ac452d2c4d688d98e0363e0a32fe98f807",
+  "pins" : [
+    {
+      "identity" : "algorand-devrel-xhd-wallet-api-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeltchuang/algorand-devrel-xHD-Wallet-API-swift.git",
+      "state" : {
+        "revision" : "43d102eb022965a901ccbe3b763ab6d11d69c36b",
+        "version" : "0.3.0"
+      }
+    },
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt.git",
+      "state" : {
+        "revision" : "e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe",
+        "version" : "5.7.0"
+      }
+    },
+    {
+      "identity" : "collectionconcurrencykit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JohnSundell/CollectionConcurrencyKit.git",
+      "state" : {
+        "revision" : "b4f23e24b5a1bff301efc5e70871083ca029ff95",
+        "version" : "0.2.0"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "e45a26384239e028ec87fbcc788f513b67e10d8f",
+        "version" : "1.9.0"
+      }
+    },
+    {
+      "identity" : "ed25519swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pebble8888/ed25519swift",
+      "state" : {
+        "revision" : "1e821f5516049f5b83aca8cb3b982910cf8c028c",
+        "version" : "1.2.8"
+      }
+    },
+    {
+      "identity" : "jsonschema.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/algorandfoundation/JSONSchema.swift.git",
+      "state" : {
+        "revision" : "92385c024dee684e0b6b9dee6ee067844bf61f38",
+        "version" : "0.7.0"
+      }
+    },
+    {
+      "identity" : "messagepack.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/a2/MessagePack.swift.git",
+      "state" : {
+        "revision" : "27b35fd49e92fcae395bf8ccb233499d89cc7890",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "mnemonicswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Electric-Coin-Company/MnemonicSwift",
+      "state" : {
+        "revision" : "2d7f3e76e904621e111efada6cc9575f39543bb2",
+        "version" : "2.2.5"
+      }
+    },
+    {
+      "identity" : "pathkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/PathKit.git",
+      "state" : {
+        "revision" : "3bfd2737b700b9a36565a8c94f4ad2b050a5e574",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "sourcekitten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/SourceKitten.git",
+      "state" : {
+        "revision" : "731ffe6a35344a19bab00cdca1c952d5b4fee4d8",
+        "version" : "0.37.2"
+      }
+    },
+    {
+      "identity" : "spectre",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/Spectre.git",
+      "state" : {
+        "revision" : "26cc5e9ae0947092c7139ef7ba612e34646086c7",
+        "version" : "0.10.1"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "309a47b2b1d9b5e991f36961c983ecec72275be3",
+        "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "60f13f60c4d093691934dc6cfdf5f508ada1f894",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "swift-sodium-full",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/algorandfoundation/swift-sodium-full.git",
+      "state" : {
+        "revision" : "4859e76668cdf80e0b01d76eaf0c70d50e1f1bd9",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "21b3b45635decd1a0b89968f81b6d9a93128f773",
+        "version" : "602.0.0-prerelease-2025-08-11"
+      }
+    },
+    {
+      "identity" : "swiftlint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/SwiftLint",
+      "state" : {
+        "revision" : "cc6fbaf355caf9ebe02c1b631a8edaa6df9145c5",
+        "version" : "0.61.0"
+      }
+    },
+    {
+      "identity" : "swiftytexttable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scottrhoyt/SwiftyTextTable.git",
+      "state" : {
+        "revision" : "c6df6cf533d120716bff38f8ff9885e1ce2a4ac3",
+        "version" : "0.9.0"
+      }
+    },
+    {
+      "identity" : "swxmlhash",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/drmohundro/SWXMLHash.git",
+      "state" : {
+        "revision" : "a853604c9e9a83ad9954c7e3d2a565273982471f",
+        "version" : "7.0.2"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams.git",
+      "state" : {
+        "revision" : "d41ba4e7164c0838c6d48351f7575f7f762151fe",
+        "version" : "6.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}

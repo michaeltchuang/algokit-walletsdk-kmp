@@ -119,7 +119,7 @@ fun AccountListScreen(
                     address = it
                     onAccountItemClick = true
                     showSheet = true
-                    //viewModel.deleteAccount(address)
+                    // viewModel.deleteAccount(address)
                 }
             },
         )
@@ -135,7 +135,7 @@ fun AccountListScreen(
         onAccountDeleted = {
             showSheet = false
             viewModel.fetchAccounts()
-        }
+        },
     ) { event ->
         handleBottomSheetEvent(
             event = event,
@@ -275,7 +275,7 @@ private fun handleBottomSheetEvent(
 
         AlgoKitEvent.ALGO25_ACCOUNT_CREATED,
         AlgoKitEvent.HD_ACCOUNT_CREATED,
-            -> {
+        -> {
             onAccountCreated()
         }
     }
