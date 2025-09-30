@@ -7,7 +7,6 @@ internal class ParseDeepLinkPayloadImpl(
     private val peraUriParser: PeraUriParser,
     private val mnemonicQueryParser: DeepLinkQueryParser<String?>,
 ) : ParseDeepLinkPayload {
-
     override fun invoke(url: String): DeepLinkPayload {
         val peraUri = peraUriParser.parseUri(url)
         return DeepLinkPayload(
@@ -28,7 +27,7 @@ internal class ParseDeepLinkPayloadImpl(
             type = peraUri.getQueryParam(TYPE_QUERY_KEY),
             path = peraUri.getQueryParam(PATH_KEY),
             host = peraUri.host,
-            rawDeepLinkUri = url
+            rawDeepLinkUri = url,
         )
     }
 

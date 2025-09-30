@@ -28,14 +28,14 @@ private fun AlgoKitCoreIcon(
     painter: Painter,
     contentDescription: String,
     tintColor: Color?,
-    contentScale: ContentScale
+    contentScale: ContentScale,
 ) {
     Image(
         modifier = modifier,
         painter = painter,
         contentDescription = contentDescription,
         colorFilter = tintColor?.let { ColorFilter.tint(it) },
-        contentScale = contentScale
+        contentScale = contentScale,
     )
 }
 
@@ -45,14 +45,14 @@ fun AlgoKitIcon(
     painter: Painter,
     contentDescription: String,
     tintColor: Color? = null,
-    contentScale: ContentScale = Fit
+    contentScale: ContentScale = Fit,
 ) {
-   AlgoKitCoreIcon(
+    AlgoKitCoreIcon(
         modifier = modifier,
         painter = painter,
         contentDescription = contentDescription,
         tintColor = tintColor,
-        contentScale = contentScale
+        contentScale = contentScale,
     )
 }
 
@@ -62,20 +62,21 @@ fun AlgoKitIconRoundShape(
     imageVector: ImageVector,
     contentDescription: String,
     backgroundColor: Color = AlgoKitTheme.colors.wallet4,
-    tintColor: Color = AlgoKitTheme.colors.wallet4Icon
+    tintColor: Color = AlgoKitTheme.colors.wallet4Icon,
 ) {
     Box(
-        modifier = modifier
-            .padding(start = 10.dp)
-            .size(40.dp)
-            .clip(shape = CircleShape)
-            .background(color = backgroundColor)
+        modifier =
+            modifier
+                .padding(start = 10.dp)
+                .size(40.dp)
+                .clip(shape = CircleShape)
+                .background(color = backgroundColor),
     ) {
         Icon(
             modifier = Modifier.align(Alignment.Center),
             imageVector = imageVector,
             tint = tintColor,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
         )
     }
 }
@@ -84,23 +85,25 @@ fun AlgoKitIconRoundShape(
 fun AlgoKitIconRoundShapeBig(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    contentDescription: String
+    contentDescription: String,
 ) {
     Box(
-        modifier = modifier
-            .padding(start = 10.dp)
-            .size(64.dp)
-            .clip(shape = CircleShape)
-            .background(color = AlgoKitTheme.colors.layerGrayLighter)
+        modifier =
+            modifier
+                .padding(start = 10.dp)
+                .size(64.dp)
+                .clip(shape = CircleShape)
+                .background(color = AlgoKitTheme.colors.layerGrayLighter),
     ) {
         Icon(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .height(40.dp)
-                .width(40.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .height(40.dp)
+                    .width(40.dp),
             imageVector = imageVector,
             tint = AlgoKitTheme.colors.textMain,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
         )
     }
 }

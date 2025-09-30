@@ -13,16 +13,13 @@ class NameRegistrationUseCase(
     private val getAccountRegistrationTypeUseCase: GetAccountRegistrationTypeUseCase,
     private val getLocalAccountsUseCase: GetLocalAccountsUseCase,
     private val deleteHdKeyAccountUseCase: DeleteHdKeyAccountUseCase,
-    private val deleteAlgo25AccountUseCase: DeleteAlgo25AccountUseCase
+    private val deleteAlgo25AccountUseCase: DeleteAlgo25AccountUseCase,
 ) {
-
     suspend fun addNewAccount(accountCreation: AccountCreation) {
         accountAdditionUseCase.addNewAccount(accountCreation)
     }
 
-    suspend fun getAccount(): List<LocalAccount> {
-        return getLocalAccountsUseCase()
-    }
+    suspend fun getAccount(): List<LocalAccount> = getLocalAccountsUseCase()
 
     suspend fun getAccountLite(): List<AccountLite> {
         val localAccounts = getLocalAccountsUseCase()
@@ -31,7 +28,7 @@ class NameRegistrationUseCase(
             AccountLite(
                 account.algoAddress,
                 customInfoMap[account.algoAddress]?.customName ?: "",
-                getAccountRegistrationTypeUseCase(account)
+                getAccountRegistrationTypeUseCase(account),
             )
         }
     }

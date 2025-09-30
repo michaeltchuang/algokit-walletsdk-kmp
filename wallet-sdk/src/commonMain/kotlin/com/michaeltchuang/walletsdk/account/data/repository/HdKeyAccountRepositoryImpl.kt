@@ -19,50 +19,43 @@ internal class HdKeyAccountRepositoryImpl(
     private val hdKeyEntityMapper: HdKeyEntityMapper,
     private val hdWalletSummaryMapper: HdWalletSummaryMapper,
     private val hdKeyMapper: HdKeyMapper,
-   /* private val aesPlatformManager: AESPlatformManager,*/
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    // private val aesPlatformManager: AESPlatformManager,
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : HdKeyAccountRepository {
-
-    override fun getAllAsFlow(): Flow<List<HdKey>> {
-        return hdKeyDao.getAllAsFlow().map { entityList ->
+    override fun getAllAsFlow(): Flow<List<HdKey>> =
+        hdKeyDao.getAllAsFlow().map { entityList ->
             entityList.map { entity -> hdKeyMapper(entity) }
         }
-    }
 
-    override fun getAccountCountAsFlow(): Flow<Int> {
-        return hdKeyDao.getTableSizeAsFlow()
-    }
+    override fun getAccountCountAsFlow(): Flow<Int> = hdKeyDao.getTableSizeAsFlow()
 
-    override suspend fun getAccountCount(): Int {
-        return hdKeyDao.getTableSize()
-    }
+    override suspend fun getAccountCount(): Int = hdKeyDao.getTableSize()
 
-    override suspend fun getAll(): List<HdKey> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAll(): List<HdKey> =
+        withContext(coroutineDispatcher) {
             val hdKeyEntities = hdKeyDao.getAll()
             hdKeyEntities.map { hdKeyMapper(it) }
         }
-    }
 
-    override suspend fun getAllAddresses(): List<String> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllAddresses(): List<String> =
+        withContext(coroutineDispatcher) {
             hdKeyDao.getAllAddresses()
         }
-    }
 
-    override suspend fun getAccount(address: String): HdKey? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAccount(address: String): HdKey? =
+        withContext(coroutineDispatcher) {
             hdKeyDao.get(address)?.let { hdKeyMapper(it) }
         }
-    }
 
-    override suspend fun getDerivedAddressCountOfSeed(seedId: Int): Int {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getDerivedAddressCountOfSeed(seedId: Int): Int =
+        withContext(coroutineDispatcher) {
             hdKeyDao.getDerivedAddressCountOfSeed(seedId)
         }
-    }
 
-    override suspend fun addAccount(account: HdKey, privateKey: ByteArray) {
+    override suspend fun addAccount(
+        account: HdKey,
+        privateKey: ByteArray,
+    ) {
         withContext(coroutineDispatcher) {
             val hdKeyEntity = hdKeyEntityMapper(account, privateKey)
             hdKeyDao.insert(hdKeyEntity)
@@ -81,31 +74,30 @@ internal class HdKeyAccountRepositoryImpl(
         }
     }
 
-    override suspend fun getPrivateKey(address: String): ByteArray? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getPrivateKey(address: String): ByteArray? =
+        withContext(coroutineDispatcher) {
             val encryptedSK = hdKeyDao.get(address)?.encryptedPrivateKey
-           // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
+            // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
             ByteArray(0)
         }
-    }
 
-    override suspend fun getHdWalletSummaries(): List<HdWalletSummary> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getHdWalletSummaries(): List<HdWalletSummary> =
+        withContext(coroutineDispatcher) {
             val hdKeyEntities = hdKeyDao.getAll()
 
-            val uniqueHdKeyEntities = hdKeyEntities.groupBy { it.seedId }
-                .mapNotNull { (_, group) -> group.maxByOrNull { it.account } }
+            val uniqueHdKeyEntities =
+                hdKeyEntities
+                    .groupBy { it.seedId }
+                    .mapNotNull { (_, group) -> group.maxByOrNull { it.account } }
 
             uniqueHdKeyEntities.map { uniqueHdKeyEntity ->
                 val accountCount = hdKeyEntities.count { uniqueHdKeyEntity.seedId == it.seedId }
                 hdWalletSummaryMapper(uniqueHdKeyEntity, accountCount)
             }
         }
-    }
 
-    override suspend fun getHdSeedId(address: String): Int? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getHdSeedId(address: String): Int? =
+        withContext(coroutineDispatcher) {
             hdKeyDao.getHdSeedId(address)
         }
-    }
 }

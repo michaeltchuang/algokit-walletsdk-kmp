@@ -48,9 +48,11 @@ object AlgoKitBip39 {
 
         // Convert entropy bits to bytes
         val entropyBytes =
-            entropyBits.chunked(8).map { byte ->
-                byte.toInt(2).toByte()
-            }.toByteArray()
+            entropyBits
+                .chunked(8)
+                .map { byte ->
+                    byte.toInt(2).toByte()
+                }.toByteArray()
 
         // Verify checksum (optional but recommended)
         // val computedChecksum = sha256(entropyBytes).first().toString(2).padStart(8, '0')

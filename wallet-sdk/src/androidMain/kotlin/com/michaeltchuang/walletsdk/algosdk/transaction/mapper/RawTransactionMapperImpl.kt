@@ -12,8 +12,8 @@ internal class RawTransactionMapperImpl(
     private val assetConfigParametersMapper: AssetConfigParametersMapper,
     private val applicationCallStateSchemaMapper: ApplicationCallStateSchemaMapper,
 ) : RawTransactionMapper {
-    override fun invoke(payload: RawTransactionPayload): RawTransaction {
-        return RawTransaction(
+    override fun invoke(payload: RawTransactionPayload): RawTransaction =
+        RawTransaction(
             amount = payload.amount,
             fee = payload.fee,
             firstValidRound = payload.firstValidRound,
@@ -42,5 +42,4 @@ internal class RawTransactionMapperImpl(
             assetConfigParameters = assetConfigParametersMapper(payload.decodedAssetConfigParameters),
             groupId = payload.groupId,
         )
-    }
 }

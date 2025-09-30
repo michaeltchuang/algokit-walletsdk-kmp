@@ -7,9 +7,7 @@ internal class CreateDeepLinkImpl(
     private val parseDeepLinkPayload: ParseDeepLinkPayload,
     private val mnemonicDeepLinkBuilder: DeepLinkBuilder,
     private val keyRegTransactionDeepLinkBuilder: DeepLinkBuilder,
-
 ) : CreateDeepLink {
-
     override fun invoke(url: String): DeepLink {
         val payload = parseDeepLinkPayload(url)
 

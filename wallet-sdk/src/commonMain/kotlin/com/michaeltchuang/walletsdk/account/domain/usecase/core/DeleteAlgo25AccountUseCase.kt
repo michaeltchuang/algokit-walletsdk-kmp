@@ -6,9 +6,8 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.DeleteAlgo25Acc
 
 class DeleteAlgo25AccountUseCase(
     private val algo25AccountRepository: Algo25AccountRepository,
-    private val customInfo: DeleteAccountCustomInfo
+    private val customInfo: DeleteAccountCustomInfo,
 ) : DeleteAlgo25Account {
-
     override suspend fun invoke(address: String) {
         algo25AccountRepository.deleteAccount(address)
         customInfo.invoke(address)

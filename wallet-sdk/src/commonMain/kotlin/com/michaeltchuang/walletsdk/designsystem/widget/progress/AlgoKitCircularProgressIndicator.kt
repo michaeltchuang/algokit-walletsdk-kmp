@@ -14,13 +14,14 @@ import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 fun PeraCircularProgressIndicator(
     modifier: Modifier = Modifier,
     color: Color = AlgoKitTheme.colors.linkPrimary,
-    strokeWidth: Dp = 3.dp
+    strokeWidth: Dp = 3.dp,
 ) {
     CircularProgressIndicator(
-        modifier = modifier
-            .width(24.dp)
-            .height(24.dp),
+        modifier =
+            modifier
+                .width(24.dp)
+                .height(24.dp),
         color = color,
-        strokeWidth = strokeWidth
+        strokeWidth = strokeWidth,
     )
 }

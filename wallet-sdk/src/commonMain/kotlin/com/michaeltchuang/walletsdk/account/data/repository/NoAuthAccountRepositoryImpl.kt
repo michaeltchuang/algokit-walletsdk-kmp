@@ -16,42 +16,33 @@ internal class NoAuthAccountRepositoryImpl(
     private val noAuthDao: NoAuthDao,
     private val noAuthEntityMapper: NoAuthEntityMapper,
     private val noAuthMapper: NoAuthMapper,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : NoAuthAccountRepository {
-
-    override fun getAllAsFlow(): Flow<List<NoAuth>> {
-        return noAuthDao.getAllAsFlow().map { entityList ->
+    override fun getAllAsFlow(): Flow<List<NoAuth>> =
+        noAuthDao.getAllAsFlow().map { entityList ->
             entityList.map { entity -> noAuthMapper(entity) }
         }
-    }
 
-    override fun getAccountCountAsFlow(): Flow<Int> {
-        return noAuthDao.getTableSizeAsFlow()
-    }
+    override fun getAccountCountAsFlow(): Flow<Int> = noAuthDao.getTableSizeAsFlow()
 
-    override suspend fun getAccountCount(): Int {
-        return noAuthDao.getTableSize()
-    }
+    override suspend fun getAccountCount(): Int = noAuthDao.getTableSize()
 
-    override suspend fun getAll(): List<NoAuth> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAll(): List<NoAuth> =
+        withContext(coroutineDispatcher) {
             val noAuthEntities = noAuthDao.getAll()
             noAuthEntities.map { noAuthMapper(it) }
         }
-    }
 
-    override suspend fun getAllAddresses(): List<String> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllAddresses(): List<String> =
+        withContext(coroutineDispatcher) {
             noAuthDao.getAllAddresses()
         }
-    }
 
-    override suspend fun getAccount(address: String): NoAuth? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAccount(address: String): NoAuth? =
+        withContext(coroutineDispatcher) {
             val noAuthEntity = noAuthDao.get(address)
             noAuthEntity?.let { noAuthMapper(it) }
         }
-    }
 
     override suspend fun addAccount(account: NoAuth) {
         withContext(coroutineDispatcher) {
@@ -72,9 +63,8 @@ internal class NoAuthAccountRepositoryImpl(
         }
     }
 
-    override suspend fun isAddressExists(address: String): Boolean {
-        return withContext(coroutineDispatcher) {
+    override suspend fun isAddressExists(address: String): Boolean =
+        withContext(coroutineDispatcher) {
             noAuthDao.isAddressExists(address)
         }
-    }
 }

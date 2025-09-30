@@ -84,28 +84,30 @@ fun RecoveryPhraseScreen(
     }
 
     Box(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(horizontal = 16.dp),
     ) {
         Column {
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                horizontalArrangement = Arrangement.Absolute.SpaceBetween,
             ) {
                 AlgoKitTopBar(
-                    modifier = Modifier
-                        .wrapContentSize(),
-                    onClick = { navController.popBackStack() }
+                    modifier =
+                        Modifier
+                            .wrapContentSize(),
+                    onClick = { navController.popBackStack() },
                 )
                 Row(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(end = 16.dp)
+                    modifier =
+                        Modifier
+                            .wrapContentSize()
+                            .padding(end = 16.dp),
                 ) {
                     IconButton(
                         onClick = {
@@ -116,14 +118,15 @@ fun RecoveryPhraseScreen(
                                 }
                             }
                         },
-                        modifier = Modifier
-                            .size(32.dp)
-                            .padding(end = 8.dp)
+                        modifier =
+                            Modifier
+                                .size(32.dp)
+                                .padding(end = 8.dp),
                     ) {
                         Icon(
                             tint = AlgoKitTheme.colors.textMain,
                             painter = painterResource(Res.drawable.ic_clipboard),
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
 
@@ -131,35 +134,36 @@ fun RecoveryPhraseScreen(
                         onClick = {
                             webViewController.open(WalletSdkConstants.RECOVER_ACCOUNT_LEARN_MORE)
                         },
-                        modifier = Modifier
-                            .size(32.dp)
-                            .padding(start = 8.dp)
+                        modifier =
+                            Modifier
+                                .size(32.dp)
+                                .padding(start = 8.dp),
                     ) {
                         Icon(
                             tint = AlgoKitTheme.colors.textMain,
                             painter = painterResource(Res.drawable.ic_info),
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
                 }
-
             }
 
             RecoveryPhraseContent(
                 modifier = Modifier.fillMaxHeight(0.8f),
-                predefinedWords = mnemonicList
+                predefinedWords = mnemonicList,
             )
             Spacer(modifier = Modifier.height(32.dp))
             AlgoKitPrimaryButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
                 {
                     when (mnemonicList.size) {
                         OnboardingAccountType.Algo25.wordCount -> {
                             viewModel.onRecoverAccount(
                                 mnemonic,
-                                OnboardingAccountType.Algo25
+                                OnboardingAccountType.Algo25,
                             )
                         }
 
@@ -174,23 +178,25 @@ fun RecoveryPhraseScreen(
 
 @Composable
 fun RecoveryPhraseContent(
-    modifier: Modifier, predefinedWords: List<String>
+    modifier: Modifier,
+    predefinedWords: List<String>,
 ) {
     Column(modifier = modifier) {
         Text(
             style = AlgoKitTheme.typography.title.regular.sansMedium,
             text = stringResource(Res.string.enter_your_recovery_passphrase),
-            color = AlgoKitTheme.colors.textMain
+            color = AlgoKitTheme.colors.textMain,
         )
         Spacer(modifier = Modifier.height(32.dp))
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxSize()
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxSize(),
         ) {
             val wordCount = if (predefinedWords.isNotEmpty()) predefinedWords.size else 25
             items((wordCount + 1) / 2) { rowIndex ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     val leftIndex = rowIndex
                     val rightIndex = rowIndex + (wordCount + 1) / 2
@@ -200,7 +206,7 @@ fun RecoveryPhraseContent(
                             index = leftIndex,
                             value = if (predefinedWords.isNotEmpty()) predefinedWords[leftIndex] else "",
                             onValueChange = { /*recoveryWords[leftIndex] = it*/ },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
                         )
                     }
 
@@ -208,8 +214,8 @@ fun RecoveryPhraseContent(
                         RecoveryWordField(
                             index = rightIndex,
                             value = if (predefinedWords.isNotEmpty()) predefinedWords[rightIndex] else "",
-                            onValueChange = {/* recoveryWords[rightIndex] = it*/ },
-                            modifier = Modifier.weight(1f)
+                            onValueChange = { /* recoveryWords[rightIndex] = it*/ },
+                            modifier = Modifier.weight(1f),
                         )
                     } else {
                         Spacer(modifier = Modifier.weight(1f))
@@ -222,17 +228,21 @@ fun RecoveryPhraseContent(
 
 @Composable
 fun RecoveryWordField(
-    index: Int, value: String, onValueChange: (String) -> Unit, modifier: Modifier = Modifier
+    index: Int,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically, modifier = modifier.padding(8.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(8.dp),
     ) {
         Text(
             modifier = Modifier.padding(4.dp),
             text = "${index + 1}",
             style = AlgoKitTheme.typography.title.regular.sans,
             fontSize = 14.sp,
-            color = AlgoKitTheme.colors.textMain
+            color = AlgoKitTheme.colors.textMain,
         )
 
         Column {
@@ -240,23 +250,23 @@ fun RecoveryWordField(
                 text = value,
                 fontSize = 16.sp,
                 color = AlgoKitTheme.colors.textMain,
-                style = AlgoKitTheme.typography.title.regular.sans
+                style = AlgoKitTheme.typography.title.regular.sans,
             )
             Spacer(modifier = Modifier.height(4.dp))
             HorizontalDivider(
-                thickness = 1.dp, color = Color.Gray
+                thickness = 1.dp,
+                color = Color.Gray,
             )
         }
-
     }
 }
-
 
 @Preview
 @Composable
 fun RecoveryPhraseScreenPreview() {
     val words = SAMPLE_ALGO25_MNEMONIC
     RecoveryPhraseScreen(
-        rememberNavController(), words
+        rememberNavController(),
+        words,
     ) {}
 }

@@ -1,6 +1,8 @@
 package com.michaeltchuang.walletsdk.algosdk.bip39.model
 
-data class Bip39Entropy(val value: ByteArray) {
+data class Bip39Entropy(
+    val value: ByteArray,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         //  if (javaClass != other?.javaClass) return false
@@ -10,7 +12,5 @@ data class Bip39Entropy(val value: ByteArray) {
         return value.contentEquals(other.value)
     }
 
-    override fun hashCode(): Int {
-        return value.contentHashCode()
-    }
+    override fun hashCode(): Int = value.contentHashCode()
 }

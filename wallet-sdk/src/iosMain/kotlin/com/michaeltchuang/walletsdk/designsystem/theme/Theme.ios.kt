@@ -15,22 +15,25 @@ import platform.UIKit.UIStatusBarStyleLightContent
 import platform.UIKit.setStatusBarStyle
 
 private const val THEME_KEY = "theme_key"
+
 @Composable
 internal actual fun SystemAppearance(isDark: Boolean) {
     LaunchedEffect(isDark) {
         UIApplication.sharedApplication.setStatusBarStyle(
-            if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent
+            if (isDark) UIStatusBarStyleDarkContent else UIStatusBarStyleLightContent,
         )
     }
 }
 
-actual class ThemePreferenceRepository actual constructor(context: Any?) {
+actual class ThemePreferenceRepository actual constructor(
+    context: Any?,
+) {
     private val stateFlow = MutableStateFlow<ThemePreference>(ThemePreference.SYSTEM)
     private val defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults
 
     init {
         val saved = defaults.objectForKey(THEME_KEY) as? String
-        stateFlow.value = saved?.let { name -> ThemePreference.entries.find { it.name == name } }?: ThemePreference.SYSTEM
+        stateFlow.value = saved?.let { name -> ThemePreference.entries.find { it.name == name } } ?: ThemePreference.SYSTEM
     }
 
     actual fun getSavedThemePreferenceFlow(): Flow<ThemePreference> = stateFlow.asStateFlow()
@@ -44,6 +47,4 @@ actual class ThemePreferenceRepository actual constructor(context: Any?) {
 }
 
 @Composable
-actual fun provideThemePreferenceRepository(): ThemePreferenceRepository {
-    return ThemePreferenceRepository()
-}
+actual fun provideThemePreferenceRepository(): ThemePreferenceRepository = ThemePreferenceRepository()

@@ -56,7 +56,7 @@ private const val TAG = "HdWalletSelectionScreen"
 @Composable
 fun HdWalletSelectionScreen(
     viewModel: HDWalletSelectionViewModel = koinViewModel(),
-    navController: NavController
+    navController: NavController,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
@@ -81,9 +81,10 @@ fun HdWalletSelectionScreen(
         walletItemClick = {
             viewModel.createNewHdAccount(
                 it.seedId,
-                it.maxAccountIndex
+                it.maxAccountIndex,
             )
-        })
+        },
+    )
 }
 
 @Composable
@@ -91,23 +92,24 @@ fun HdWalletSelectionScreenContent(
     viewState: HDWalletSelectionViewModel.ViewState,
     navController: NavController,
     createNewWalletClick: () -> Unit = {},
-    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit = {}
+    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit = {},
 ) {
     Box(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxWidth()
-            .fillMaxHeight()
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxWidth()
+                .fillMaxHeight(),
     ) {
-
         Column(
-            modifier = Modifier
-                .fillMaxHeight(.9f)
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.Center
+            modifier =
+                Modifier
+                    .fillMaxHeight(.9f)
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+            verticalArrangement = Arrangement.Center,
         ) {
             AlgoKitTopBar(
-                onClick = { navController.popBackStack() }
+                onClick = { navController.popBackStack() },
             )
             when (viewState) {
                 is HDWalletSelectionViewModel.ViewState.Content -> {
@@ -115,7 +117,7 @@ fun HdWalletSelectionScreenContent(
                         navController,
                         viewState.walletItemPreviews,
                         createNewWalletClick,
-                        walletItemClick
+                        walletItemClick,
                     )
                 }
 
@@ -133,25 +135,25 @@ private fun ContentState(
     navController: NavController,
     walletItems: List<HDWalletSelectionViewModel.WalletItemPreview>,
     createNewWalletClick: () -> Unit,
-    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit
+    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit,
 ) {
     Box {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 24.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = 24.dp),
         ) {
-
             Text(
                 style = AlgoKitTheme.typography.title.regular.sansMedium,
                 text = stringResource(Res.string.select_universal_wallet),
-                color = AlgoKitTheme.colors.textMain
+                color = AlgoKitTheme.colors.textMain,
             )
             Text(
                 style = AlgoKitTheme.typography.body.regular.sans,
                 text = stringResource(Res.string.create_your_new_account),
                 color = AlgoKitTheme.colors.textGray,
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier.padding(top = 12.dp),
             )
             LazyColumn(modifier = Modifier.padding(top = 24.dp, bottom = 50.dp)) {
                 items(walletItems) { walletItemPreview ->
@@ -161,10 +163,12 @@ private fun ContentState(
                             walletName = walletItemPreview.name,
                             numberOfAccounts = walletItemPreview.numberOfAccounts,
                             icon = vectorResource(Res.drawable.ic_wallet),
-                            iconContentDescription = stringResource(
-                                Res.string.create_a_new_algorand_account_with
-                            ),
-                            onClick = { walletItemClick(walletItemPreview) })
+                            iconContentDescription =
+                                stringResource(
+                                    Res.string.create_a_new_algorand_account_with,
+                                ),
+                            onClick = { walletItemClick(walletItemPreview) },
+                        )
                     }
                 }
             }
@@ -174,16 +178,18 @@ private fun ContentState(
                 createNewWalletClick()
             },
             text = stringResource(Res.string.create_a_new_wallet),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth(),
             leftIcon = {
-               AlgoKitIcon(
+                AlgoKitIcon(
                     painter = painterResource(Res.drawable.ic_plus),
                     contentDescription = stringResource(Res.string.plus),
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
-            })
+            },
+        )
     }
 }
 
@@ -194,38 +200,40 @@ fun WalletItem(
     numberOfAccounts: String,
     icon: ImageVector,
     iconContentDescription: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp)
-            .fillMaxWidth()
-            .padding(vertical = 20.dp),
+        modifier =
+            modifier
+                .clickable { onClick() }
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(AlgoKitTheme.colors.layerGrayLighter)
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(AlgoKitTheme.colors.layerGrayLighter)
+                    .padding(8.dp),
             imageVector = icon,
             contentDescription = iconContentDescription,
-            tint = AlgoKitTheme.colors.textMain
+            tint = AlgoKitTheme.colors.textMain,
         )
         Spacer(modifier = Modifier.width(24.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 style = AlgoKitTheme.typography.body.regular.sans,
                 color = AlgoKitTheme.colors.textMain,
-                text = walletName
+                text = walletName,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 style = AlgoKitTheme.typography.footnote.sans,
                 color = AlgoKitTheme.colors.textGrayLighter,
-                text = numberOfAccounts
+                text = numberOfAccounts,
             )
         }
     }
@@ -238,7 +246,7 @@ fun HdWalletSelectionScreenContentPreview() {
     AlgoKitTheme {
         HdWalletSelectionScreenContent(
             viewState = fakeViewState,
-            navController = rememberNavController()
+            navController = rememberNavController(),
         )
     }
 }

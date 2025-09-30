@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 class QRScannerViewModel(
     private val deeplinkHandler: DeeplinkHandler,
     private val eventDelegate: EventDelegate<ViewEvent>,
-) : ViewModel(), EventViewModel<QRScannerViewModel.ViewEvent> by eventDelegate {
-
+) : ViewModel(),
+    EventViewModel<QRScannerViewModel.ViewEvent> by eventDelegate {
     init {
         viewModelScope.launch {
             deeplinkHandler.deepLinkState.collect {
@@ -26,8 +26,8 @@ class QRScannerViewModel(
                     is DeeplinkHandler.DeepLinkState.KeyReg -> {
                         eventDelegate.sendEvent(
                             ViewEvent.NavigateToTransactionSignatureRequestScreen(
-                                it.keyReg
-                            )
+                                it.keyReg,
+                            ),
                         )
                     }
 
@@ -46,9 +46,13 @@ class QRScannerViewModel(
     }
 
     interface ViewEvent {
-        data class NavigateToRecoveryPhraseScreen(val mnemonic: String) : ViewEvent
-        data class NavigateToTransactionSignatureRequestScreen(val keyReg: DeepLink.KeyReg) :
-            ViewEvent
+        data class NavigateToRecoveryPhraseScreen(
+            val mnemonic: String,
+        ) : ViewEvent
+
+        data class NavigateToTransactionSignatureRequestScreen(
+            val keyReg: DeepLink.KeyReg,
+        ) : ViewEvent
 
         object ShowUnrecognizedDeeplink : ViewEvent
     }

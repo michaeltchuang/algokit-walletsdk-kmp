@@ -8,7 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-enum class AlgoKitEvent() {
+enum class AlgoKitEvent {
     CLOSE_BOTTOM_SHEET,
     HD_ACCOUNT_CREATED,
     ALGO25_ACCOUNT_CREATED,

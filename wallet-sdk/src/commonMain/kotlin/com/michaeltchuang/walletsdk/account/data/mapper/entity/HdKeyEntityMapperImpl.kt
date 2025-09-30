@@ -3,16 +3,14 @@ package com.michaeltchuang.walletsdk.account.data.mapper.entity
 import com.michaeltchuang.walletsdk.account.data.database.model.HdKeyEntity
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 
-
 internal class HdKeyEntityMapperImpl(
-   /* private val aesPlatformManager: AESPlatformManager*/
+    // private val aesPlatformManager: AESPlatformManager
 ) : HdKeyEntityMapper {
-
     override fun invoke(
         localAccount: LocalAccount.HdKey,
-        privateKey: ByteArray
-    ): HdKeyEntity {
-        return HdKeyEntity(
+        privateKey: ByteArray,
+    ): HdKeyEntity =
+        HdKeyEntity(
             algoAddress = localAccount.algoAddress,
             publicKey = localAccount.publicKey,
             encryptedPrivateKey = /*aesPlatformManager.encryptByteArray(privateKey)*/privateKey,
@@ -20,7 +18,6 @@ internal class HdKeyEntityMapperImpl(
             account = localAccount.account,
             change = localAccount.change,
             keyIndex = localAccount.keyIndex,
-            derivationType = localAccount.derivationType
+            derivationType = localAccount.derivationType,
         )
-    }
 }

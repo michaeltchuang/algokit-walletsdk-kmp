@@ -15,6 +15,6 @@ fun AlgoKitButtonIcon(iconResId: DrawableResource) {
         modifier = Modifier.size(24.dp),
         painter = painterResource(iconResId),
         contentDescription = null,
-        tint = AlgoKitTheme.colors.buttonPrimaryText
+        tint = AlgoKitTheme.colors.buttonPrimaryText,
     )
 }

@@ -14,8 +14,8 @@ internal class SuggestedParamsMapperImpl(
     override fun invoke(
         params: SuggestedTransactionParams,
         addGenesis: Boolean,
-    ): SuggestedParams {
-        return SuggestedParams().apply {
+    ): SuggestedParams =
+        SuggestedParams().apply {
             genesisID = if (addGenesis) params.genesisId else ""
             firstRoundValid = params.lastRound
             lastRoundValid = params.lastRound + ROUND_THRESHOLD
@@ -23,7 +23,6 @@ internal class SuggestedParamsMapperImpl(
             fee = params.fee.fee
             flatFee = params.fee.type == FeeType.Flat
         }
-    }
 
     companion object {
         private const val ROUND_THRESHOLD = 1000

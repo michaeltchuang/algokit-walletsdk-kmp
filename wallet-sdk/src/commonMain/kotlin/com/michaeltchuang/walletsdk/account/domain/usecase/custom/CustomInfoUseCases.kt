@@ -7,7 +7,10 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.HdSeedOrderIndex
 import kotlinx.coroutines.flow.Flow
 
 fun interface SetAccountCustomName {
-    suspend operator fun invoke(address: String, name: String)
+    suspend operator fun invoke(
+        address: String,
+        name: String,
+    )
 }
 
 fun interface GetAccountCustomName {
@@ -39,7 +42,10 @@ fun interface GetAccountCustomInfo {
 }
 
 fun interface SetAccountOrderIndex {
-    suspend operator fun invoke(address: String, orderIndex: Int)
+    suspend operator fun invoke(
+        address: String,
+        orderIndex: Int,
+    )
 }
 
 fun interface GetBackedUpAccounts {
@@ -69,7 +75,10 @@ fun interface ClearAllCustomInformation {
 // custom_hd_seed_info
 
 fun interface SetHdSeedCustomName {
-    suspend operator fun invoke(seedId: Int, name: String)
+    suspend operator fun invoke(
+        seedId: Int,
+        name: String,
+    )
 }
 
 fun interface GetHdSeedCustomName {
@@ -93,7 +102,10 @@ fun interface GetHdSeedCustomInfo {
 }
 
 fun interface SetHdSeedOrderIndex {
-    suspend operator fun invoke(seedId: Int, orderIndex: Int)
+    suspend operator fun invoke(
+        seedId: Int,
+        orderIndex: Int,
+    )
 }
 
 fun interface GetBackedUpHdSeeds {

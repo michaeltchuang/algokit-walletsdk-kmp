@@ -4,7 +4,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.HdSeed
 import kotlinx.coroutines.flow.Flow
 
 interface HdSeedRepository {
-
     fun getAllAsFlow(): Flow<List<HdSeed>>
 
     fun getSeedCountAsFlow(): Flow<Int>
@@ -21,7 +20,11 @@ interface HdSeedRepository {
 
     suspend fun getHdSeed(seedId: Int): HdSeed?
 
-    suspend fun addHdSeed(seedId: Int, entropy: ByteArray, seed: ByteArray): Long
+    suspend fun addHdSeed(
+        seedId: Int,
+        entropy: ByteArray,
+        seed: ByteArray,
+    ): Long
 
     suspend fun deleteHdSeed(seedId: Int)
 

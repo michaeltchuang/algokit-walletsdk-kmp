@@ -30,7 +30,8 @@ internal data class DeepLinkPayload(
 enum class NotificationGroupType {
     TRANSACTIONS,
     OPT_IN,
-    ASSET_INBOX;
+    ASSET_INBOX,
+    ;
 
     companion object {
         val DEFAULT = TRANSACTIONS

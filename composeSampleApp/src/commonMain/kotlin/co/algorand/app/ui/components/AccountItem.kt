@@ -21,6 +21,7 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIconRoundShape
+import com.michaeltchuang.walletsdk.utils.formatAmount
 import com.michaeltchuang.walletsdk.utils.toShortenedAddress
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -35,7 +36,10 @@ fun AccountItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp)
+                .clickable(onClick = {
+                    onAccountItemClick(account.address)
+                }),
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(
@@ -53,14 +57,10 @@ fun AccountItem(
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth(.8f)
+                        .weight(1f)
                         .padding(horizontal = 8.dp),
             ) {
                 Text(
-                    modifier =
-                        Modifier.clickable(onClick = {
-                            onAccountItemClick(account.address)
-                        }),
                     text = account.customName.ifEmpty { account.address.toShortenedAddress() },
                     style = typography.body.large.sansMedium,
                 )
@@ -70,7 +70,16 @@ fun AccountItem(
                 )
             }
 
-            Text(text = ("\u00A6") + "***", fontSize = 16.sp, style = typography.footnote.sansMedium)
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.padding(end = 8.dp),
+            ) {
+                Text(
+                    text = (("\u00A6") + account.balance?.formatAmount()),
+                    fontSize = 16.sp,
+                    style = typography.footnote.sansMedium,
+                )
+            }
         }
     }
 }
@@ -117,6 +126,7 @@ fun AccountItemPreview() {
         AccountLite(
             address = "ASDFGHJKLASDFGHJKL",
             customName = "Sample Account",
+            balance = "5000000000", // 5000 Algos in microAlgos
             registrationType = AccountRegistrationType.Algo25,
         )
 

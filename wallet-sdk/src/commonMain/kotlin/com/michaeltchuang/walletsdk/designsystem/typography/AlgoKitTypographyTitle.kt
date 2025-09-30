@@ -14,13 +14,12 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 
 @Composable
-internal fun getAlgoKitTypographyTitle(): AlgoKitTypography.Title {
-    return AlgoKitTypography.Title(
+internal fun getAlgoKitTypographyTitle(): AlgoKitTypography.Title =
+    AlgoKitTypography.Title(
         regular = getAlgoKitTypographyTitleRegular(),
         large = getAlgoKitTypographyTitleLarge(),
         small = getAlgoKitTypographyTitleSmall(),
     )
-}
 
 @Composable
 private fun getAlgoKitTypographyTitleRegular(): AlgoKitTypography.Title.TitleRegular {

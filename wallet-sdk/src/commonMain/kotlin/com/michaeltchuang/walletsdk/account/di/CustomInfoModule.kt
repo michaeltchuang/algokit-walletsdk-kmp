@@ -38,54 +38,51 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.custom.SetHdSeedCusto
 import com.michaeltchuang.walletsdk.account.domain.usecase.custom.SetHdSeedCustomName
 import com.michaeltchuang.walletsdk.account.domain.usecase.custom.SetHdSeedOrderIndex
 import com.michaeltchuang.walletsdk.foundation.database.AlgoKitDatabase
-
 import org.koin.dsl.module
 
+val customInfoModule =
+    module {
 
-val customInfoModule = module {
+        // DAOs
+        single<CustomAccountInfoDao> { get<AlgoKitDatabase>().customAccountInfoDao() }
+        single<CustomHdSeedInfoDao> { get<AlgoKitDatabase>().customHdSeedInfoDao() }
 
-    // DAOs
-    single<CustomAccountInfoDao> { get<AlgoKitDatabase>().customAccountInfoDao() }
-    single<CustomHdSeedInfoDao> { get<AlgoKitDatabase>().customHdSeedInfoDao() }
+        // Mappers
+        factory<CustomAccountInfoEntityMapper> { CustomAccountInfoEntityMapperImpl() }
+        factory<CustomAccountInfoMapper> { CustomAccountInfoMapperImpl() }
+        factory<CustomHdSeedInfoEntityMapper> { CustomHdSeedInfoEntityMapperImpl() }
+        factory<CustomHdSeedInfoMapper> { CustomHdSeedInfoMapperImpl() }
 
-    // Mappers
-    factory<CustomAccountInfoEntityMapper> { CustomAccountInfoEntityMapperImpl() }
-    factory<CustomAccountInfoMapper> { CustomAccountInfoMapperImpl() }
-    factory<CustomHdSeedInfoEntityMapper> { CustomHdSeedInfoEntityMapperImpl() }
-    factory<CustomHdSeedInfoMapper> { CustomHdSeedInfoMapperImpl() }
+        // Repositories
+        single<CustomAccountInfoRepository> { CustomAccountInfoRepositoryImpl(get(), get(), get()) }
+        single<CustomHdSeedInfoRepository> { CustomHdSeedInfoRepositoryImpl(get(), get(), get()) }
 
-    // Repositories
-    single<CustomAccountInfoRepository> { CustomAccountInfoRepositoryImpl(get(), get(), get()) }
-    single<CustomHdSeedInfoRepository> { CustomHdSeedInfoRepositoryImpl(get(), get(), get()) }
+        // Use Cases - Account
+        factory { SetAccountCustomInfo(get<CustomAccountInfoRepository>()::setCustomInfo) }
+        factory { SetAccountCustomName(get<CustomAccountInfoRepository>()::setCustomName) }
+        factory { GetAccountCustomName(get<CustomAccountInfoRepository>()::getCustomName) }
+        factory { GetAccountsCustomInfoFlow(get<CustomAccountInfoRepository>()::getCustomInfoFlow) }
+        factory { GetAccountsCustomInfo(get<CustomAccountInfoRepository>()::getCustomInfos) }
+        factory { GetAccountCustomInfoOrNull(get<CustomAccountInfoRepository>()::getCustomInfoOrNull) }
+        factory { GetAccountCustomInfo(get<CustomAccountInfoRepository>()::getCustomInfo) }
+        factory { SetAccountOrderIndex(get<CustomAccountInfoRepository>()::setOrderIndex) }
+        factory { DeleteAccountCustomInfo(get<CustomAccountInfoRepository>()::deleteCustomInfo) }
+        factory { GetAllAccountOrderIndexes(get<CustomAccountInfoRepository>()::getAllAccountOrderIndexes) }
+        factory { GetNotBackedUpAccounts(get<CustomAccountInfoRepository>()::getNotBackedUpAccounts) }
+        factory { GetAccountBackUpStatus(get<CustomAccountInfoRepository>()::isAccountBackedUp) }
+        factory { GetBackedUpAccounts(get<CustomAccountInfoRepository>()::getBackedUpAccounts) }
+        factory { SetAddressesBackedUp(get<CustomAccountInfoRepository>()::setAddressesBackedUp) }
 
-    // Use Cases - Account
-    factory { SetAccountCustomInfo(get<CustomAccountInfoRepository>()::setCustomInfo) }
-    factory { SetAccountCustomName(get<CustomAccountInfoRepository>()::setCustomName) }
-    factory { GetAccountCustomName(get<CustomAccountInfoRepository>()::getCustomName) }
-    factory { GetAccountsCustomInfoFlow(get<CustomAccountInfoRepository>()::getCustomInfoFlow) }
-    factory { GetAccountsCustomInfo(get<CustomAccountInfoRepository>()::getCustomInfos) }
-    factory { GetAccountCustomInfoOrNull(get<CustomAccountInfoRepository>()::getCustomInfoOrNull) }
-    factory { GetAccountCustomInfo(get<CustomAccountInfoRepository>()::getCustomInfo) }
-    factory { SetAccountOrderIndex(get<CustomAccountInfoRepository>()::setOrderIndex) }
-    factory { DeleteAccountCustomInfo(get<CustomAccountInfoRepository>()::deleteCustomInfo) }
-    factory { GetAllAccountOrderIndexes(get<CustomAccountInfoRepository>()::getAllAccountOrderIndexes) }
-    factory { GetNotBackedUpAccounts(get<CustomAccountInfoRepository>()::getNotBackedUpAccounts) }
-    factory { GetAccountBackUpStatus(get<CustomAccountInfoRepository>()::isAccountBackedUp) }
-    factory { GetBackedUpAccounts(get<CustomAccountInfoRepository>()::getBackedUpAccounts) }
-    factory { SetAddressesBackedUp(get<CustomAccountInfoRepository>()::setAddressesBackedUp) }
+        // Use Cases - HD Seed
+        factory { SetHdSeedCustomInfo(get<CustomHdSeedInfoRepository>()::setCustomInfo) }
+        factory { SetHdSeedCustomName(get<CustomHdSeedInfoRepository>()::setCustomName) }
+        factory { GetHdSeedCustomName(get<CustomHdSeedInfoRepository>()::getCustomName) }
+        factory { GetHdSeedCustomInfoOrNull(get<CustomHdSeedInfoRepository>()::getCustomInfoOrNull) }
+        factory { SetHdSeedOrderIndex(get<CustomHdSeedInfoRepository>()::setOrderIndex) }
+        factory { DeleteHdSeedCustomInfo(get<CustomHdSeedInfoRepository>()::deleteCustomInfo) }
+        factory { GetAllHdSeedOrderIndexes(get<CustomHdSeedInfoRepository>()::getAllHdSeedOrderIndexes) }
+        factory { GetHdSeedAsbBackUpStatus(get<CustomHdSeedInfoRepository>()::isHdSeedBackedUp) }
 
-    // Use Cases - HD Seed
-    factory { SetHdSeedCustomInfo(get<CustomHdSeedInfoRepository>()::setCustomInfo) }
-    factory { SetHdSeedCustomName(get<CustomHdSeedInfoRepository>()::setCustomName) }
-    factory { GetHdSeedCustomName(get<CustomHdSeedInfoRepository>()::getCustomName) }
-    factory { GetHdSeedCustomInfoOrNull(get<CustomHdSeedInfoRepository>()::getCustomInfoOrNull) }
-    factory { SetHdSeedOrderIndex(get<CustomHdSeedInfoRepository>()::setOrderIndex) }
-    factory { DeleteHdSeedCustomInfo(get<CustomHdSeedInfoRepository>()::deleteCustomInfo) }
-    factory { GetAllHdSeedOrderIndexes(get<CustomHdSeedInfoRepository>()::getAllHdSeedOrderIndexes) }
-    factory { GetHdSeedAsbBackUpStatus(get<CustomHdSeedInfoRepository>()::isHdSeedBackedUp) }
-
-    // Clear all
-    factory { ClearAllCustomInformationUseCase(get(), get()) }
-}
-
-
+        // Clear all
+        factory { ClearAllCustomInformationUseCase(get(), get()) }
+    }

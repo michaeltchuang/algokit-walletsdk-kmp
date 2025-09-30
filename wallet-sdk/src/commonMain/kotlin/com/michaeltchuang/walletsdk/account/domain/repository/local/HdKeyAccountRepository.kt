@@ -5,7 +5,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import kotlinx.coroutines.flow.Flow
 
 interface HdKeyAccountRepository {
-
     fun getAllAsFlow(): Flow<List<LocalAccount.HdKey>>
 
     fun getAccountCountAsFlow(): Flow<Int>
@@ -22,7 +21,7 @@ interface HdKeyAccountRepository {
 
     suspend fun addAccount(
         account: LocalAccount.HdKey,
-        privateKey: ByteArray
+        privateKey: ByteArray,
     )
 
     suspend fun deleteAccount(address: String)

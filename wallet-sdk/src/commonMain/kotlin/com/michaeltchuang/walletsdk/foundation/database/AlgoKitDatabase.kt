@@ -30,18 +30,24 @@ import com.michaeltchuang.walletsdk.account.data.database.model.NoAuthEntity
         CustomAccountInfoEntity::class,
         CustomHdSeedInfoEntity::class,
     ],
-    version = AlgoKitDatabase.DATABASE_VERSION
+    version = AlgoKitDatabase.DATABASE_VERSION,
 )
-
 @ConstructedBy(AppDatabaseConstructor::class)
 internal abstract class AlgoKitDatabase : RoomDatabase() {
     abstract fun ledgerBleDao(): LedgerBleDao
+
     abstract fun noAuthDao(): NoAuthDao
+
     abstract fun hdKeyDao(): HdKeyDao
+
     abstract fun hdSeedDao(): HdSeedDao
+
     abstract fun algo25Dao(): Algo25Dao
+
     abstract fun algo25NoAuthDao(): Algo25NoAuthDao
+
     abstract fun customAccountInfoDao(): CustomAccountInfoDao
+
     abstract fun customHdSeedInfoDao(): CustomHdSeedInfoDao
 
     companion object Companion {

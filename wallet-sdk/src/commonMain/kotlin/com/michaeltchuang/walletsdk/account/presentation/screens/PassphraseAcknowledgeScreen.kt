@@ -62,12 +62,13 @@ fun PassphraseAcknowledgeScreen(
     val confirmationItems = remember { getConfirmationItems() }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                color = AlgoKitTheme.colors.background
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(
+                    color = AlgoKitTheme.colors.background,
+                ),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(32.dp))
         TopIcon()
@@ -90,7 +91,7 @@ private fun TopIcon() {
         modifier = Modifier.size(72.dp),
         painter = painterResource(Res.drawable.ic_account_rekeyed),
         contentDescription = null,
-        tint = AlgoKitTheme.colors.positive
+        tint = AlgoKitTheme.colors.positive,
     )
 }
 
@@ -99,7 +100,7 @@ private fun TitleText() {
     Text(
         text = stringResource(Res.string.keep_it_secret_keep_it),
         style = AlgoKitTheme.typography.body.large.sansMedium,
-        color = AlgoKitTheme.colors.textMain
+        color = AlgoKitTheme.colors.textMain,
     )
 }
 
@@ -108,7 +109,7 @@ private fun DescriptionText() {
     Text(
         text = stringResource(Res.string.confirm_and_acknowledge_the_following),
         style = AlgoKitTheme.typography.body.regular.sans,
-        color = AlgoKitTheme.colors.textMain
+        color = AlgoKitTheme.colors.textMain,
     )
 }
 
@@ -116,7 +117,7 @@ private fun DescriptionText() {
 private fun ConfirmButton(
     navController: NavController,
     confirmationItems: SnapshotStateList<ConfirmationItem>,
-    address: String
+    address: String,
 ) {
     val isConfirmButtonEnabled by remember(confirmationItems) {
         derivedStateOf {
@@ -124,25 +125,27 @@ private fun ConfirmButton(
         }
     }
     AlgoKitPrimaryButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
         state = if (isConfirmButtonEnabled) AlgoKitButtonState.ENABLED else AlgoKitButtonState.DISABLED,
         text = stringResource(Res.string.reveal_passphrase),
         onClick = {
             navController.navigate(AlgoKitScreens.VIEW_PASSPHRASE_SCREEN.name)
-        }
+        },
     )
 }
 
 @Composable
 private fun CancelButton(onClick: () -> Unit) {
     AlgoKitSecondaryButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
         text = stringResource(Res.string.cancel),
-        onClick = onClick
+        onClick = onClick,
     )
 }
 
@@ -151,7 +154,7 @@ private fun ConfirmationItemList(confirmationItems: SnapshotStateList<Confirmati
     val density = LocalDensity.current
     var confirmationItemHeight by remember { mutableStateOf(0.dp) }
     LazyColumn(
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         itemsIndexed(confirmationItems) { index, item ->
             ConfirmationCheckbox(
@@ -169,11 +172,12 @@ private fun ConfirmationItemList(confirmationItems: SnapshotStateList<Confirmati
             )
             if (index < confirmationItems.lastIndex) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
-                        .height(1.dp)
-                        .background(color = AlgoKitTheme.colors.layerGrayLighter)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                            .height(1.dp)
+                            .background(color = AlgoKitTheme.colors.layerGrayLighter),
                 )
             }
         }
@@ -185,20 +189,21 @@ private fun ConfirmationCheckbox(
     modifier: Modifier,
     item: ConfirmationItem,
     onCheckChange: (Boolean) -> Unit,
-    onHeightChanged: (Int) -> Unit
+    onHeightChanged: (Int) -> Unit,
 ) {
     Row(
         modifier = modifier.padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 18.dp, end = 16.dp)
-                .onSizeChanged { onHeightChanged(it.height) },
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(start = 18.dp, end = 16.dp)
+                    .onSizeChanged { onHeightChanged(it.height) },
             text = stringResource(item.resId),
             style = AlgoKitTheme.typography.footnote.sans,
-            color = AlgoKitTheme.colors.textMain
+            color = AlgoKitTheme.colors.textMain,
         )
         PeraCheckbox(checked = item.isChecked) { onCheckChange(!item.isChecked) }
     }
@@ -210,43 +215,43 @@ fun PeraCheckbox(
     checked: Boolean,
     interactionSource: MutableInteractionSource? = MutableInteractionSource(),
     enabled: () -> Boolean = { true },
-    onCheckChanged: (Boolean) -> Unit
+    onCheckChanged: (Boolean) -> Unit,
 ) {
     Checkbox(
         interactionSource = interactionSource,
         modifier = modifier,
-        colors = CheckboxDefaults.colors(
-            checkmarkColor = AlgoKitTheme.colors.successCheckmark,
-            checkedColor = AlgoKitTheme.colors.success,
-            uncheckedColor = AlgoKitTheme.colors.layerGray
-        ),
+        colors =
+            CheckboxDefaults.colors(
+                checkmarkColor = AlgoKitTheme.colors.successCheckmark,
+                checkedColor = AlgoKitTheme.colors.success,
+                uncheckedColor = AlgoKitTheme.colors.layerGray,
+            ),
         checked = checked,
         enabled = enabled(),
-        onCheckedChange = onCheckChanged
+        onCheckedChange = onCheckChanged,
     )
 }
 
-private fun getConfirmationItems(): SnapshotStateList<ConfirmationItem> {
-    return mutableStateListOf(
+private fun getConfirmationItems(): SnapshotStateList<ConfirmationItem> =
+    mutableStateListOf(
         ConfirmationItem(Res.string.nobody_can_see_my_screen, isChecked = false),
         ConfirmationItem(resId = Res.string.i_risk_losing_all_my, isChecked = false),
         ConfirmationItem(resId = Res.string.my_funds_are_permanently_lost, isChecked = false),
-        ConfirmationItem(resId = Res.string.pera_employees_will_never_ask, isChecked = false)
+        ConfirmationItem(resId = Res.string.pera_employees_will_never_ask, isChecked = false),
     )
-}
 
 private data class ConfirmationItem(
     val resId: StringResource,
-    var isChecked: Boolean
+    var isChecked: Boolean,
 )
-
 
 @Preview
 @Composable
 fun RecoveryPhraseCheckScreenPreview() {
     AlgoKitTheme {
         PassphraseAcknowledgeScreen(
-            rememberNavController(), "ASDFGHJKLASDFGHJKLASDFGHJKL"
+            rememberNavController(),
+            "ASDFGHJKLASDFGHJKLASDFGHJKL",
         )
     }
 }

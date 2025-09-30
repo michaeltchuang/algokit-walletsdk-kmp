@@ -9,20 +9,14 @@ internal class Base64ManagerImpl
     @Inject
     constructor() : Base64Manager {
         @OptIn(ExperimentalEncodingApi::class)
-        override fun encode(byteArray: ByteArray): String {
-            return Base64.encode(byteArray)
-        }
+        override fun encode(byteArray: ByteArray): String = Base64.encode(byteArray)
 
         @OptIn(ExperimentalEncodingApi::class)
-        override fun decode(value: String): ByteArray {
-            return Base64.decode(value)
-        }
+        override fun decode(value: String): ByteArray = Base64.decode(value)
 
         @OptIn(ExperimentalEncodingApi::class)
         override fun decode(
             value: String,
             flags: Int,
-        ): ByteArray {
-            return Base64.decode(value, flags)
-        }
+        ): ByteArray = Base64.decode(value, flags)
     }

@@ -16,42 +16,33 @@ internal class LedgerBleAccountRepositoryImpl(
     private val ledgerBleDao: LedgerBleDao,
     private val ledgerBleEntityMapper: LedgerBleEntityMapper,
     private val ledgerBleMapper: LedgerBleMapper,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : LedgerBleAccountRepository {
-
-    override fun getAllAsFlow(): Flow<List<LedgerBle>> {
-        return ledgerBleDao.getAllAsFlow().map { entityList ->
+    override fun getAllAsFlow(): Flow<List<LedgerBle>> =
+        ledgerBleDao.getAllAsFlow().map { entityList ->
             entityList.map { entity -> ledgerBleMapper(entity) }
         }
-    }
 
-    override fun getAccountCountAsFlow(): Flow<Int> {
-        return ledgerBleDao.getTableSizeAsFlow()
-    }
+    override fun getAccountCountAsFlow(): Flow<Int> = ledgerBleDao.getTableSizeAsFlow()
 
-    override suspend fun getAccountCount(): Int {
-        return ledgerBleDao.getTableSize()
-    }
+    override suspend fun getAccountCount(): Int = ledgerBleDao.getTableSize()
 
-    override suspend fun getAll(): List<LedgerBle> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAll(): List<LedgerBle> =
+        withContext(coroutineDispatcher) {
             val ledgerBleEntities = ledgerBleDao.getAll()
             ledgerBleEntities.map { ledgerBleMapper(it) }
         }
-    }
 
-    override suspend fun getAllAddresses(): List<String> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllAddresses(): List<String> =
+        withContext(coroutineDispatcher) {
             ledgerBleDao.getAllAddresses()
         }
-    }
 
-    override suspend fun getAccount(address: String): LedgerBle? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAccount(address: String): LedgerBle? =
+        withContext(coroutineDispatcher) {
             val ledgerBleEntity = ledgerBleDao.get(address)
             ledgerBleEntity?.let { ledgerBleMapper(it) }
         }
-    }
 
     override suspend fun addAccount(account: LedgerBle) {
         withContext(coroutineDispatcher) {

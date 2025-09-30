@@ -5,25 +5,25 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressDerivationType
 
 internal class DefaultAccountCreationHdKeyTypeMapperImpl(
-    /*    private val aesPlatformManager: AESPlatformManager*/
+    // private val aesPlatformManager: AESPlatformManager
 ) : AccountCreationHdKeyTypeMapper {
-
     override fun invoke(
         entropy: ByteArray,
         hdKeyAddress: HdKeyAddress,
-        seedId: Int?
-    ): AccountCreation.Type.HdKey {
-        return with(hdKeyAddress) {
+        seedId: Int?,
+    ): AccountCreation.Type.HdKey =
+        with(hdKeyAddress) {
             AccountCreation.Type.HdKey(
                 publicKey,
-                /*aesPlatformManager.encryptByteArray(privateKey.toByteArray())*/privateKey,
-                /*aesPlatformManager.encryptByteArray(entropy)*/entropy,
+                // aesPlatformManager.encryptByteArray(privateKey.toByteArray())
+                privateKey,
+                // aesPlatformManager.encryptByteArray(entropy)
+                entropy,
                 index.accountIndex,
                 index.changeIndex,
                 index.keyIndex,
                 HdKeyAddressDerivationType.Peikert.value,
-                seedId
+                seedId,
             )
         }
-    }
 }

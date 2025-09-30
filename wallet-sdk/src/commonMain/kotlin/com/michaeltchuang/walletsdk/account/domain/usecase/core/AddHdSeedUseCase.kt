@@ -8,13 +8,11 @@ import com.michaeltchuang.walletsdk.algosdk.getSeedFromEntropy
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
 import com.michaeltchuang.walletsdk.utils.clearFromMemory
 
-
 internal class AddHdSeedUseCase(
     private val hdSeedRepository: HdSeedRepository,
     private val customHdSeedInfoRepository: CustomHdSeedInfoRepository,
-    private val getSeedIdIfExistingEntropy: GetSeedIdIfExistingEntropy
+    private val getSeedIdIfExistingEntropy: GetSeedIdIfExistingEntropy,
 ) : AddHdSeed {
-
     override suspend fun invoke(entropy: ByteArray): AlgoKitResult<Int> {
         val existingSeedId = getSeedIdIfExistingEntropy.invoke(entropy)
         return if (existingSeedId != null) {
@@ -32,13 +30,16 @@ internal class AddHdSeedUseCase(
         return AlgoKitResult.Success(newSeedId)
     }
 
-    private suspend fun addHdSeed(seed: ByteArray, entropy: ByteArray): Int {
-        return hdSeedRepository.addHdSeed(
-            seedId = 0, // ID will be auto-generated
-            seed = seed,
-            entropy = entropy
-        ).toInt()
-    }
+    private suspend fun addHdSeed(
+        seed: ByteArray,
+        entropy: ByteArray,
+    ): Int =
+        hdSeedRepository
+            .addHdSeed(
+                seedId = 0, // ID will be auto-generated
+                seed = seed,
+                entropy = entropy,
+            ).toInt()
 
     private suspend fun setCustomInfo(seedId: Int) {
         customHdSeedInfoRepository.setCustomInfo(
@@ -46,8 +47,8 @@ internal class AddHdSeedUseCase(
                 seedId = seedId,
                 entropyCustomName = "Wallet #$seedId",
                 orderIndex = seedId,
-                isBackedUp = false
-            )
+                isBackedUp = false,
+            ),
         )
     }
 }

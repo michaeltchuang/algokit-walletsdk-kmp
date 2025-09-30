@@ -6,8 +6,8 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.model.AssetConfigParamet
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.payload.RawTransactionAssetConfigParametersPayload
 
 internal class AssetConfigParametersMapperImpl : AssetConfigParametersMapper {
-    override fun invoke(payload: RawTransactionAssetConfigParametersPayload?): AssetConfigParameters {
-        return AssetConfigParameters(
+    override fun invoke(payload: RawTransactionAssetConfigParametersPayload?): AssetConfigParameters =
+        AssetConfigParameters(
             totalSupply = payload?.totalSupply,
             decimal = payload?.decimal,
             isFrozen = payload?.isFrozen,
@@ -20,5 +20,4 @@ internal class AssetConfigParametersMapperImpl : AssetConfigParametersMapper {
             frozenAddress = payload?.frozenAddress,
             clawbackAddress = payload?.clawbackAddress,
         )
-    }
 }

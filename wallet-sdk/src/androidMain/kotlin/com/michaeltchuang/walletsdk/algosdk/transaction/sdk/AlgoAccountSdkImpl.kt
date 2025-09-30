@@ -14,8 +14,8 @@ internal class AlgoAccountSdkImpl : AlgoAccountSdk {
         Security.insertProviderAt(BouncyCastleProvider(), 0)
     }
 
-    override fun createAlgo25Account(): Algo25Account? {
-        return try {
+    override fun createAlgo25Account(): Algo25Account? =
+        try {
             var secretKey = Sdk.generateSK()
             val output =
                 Algo25Account(
@@ -27,18 +27,16 @@ internal class AlgoAccountSdkImpl : AlgoAccountSdk {
         } catch (e: Exception) {
             null
         }
-    }
 
-    override fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
-        return try {
+    override fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? =
+        try {
             Account(secretKey).toMnemonic()
         } catch (e: NoSuchAlgorithmException) {
             null
         }
-    }
 
-    override fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
-        return try {
+    override fun recoverAlgo25Account(mnemonic: String): Algo25Account? =
+        try {
             var secretKey = Sdk.mnemonicToPrivateKey(mnemonic)
 
             val output =
@@ -51,5 +49,4 @@ internal class AlgoAccountSdkImpl : AlgoAccountSdk {
         } catch (e: Exception) {
             null
         }
-    }
 }

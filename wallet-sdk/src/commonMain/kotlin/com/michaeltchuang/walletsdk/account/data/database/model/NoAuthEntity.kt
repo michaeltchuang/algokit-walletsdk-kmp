@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 internal data class NoAuthEntity(
     @PrimaryKey
     @ColumnInfo("algo_address")
-    val algoAddress: String
+    val algoAddress: String,
 )

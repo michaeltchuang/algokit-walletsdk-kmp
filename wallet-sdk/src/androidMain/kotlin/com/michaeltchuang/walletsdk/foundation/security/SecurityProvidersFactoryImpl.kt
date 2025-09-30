@@ -6,16 +6,14 @@ import javax.inject.Inject
 internal class SecurityProvidersFactoryImpl
     @Inject
     constructor() : SecurityProvidersFactory {
-        override fun getProviders(): List<SecurityProvider> {
-            return listOf(
+        override fun getProviders(): List<SecurityProvider> =
+            listOf(
                 getBouncyCastleProvider(),
             )
-        }
 
-        private fun getBouncyCastleProvider(): SecurityProvider {
-            return SecurityProvider(
+        private fun getBouncyCastleProvider(): SecurityProvider =
+            SecurityProvider(
                 provider = BouncyCastleProvider(),
                 priority = 0,
             )
-        }
     }

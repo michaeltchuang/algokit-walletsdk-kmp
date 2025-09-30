@@ -28,30 +28,32 @@ import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitPrimaryBut
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-
 @Composable
 fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AlgoKitTheme.colors.background)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(AlgoKitTheme.colors.background),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp)
-                .padding(bottom = 100.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp)
+                    .padding(bottom = 100.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // Checkmark Icon
             Icon(
                 imageVector = Icons.Default.Check,
                 contentDescription = "Success",
                 tint = Color(0xFF22D3EE), // Cyan color
-                modifier = Modifier
-                    .size(72.dp)
-                    .background(Color.Transparent)
+                modifier =
+                    Modifier
+                        .size(72.dp)
+                        .background(Color.Transparent),
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -60,7 +62,7 @@ fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
             Text(
                 text = "Operation completed",
                 color = AlgoKitTheme.colors.textMain,
-                style = typography.body.regular.sansMedium
+                style = typography.body.regular.sansMedium,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -69,35 +71,35 @@ fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
             Text(
                 text = "Your transaction was successfully\nreceived by the Algorand network.",
                 color = AlgoKitTheme.colors.textGrayLighter,
-                style = typography.body.regular.sansMedium
+                style = typography.body.regular.sansMedium,
             )
 
             Spacer(modifier = Modifier.height(40.dp))
-
         }
 
         Column(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp),
         ) {
             Text(
                 text = "View Transaction detail in Pera Explorer",
                 color = AlgoKitTheme.colors.textMain,
                 style = typography.footnote.sansMedium,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable { },
             )
             AlgoKitPrimaryButton(
                 onClick = {
                     onDoneClick()
                 },
                 text = stringResource(Res.string.done),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
             )
         }
-
     }
 }
 
@@ -105,7 +107,6 @@ fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
 @Composable
 fun TransactionSuccessScreenPreview() {
     AlgoKitTheme {
-        TransactionSuccessScreen(){}
+        TransactionSuccessScreen {}
     }
-
 }

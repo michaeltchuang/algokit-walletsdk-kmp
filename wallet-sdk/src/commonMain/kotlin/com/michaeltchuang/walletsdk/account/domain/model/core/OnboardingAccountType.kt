@@ -1,7 +1,6 @@
 package com.michaeltchuang.walletsdk.account.domain.model.core
 
 sealed interface OnboardingAccountType {
-
     val wordCount: Int
 
     @Suppress("MagicNumber")

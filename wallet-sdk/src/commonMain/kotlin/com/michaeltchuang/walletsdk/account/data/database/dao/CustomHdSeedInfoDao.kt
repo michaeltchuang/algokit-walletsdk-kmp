@@ -8,7 +8,6 @@ import com.michaeltchuang.walletsdk.account.data.database.model.CustomHdSeedInfo
 
 @Dao
 internal interface CustomHdSeedInfoDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: CustomHdSeedInfoEntity)
 
@@ -28,10 +27,16 @@ internal interface CustomHdSeedInfoDao {
     suspend fun delete(seedId: Int)
 
     @Query("UPDATE custom_hd_seed_info SET entropy_custom_name = :entropyCustomName WHERE :seedId = seed_id")
-    suspend fun updateCustomName(seedId: Int, entropyCustomName: String)
+    suspend fun updateCustomName(
+        seedId: Int,
+        entropyCustomName: String,
+    )
 
     @Query("UPDATE custom_hd_seed_info SET order_index = :orderIndex WHERE :seedId = seed_id")
-    suspend fun updateOrderIndex(seedId: Int, orderIndex: Int)
+    suspend fun updateOrderIndex(
+        seedId: Int,
+        orderIndex: Int,
+    )
 
     @Query("DELETE FROM custom_hd_seed_info")
     suspend fun clearAll()

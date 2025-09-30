@@ -5,9 +5,7 @@ import androidx.compose.ui.graphics.Color
 object ThemedColors {
     val defaultColor: AlgoKitColor = AlgoKitLightColor
 
-    fun getColorsByMode(isDarkMode: Boolean): AlgoKitColor {
-        return if (isDarkMode) AlgoKitDarkColor else AlgoKitLightColor
-    }
+    fun getColorsByMode(isDarkMode: Boolean): AlgoKitColor = if (isDarkMode) AlgoKitDarkColor else AlgoKitLightColor
 }
 
 object ColorPalette {

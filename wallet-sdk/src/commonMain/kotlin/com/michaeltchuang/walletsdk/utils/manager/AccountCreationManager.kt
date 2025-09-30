@@ -26,9 +26,7 @@ object AccountCreationManager {
      * Retrieves the currently stored AccountCreation object
      * @return AccountCreation if one is stored, null otherwise
      */
-    fun getPendingAccountCreation(): AccountCreation? {
-        return pendingAccountCreation
-    }
+    fun getPendingAccountCreation(): AccountCreation? = pendingAccountCreation
 
     /**
      * Clears the currently stored AccountCreation object
@@ -42,7 +40,5 @@ object AccountCreationManager {
      * Checks if there's a pending AccountCreation object
      * @return true if an AccountCreation is stored, false otherwise
      */
-    fun hasPendingAccountCreation(): Boolean {
-        return pendingAccountCreation != null
-    }
+    fun hasPendingAccountCreation(): Boolean = pendingAccountCreation != null
 }

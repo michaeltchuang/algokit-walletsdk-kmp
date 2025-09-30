@@ -27,7 +27,6 @@ class OnboardingAccountTypeViewModel(
 ) : ViewModel(),
     StateViewModel<OnboardingAccountTypeViewModel.ViewState> by stateDelegate,
     EventViewModel<OnboardingAccountTypeViewModel.ViewEvent> by eventDelegate {
-
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
         //  viewModelScope.launch { androidEncryptionManager.initializeEncryptionManager() }
@@ -46,21 +45,22 @@ class OnboardingAccountTypeViewModel(
 
     fun createHdKeyAccount() {
         viewModelScope.launch {
-                  val wallet = createBip39Wallet()
-                  val hdKeyAddress = wallet.generateAddress(HdKeyAddressIndex(0, 0, 0))
-                  val hdKeyType =
-                      accountCreationHdKeyTypeMapper(
-                          wallet.getEntropy().value,
-                          hdKeyAddress,
-                          seedId = null
-                      )
-                  val accountCreation = AccountCreation(
-                      address = hdKeyAddress.address,
-                      customName = null,
-                      isBackedUp = false,
-                      type = hdKeyType,
-                      creationType = CreationType.CREATE
-                  )
+            val wallet = createBip39Wallet()
+            val hdKeyAddress = wallet.generateAddress(HdKeyAddressIndex(0, 0, 0))
+            val hdKeyType =
+                accountCreationHdKeyTypeMapper(
+                    wallet.getEntropy().value,
+                    hdKeyAddress,
+                    seedId = null,
+                )
+            val accountCreation =
+                AccountCreation(
+                    address = hdKeyAddress.address,
+                    customName = null,
+                    isBackedUp = false,
+                    type = hdKeyType,
+                    creationType = CreationType.CREATE,
+                )
             // Store the account creation data in the manager
             AccountCreationManager.storePendingAccountCreation(accountCreation)
             eventDelegate.sendEvent(ViewEvent.AccountCreated(accountCreation))
@@ -72,13 +72,14 @@ class OnboardingAccountTypeViewModel(
             try {
                 createAlgo25Account()?.let {
                     val secretKey = it.secretKey
-                    val accountCreation = AccountCreation(
-                        address = it.address,
-                        customName = null,
-                        isBackedUp = false,
-                        type = AccountCreation.Type.Algo25(secretKey),
-                        creationType = CreationType.CREATE
-                    )
+                    val accountCreation =
+                        AccountCreation(
+                            address = it.address,
+                            customName = null,
+                            isBackedUp = false,
+                            type = AccountCreation.Type.Algo25(secretKey),
+                            creationType = CreationType.CREATE,
+                        )
                     // Store the account creation data in the manager
                     AccountCreationManager.storePendingAccountCreation(accountCreation = accountCreation)
                     eventDelegate.sendEvent(ViewEvent.AccountCreated(accountCreation = accountCreation))
@@ -99,13 +100,21 @@ class OnboardingAccountTypeViewModel(
 
     sealed interface ViewState {
         data object Idle : ViewState
+
         data object Loading : ViewState
-        data class Content(val hasAnySeed: Boolean) : ViewState
+
+        data class Content(
+            val hasAnySeed: Boolean,
+        ) : ViewState
     }
 
     sealed interface ViewEvent {
-        data class AccountCreated(val accountCreation: AccountCreation) : ViewEvent
-        data class Error(val message: String) : ViewEvent
-    }
+        data class AccountCreated(
+            val accountCreation: AccountCreation,
+        ) : ViewEvent
 
+        data class Error(
+            val message: String,
+        ) : ViewEvent
+    }
 }

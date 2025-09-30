@@ -34,11 +34,10 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-
 @Composable
 fun ViewPassphraseScreen(
     navController: NavController,
-    address: String
+    address: String,
 ) {
     val viewModel: ViewPassphraseViewModel = koinViewModel()
     val viewState = viewModel.state.collectAsStateWithLifecycle().value
@@ -62,12 +61,14 @@ fun ViewPassphraseScreen(
 @Composable
 fun ViewPassphraseContent(
     navController: NavController,
-    predefinedWords: List<String>
+    predefinedWords: List<String>,
 ) {
     Box(Modifier.fillMaxSize().background(AlgoKitTheme.colors.background)) {
         Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp).fillMaxWidth()
+            modifier =
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
         ) {
             AlgoKitTopBar(title = stringResource(Res.string.passphrase)) {
                 navController.popBackStack()
@@ -75,20 +76,22 @@ fun ViewPassphraseContent(
             Spacer(modifier = Modifier.height(16.dp))
 
             Box(
-                modifier = Modifier.background(
-                    color = AlgoKitTheme.colors.layerGrayLighter,
-                    shape = RoundedCornerShape(8.dp)
-                ).padding(16.dp)
+                modifier =
+                    Modifier
+                        .background(
+                            color = AlgoKitTheme.colors.layerGrayLighter,
+                            shape = RoundedCornerShape(8.dp),
+                        ).padding(16.dp),
             ) {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(2.dp),
-                    modifier = Modifier.wrapContentSize()
+                    modifier = Modifier.wrapContentSize(),
                 ) {
                     val wordCount = if (predefinedWords.isNotEmpty()) predefinedWords.size else 25
                     items((wordCount + 1) / 2) { rowIndex ->
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
                         ) {
                             val leftIndex = rowIndex
                             val rightIndex = rowIndex + (wordCount + 1) / 2
@@ -98,7 +101,7 @@ fun ViewPassphraseContent(
                                     index = leftIndex,
                                     value = if (predefinedWords.isNotEmpty()) predefinedWords[leftIndex] else "",
                                     onValueChange = { /*recoveryWords[leftIndex] = it*/ },
-                                    modifier = Modifier.weight(1f)
+                                    modifier = Modifier.weight(1f),
                                 )
                             }
 
@@ -106,8 +109,8 @@ fun ViewPassphraseContent(
                                 ViewPassphraseWordField(
                                     index = rightIndex,
                                     value = if (predefinedWords.isNotEmpty()) predefinedWords[rightIndex] else "",
-                                    onValueChange = {/* recoveryWords[rightIndex] = it*/ },
-                                    modifier = Modifier.weight(1f)
+                                    onValueChange = { /* recoveryWords[rightIndex] = it*/ },
+                                    modifier = Modifier.weight(1f),
                                 )
                             } else {
                                 Spacer(modifier = Modifier.weight(1f))
@@ -116,23 +119,26 @@ fun ViewPassphraseContent(
                     }
                 }
             }
-
         }
     }
 }
 
 @Composable
 fun ViewPassphraseWordField(
-    index: Int, value: String, onValueChange: (String) -> Unit, modifier: Modifier = Modifier
+    index: Int,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically, modifier = modifier.padding(2.dp)
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(2.dp),
     ) {
         Text(
             text = "${index + 1}",
             style = AlgoKitTheme.typography.title.regular.sans,
             fontSize = 14.sp,
-            color = AlgoKitTheme.colors.textMain
+            color = AlgoKitTheme.colors.textMain,
         )
 
         Text(
@@ -140,10 +146,8 @@ fun ViewPassphraseWordField(
             text = value,
             fontSize = 16.sp,
             color = AlgoKitTheme.colors.textMain,
-            style = AlgoKitTheme.typography.title.regular.sans
+            style = AlgoKitTheme.typography.title.regular.sans,
         )
-
-
     }
 }
 
@@ -153,6 +157,6 @@ fun ViewPassphraseScreenScreenPreview() {
     val words = SAMPLE_ALGO25_MNEMONIC
     ViewPassphraseScreen(
         rememberNavController(),
-        words
+        words,
     )
 }

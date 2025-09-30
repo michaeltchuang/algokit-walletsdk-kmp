@@ -9,15 +9,18 @@ import com.michaeltchuang.walletsdk.deeplink.di.deepLinkModule
 import com.michaeltchuang.walletsdk.foundation.commonModule
 import com.michaeltchuang.walletsdk.foundation.delegateModule
 import com.michaeltchuang.walletsdk.foundation.json.jsonModule
+import com.michaeltchuang.walletsdk.network.di.networkModule
 
-val walletSdkKoinModules = listOf(
-    delegateModule,
-    commonModule,
-    platformKoinModule(),
-    localAccountsModule,
-    customInfoModule,
-    accountCoreModule,
-    jsonModule,
-    deepLinkModule,
-    viewModelModule
-)
+val walletSdkKoinModules =
+    listOf(
+        delegateModule,
+        commonModule,
+        platformKoinModule(),
+        localAccountsModule,
+        customInfoModule,
+        accountCoreModule,
+        jsonModule,
+        networkModule,
+        deepLinkModule,
+        viewModelModule,
+    )

@@ -12,27 +12,28 @@ import com.michaeltchuang.walletsdk.deeplink.parser.PeraUriParserImpl
 import com.michaeltchuang.walletsdk.deeplink.parser.query.MnemonicQueryParser
 import org.koin.dsl.module
 
-val deepLinkModule = module {
+val deepLinkModule =
+    module {
 
-    // Provide PeraUriParser
-    single<PeraUriParser> { PeraUriParserImpl() }
+        // Provide PeraUriParser
+        single<PeraUriParser> { PeraUriParserImpl() }
 
-    // Provide ParseDeepLinkPayload
-    single<ParseDeepLinkPayload> {
-        ParseDeepLinkPayloadImpl(
-            peraUriParser = get(),
-            mnemonicQueryParser = MnemonicQueryParser(get()),
-        )
+        // Provide ParseDeepLinkPayload
+        single<ParseDeepLinkPayload> {
+            ParseDeepLinkPayloadImpl(
+                peraUriParser = get(),
+                mnemonicQueryParser = MnemonicQueryParser(get()),
+            )
+        }
+
+        // Provide CreateDeepLink
+        single<CreateDeepLink> {
+            CreateDeepLinkImpl(
+                parseDeepLinkPayload = get(),
+                mnemonicDeepLinkBuilder = MnemonicDeepLinkBuilder(),
+                keyRegTransactionDeepLinkBuilder = KeyRegTransactionDeepLinkBuilder(),
+            )
+        }
+
+        single { DeeplinkHandler(get()) }
     }
-
-    // Provide CreateDeepLink
-    single<CreateDeepLink> {
-        CreateDeepLinkImpl(
-            parseDeepLinkPayload = get(),
-            mnemonicDeepLinkBuilder = MnemonicDeepLinkBuilder(),
-            keyRegTransactionDeepLinkBuilder = KeyRegTransactionDeepLinkBuilder()
-        )
-    }
-
-    single { DeeplinkHandler(get()) }
-}

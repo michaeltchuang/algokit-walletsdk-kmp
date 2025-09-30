@@ -39,6 +39,7 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseS
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
@@ -50,11 +51,30 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 enum class AlgoKitEvent {
-    ALGO25_ACCOUNT_CREATED, ClOSE_BOTTOMSHEET, HD_ACCOUNT_CREATED
+    ALGO25_ACCOUNT_CREATED,
+    ClOSE_BOTTOMSHEET,
+    HD_ACCOUNT_CREATED,
 }
 
-enum class AlgoKitScreens() {
-    ACCOUNT_RECOVERY_TYPE_SCREEN, CREATE_ACCOUNT_NAME, ON_BOARDING_ACCOUNT_TYPE_SCREEN, HD_WALLET_SELECTION_SCREEN, INITIAL_REGISTER_INTRO_SCREEN, QR_CODE_SCANNER_SCREEN, RECOVER_AN_ACCOUNT_SCREEN, RECOVER_PHRASE_SCREEN, SETTINGS_SCREEN, THEME_SCREEN, TRANSACTION_SIGNATURE_SCREEN, TRANSACTION_SUCCESS_SCREEN, WEBVIEW_PLATFORM_SCREEN, DEVELOPER_SETTINGS_SCREEN, ACCOUNT_STATUS_SCREEN, PASS_PHRASE_ACKNOWLEDGE_SCREEN, VIEW_PASSPHRASE_SCREEN
+enum class AlgoKitScreens {
+    ACCOUNT_RECOVERY_TYPE_SCREEN,
+    CREATE_ACCOUNT_NAME,
+    ON_BOARDING_ACCOUNT_TYPE_SCREEN,
+    HD_WALLET_SELECTION_SCREEN,
+    INITIAL_REGISTER_INTRO_SCREEN,
+    QR_CODE_SCANNER_SCREEN,
+    RECOVER_AN_ACCOUNT_SCREEN,
+    RECOVER_PHRASE_SCREEN,
+    SETTINGS_SCREEN,
+    THEME_SCREEN,
+    TRANSACTION_SIGNATURE_SCREEN,
+    TRANSACTION_SUCCESS_SCREEN,
+    WEBVIEW_PLATFORM_SCREEN,
+    DEVELOPER_SETTINGS_SCREEN,
+    ACCOUNT_STATUS_SCREEN,
+    PASS_PHRASE_ACKNOWLEDGE_SCREEN,
+    VIEW_PASSPHRASE_SCREEN,
+    NODE_SETTINGS_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,38 +87,46 @@ fun OnBoardingBottomSheet(
     launchAccountStatusScreen: Boolean = false,
     address: String? = null,
     onAccountDeleted: () -> Unit,
-    onAlgoKitEvent: (event: AlgoKitEvent) -> Unit
+    onAlgoKitEvent: (event: AlgoKitEvent) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     if (showSheet) {
-
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ModalBottomSheet(
             onDismissRequest = {
                 scope.launch {
-                    scope.async {
-                        sheetState.hide()
-                    }.await()
+                    scope
+                        .async {
+                            sheetState.hide()
+                        }.await()
                     onAlgoKitEvent(AlgoKitEvent.ClOSE_BOTTOMSHEET)
                 }
-            }, sheetState = sheetState, dragHandle = null
+            },
+            sheetState = sheetState,
+            dragHandle = null,
         ) {
             OnBoardingBottomSheetNavHost(
-                startDestination = startDestination(
-                    accounts, launchQRScanScreen, launchSettingsScreen, launchAccountStatusScreen
-                ),
+                startDestination =
+                    startDestination(
+                        accounts,
+                        launchQRScanScreen,
+                        launchSettingsScreen,
+                        launchAccountStatusScreen,
+                    ),
                 address = address,
                 onAccountDeleted = {
                     onAccountDeleted()
                 },
                 closeSheet = {
                     scope.launch {
-                        scope.async {
-                            sheetState.hide()
-                        }.await()
+                        scope
+                            .async {
+                                sheetState.hide()
+                            }.await()
                         onAlgoKitEvent(AlgoKitEvent.ClOSE_BOTTOMSHEET)
                     }
-                }) {
+                },
+            ) {
                 onAlgoKitEvent(AlgoKitEvent.ALGO25_ACCOUNT_CREATED)
             }
         }
@@ -118,27 +146,30 @@ fun OnBoardingBottomSheetNavHost(
     val navController = rememberNavController()
 
     Scaffold(
-        modifier = Modifier.fillMaxHeight(.9f), snackbarHost = {
+        modifier = Modifier.fillMaxHeight(.9f),
+        snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
             )
-        }) { padding ->
+        },
+    ) { padding ->
         Box(
-            modifier = Modifier.background(color = AlgoKitTheme.colors.background).padding(0.dp)
+            modifier = Modifier.background(color = AlgoKitTheme.colors.background).padding(0.dp),
         ) {
             NavHost(
                 navController,
                 enterTransition = { EnterTransition.None },
                 exitTransition = { ExitTransition.None },
-                startDestination = startDestination
+                startDestination = startDestination,
             ) {
-
                 composable(route = AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name) {
                     Column(
-                        modifier = Modifier.fillMaxSize()
-                            .background(color = AlgoKitTheme.colors.background)
-                            .verticalScroll(rememberScrollState()),
-                        verticalArrangement = Arrangement.Top
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .background(color = AlgoKitTheme.colors.background)
+                                .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.Top,
                     ) {
                         InitialRegisterIntroScreen(navController)
                     }
@@ -152,9 +183,11 @@ fun OnBoardingBottomSheetNavHost(
                 }
                 composable(AlgoKitScreens.CREATE_ACCOUNT_NAME.name) {
                     CreateAccountNameScreen(
-                        navController, {
+                        navController,
+                        {
                             onFinish()
-                        })
+                        },
+                    )
                 }
                 composable(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name) {
                     HdWalletSelectionScreen(navController = navController)
@@ -211,6 +244,9 @@ fun OnBoardingBottomSheetNavHost(
                 composable(route = AlgoKitScreens.THEME_SCREEN.name) {
                     ThemeScreen(navController)
                 }
+                composable(route = AlgoKitScreens.NODE_SETTINGS_SCREEN.name) {
+                    NodeSettingsScreen(navController)
+                }
                 composable(route = AlgoKitScreens.DEVELOPER_SETTINGS_SCREEN.name) {
                     DeveloperSettingsScreen(navController) {
                         coroutineScope.launch {
@@ -244,13 +280,12 @@ fun startDestination(
     accounts: Int,
     qrScanFlow: Boolean,
     launchSettingsScreen: Boolean,
-    launchAccountStatusScreen: Boolean
-): String {
-    return when {
+    launchAccountStatusScreen: Boolean,
+): String =
+    when {
         launchAccountStatusScreen -> AlgoKitScreens.ACCOUNT_STATUS_SCREEN.name
         launchSettingsScreen -> AlgoKitScreens.SETTINGS_SCREEN.name
         qrScanFlow -> AlgoKitScreens.QR_CODE_SCANNER_SCREEN.name
         accounts == 0 -> AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name
         else -> AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name
     }
-}

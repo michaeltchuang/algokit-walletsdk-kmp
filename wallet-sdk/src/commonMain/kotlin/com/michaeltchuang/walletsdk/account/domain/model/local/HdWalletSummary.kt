@@ -5,5 +5,5 @@ data class HdWalletSummary(
     val accountCount: Int,
     val maxAccountIndex: Int,
     val primaryValue: String,
-    val secondaryValue: String
+    val secondaryValue: String,
 )

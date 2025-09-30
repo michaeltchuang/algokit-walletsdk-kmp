@@ -35,38 +35,40 @@ fun GroupChoiceWidget(
     description: String,
     icon: ImageVector,
     iconContentDescription: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .clickable { onClick() }
-            .padding(horizontal = 24.dp)
-            .fillMaxWidth()
-            .padding(vertical = 20.dp),
+        modifier =
+            modifier
+                .clickable { onClick() }
+                .padding(horizontal = 24.dp)
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(AlgoKitTheme.colors.layerGrayLighter)
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(AlgoKitTheme.colors.layerGrayLighter)
+                    .padding(8.dp),
             imageVector = icon,
             contentDescription = iconContentDescription,
-            tint = AlgoKitTheme.colors.textMain
+            tint = AlgoKitTheme.colors.textMain,
         )
         Spacer(modifier = Modifier.width(24.dp))
         Column {
             Text(
                 style = AlgoKitTheme.typography.body.regular.sansMedium,
                 color = AlgoKitTheme.colors.textMain,
-                text = title
+                text = title,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 style = AlgoKitTheme.typography.footnote.sans,
                 color = AlgoKitTheme.colors.textMain,
-                text = description
+                text = description,
             )
         }
     }

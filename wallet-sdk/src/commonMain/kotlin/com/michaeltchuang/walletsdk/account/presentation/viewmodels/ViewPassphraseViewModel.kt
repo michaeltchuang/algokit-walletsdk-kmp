@@ -10,15 +10,13 @@ import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import kotlinx.coroutines.launch
 
-
 class ViewPassphraseViewModel(
     private val getAccountMnemonic: GetAccountMnemonic,
     private val stateDelegate: StateDelegate<ViewState>,
-    private val eventDelegate: EventDelegate<ViewEvent>
-) : ViewModel(), StateViewModel<ViewPassphraseViewModel.ViewState> by stateDelegate,
+    private val eventDelegate: EventDelegate<ViewEvent>,
+) : ViewModel(),
+    StateViewModel<ViewPassphraseViewModel.ViewState> by stateDelegate,
     EventViewModel<ViewPassphraseViewModel.ViewEvent> by eventDelegate {
-
-
     init {
         stateDelegate.setDefaultState(ViewState.Idle)
     }
@@ -29,7 +27,7 @@ class ViewPassphraseViewModel(
             viewModelScope.launch {
                 getAccountMnemonic(accountAddress).use(
                     onSuccess = ::displayMnemonic,
-                    onFailed = { _, _ -> displayError() }
+                    onFailed = { _, _ -> displayError() },
                 )
             }
         }
@@ -47,11 +45,14 @@ class ViewPassphraseViewModel(
         }
     }
 
-
     sealed interface ViewState {
         data object Idle : ViewState
+
         data object Loading : ViewState
-        data class Content(val mnemonicWords: List<String>) : ViewState
+
+        data class Content(
+            val mnemonicWords: List<String>,
+        ) : ViewState
     }
 
     sealed interface ViewEvent {

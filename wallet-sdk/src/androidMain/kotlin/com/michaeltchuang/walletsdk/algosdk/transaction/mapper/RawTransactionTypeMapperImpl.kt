@@ -6,8 +6,8 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.model.RawTransactionType
 import com.michaeltchuang.walletsdk.algosdk.transaction.model.payload.RawTransactionTypePayload
 
 internal class RawTransactionTypeMapperImpl : RawTransactionTypeMapper {
-    override fun invoke(payload: RawTransactionTypePayload): RawTransactionType {
-        return when (payload) {
+    override fun invoke(payload: RawTransactionTypePayload): RawTransactionType =
+        when (payload) {
             RawTransactionTypePayload.PAY_TRANSACTION -> RawTransactionType.PAY_TRANSACTION
             RawTransactionTypePayload.ASSET_TRANSACTION -> RawTransactionType.ASSET_TRANSACTION
             RawTransactionTypePayload.APP_TRANSACTION -> RawTransactionType.APP_TRANSACTION
@@ -16,5 +16,4 @@ internal class RawTransactionTypeMapperImpl : RawTransactionTypeMapper {
             RawTransactionTypePayload.HEARTBEAT_TRANSACTION -> RawTransactionType.HEARTBEAT_TRANSACTION
             RawTransactionTypePayload.UNDEFINED -> RawTransactionType.UNDEFINED
         }
-    }
 }

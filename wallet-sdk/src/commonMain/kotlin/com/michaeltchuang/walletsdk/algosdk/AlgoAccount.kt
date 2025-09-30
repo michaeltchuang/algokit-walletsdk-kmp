@@ -7,7 +7,7 @@ expect fun recoverAlgo25Account(mnemonic: String): Algo25Account?
 
 expect fun createAlgo25Account(): Algo25Account?
 
-expect fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray):String?
+expect fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String?
 
 expect fun getBip39Wallet(entropy: ByteArray): Bip39Wallet
 

@@ -37,43 +37,40 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.SaveHdKeyAccoun
 import com.michaeltchuang.walletsdk.foundation.database.AlgoKitDatabase
 import org.koin.dsl.module
 
-val localAccountsModule = module {
+val localAccountsModule =
+    module {
 
-    single<Algo25Dao> { get<AlgoKitDatabase>().algo25Dao() }
-    single<Algo25EntityMapper> { Algo25EntityMapperImpl() }
-    single<Algo25Mapper> { Algo25MapperImpl() }
+        single<Algo25Dao> { get<AlgoKitDatabase>().algo25Dao() }
+        single<Algo25EntityMapper> { Algo25EntityMapperImpl() }
+        single<Algo25Mapper> { Algo25MapperImpl() }
 
-    single<Algo25AccountRepository> {
-        Algo25AccountRepositoryImpl(get(), get(), get(), get())
+        single<Algo25AccountRepository> {
+            Algo25AccountRepositoryImpl(get(), get(), get(), get())
+        }
+
+        factory { SaveAlgo25Account(get<Algo25AccountRepository>()::addAccount) }
+        factory { GetAlgo25SecretKey(get<Algo25AccountRepository>()::getSecretKey) }
+
+        single<HdKeyDao> { get<AlgoKitDatabase>().hdKeyDao() }
+        single<HdKeyEntityMapper> { HdKeyEntityMapperImpl() }
+        single<HdWalletSummaryMapper> { HdWalletSummaryMapperImpl() }
+        single<HdKeyMapper> { HdKeyMapperImpl() }
+
+        single<HdKeyAccountRepository> {
+            HdKeyAccountRepositoryImpl(get(), get(), get(), get(), get())
+        }
+
+        single { SaveHdKeyAccount(get<HdKeyAccountRepository>()::addAccount) }
+        single { GetHdWalletSummaries(get<HdKeyAccountRepository>()::getHdWalletSummaries) }
+
+        single<AddHdKeyAccount> { AddHdKeyAccountUseCase(get(), get()) }
+
+        single<HdSeedDao> { get<AlgoKitDatabase>().hdSeedDao() }
+        single<HdSeedEntityMapper> { HdSeedEntityMapperImpl() }
+        single<HdSeedMapper> { HdSeedMapperImpl() }
+        single<HdSeedRepository> { HdSeedRepositoryImpl(get(), get(), get(), get()) }
+        factory { GetSeedIdIfExistingEntropy(get<HdSeedRepository>()::getSeedIdIfExistingEntropy) }
+        single<AddHdSeed> { AddHdSeedUseCase(get(), get(), get()) }
+        single { GetMaxHdSeedId(get<HdSeedRepository>()::getMaxSeedId) }
+        single { GetHdEntropy(get<HdSeedRepository>()::getEntropy) }
     }
-
-    factory { SaveAlgo25Account(get<Algo25AccountRepository>()::addAccount) }
-    factory { GetAlgo25SecretKey(get<Algo25AccountRepository>()::getSecretKey) }
-
-
-    single<HdKeyDao> { get<AlgoKitDatabase>().hdKeyDao() }
-    single<HdKeyEntityMapper> { HdKeyEntityMapperImpl() }
-    single<HdWalletSummaryMapper> { HdWalletSummaryMapperImpl() }
-    single<HdKeyMapper> { HdKeyMapperImpl() }
-
-    single<HdKeyAccountRepository> {
-        HdKeyAccountRepositoryImpl(get(), get(), get(), get(), get())
-    }
-
-    single { SaveHdKeyAccount(get<HdKeyAccountRepository>()::addAccount) }
-    single { GetHdWalletSummaries(get<HdKeyAccountRepository>()::getHdWalletSummaries) }
-
-    single<AddHdKeyAccount> { AddHdKeyAccountUseCase(get(), get()) }
-
-
-    single<HdSeedDao> { get<AlgoKitDatabase>().hdSeedDao() }
-    single<HdSeedEntityMapper> { HdSeedEntityMapperImpl() }
-    single<HdSeedMapper> { HdSeedMapperImpl() }
-    single<HdSeedRepository> { HdSeedRepositoryImpl(get(), get(), get(), get()) }
-    factory { GetSeedIdIfExistingEntropy(get<HdSeedRepository>()::getSeedIdIfExistingEntropy) }
-    single<AddHdSeed> { AddHdSeedUseCase(get(), get(), get()) }
-    single { GetMaxHdSeedId(get<HdSeedRepository>()::getMaxSeedId) }
-    single { GetHdEntropy(get<HdSeedRepository>()::getEntropy) }
-}
-
-

@@ -24,8 +24,8 @@ internal class AssetTransactionBuilderImpl
         private fun createTxnByteArray(
             payload: AssetTransactionPayload,
             params: SuggestedTransactionParams,
-        ): ByteArray {
-            return with(payload) {
+        ): ByteArray =
+            with(payload) {
                 algoSdk.createAssetTransferTxn(
                     senderAddress = senderAddress,
                     receiverAddress = receiverAddress,
@@ -35,5 +35,4 @@ internal class AssetTransactionBuilderImpl
                     suggestedTransactionParams = params,
                 )
             }
-        }
     }

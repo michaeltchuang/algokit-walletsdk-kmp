@@ -26,7 +26,7 @@ import qrscanner.QrScanner
 fun QRCodeScannerScreen(
     navController: NavController,
     onQrScanned: (String) -> Unit,
-    closeSheet: () -> Unit
+    closeSheet: () -> Unit,
 ) {
     val viewModel: QRScannerViewModel = koinViewModel()
     val hasProcessedResult = remember { mutableStateOf(false) }
@@ -41,7 +41,7 @@ fun QRCodeScannerScreen(
                 is QRScannerViewModel.ViewEvent.NavigateToTransactionSignatureRequestScreen -> {
                     navController.navigateWithArgument(
                         AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name,
-                        it.keyReg
+                        it.keyReg,
                     )
                 }
 
@@ -52,8 +52,9 @@ fun QRCodeScannerScreen(
         }
     }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier =
+            Modifier
+                .fillMaxSize(),
     ) {
         QrScanner(
             modifier = Modifier.fillMaxSize(),
@@ -70,9 +71,10 @@ fun QRCodeScannerScreen(
             onFailure = {},
         )
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = AlgoKitTheme.colors.background),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(color = AlgoKitTheme.colors.background),
         ) {
             AlgoKitTopBar(
                 title = "Scan QR Code",
@@ -81,9 +83,8 @@ fun QRCodeScannerScreen(
                     if (navController.popBackStack().not()) {
                         closeSheet()
                     }
-                }
+                },
             )
         }
-
     }
 }

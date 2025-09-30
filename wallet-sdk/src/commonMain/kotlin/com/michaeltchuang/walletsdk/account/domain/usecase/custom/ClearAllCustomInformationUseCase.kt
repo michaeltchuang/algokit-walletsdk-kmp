@@ -2,7 +2,6 @@ package com.michaeltchuang.walletsdk.account.domain.usecase.custom
 
 import com.michaeltchuang.walletsdk.account.domain.repository.custom.CustomAccountInfoRepository
 import com.michaeltchuang.walletsdk.account.domain.repository.custom.CustomHdSeedInfoRepository
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
@@ -11,9 +10,8 @@ import kotlinx.coroutines.withContext
 
 internal class ClearAllCustomInformationUseCase(
     private val customAccountInfoRepository: CustomAccountInfoRepository,
-    private val customHdSeedInfoRepository: CustomHdSeedInfoRepository
+    private val customHdSeedInfoRepository: CustomHdSeedInfoRepository,
 ) : ClearAllCustomInformation {
-
     override suspend fun invoke() {
         withContext(Dispatchers.IO) {
             val clearAccountInfoDeferred =

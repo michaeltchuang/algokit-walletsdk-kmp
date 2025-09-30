@@ -54,19 +54,20 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun AccountRecoveryTypeSelectionScreen(
     navController: NavController,
-    onClick: (message: String) -> Unit
+    onClick: (message: String) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(color = AlgoKitTheme.colors.background)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Top
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(color = AlgoKitTheme.colors.background)
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top,
     ) {
         AlgoKitTopBar(
             modifier = Modifier.padding(horizontal = 24.dp),
-            onClick = { navController.popBackStack() }
+            onClick = { navController.popBackStack() },
         )
         TitleWidget()
         Spacer(modifier = Modifier.height(30.dp))
@@ -80,17 +81,18 @@ fun AccountRecoveryTypeSelectionScreen(
 
 @Composable
 private fun TitleWidget(isOnHdWallet: Boolean = false) {
-    val titleRes = if (isOnHdWallet) {
-        Res.string.import_a_wallet
-    } else {
-        Res.string.import_an_account
-    }
+    val titleRes =
+        if (isOnHdWallet) {
+            Res.string.import_a_wallet
+        } else {
+            Res.string.import_an_account
+        }
 
     Text(
         modifier = Modifier.padding(horizontal = 24.dp),
         style = typography.title.regular.sansMedium,
         color = AlgoKitTheme.colors.textMain,
-        text = stringResource(titleRes)
+        text = stringResource(titleRes),
     )
 }
 
@@ -98,7 +100,7 @@ private fun TitleWidget(isOnHdWallet: Boolean = false) {
 @Composable
 private fun RecoverAnAccountWidget(
     isOnHdWallet: Boolean = false,
-    navController: NavController
+    navController: NavController,
 ) {
     val titleRes: Resource
     val descriptionRes: Resource
@@ -111,23 +113,23 @@ private fun RecoverAnAccountWidget(
     }
 
     GroupChoiceWidget(
-        title = stringResource( titleRes),
+        title = stringResource(titleRes),
         description = stringResource(descriptionRes),
         icon = vectorResource(Res.drawable.ic_key),
         iconContentDescription = stringResource(Res.string.key),
-        onClick = { navController.navigate(AlgoKitScreens.RECOVER_AN_ACCOUNT_SCREEN.name) })
+        onClick = { navController.navigate(AlgoKitScreens.RECOVER_AN_ACCOUNT_SCREEN.name) },
+    )
 }
 
 @Composable
-private fun RecoverAnAccountWithQRWidget(
-    navController: NavController
-) {
+private fun RecoverAnAccountWithQRWidget(navController: NavController) {
     GroupChoiceWidget(
         title = stringResource(Res.string.recover_an_account_with_qr),
         description = stringResource(Res.string.i_want_to_recover_qr),
         icon = vectorResource(Res.drawable.ic_qr),
         iconContentDescription = stringResource(Res.string.qr_code),
-        onClick = { navController.navigate(AlgoKitScreens.QR_CODE_SCANNER_SCREEN.name) })
+        onClick = { navController.navigate(AlgoKitScreens.QR_CODE_SCANNER_SCREEN.name) },
+    )
 }
 
 @Composable
@@ -136,8 +138,9 @@ private fun PairLedgerDeviceWidget(onClick: (message: String) -> Unit) {
         title = stringResource(Res.string.pair_ledger_device),
         description = stringResource(Res.string.i_want_to_recover_an),
         iconContentDescription = stringResource(Res.string.ledger),
-        icon =vectorResource(Res.drawable.ic_ledger),
-        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) })
+        icon = vectorResource(Res.drawable.ic_ledger),
+        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) },
+    )
 }
 
 @Composable
@@ -147,7 +150,8 @@ private fun ImportPeraWebWidget(onClick: (message: String) -> Unit) {
         description = stringResource(Res.string.i_want_to_import_algorand),
         iconContentDescription = stringResource(Res.string.import_from_pera_web),
         icon = vectorResource(Res.drawable.ic_global),
-        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) })
+        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) },
+    )
 }
 
 @Composable
@@ -157,7 +161,8 @@ private fun AlgorandSecureBackupWidget(onClick: (message: String) -> Unit) {
         description = stringResource(Res.string.i_want_to_restore_my),
         iconContentDescription = stringResource(Res.string.i_want_to_restore_my),
         icon = vectorResource(Res.drawable.ic_backup),
-        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) })
+        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) },
+    )
 }
 
 @Preview
@@ -166,5 +171,4 @@ fun AccountRecoveryTypeSelectionScreenPreview() {
     AlgoKitTheme {
         AccountRecoveryTypeSelectionScreen(rememberNavController()) {}
     }
-
 }

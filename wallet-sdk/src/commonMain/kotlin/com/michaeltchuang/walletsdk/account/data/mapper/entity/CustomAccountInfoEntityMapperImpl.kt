@@ -4,13 +4,11 @@ import com.michaeltchuang.walletsdk.account.data.database.model.CustomAccountInf
 import com.michaeltchuang.walletsdk.account.domain.model.custom.CustomAccountInfo
 
 internal class CustomAccountInfoEntityMapperImpl : CustomAccountInfoEntityMapper {
-
-    override fun invoke(customAccountInfo: CustomAccountInfo): CustomAccountInfoEntity {
-        return CustomAccountInfoEntity(
+    override fun invoke(customAccountInfo: CustomAccountInfo): CustomAccountInfoEntity =
+        CustomAccountInfoEntity(
             algoAddress = customAccountInfo.address,
             customName = customAccountInfo.customName,
             orderIndex = customAccountInfo.orderIndex,
-            isBackedUp = customAccountInfo.isBackedUp
+            isBackedUp = customAccountInfo.isBackedUp,
         )
-    }
 }

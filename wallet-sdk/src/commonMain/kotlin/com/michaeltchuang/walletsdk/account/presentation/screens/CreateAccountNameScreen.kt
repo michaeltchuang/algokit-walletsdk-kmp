@@ -55,10 +55,10 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-
 @Composable
 fun CreateAccountNameScreen(
-    navController: NavController, onFinish: () -> Unit
+    navController: NavController,
+    onFinish: () -> Unit,
 ) {
     val accountCreation = AccountCreationManager.getPendingAccountCreation()
 
@@ -87,7 +87,8 @@ fun CreateAccountNameScreen(
                 seedId = viewState.walletId,
                 onFinishClick = {
                     viewModel.addNewAccount(accountCreation, accountName.value)
-                })
+                },
+            )
         }
 
         is CreateAccountNameViewModel.ViewState.Idle -> {}
@@ -114,28 +115,31 @@ fun ScreenContent(
     navController: NavController,
     accountName: MutableState<String>,
     seedId: Int?,
-    onFinishClick: () -> Unit
+    onFinishClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(16.dp),
     ) {
         AlgoKitTopBar(
-            onClick = { navController.popBackStack() })
+            onClick = { navController.popBackStack() },
+        )
         // Main Content
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 64.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = 64.dp),
         ) {
             Text(
                 style = typography.title.regular.sansBold,
                 color = AlgoKitTheme.colors.textMain,
                 text = stringResource(Res.string.name_your_account),
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -159,9 +163,10 @@ fun ScreenContent(
         }
 
         AlgoKitPrimaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
             {
                 onFinishClick()
             },
@@ -172,12 +177,14 @@ fun ScreenContent(
 
 @Composable
 fun CustomBasicTextField(
-    value: String, onValueChange: (String) -> Unit, onClearClick: () -> Unit
+    value: String,
+    onValueChange: (String) -> Unit,
+    onClearClick: () -> Unit,
 ) {
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
     ) {
         Text(
             style = typography.body.regular.sansMedium,
@@ -186,61 +193,67 @@ fun CustomBasicTextField(
         )
 
         Row(
-            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
         ) {
             BasicTextField(
                 value = value,
                 cursorBrush = SolidColor(AlgoKitTheme.colors.textMain),
                 onValueChange = onValueChange,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 8.dp),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(vertical = 8.dp),
                 singleLine = true,
-                textStyle = LocalTextStyle.current.copy(
-                    color = AlgoKitTheme.colors.textMain, fontSize = 16.sp
-                ),
+                textStyle =
+                    LocalTextStyle.current.copy(
+                        color = AlgoKitTheme.colors.textMain,
+                        fontSize = 16.sp,
+                    ),
             )
             IconButton(onClick = onClearClick) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Clear",
-                    tint = Color.Gray
+                    tint = Color.Gray,
                 )
             }
         }
 
         // Bottom Line
         HorizontalDivider(
-            thickness = 1.dp, color = Color.Gray
+            thickness = 1.dp,
+            color = Color.Gray,
         )
     }
 }
 
 @Composable
-fun WalletItem(
-    seedId: Int
-) {
+fun WalletItem(seedId: Int) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = AlgoKitTheme.colors.buttonSecondaryBg
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = AlgoKitTheme.colors.buttonSecondaryBg,
+            ),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Icon(
                 painter = painterResource(Res.drawable.ic_wallet),
                 contentDescription = null,
-                tint = AlgoKitTheme.colors.textMain
+                tint = AlgoKitTheme.colors.textMain,
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -251,7 +264,6 @@ fun WalletItem(
         }
     }
 }
-
 
 @Preview
 @Composable

@@ -2,7 +2,6 @@ package com.michaeltchuang.walletsdk.deeplink.model
 
 import kotlinx.serialization.Serializable
 
-
 /**
  * Model classes for supported DeepLinks & AppLinks
  * Can be tested by executing the command below;
@@ -11,20 +10,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface DeepLink {
-
     /**
      * Examples;
      *  - perawallet://WOLFYW4VEVVGEGVLQWEL4EMJ5SFCD3UCNKDH2DCUB5HQ6HLM6URZBMPXLI
      *  - algorand://WOLFYW4VEVVGEGVLQWEL4EMJ5SFCD3UCNKDH2DCUB5HQ6HLM6URZBMPXLI
      */
-    data class AccountAddress(val address: String, val label: String?) : DeepLink
+    data class AccountAddress(
+        val address: String,
+        val label: String?,
+    ) : DeepLink
 
     /**
      * Examples;
      *  - algorand://?amount=0&asset=776191503
      *  - perawallet://?amount=0&asset=77619150
      */
-    data class AssetOptIn(val assetId: Long) : DeepLink
+    data class AssetOptIn(
+        val assetId: Long,
+    ) : DeepLink
 
     /**
      * ALGO transfer (public key, empty asset id, amount, note, xnote)
@@ -42,7 +45,7 @@ sealed interface DeepLink {
         val amount: String,
         val note: String?,
         val xnote: String?,
-        val label: String?
+        val label: String?,
     ) : DeepLink
 
     /**
@@ -50,29 +53,44 @@ sealed interface DeepLink {
      * wc://wc:b562a118-0cbd-4f4f-92af-e58bf0a9dfb8@1?bridge=https%3A%2F%2Fwallet-connect-d.perawallet.app&key=672a4fbd212bfdbf6e0c8a858d9ab1577df169e7eac74c7175b9a3fd0faea889
      * perawallet-wc://wc:b562a118-0cbd-4f4f-92af-e58bf0a9dfb8@1?bridge=https%3A%2F%2Fwallet-connect-d.perawallet.app&key=672a4fbd212bfdbf6e0c8a858d9ab1577df169e7eac74c7175b9a3fd0faea889
      */
-    data class WalletConnectConnection(val uri: String) : DeepLink
+    data class WalletConnectConnection(
+        val uri: String,
+    ) : DeepLink
 
-    data class Mnemonic(val mnemonic: String) : DeepLink
+    data class Mnemonic(
+        val mnemonic: String,
+    ) : DeepLink
 
-    data class WebImportQrCode(val backupId: String, val encryptionKey: String) : DeepLink
+    data class WebImportQrCode(
+        val backupId: String,
+        val encryptionKey: String,
+    ) : DeepLink
 
-    data class DiscoverBrowser(val webUrl: String) : DeepLink
+    data class DiscoverBrowser(
+        val webUrl: String,
+    ) : DeepLink
 
-    data class Discover(val path: String) : DeepLink
+    data class Discover(
+        val path: String,
+    ) : DeepLink
 
-    data class Cards(val path: String) : DeepLink
+    data class Cards(
+        val path: String,
+    ) : DeepLink
 
-    data class Staking(val path: String) : DeepLink
+    data class Staking(
+        val path: String,
+    ) : DeepLink
 
     data class Notification(
         val address: String,
         val assetId: Long,
-        val notificationGroupType: NotificationGroupType
+        val notificationGroupType: NotificationGroupType,
     ) : DeepLink
 
     data class AssetInbox(
         val address: String,
-        val notificationGroupType: NotificationGroupType
+        val notificationGroupType: NotificationGroupType,
     ) : DeepLink
 
     /**
@@ -102,8 +120,10 @@ sealed interface DeepLink {
         val votekd: String?,
         val fee: String?,
         val note: String?,
-        val xnote: String?
+        val xnote: String?,
     ) : DeepLink
 
-    data class Undefined(val url: String) : DeepLink
+    data class Undefined(
+        val url: String,
+    ) : DeepLink
 }

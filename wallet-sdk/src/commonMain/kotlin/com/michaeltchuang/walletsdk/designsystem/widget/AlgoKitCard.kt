@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.designsystem.widget
 
-
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_algo25_description
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_algo25_footer
@@ -41,16 +40,17 @@ fun PeraCard(
     description: String,
     footer: String,
     highlightContent: (@Composable () -> Unit)? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     OutlinedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 24.dp,
-                end = 24.dp,
-                bottom = 24.dp
-            ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 24.dp,
+                    end = 24.dp,
+                    bottom = 24.dp,
+                ),
         onClick = onClick,
         shape = CardDefaults.outlinedShape,
         border = CardDefaults.outlinedCardBorder(enabled = true),
@@ -68,21 +68,22 @@ fun PeraCard(
             Row(
                 modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
                 horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 AlgoKitBodyText(modifier = Modifier.weight(1f), text = description)
                 Box(
-                    modifier = Modifier
-                        .padding(start = 10.dp)
-                        .size(40.dp)
-                        .clip(shape = CircleShape)
-                        .background(color = AlgoKitTheme.colors.layerGrayLighter)
+                    modifier =
+                        Modifier
+                            .padding(start = 10.dp)
+                            .size(40.dp)
+                            .clip(shape = CircleShape)
+                            .background(color = AlgoKitTheme.colors.layerGrayLighter),
                 ) {
                     Icon(
                         modifier = Modifier.align(Alignment.Center),
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                         tint = AlgoKitTheme.colors.textGrayLighter,
-                        contentDescription = "Right Arrow"
+                        contentDescription = "Right Arrow",
                     )
                 }
             }
@@ -100,9 +101,9 @@ fun PeraCardPreview() {
         footer = stringResource(Res.string.mnemonic_type_algo25_footer),
         highlightContent = {
             AlgoKitHighlightedGrayText(
-                text = stringResource(Res.string.recommended)
+                text = stringResource(Res.string.recommended),
             )
         },
-        onClick = { }
+        onClick = { },
     )
 }

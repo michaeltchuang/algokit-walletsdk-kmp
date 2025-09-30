@@ -42,28 +42,32 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun ThemeScreen(
     navController: NavController,
-    themeRepository: ThemePreferenceRepository = provideThemePreferenceRepository()
+    themeRepository: ThemePreferenceRepository = provideThemePreferenceRepository(),
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val currentThemePreference by themeRepository.getSavedThemePreferenceFlow()
+    val currentThemePreference by themeRepository
+        .getSavedThemePreferenceFlow()
         .collectAsState(initial = null)
     val systemDark = isSystemInDarkTheme()
     val isDark = LocalThemeIsDark.current
 
     @Composable
-    fun ThemePreference.displayString() = when (this) {
-        ThemePreference.LIGHT -> stringResource(Res.string.light)
-        ThemePreference.DARK -> stringResource(Res.string.dark)
-        ThemePreference.SYSTEM -> stringResource(Res.string.system_default)
-    }
+    fun ThemePreference.displayString() =
+        when (this) {
+            ThemePreference.LIGHT -> stringResource(Res.string.light)
+            ThemePreference.DARK -> stringResource(Res.string.dark)
+            ThemePreference.SYSTEM -> stringResource(Res.string.system_default)
+        }
 
-    fun resolveIsDark(theme: ThemePreference, systemDark: Boolean): Boolean {
-        return when (theme) {
+    fun resolveIsDark(
+        theme: ThemePreference,
+        systemDark: Boolean,
+    ): Boolean =
+        when (theme) {
             ThemePreference.LIGHT -> false
             ThemePreference.DARK -> true
             ThemePreference.SYSTEM -> systemDark
         }
-    }
 
     fun onThemeSelected(theme: ThemePreference) {
         if (theme != currentThemePreference) {
@@ -74,30 +78,33 @@ fun ThemeScreen(
         }
     }
 
-    val themeOptions = remember(currentThemePreference) {
-        ThemePreference.entries.map { pref ->
-            ThemeListItem(
-                theme = pref,
-                isSelected = pref == currentThemePreference
-            )
+    val themeOptions =
+        remember(currentThemePreference) {
+            ThemePreference.entries.map { pref ->
+                ThemeListItem(
+                    theme = pref,
+                    isSelected = pref == currentThemePreference,
+                )
+            }
         }
-    }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .padding(horizontal = 16.dp),
     ) {
         AlgoKitTopBar(title = stringResource(Res.string.theme)) { navController.popBackStack() }
         Spacer(modifier = Modifier.height(8.dp))
         themeOptions.forEach { theme ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onThemeSelected(theme.theme) }
-                    .padding(vertical = 16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable { onThemeSelected(theme.theme) }
+                        .padding(vertical = 16.dp),
             ) {
                 Text(
                     text = theme.theme.displayString(),
@@ -108,10 +115,11 @@ fun ThemeScreen(
                 RadioButton(
                     selected = theme.isSelected,
                     onClick = { onThemeSelected(theme.theme) },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = AlgoKitTheme.colors.positive,
-                        unselectedColor = Color.LightGray
-                    )
+                    colors =
+                        RadioButtonDefaults.colors(
+                            selectedColor = AlgoKitTheme.colors.positive,
+                            unselectedColor = Color.LightGray,
+                        ),
                 )
             }
         }
@@ -120,7 +128,7 @@ fun ThemeScreen(
 
 private data class ThemeListItem(
     val theme: ThemePreference,
-    val isSelected: Boolean
+    val isSelected: Boolean,
 )
 
 @Preview
@@ -129,7 +137,7 @@ fun ThemeScreenPreview() {
     AlgoKitTheme {
         ThemeScreen(
             rememberNavController(),
-            themeRepository = provideThemePreferenceRepository()
+            themeRepository = provideThemePreferenceRepository(),
         )
     }
 }

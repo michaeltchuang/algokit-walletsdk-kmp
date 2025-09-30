@@ -1,7 +1,6 @@
 package com.michaeltchuang.walletsdk.account.domain.model.core
 
 sealed interface AccountRegistrationType {
-
     data object Algo25 : AccountRegistrationType
 
     data object LedgerBle : AccountRegistrationType

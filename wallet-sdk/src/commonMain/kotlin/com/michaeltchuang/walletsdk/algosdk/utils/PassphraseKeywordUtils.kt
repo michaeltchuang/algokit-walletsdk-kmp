@@ -10,12 +10,14 @@ object PassphraseKeywordUtils {
         if (prefix.isEmpty()) {
             return listOf()
         }
-        return predefinedWords.asSequence().filter { it.startsWith(prefix) }.take(wordCount).toList()
+        return predefinedWords
+            .asSequence()
+            .filter { it.startsWith(prefix) }
+            .take(wordCount)
+            .toList()
     }
 
-    fun isWordInKeywords(word: String): Boolean {
-        return predefinedWords.binarySearch(word) >= 0
-    }
+    fun isWordInKeywords(word: String): Boolean = predefinedWords.binarySearch(word) >= 0
 
     val predefinedWords =
         listOf(
