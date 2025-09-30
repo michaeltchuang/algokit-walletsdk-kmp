@@ -4,6 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import com.ionspin.kotlin.bignum.decimal.BigDecimal
+import com.ionspin.kotlin.bignum.decimal.DecimalMode
+import com.ionspin.kotlin.bignum.decimal.RoundingMode
 
 fun ByteArray.clearFromMemory(): ByteArray {
     // Overwrite the byte array contents with zeros
@@ -42,18 +45,26 @@ inline fun <reified T> NavController.getData(): T? {
         ?.getObject()
 }
 
-fun String.formatAmount(rawAmount: String): String {
-    // Convert microAlgos to Algos and format for display
+fun String.formatAmount(): String {
     return try {
-        val microalgos = rawAmount.toLongOrNull() ?: return rawAmount
-        val algos = microalgos / 1_000_000.0
-        if (algos >= 1) {
-            val rounded = (algos * 100).toLong() / 100.0
-            rounded.toString()
-        } else {
-            algos.toString()
-        }
+        val microalgos = BigDecimal.parseString(this)
+        val divisor = BigDecimal.parseString("1000000")
+        val algos = microalgos.divide(divisor)
+
+        // Round to 6 decimal places
+        val rounded = algos.roundToDigitPosition(
+            digitPosition = 6,
+            roundingMode = RoundingMode.ROUND_HALF_AWAY_FROM_ZERO
+        )
+
+        // Format with exactly 6 decimal places
+        val str = rounded.toStringExpanded()
+        val parts = str.split(".")
+        val intPart = parts[0]
+        val decPart = parts.getOrNull(1)?.take(6)?.padEnd(6, '0') ?: "000000"
+
+        "$intPart.$decPart"
     } catch (e: Exception) {
-        rawAmount
+        this
     }
 }

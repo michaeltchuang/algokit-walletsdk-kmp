@@ -11,7 +11,6 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.network.model.ApiResult
 import com.michaeltchuang.walletsdk.network.service.AccountInformationApiService
 import com.michaeltchuang.walletsdk.network.service.getBasicAccountInformation
-import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
 import kotlinx.coroutines.launch
@@ -51,7 +50,7 @@ class AccountListViewModel(
                 // Fetch account details for all accounts to get their amounts
                 val accountsWithAmounts = accountLite.map { account ->
                     val accountInfo = getAccountDetails(account.address)
-                    account.copy(amount = accountInfo?.amount ?: "0")
+                    account.copy(balance = accountInfo?.amount ?: "0")
                 }
 
                 accountLite = accountsWithAmounts

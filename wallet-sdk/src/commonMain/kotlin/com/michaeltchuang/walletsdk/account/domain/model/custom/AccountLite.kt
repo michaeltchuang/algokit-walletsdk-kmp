@@ -7,5 +7,5 @@ data class AccountLite(
     val address: String,
     val customName: String,
     val registrationType: AccountRegistrationType,
-    val amount: String?=null,
+    val balance: String? = null,
 )

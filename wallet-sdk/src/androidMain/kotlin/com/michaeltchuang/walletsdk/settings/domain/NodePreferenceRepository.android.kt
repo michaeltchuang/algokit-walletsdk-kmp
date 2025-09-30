@@ -35,7 +35,7 @@ actual class NodePreferenceRepository actual constructor() {
             }
         } else {
             // Fallback to default when context is not available
-            flow { emit(AlgorandNetwork.MAINNET) }
+            flow { emit(AlgorandNetwork.TESTNET) }
         }
 
     actual suspend fun saveNodePreference(network: AlgorandNetwork) {

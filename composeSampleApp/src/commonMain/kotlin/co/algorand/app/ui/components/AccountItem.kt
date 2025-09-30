@@ -56,7 +56,7 @@ fun AccountItem(
             Column(
                 modifier =
                     Modifier
-                        .fillMaxWidth(.8f)
+                        .weight(1f)
                         .padding(horizontal = 8.dp),
             ) {
                 Text(
@@ -69,9 +69,16 @@ fun AccountItem(
                 )
             }
 
-            Text(text = ("\u00A6") + (account.amount?.let { it.formatAmount(it) } ?: "0"),
-                fontSize = 16.sp,
-                style = typography.footnote.sansMedium)
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.padding(end = 8.dp)
+            ) {
+                Text(
+                    text = (("\u00A6") + account.balance?.formatAmount()),
+                    fontSize = 16.sp,
+                    style = typography.footnote.sansMedium
+                )
+            }
         }
     }
 }
@@ -120,7 +127,7 @@ fun AccountItemPreview() {
         AccountLite(
             address = "ASDFGHJKLASDFGHJKL",
             customName = "Sample Account",
-            amount = "5000000000", // 5000 Algos in microAlgos
+            balance = "5000000000", // 5000 Algos in microAlgos
             registrationType = AccountRegistrationType.Algo25,
         )
 

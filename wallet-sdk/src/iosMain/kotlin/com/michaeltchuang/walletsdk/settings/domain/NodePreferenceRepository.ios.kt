@@ -20,7 +20,7 @@ actual class NodePreferenceRepository actual constructor() {
         val saved = defaults.objectForKey(NODE_KEY) as? String
         stateFlow.value = saved?.let { name ->
             AlgorandNetwork.entries.find { it.name == name }
-        } ?: AlgorandNetwork.MAINNET
+        } ?: AlgorandNetwork.TESTNET
     }
 
     actual fun getSavedNodePreferenceFlow(): Flow<AlgorandNetwork> = stateFlow.asStateFlow()
