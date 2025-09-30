@@ -4,7 +4,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import kotlinx.coroutines.flow.Flow
 
 internal interface LedgerBleAccountRepository {
-
     fun getAllAsFlow(): Flow<List<LocalAccount.LedgerBle>>
 
     fun getAccountCountAsFlow(): Flow<Int>

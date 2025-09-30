@@ -14,49 +14,52 @@ import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
+val networkModule =
+    module {
 
-val networkModule = module {
-
-    // Provide HttpClient with JSON serialization and logging
-    single<HttpClient> {
-        HttpClient {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    coerceInputValues = true
-                })
-            }
-
-            install(Logging) {
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        println("HTTP Client: $message")
-                    }
+        // Provide HttpClient with JSON serialization and logging
+        single<HttpClient> {
+            HttpClient {
+                install(ContentNegotiation) {
+                    json(
+                        Json {
+                            ignoreUnknownKeys = true
+                            isLenient = true
+                            coerceInputValues = true
+                        },
+                    )
                 }
-                level = LogLevel.INFO
+
+                install(Logging) {
+                    logger =
+                        object : Logger {
+                            override fun log(message: String) {
+                                println("HTTP Client: $message")
+                            }
+                        }
+                    level = LogLevel.INFO
+                }
             }
         }
-    }
 
-    // Provide base URL provider function
-    single<suspend () -> String> {
-        val nodeRepository = provideNodePreferenceRepository()
-        return@single {
-            try {
-                nodeRepository.getSavedNodePreferenceFlow().first().baseUrl
-            } catch (e: Exception) {
-                // Fallback to TestNet if there's any issue
-                AlgorandNetwork.TESTNET.baseUrl
+        // Provide base URL provider function
+        single<suspend () -> String> {
+            val nodeRepository = provideNodePreferenceRepository()
+            return@single {
+                try {
+                    nodeRepository.getSavedNodePreferenceFlow().first().baseUrl
+                } catch (e: Exception) {
+                    // Fallback to TestNet if there's any issue
+                    AlgorandNetwork.TESTNET.baseUrl
+                }
             }
         }
-    }
 
-    // Provide AccountInformationApiService
-    single<AccountInformationApiService> {
-        AccountInformationApiServiceImpl(
-            httpClient = get(),
-            baseUrlProvider = get()
-        )
+        // Provide AccountInformationApiService
+        single<AccountInformationApiService> {
+            AccountInformationApiServiceImpl(
+                httpClient = get(),
+                baseUrlProvider = get(),
+            )
+        }
     }
-}

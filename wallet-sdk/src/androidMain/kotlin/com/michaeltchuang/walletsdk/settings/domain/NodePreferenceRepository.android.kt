@@ -1,8 +1,6 @@
 package com.michaeltchuang.walletsdk.settings.domain
 
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -25,8 +23,8 @@ actual class NodePreferenceRepository actual constructor() {
     private val ctx = AndroidContextHolder.applicationContext
 
     private fun networkToString(network: AlgorandNetwork): String = network.name
-    private fun stringToNetwork(str: String?): AlgorandNetwork =
-        AlgorandNetwork.entries.find { it.name == str } ?: AlgorandNetwork.MAINNET
+
+    private fun stringToNetwork(str: String?): AlgorandNetwork = AlgorandNetwork.entries.find { it.name == str } ?: AlgorandNetwork.MAINNET
 
     actual fun getSavedNodePreferenceFlow(): Flow<AlgorandNetwork> =
         if (ctx != null) {
@@ -51,7 +49,4 @@ actual class NodePreferenceRepository actual constructor() {
     }
 }
 
-actual fun provideNodePreferenceRepository(): NodePreferenceRepository {
-    return NodePreferenceRepository()
-}
-
+actual fun provideNodePreferenceRepository(): NodePreferenceRepository = NodePreferenceRepository()

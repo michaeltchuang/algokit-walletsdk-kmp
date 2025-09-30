@@ -3,7 +3,6 @@ package com.michaeltchuang.walletsdk.deeplink.parser
 import com.michaeltchuang.walletsdk.deeplink.model.PeraUri
 
 internal class PeraUriParserImpl : PeraUriParser {
-
     override fun parseUri(uri: String): PeraUri {
         val matchResult = URI_REGEX.matchEntire(uri) ?: return createUriOnly(uri)
         return PeraUri(
@@ -12,50 +11,41 @@ internal class PeraUriParserImpl : PeraUriParser {
             path = getPath(matchResult),
             queryParams = getQueryParams(matchResult),
             fragment = getFragment(matchResult),
-            rawUri = uri
+            rawUri = uri,
         )
     }
 
-    private fun createUriOnly(uri: String): PeraUri {
-        return PeraUri(
+    private fun createUriOnly(uri: String): PeraUri =
+        PeraUri(
             scheme = null,
             host = null,
             path = null,
             queryParams = emptyMap(),
             fragment = null,
-            rawUri = uri
+            rawUri = uri,
         )
-    }
 
-    private fun getScheme(matchResult: MatchResult): String? {
-        return matchResult.groups[1]?.value
-    }
+    private fun getScheme(matchResult: MatchResult): String? = matchResult.groups[1]?.value
 
-    private fun getHost(matchResult: MatchResult): String? {
-        return matchResult.groups[2]?.value
-    }
+    private fun getHost(matchResult: MatchResult): String? = matchResult.groups[2]?.value
 
-    private fun getPath(matchResult: MatchResult): String? {
-        return matchResult.groups[3]?.value?.removePrefix("/")
-    }
+    private fun getPath(matchResult: MatchResult): String? = matchResult.groups[3]?.value?.removePrefix("/")
 
-    private fun getFragment(matchResult: MatchResult): String? {
-        return matchResult.groups[5]?.value?.removePrefix("#")
-    }
+    private fun getFragment(matchResult: MatchResult): String? = matchResult.groups[5]?.value?.removePrefix("#")
 
     private fun getQueryParams(matchResult: MatchResult): Map<String, String?> {
         val query = matchResult.groups[4]?.value?.removePrefix("?") ?: return emptyMap()
         return parseQueryParams(query)
     }
 
-    private fun parseQueryParams(query: String): Map<String, String?> {
-        return query.split("&").associate { param ->
-            val (key, value) = param.split("=", limit = 2).let {
-                it[0] to it.getOrNull(1)
-            }
+    private fun parseQueryParams(query: String): Map<String, String?> =
+        query.split("&").associate { param ->
+            val (key, value) =
+                param.split("=", limit = 2).let {
+                    it[0] to it.getOrNull(1)
+                }
             key to value
         }
-    }
 
     private companion object {
         val URI_REGEX =

@@ -48,10 +48,11 @@ class AccountListViewModel(
                 accountLite = nameRegistrationUseCase.getAccountLite()
 
                 // Fetch account details for all accounts to get their amounts
-                val accountsWithAmounts = accountLite.map { account ->
-                    val accountInfo = getAccountDetails(account.address)
-                    account.copy(balance = accountInfo?.amount ?: "0")
-                }
+                val accountsWithAmounts =
+                    accountLite.map { account ->
+                        val accountInfo = getAccountDetails(account.address)
+                        account.copy(balance = accountInfo?.amount ?: "0")
+                    }
 
                 accountLite = accountsWithAmounts
                 stateDelegate.updateState {

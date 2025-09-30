@@ -53,20 +53,21 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun SettingsScreen(navController: NavController) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
     ) {
-
         Text(
             text = stringResource(Res.string.settings),
-            modifier = Modifier
-                .padding(vertical = 16.dp),
+            modifier =
+                Modifier
+                    .padding(vertical = 16.dp),
             color = AlgoKitTheme.colors.textMain,
             fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -76,7 +77,7 @@ fun SettingsScreen(navController: NavController) {
             text = stringResource(Res.string.app_preferences),
             color = AlgoKitTheme.colors.textMain,
             style = AlgoKitTheme.typography.body.regular.sansMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
         SettingsItem(Res.drawable.ic_moon, stringResource(Res.string.theme)) {
             navController.navigate(AlgoKitScreens.THEME_SCREEN.name)
@@ -89,25 +90,26 @@ fun SettingsScreen(navController: NavController) {
             text = stringResource(Res.string.support),
             color = AlgoKitTheme.colors.textMain,
             style = AlgoKitTheme.typography.body.regular.sansMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
-        SettingsWebviewItem(Res.drawable.ic_feedback,
+        SettingsWebviewItem(
+            Res.drawable.ic_feedback,
             stringResource(Res.string.get_help),
-            WalletSdkConstants.SUPPORT_URL
+            WalletSdkConstants.SUPPORT_URL,
         )
         SettingsWebviewItem(
             Res.drawable.ic_text_document,
             stringResource(Res.string.privacy_policy),
-            WalletSdkConstants.PRIVACY_POLICY_URL
+            WalletSdkConstants.PRIVACY_POLICY_URL,
         )
         SettingsWebviewItem(
             Res.drawable.ic_text_document,
             stringResource(Res.string.terms_and_services),
-            WalletSdkConstants.TERMS_AND_SERVICES_URL
+            WalletSdkConstants.TERMS_AND_SERVICES_URL,
         )
         SettingsItem(
             Res.drawable.ic_code,
-            stringResource(Res.string.developer_settings)
+            stringResource(Res.string.developer_settings),
         ) {
             navController.navigate(AlgoKitScreens.DEVELOPER_SETTINGS_SCREEN.name)
         }
@@ -115,22 +117,27 @@ fun SettingsScreen(navController: NavController) {
 }
 
 @Composable
-fun SettingsWebviewItem(icon: DrawableResource, title: String, url: String) {
+fun SettingsWebviewItem(
+    icon: DrawableResource,
+    title: String,
+    url: String,
+) {
     val webViewController by rememberWebViewController()
     WebViewPlatform(webViewController = webViewController)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { webViewController.open(url) }
-            .padding(vertical = 12.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { webViewController.open(url) }
+                .padding(vertical = 12.dp),
     ) {
         Icon(
             painter = painterResource(icon),
             contentDescription = title,
             tint = AlgoKitTheme.colors.textMain,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
@@ -142,7 +149,7 @@ fun SettingsWebviewItem(icon: DrawableResource, title: String, url: String) {
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowRight,
             tint = AlgoKitTheme.colors.textMain,
-            contentDescription = stringResource(Res.string.next)
+            contentDescription = stringResource(Res.string.next),
         )
     }
 }
@@ -154,4 +161,3 @@ fun SettingsScreenPreview() {
         SettingsScreen(navController = rememberNavController())
     }
 }
-

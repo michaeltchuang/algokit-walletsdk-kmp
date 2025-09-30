@@ -12,7 +12,8 @@ import com.michaeltchuang.walletsdk.designsystem.theme.provideThemePreferenceRep
 @Composable
 fun SetPreferredTheme() {
     val repository = provideThemePreferenceRepository()
-    val currentThemePreference by repository.getSavedThemePreferenceFlow()
+    val currentThemePreference by repository
+        .getSavedThemePreferenceFlow()
         .collectAsState(initial = ThemePreference.SYSTEM)
     val systemDark = isSystemInDarkTheme()
     val isDark = LocalThemeIsDark.current

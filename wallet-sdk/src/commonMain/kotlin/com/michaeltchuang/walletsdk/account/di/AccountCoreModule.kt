@@ -19,27 +19,28 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
 import org.koin.dsl.module
 
-val accountCoreModule = module {
-    single { AddAlgo25AccountUseCase(get(), get()) }
+val accountCoreModule =
+    module {
+        single { AddAlgo25AccountUseCase(get(), get()) }
 
-    factory<AddAlgo25Account> { get<AddAlgo25AccountUseCase>() }
-    single { AccountAdditionUseCase(get(), get(), get()) }
+        factory<AddAlgo25Account> { get<AddAlgo25AccountUseCase>() }
+        single { AccountAdditionUseCase(get(), get(), get()) }
 
-    single { DeleteAlgo25AccountUseCase(get(), get()) }
-    single<DeleteAlgo25Account> { get<DeleteAlgo25AccountUseCase>() }
+        single { DeleteAlgo25AccountUseCase(get(), get()) }
+        single<DeleteAlgo25Account> { get<DeleteAlgo25AccountUseCase>() }
 
-    single { DeleteHdKeyAccountUseCase(get(), get(), get()) }
+        single { DeleteHdKeyAccountUseCase(get(), get(), get()) }
 
-    single { GetLocalAccountsUseCase(get(), get(), get()) }
-    single<GetLocalAccounts> { get<GetLocalAccountsUseCase>() }
-    single { GetLocalAccountUseCase(get()) }
-    single<GetLocalAccount> { get<GetLocalAccountUseCase>() }
-    single { GetAccountMnemonicUseCase(get(), get(), get()) }
-    single<GetAccountMnemonic> { get<GetAccountMnemonicUseCase>() }
-    single { GetAccountRegistrationTypeUseCase(get()) }
+        single { GetLocalAccountsUseCase(get(), get(), get()) }
+        single<GetLocalAccounts> { get<GetLocalAccountsUseCase>() }
+        single { GetLocalAccountUseCase(get()) }
+        single<GetLocalAccount> { get<GetLocalAccountUseCase>() }
+        single { GetAccountMnemonicUseCase(get(), get(), get()) }
+        single<GetAccountMnemonic> { get<GetAccountMnemonicUseCase>() }
+        single { GetAccountRegistrationTypeUseCase(get()) }
 
-    single { NameRegistrationUseCase(get(), get(), get(), get(), get(), get()) }
-    single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl() }
+        single { NameRegistrationUseCase(get(), get(), get(), get(), get(), get()) }
+        single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl() }
 
-    single { RecoverPassphraseUseCase() }
-}
+        single { RecoverPassphraseUseCase() }
+    }

@@ -4,5 +4,5 @@ data class CustomHdSeedInfo(
     val seedId: Int,
     val entropyCustomName: String,
     val orderIndex: Int,
-    val isBackedUp: Boolean
+    val isBackedUp: Boolean,
 )

@@ -8,12 +8,10 @@ import javax.inject.Inject
 
 internal class ApplicationCallStateSchemaMapperImpl
     @Inject
-    constructor() :
-    ApplicationCallStateSchemaMapper {
-        override fun invoke(payload: RawTransactionApplicationCallStateSchemaPayload?): ApplicationCallStateSchema {
-            return ApplicationCallStateSchema(
+    constructor() : ApplicationCallStateSchemaMapper {
+        override fun invoke(payload: RawTransactionApplicationCallStateSchemaPayload?): ApplicationCallStateSchema =
+            ApplicationCallStateSchema(
                 numberOfBytes = payload?.numberOfBytes,
                 numberOfInts = payload?.numberOfInts,
             )
-        }
     }

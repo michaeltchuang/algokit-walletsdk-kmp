@@ -24,8 +24,8 @@ internal class AlgoTransactionBuilderImpl
         private fun createTxnByteArray(
             payload: AlgoTransactionPayload,
             params: SuggestedTransactionParams,
-        ): ByteArray {
-            return with(payload) {
+        ): ByteArray =
+            with(payload) {
                 algoSdk.createAlgoTransferTxn(
                     senderAddress = senderAddress,
                     receiverAddress = receiverAddress,
@@ -35,5 +35,4 @@ internal class AlgoTransactionBuilderImpl
                     suggestedTransactionParams = params,
                 )
             }
-        }
     }

@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.deeplink.utils
 
-
 object AssetConstants {
     const val ALGO_ID = -7L
     const val DEFAULT_ASSET_DECIMAL = 0
@@ -12,7 +11,7 @@ object AssetConstants {
     const val ALGORAND_TWITTER_USERNAME = "Algorand"
     const val ALGORAND_WEBSITE_URL = "https://algorand.com"
     const val MINIMUM_CURRENCY_VALUE_TO_DISPLAY_EXACT_AMOUNT = "0.000001"
-   /* val ALGO_TOTAL_SUPPLY: BigDecimal = "10000000000".toBigDecimal()*/
+    // val ALGO_TOTAL_SUPPLY: BigDecimal = "10000000000".toBigDecimal()
 
     const val USDC_MAINNET_ID = 31566704L
     const val USDC_TESTNET_ID = 10458941L

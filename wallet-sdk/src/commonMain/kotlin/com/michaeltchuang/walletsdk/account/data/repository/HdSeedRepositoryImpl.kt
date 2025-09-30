@@ -12,42 +12,31 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-
 internal class HdSeedRepositoryImpl(
     private val hdSeedDao: HdSeedDao,
     private val hdSeedEntityMapper: HdSeedEntityMapper,
     private val hdSeedMapper: HdSeedMapper,
-  /*  private val aesPlatformManager: AESPlatformManager,*/
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    // private val aesPlatformManager: AESPlatformManager,
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : HdSeedRepository {
-
-    override fun getAllAsFlow(): Flow<List<HdSeed>> {
-        return hdSeedDao.getAllAsFlow().map { entityList ->
+    override fun getAllAsFlow(): Flow<List<HdSeed>> =
+        hdSeedDao.getAllAsFlow().map { entityList ->
             entityList.map { entity -> hdSeedMapper(entity) }
         }
-    }
 
-    override fun getSeedCountAsFlow(): Flow<Int> {
-        return hdSeedDao.getTableSizeAsFlow()
-    }
+    override fun getSeedCountAsFlow(): Flow<Int> = hdSeedDao.getTableSizeAsFlow()
 
-    override suspend fun getHdSeedCount(): Int {
-        return hdSeedDao.getTableSize()
-    }
+    override suspend fun getHdSeedCount(): Int = hdSeedDao.getTableSize()
 
-    override suspend fun getMaxSeedId(): Int? {
-        return hdSeedDao.getMaxSeedId()
-    }
+    override suspend fun getMaxSeedId(): Int? = hdSeedDao.getMaxSeedId()
 
-    override suspend fun hasAnySeed(): Boolean {
-        return hdSeedDao.hasAnySeed()
-    }
+    override suspend fun hasAnySeed(): Boolean = hdSeedDao.hasAnySeed()
 
     override suspend fun getSeedIdIfExistingEntropy(entropy: ByteArray): Int? {
         val entities = hdSeedDao.getAll()
 
         for (entity in entities) {
-           // val decryptedEntropy = aesPlatformManager.decryptByteArray(entity.encryptedEntropy)
+            // val decryptedEntropy = aesPlatformManager.decryptByteArray(entity.encryptedEntropy)
             if (entropy.contentEquals(entity.encryptedEntropy)) {
                 return entity.seedId
             }
@@ -55,26 +44,27 @@ internal class HdSeedRepositoryImpl(
         return null
     }
 
-    override suspend fun getAllHdSeeds(): List<HdSeed> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllHdSeeds(): List<HdSeed> =
+        withContext(coroutineDispatcher) {
             val entities = hdSeedDao.getAll()
             entities.map { hdSeedMapper(it) }
         }
-    }
 
-    override suspend fun getHdSeed(seedId: Int): HdSeed? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getHdSeed(seedId: Int): HdSeed? =
+        withContext(coroutineDispatcher) {
             hdSeedDao.get(seedId)?.let { hdSeedMapper(it) }
         }
-    }
 
-    override suspend fun addHdSeed(seedId: Int, entropy: ByteArray, seed: ByteArray): Long {
-        return withContext(coroutineDispatcher) {
+    override suspend fun addHdSeed(
+        seedId: Int,
+        entropy: ByteArray,
+        seed: ByteArray,
+    ): Long =
+        withContext(coroutineDispatcher) {
             val hdKeyEntity = hdSeedEntityMapper(seedId, entropy, seed)
             val seedId = hdSeedDao.insert(hdKeyEntity)
             seedId
         }
-    }
 
     override suspend fun deleteHdSeed(seedId: Int) {
         withContext(coroutineDispatcher) {
@@ -92,19 +82,17 @@ internal class HdSeedRepositoryImpl(
         }
     }
 
-    override suspend fun getEntropy(seedId: Int): ByteArray? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getEntropy(seedId: Int): ByteArray? =
+        withContext(coroutineDispatcher) {
             val encryptedSK = hdSeedDao.get(seedId)?.encryptedEntropy
-          //  encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
+            //  encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
             encryptedSK
         }
-    }
 
-    override suspend fun getSeed(seedId: Int): ByteArray? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getSeed(seedId: Int): ByteArray? =
+        withContext(coroutineDispatcher) {
             val encryptedSK = hdSeedDao.get(seedId)?.encryptedSeed
-           // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
+            // encryptedSK?.let { aesPlatformManager.decryptByteArray(it) }
             encryptedSK
         }
-    }
 }

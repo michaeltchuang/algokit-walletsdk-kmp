@@ -8,8 +8,9 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.mapper.SuggestedPara
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.model.SuggestedTransactionParams
 import java.math.BigInteger
 
-internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMapper) :
-    AlgoSdk {
+internal class AlgoSdkImpl(
+    private val suggestedParamsMapper: SuggestedParamsMapper,
+) : AlgoSdk {
     override fun createAssetTransferTxn(
         senderAddress: String,
         receiverAddress: String,
@@ -17,8 +18,8 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         assetId: Long,
         noteInByteArray: ByteArray?,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makeAssetTransferTxn(
+    ): ByteArray =
+        Sdk.makeAssetTransferTxn(
             senderAddress,
             receiverAddress,
             "",
@@ -27,7 +28,6 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
             assetId,
         )
-    }
 
     override fun createAlgoTransferTxn(
         senderAddress: String,
@@ -36,8 +36,8 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         isMax: Boolean,
         noteInByteArray: ByteArray?,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makePaymentTxn(
+    ): ByteArray =
+        Sdk.makePaymentTxn(
             senderAddress,
             receiverAddress,
             amount.toUint64(),
@@ -45,40 +45,37 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             if (isMax) receiverAddress else "",
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
         )
-    }
 
     override fun createRekeyTxn(
         rekeyAddress: String,
         rekeyAdminAddress: String,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makeRekeyTxn(
+    ): ByteArray =
+        Sdk.makeRekeyTxn(
             rekeyAddress,
             rekeyAdminAddress,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
         )
-    }
 
     override fun createAddAssetTxn(
         address: String,
         assetId: Long,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makeAssetAcceptanceTxn(
+    ): ByteArray =
+        Sdk.makeAssetAcceptanceTxn(
             address,
             null,
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = true),
             assetId,
         )
-    }
 
     override fun createRemoveAssetTxn(
         senderAddress: String,
         creatorPublicKey: String,
         assetId: Long,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makeAssetTransferTxn(
+    ): ByteArray =
+        Sdk.makeAssetTransferTxn(
             senderAddress,
             creatorPublicKey,
             creatorPublicKey,
@@ -87,7 +84,6 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
             assetId,
         )
-    }
 
     override fun createSendAndRemoveAssetTxn(
         senderAddress: String,
@@ -96,8 +92,8 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
         amount: BigInteger,
         noteInByteArray: ByteArray?,
         suggestedTransactionParams: SuggestedTransactionParams,
-    ): ByteArray {
-        return Sdk.makeAssetTransferTxn(
+    ): ByteArray =
+        Sdk.makeAssetTransferTxn(
             senderAddress,
             receiverAddress,
             receiverAddress,
@@ -106,9 +102,6 @@ internal class AlgoSdkImpl(private val suggestedParamsMapper: SuggestedParamsMap
             suggestedParamsMapper(suggestedTransactionParams, addGenesis = false),
             assetId,
         )
-    }
 
-    override fun transactionMsgpackToJson(txnByteArray: ByteArray): String {
-        return Sdk.transactionMsgpackToJson(txnByteArray)
-    }
+    override fun transactionMsgpackToJson(txnByteArray: ByteArray): String = Sdk.transactionMsgpackToJson(txnByteArray)
 }

@@ -9,13 +9,10 @@ internal data class CustomHdSeedInfoEntity(
     @PrimaryKey
     @ColumnInfo(name = "seed_id")
     val seedId: Int,
-
     @ColumnInfo("entropy_custom_name")
     val entropyCustomName: String,
-
     @ColumnInfo(name = "order_index")
     val orderIndex: Int,
-
     @ColumnInfo(name = "is_backed_up")
-    val isBackedUp: Boolean
+    val isBackedUp: Boolean,
 )

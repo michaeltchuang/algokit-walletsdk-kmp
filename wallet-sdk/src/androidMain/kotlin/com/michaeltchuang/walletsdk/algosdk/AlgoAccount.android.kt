@@ -6,25 +6,16 @@ import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoAccountSdkImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoKitBip39SdkImpl
 
-actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
-    return AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
-}
+actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
 
-actual fun createAlgo25Account(): Algo25Account? {
-    return AlgoAccountSdkImpl().createAlgo25Account()
-}
+actual fun createAlgo25Account(): Algo25Account? = AlgoAccountSdkImpl().createAlgo25Account()
 
-actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
-    return AlgoAccountSdkImpl().getMnemonicFromAlgo25SecretKey(secretKey = secretKey)
-}
+actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? =
+    AlgoAccountSdkImpl().getMnemonicFromAlgo25SecretKey(secretKey = secretKey)
 
-actual fun createBip39Wallet(): Bip39Wallet {
-    return AlgorandBip39WalletProvider().createBip39Wallet()
-}
+actual fun createBip39Wallet(): Bip39Wallet = AlgorandBip39WalletProvider().createBip39Wallet()
 
-actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet {
-    return AlgorandBip39WalletProvider().getBip39Wallet(entropy)
-}
+actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet = AlgorandBip39WalletProvider().getBip39Wallet(entropy)
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? {
     val seed = AlgoKitBip39SdkImpl().getSeedFromEntropy(entropy)

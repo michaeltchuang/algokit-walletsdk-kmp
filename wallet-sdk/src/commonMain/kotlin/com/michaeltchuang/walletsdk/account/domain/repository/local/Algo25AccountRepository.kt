@@ -4,7 +4,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import kotlinx.coroutines.flow.Flow
 
 interface Algo25AccountRepository {
-
     fun getAllAsFlow(): Flow<List<LocalAccount.Algo25>>
 
     fun getAccountCountAsFlow(): Flow<Int>
@@ -19,7 +18,7 @@ interface Algo25AccountRepository {
 
     suspend fun addAccount(
         account: LocalAccount.Algo25,
-        privateKey: ByteArray
+        privateKey: ByteArray,
     )
 
     suspend fun deleteAccount(address: String)

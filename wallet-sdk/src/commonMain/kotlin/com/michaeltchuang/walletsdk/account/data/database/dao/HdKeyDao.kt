@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface HdKeyDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: HdKeyEntity)
 

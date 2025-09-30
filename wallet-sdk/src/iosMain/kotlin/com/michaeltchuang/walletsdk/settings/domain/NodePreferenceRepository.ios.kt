@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.settings.domain
 
-import androidx.compose.runtime.Composable
 import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +32,4 @@ actual class NodePreferenceRepository actual constructor() {
     }
 }
 
-
-actual fun provideNodePreferenceRepository(): NodePreferenceRepository {
-    return NodePreferenceRepository()
-}
+actual fun provideNodePreferenceRepository(): NodePreferenceRepository = NodePreferenceRepository()

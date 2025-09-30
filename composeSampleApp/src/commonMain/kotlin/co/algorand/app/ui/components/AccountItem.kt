@@ -36,7 +36,8 @@ fun AccountItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp).clickable(onClick = {
+                .padding(8.dp)
+                .clickable(onClick = {
                     onAccountItemClick(account.address)
                 }),
         elevation = CardDefaults.cardElevation(4.dp),
@@ -71,12 +72,12 @@ fun AccountItem(
 
             Column(
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.padding(end = 8.dp)
+                modifier = Modifier.padding(end = 8.dp),
             ) {
                 Text(
                     text = (("\u00A6") + account.balance?.formatAmount()),
                     fontSize = 16.sp,
-                    style = typography.footnote.sansMedium
+                    style = typography.footnote.sansMedium,
                 )
             }
         }
@@ -116,8 +117,6 @@ fun getAccountType(localAccount: AccountRegistrationType): String =
             "Ledger"
         }
     } + " Account"
-
-
 
 @Preview()
 @Composable

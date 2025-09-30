@@ -49,7 +49,6 @@ private const val TAG = "InitialRegisterIntroScreen"
 
 @Composable
 fun InitialRegisterIntroScreen(navController: NavController = rememberNavController()) {
-
     val viewModel: OnboardingAccountTypeViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
@@ -67,39 +66,44 @@ fun InitialRegisterIntroScreen(navController: NavController = rememberNavControl
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Top
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp),
             verticalAlignment = Alignment.Bottom,
         ) {
             Text(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(top = 50.dp)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(top = 50.dp)
+                        .fillMaxWidth(),
                 style = typography.title.regular.sansMedium,
                 color = AlgoKitTheme.colors.textMain,
-                text = stringResource(
-                    Res.string.welcome_to_pera
-                )
+                text =
+                    stringResource(
+                        Res.string.welcome_to_pera,
+                    ),
             )
             Box(
-                modifier = Modifier
-                    .weight(1f, fill = true),
-                contentAlignment = Alignment.TopEnd
+                modifier =
+                    Modifier
+                        .weight(1f, fill = true),
+                contentAlignment = Alignment.TopEnd,
             ) {
-               AlgoKitIcon(
+                AlgoKitIcon(
                     modifier = Modifier.fillMaxWidth(),
                     painter = painterResource(Res.drawable.pera_icon_3d),
                     contentDescription = stringResource(Res.string.welcome_to_pera),
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.FillWidth,
                 )
             }
         }
@@ -118,7 +122,6 @@ fun InitialRegisterIntroScreen(navController: NavController = rememberNavControl
     }
 }
 
-
 @Composable
 private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
     Column {
@@ -132,15 +135,16 @@ private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
         Spacer(Modifier.height(12.dp))
 
         AlgoKitTertiaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             onClick = {
                 viewModel.createHdKeyAccount()
             },
             text = stringResource(Res.string.create_a_new_wallet),
             leftIcon = {
-             AlgoKitIcon(
+                AlgoKitIcon(
                     painter = painterResource(Res.drawable.ic_hd_wallet),
                     contentDescription = stringResource(Res.string.hd_wallet),
                 )
@@ -149,9 +153,9 @@ private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
                 AlgoKitIcon(
                     painter = painterResource(Res.drawable.ic_right_arrow),
                     contentDescription = stringResource(Res.string.right_arrow),
-                    tintColor = AlgoKitTheme.colors.textGray
+                    tintColor = AlgoKitTheme.colors.textGray,
                 )
-            }
+            },
         )
     }
 }
@@ -163,15 +167,16 @@ private fun ImportAccountWidget(navController: NavController) {
             modifier = Modifier.padding(horizontal = 24.dp),
             style = typography.body.regular.sans,
             text = stringResource(Res.string.already_have_an_account),
-            color = AlgoKitTheme.colors.textGray
+            color = AlgoKitTheme.colors.textGray,
         )
 
         Spacer(Modifier.height(12.dp))
 
         AlgoKitTertiaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             onClick = {
                 navController.navigate(AlgoKitScreens.ACCOUNT_RECOVERY_TYPE_SCREEN.name)
             },
@@ -186,13 +191,12 @@ private fun ImportAccountWidget(navController: NavController) {
                 AlgoKitIcon(
                     painter = painterResource(Res.drawable.ic_right_arrow),
                     contentDescription = stringResource(Res.string.right_arrow),
-                    tintColor = AlgoKitTheme.colors.textGray
+                    tintColor = AlgoKitTheme.colors.textGray,
                 )
-            }
+            },
         )
     }
 }
-
 
 @Preview
 @Composable

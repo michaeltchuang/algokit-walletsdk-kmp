@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface LedgerBleDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: LedgerBleEntity)
 

@@ -15,17 +15,14 @@ sealed class CacheResult<T> {
             return creationTimestamp == other.creationTimestamp
         }
 
-        override fun hashCode(): Int {
-            return data.hashCode() + creationTimestamp.hashCode()
-        }
+        override fun hashCode(): Int = data.hashCode() + creationTimestamp.hashCode()
 
         companion object {
-            fun <T> create(data: T): Success<T> {
-                return Success(
+            fun <T> create(data: T): Success<T> =
+                Success(
                     data,
                     createCreationTimestamp(),
                 )
-            }
         }
     }
 
@@ -46,23 +43,20 @@ sealed class CacheResult<T> {
             return previouslyCachedDataCreationTimestamp == other.previouslyCachedDataCreationTimestamp
         }
 
-        override fun hashCode(): Int {
-            return exception.hashCode() + previouslyCachedData.hashCode() + previouslyCachedData.hashCode()
-        }
+        override fun hashCode(): Int = exception.hashCode() + previouslyCachedData.hashCode() + previouslyCachedData.hashCode()
 
         companion object {
             fun <T> create(
                 exception: Throwable,
                 previousData: Success<T>? = null,
                 code: Int? = null,
-            ): Error<T> {
-                return Error(
+            ): Error<T> =
+                Error(
                     exception,
                     previousData?.data,
                     previousData?.creationTimestamp,
                     code = code,
                 )
-            }
         }
     }
 

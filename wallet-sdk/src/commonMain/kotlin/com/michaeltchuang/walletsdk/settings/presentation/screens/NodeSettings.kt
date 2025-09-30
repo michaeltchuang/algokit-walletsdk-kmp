@@ -33,9 +33,12 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-enum class AlgorandNetwork(val displayName: String, val baseUrl: String) {
+enum class AlgorandNetwork(
+    val displayName: String,
+    val baseUrl: String,
+) {
     MAINNET("Algorand MainNet Node", "https://mainnet-idx.algonode.cloud"),
-    TESTNET("TestNet", "https://testnet-idx.algonode.cloud")
+    TESTNET("TestNet", "https://testnet-idx.algonode.cloud"),
 }
 
 // Utility function to get current network from anywhere in the app
@@ -48,10 +51,11 @@ fun getCurrentNetwork(): Flow<AlgorandNetwork> {
 @Composable
 fun NodeSettingsScreen(
     navController: NavController,
-    nodeRepository: NodePreferenceRepository = provideNodePreferenceRepository()
+    nodeRepository: NodePreferenceRepository = provideNodePreferenceRepository(),
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val currentNetwork by nodeRepository.getSavedNodePreferenceFlow()
+    val currentNetwork by nodeRepository
+        .getSavedNodePreferenceFlow()
         .collectAsState(initial = null)
 
     fun onNetworkSelected(network: AlgorandNetwork) {
@@ -63,13 +67,14 @@ fun NodeSettingsScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .padding(horizontal = 16.dp),
     ) {
         AlgoKitTopBar(
-            title = stringResource(Res.string.node_settings)
+            title = stringResource(Res.string.node_settings),
         ) {
             navController.popBackStack()
         }
@@ -79,10 +84,11 @@ fun NodeSettingsScreen(
         AlgorandNetwork.entries.forEach { network ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onNetworkSelected(network) }
-                    .padding(vertical = 16.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable { onNetworkSelected(network) }
+                        .padding(vertical = 16.dp),
             ) {
                 Text(
                     text = network.displayName,
@@ -93,10 +99,11 @@ fun NodeSettingsScreen(
                 RadioButton(
                     selected = network == currentNetwork,
                     onClick = { onNetworkSelected(network) },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = AlgoKitTheme.colors.positive,
-                        unselectedColor = Color.LightGray
-                    )
+                    colors =
+                        RadioButtonDefaults.colors(
+                            selectedColor = AlgoKitTheme.colors.positive,
+                            unselectedColor = Color.LightGray,
+                        ),
                 )
             }
         }

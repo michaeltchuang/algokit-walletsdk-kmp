@@ -6,6 +6,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 internal interface Algo25EntityMapper {
     operator fun invoke(
         localAccount: LocalAccount.Algo25,
-        privateKey: ByteArray
+        privateKey: ByteArray,
     ): Algo25Entity
 }

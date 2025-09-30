@@ -8,9 +8,8 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.DeleteHdKeyAcco
 class DeleteHdKeyAccountUseCase(
     private val hdKeyAccountRepository: HdKeyAccountRepository,
     private val deleteHdSeedCustomInfo: DeleteHdSeedCustomInfo,
-    private val hdSeedRepository: HdSeedRepository
+    private val hdSeedRepository: HdSeedRepository,
 ) : DeleteHdKeyAccount {
-
     override suspend fun invoke(address: String) {
         deleteHdKeyAccount(address)
     }

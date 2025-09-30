@@ -10,11 +10,10 @@ class SingleInMemoryLocalCache<T> {
 
     fun getOrNull(): CacheResult<T>? = cacheFlow.value
 
-    fun remove(): CacheResult<T>? {
-        return _cacheFlow.value.also {
+    fun remove(): CacheResult<T>? =
+        _cacheFlow.value.also {
             clear()
         }
-    }
 
     fun clear() {
         _cacheFlow.value = null

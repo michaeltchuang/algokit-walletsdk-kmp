@@ -24,11 +24,10 @@ internal class RekeyTransactionBuilderImpl
         private fun createTxnByteArray(
             payload: RekeyTransactionPayload,
             params: SuggestedTransactionParams,
-        ): ByteArray {
-            return algoSdk.createRekeyTxn(
+        ): ByteArray =
+            algoSdk.createRekeyTxn(
                 rekeyAddress = payload.address,
                 rekeyAdminAddress = payload.rekeyAdminAddress,
                 suggestedTransactionParams = params,
             )
-        }
     }

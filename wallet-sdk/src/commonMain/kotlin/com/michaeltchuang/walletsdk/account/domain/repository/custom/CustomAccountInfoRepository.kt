@@ -5,7 +5,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.CustomAccountInf
 import kotlinx.coroutines.flow.Flow
 
 internal interface CustomAccountInfoRepository {
-
     suspend fun getCustomInfo(address: String): CustomAccountInfo
 
     suspend fun getCustomInfoOrNull(address: String): CustomAccountInfo?
@@ -16,11 +15,17 @@ internal interface CustomAccountInfoRepository {
 
     suspend fun setCustomInfo(customAccountInfo: CustomAccountInfo)
 
-    suspend fun setCustomName(address: String, name: String)
+    suspend fun setCustomName(
+        address: String,
+        name: String,
+    )
 
     suspend fun getCustomName(address: String): String?
 
-    suspend fun setOrderIndex(address: String, orderIndex: Int)
+    suspend fun setOrderIndex(
+        address: String,
+        orderIndex: Int,
+    )
 
     suspend fun deleteCustomInfo(address: String)
 

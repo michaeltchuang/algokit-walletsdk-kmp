@@ -4,5 +4,5 @@ data class CustomAccountInfo(
     val address: String,
     val customName: String?,
     val orderIndex: Int,
-    val isBackedUp: Boolean
+    val isBackedUp: Boolean,
 )

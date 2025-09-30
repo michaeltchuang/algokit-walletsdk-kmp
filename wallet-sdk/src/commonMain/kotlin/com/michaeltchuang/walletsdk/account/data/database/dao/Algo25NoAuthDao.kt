@@ -9,7 +9,6 @@ import com.michaeltchuang.walletsdk.account.data.database.model.NoAuthEntity
 
 @Dao
 internal interface Algo25NoAuthDao {
-
     @Upsert
     suspend fun upsertNoAuthEntities(entities: List<NoAuthEntity>)
 

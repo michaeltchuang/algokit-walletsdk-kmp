@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface CustomAccountInfoDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: CustomAccountInfoEntity)
 
@@ -35,10 +34,16 @@ internal interface CustomAccountInfoDao {
     suspend fun delete(address: String)
 
     @Query("UPDATE custom_account_info SET custom_name = :customName WHERE :address = algo_address")
-    suspend fun updateCustomName(address: String, customName: String)
+    suspend fun updateCustomName(
+        address: String,
+        customName: String,
+    )
 
     @Query("UPDATE custom_account_info SET order_index = :orderIndex WHERE :address = algo_address")
-    suspend fun updateOrderIndex(address: String, orderIndex: Int)
+    suspend fun updateOrderIndex(
+        address: String,
+        orderIndex: Int,
+    )
 
     @Query("DELETE FROM custom_account_info")
     suspend fun clearAll()

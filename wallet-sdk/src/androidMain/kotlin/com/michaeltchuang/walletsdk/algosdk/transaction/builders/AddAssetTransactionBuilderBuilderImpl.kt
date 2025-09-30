@@ -24,11 +24,10 @@ internal class AddAssetTransactionBuilderBuilderImpl
         private fun createTxnByteArray(
             payload: AddAssetTransactionPayload,
             params: SuggestedTransactionParams,
-        ): ByteArray {
-            return algoSdk.createAddAssetTxn(
+        ): ByteArray =
+            algoSdk.createAddAssetTxn(
                 address = payload.address,
                 assetId = payload.assetId,
                 suggestedTransactionParams = params,
             )
-        }
     }

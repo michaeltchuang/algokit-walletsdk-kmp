@@ -10,22 +10,20 @@ import com.michaeltchuang.walletsdk.encryption.domain.manager.Base64Manager
 internal class AlgoSdkAddressImpl(
     private val base64Manager: Base64Manager,
 ) : AlgoSdkAddress {
-    override fun isValid(address: String): Boolean {
-        return try {
+    override fun isValid(address: String): Boolean =
+        try {
             Sdk.isValidAddress(address)
         } catch (e: Exception) {
             false
         }
-    }
 
-    override fun generateAddressFromPublicKey(publicKey: ByteArray): AlgorandAddress? {
-        return try {
+    override fun generateAddressFromPublicKey(publicKey: ByteArray): AlgorandAddress? =
+        try {
             val address = Sdk.generateAddressFromPublicKey(publicKey)
             AlgorandAddress(address, publicKey)
         } catch (exception: Exception) {
             null
         }
-    }
 
     override fun generateAddressFromPublicKey(addressBase64: String): AlgorandAddress? {
         val publicKey =

@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.account.data.repository
 
-
 import com.michaeltchuang.walletsdk.account.data.database.dao.CustomHdSeedInfoDao
 import com.michaeltchuang.walletsdk.account.data.mapper.entity.CustomHdSeedInfoEntityMapper
 import com.michaeltchuang.walletsdk.account.data.mapper.model.CustomHdSeedInfoMapper
@@ -16,28 +15,27 @@ internal class CustomHdSeedInfoRepositoryImpl(
     private val customHdSeedInfoDao: CustomHdSeedInfoDao,
     private val customHdSeedInfoMapper: CustomHdSeedInfoMapper,
     private val customHdSeedInfoEntityMapper: CustomHdSeedInfoEntityMapper,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : CustomHdSeedInfoRepository {
-    override suspend fun getAllCustomInfo(): List<CustomHdSeedInfo> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllCustomInfo(): List<CustomHdSeedInfo> =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.getAll().map {
-                val customHdSeedInfo = CustomHdSeedInfo(
-                    seedId = it.seedId,
-                    entropyCustomName = it.entropyCustomName,
-                    orderIndex = it.orderIndex,
-                    isBackedUp = it.isBackedUp,
-                )
+                val customHdSeedInfo =
+                    CustomHdSeedInfo(
+                        seedId = it.seedId,
+                        entropyCustomName = it.entropyCustomName,
+                        orderIndex = it.orderIndex,
+                        isBackedUp = it.isBackedUp,
+                    )
                 customHdSeedInfo
             }
         }
-    }
 
-    override suspend fun getCustomInfo(seedId: Int): CustomHdSeedInfo? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getCustomInfo(seedId: Int): CustomHdSeedInfo? =
+        withContext(coroutineDispatcher) {
             val customInfoEntity = customHdSeedInfoDao.getOrNull(seedId)
             customInfoEntity?.let { customHdSeedInfoMapper(it) }
         }
-    }
 
     override suspend fun getCustomInfoOrNull(seedId: Int): CustomHdSeedInfo? {
         return withContext(coroutineDispatcher) {
@@ -54,17 +52,19 @@ internal class CustomHdSeedInfoRepositoryImpl(
         }
     }
 
-    override suspend fun setCustomName(seedId: Int, name: String) {
+    override suspend fun setCustomName(
+        seedId: Int,
+        name: String,
+    ) {
         withContext(coroutineDispatcher) {
             customHdSeedInfoDao.updateCustomName(seedId, name)
         }
     }
 
-    override suspend fun getCustomName(seedId: Int): String? {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getCustomName(seedId: Int): String? =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.getCustomName(seedId)
         }
-    }
 
     override suspend fun deleteCustomInfo(seedId: Int) {
         withContext(coroutineDispatcher) {
@@ -72,33 +72,32 @@ internal class CustomHdSeedInfoRepositoryImpl(
         }
     }
 
-    override suspend fun getNotBackedUpHdSeeds(): Set<Int> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getNotBackedUpHdSeeds(): Set<Int> =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.getNotBackedUpSeedIds().toSet()
         }
-    }
 
-    override suspend fun getBackedUpHdSeeds(): Set<Int> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getBackedUpHdSeeds(): Set<Int> =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.getBackedUpSeedIds().toSet()
         }
-    }
 
-    override suspend fun isHdSeedBackedUp(seedId: Int): Boolean {
-        return withContext(coroutineDispatcher) {
+    override suspend fun isHdSeedBackedUp(seedId: Int): Boolean =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.isAccountBackedUp(seedId)
         }
-    }
 
-    override suspend fun getAllHdSeedOrderIndexes(): List<HdSeedOrderIndex> {
-        return withContext(coroutineDispatcher) {
+    override suspend fun getAllHdSeedOrderIndexes(): List<HdSeedOrderIndex> =
+        withContext(coroutineDispatcher) {
             customHdSeedInfoDao.getAll().map {
                 HdSeedOrderIndex(it.seedId, it.orderIndex)
             }
         }
-    }
 
-    override suspend fun setOrderIndex(seedId: Int, orderIndex: Int) {
+    override suspend fun setOrderIndex(
+        seedId: Int,
+        orderIndex: Int,
+    ) {
         withContext(coroutineDispatcher) {
             customHdSeedInfoDao.updateOrderIndex(seedId, orderIndex)
         }

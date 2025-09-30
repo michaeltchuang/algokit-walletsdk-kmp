@@ -6,9 +6,11 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.HdWalletSummary
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
 
-
 internal fun interface SaveAlgo25Account {
-    suspend operator fun invoke(account: LocalAccount.Algo25, privateKey: ByteArray)
+    suspend operator fun invoke(
+        account: LocalAccount.Algo25,
+        privateKey: ByteArray,
+    )
 }
 
 internal fun interface DeleteAlgo25Account {
@@ -26,8 +28,12 @@ fun interface GetLocalAccounts {
 fun interface GetLocalAccount {
     suspend operator fun invoke(address: String): LocalAccount?
 }
+
 internal fun interface SaveHdKeyAccount {
-    suspend operator fun invoke(account: LocalAccount.HdKey, privateKey: ByteArray)
+    suspend operator fun invoke(
+        account: LocalAccount.HdKey,
+        privateKey: ByteArray,
+    )
 }
 
 fun interface GetSeedIdIfExistingEntropy {
@@ -36,6 +42,7 @@ fun interface GetSeedIdIfExistingEntropy {
 
 interface GetAccountRegistrationType {
     suspend operator fun invoke(address: String): AccountRegistrationType?
+
     operator fun invoke(account: LocalAccount): AccountRegistrationType
 }
 

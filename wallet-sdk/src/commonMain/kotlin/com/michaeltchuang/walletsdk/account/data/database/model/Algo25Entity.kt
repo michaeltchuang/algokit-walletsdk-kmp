@@ -9,13 +9,12 @@ internal data class Algo25Entity(
     @PrimaryKey
     @ColumnInfo("algo_address")
     val algoAddress: String,
-
     @ColumnInfo("encrypted_secret_key", typeAffinity = ColumnInfo.BLOB)
-    val encryptedSecretKey: ByteArray
+    val encryptedSecretKey: ByteArray,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-       // if (javaClass != other?.javaClass) return false
+        // if (javaClass != other?.javaClass) return false
 
         other as Algo25Entity
 

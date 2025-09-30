@@ -7,7 +7,6 @@ import com.michaeltchuang.walletsdk.network.model.ApiResult
  * API service interface for retrieving account information from Algorand node
  */
 interface AccountInformationApiService {
-
     /**
      * Get account information for a given public key
      *
@@ -19,6 +18,6 @@ interface AccountInformationApiService {
     suspend fun getAccountInformation(
         publicKey: String,
         excludes: String = "",
-        includeClosedAccounts: Boolean = false
+        includeClosedAccounts: Boolean = false,
     ): ApiResult<AccountInformationResponse>
 }

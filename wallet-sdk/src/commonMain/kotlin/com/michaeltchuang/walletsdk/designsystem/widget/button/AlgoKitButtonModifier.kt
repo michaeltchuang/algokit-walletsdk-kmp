@@ -18,5 +18,5 @@ data class AlgoKitButtonModifier(
     val state: AlgoKitButtonState = AlgoKitButtonState.ENABLED,
     val leftIcon: @Composable (() -> Unit)? = null,
     val rightIcon: @Composable (() -> Unit)? = null,
-    val cornerRadius: Dp = 4.dp
+    val cornerRadius: Dp = 4.dp,
 )

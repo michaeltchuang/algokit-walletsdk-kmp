@@ -8,7 +8,7 @@ fun interface AddAlgo25Account {
         secretKey: ByteArray,
         isBackedUp: Boolean,
         customName: String?,
-        orderIndex: Int
+        orderIndex: Int,
     )
 }
 
@@ -28,6 +28,6 @@ fun interface AddHdKeyAccount {
         derivationType: Int,
         isBackedUp: Boolean,
         customName: String?,
-        orderIndex: Int
+        orderIndex: Int,
     )
 }

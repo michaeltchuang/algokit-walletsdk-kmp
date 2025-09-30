@@ -9,9 +9,7 @@ internal class InMemoryLocalCache<KEY, VALUE> : LocalCache<KEY, VALUE> {
 
     private val lockObject: Any = Any()
 
-    override fun getCacheFlow(): Flow<HashMap<KEY, VALUE>> {
-        return cacheFlow.asStateFlow()
-    }
+    override fun getCacheFlow(): Flow<HashMap<KEY, VALUE>> = cacheFlow.asStateFlow()
 
     override fun putAll(pairs: List<Pair<KEY, VALUE>>) {
         updateFlow { cacheMap ->
@@ -28,11 +26,10 @@ internal class InMemoryLocalCache<KEY, VALUE> : LocalCache<KEY, VALUE> {
         }
     }
 
-    override fun get(key: KEY): VALUE? {
-        return synchronized(lockObject) {
+    override fun get(key: KEY): VALUE? =
+        synchronized(lockObject) {
             cacheFlow.value[key]
         }
-    }
 
     override fun delete(key: KEY) {
         updateFlow {
@@ -46,9 +43,7 @@ internal class InMemoryLocalCache<KEY, VALUE> : LocalCache<KEY, VALUE> {
         }
     }
 
-    override fun getAll(): List<VALUE> {
-        return cacheFlow.value.values.toList()
-    }
+    override fun getAll(): List<VALUE> = cacheFlow.value.values.toList()
 
     private fun updateFlow(action: (MutableMap<KEY, VALUE>) -> Unit) {
         synchronized(lockObject) {

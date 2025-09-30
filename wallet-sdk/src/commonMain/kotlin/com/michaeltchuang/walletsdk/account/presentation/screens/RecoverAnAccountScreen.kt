@@ -35,28 +35,29 @@ import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-
 @Composable
 fun RecoverAnAccountScreen(
     navController: NavController,
-    onClick: (message: String) -> Unit
+    onClick: (message: String) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(16.dp))
-            .background(AlgoKitTheme.colors.background)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(16.dp))
+                .background(AlgoKitTheme.colors.background),
     ) {
         AlgoKitTopBar(
-            modifier = Modifier
-                .padding(horizontal = 24.dp)
-                .wrapContentSize(),
-            onClick = { navController.popBackStack() }
+            modifier =
+                Modifier
+                    .padding(horizontal = 24.dp)
+                    .wrapContentSize(),
+            onClick = { navController.popBackStack() },
         )
 
         AlgoKitTitleText(
             modifier = Modifier.padding(horizontal = 24.dp),
-            text = stringResource(Res.string.bottom_sheet_mnemonic_type_title)
+            text = stringResource(Res.string.bottom_sheet_mnemonic_type_title),
         )
         Spacer(Modifier.height(24.dp))
         PeraCard(
@@ -65,12 +66,12 @@ fun RecoverAnAccountScreen(
             footer = stringResource(Res.string.mnemonic_type_universal_footer),
             highlightContent = {
                 AlgoKitHighlightedGreenText(
-                    text = stringResource(Res.string.new_text)
+                    text = stringResource(Res.string.new_text),
                 )
             },
             onClick = {
                 onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
-            }
+            },
         )
 
         PeraCard(
@@ -79,12 +80,12 @@ fun RecoverAnAccountScreen(
             footer = stringResource(Res.string.mnemonic_type_algo25_footer),
             highlightContent = {
                 AlgoKitHighlightedGrayText(
-                    text = stringResource(Res.string.legacy_text)
+                    text = stringResource(Res.string.legacy_text),
                 )
             },
             onClick = {
                 navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/")
-            }
+            },
         )
     }
 }
@@ -94,7 +95,6 @@ fun RecoverAnAccountScreen(
 fun RecoverAnAccountScreenPreview() {
     AlgoKitTheme {
         RecoverAnAccountScreen(navController = rememberNavController()) {
-
         }
     }
 }

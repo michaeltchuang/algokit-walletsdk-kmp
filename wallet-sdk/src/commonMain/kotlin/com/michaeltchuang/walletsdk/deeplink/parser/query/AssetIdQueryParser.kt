@@ -5,12 +5,12 @@ import com.michaeltchuang.walletsdk.deeplink.utils.AssetConstants.ALGO_ID
 import com.michaeltchuang.walletsdk.deeplink.utils.isCoinbaseDeepLink
 
 internal class AssetIdQueryParser : DeepLinkQueryParser<Long?> {
-
     override fun parseQuery(peraUri: PeraUri): Long? {
-        val assetIdAsString = when {
-            isCoinbaseDeepLink(peraUri) -> getAssetIdForCoinbase(peraUri)
-            else -> peraUri.getQueryParam(ASSET_ID_QUERY_KEY)
-        }
+        val assetIdAsString =
+            when {
+                isCoinbaseDeepLink(peraUri) -> getAssetIdForCoinbase(peraUri)
+                else -> peraUri.getQueryParam(ASSET_ID_QUERY_KEY)
+            }
         return assetIdAsString?.toLongOrNull()
     }
 

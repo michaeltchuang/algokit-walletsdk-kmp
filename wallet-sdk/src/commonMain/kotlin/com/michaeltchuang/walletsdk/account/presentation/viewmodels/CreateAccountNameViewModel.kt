@@ -16,34 +16,36 @@ import kotlinx.coroutines.launch
 
 class CreateAccountNameViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
-  /*  private val aesPlatformManager: AESPlatformManager,*/
+    // private val aesPlatformManager: AESPlatformManager,
     private val getMaxHdSeedId: GetMaxHdSeedId,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
     StateViewModel<CreateAccountNameViewModel.ViewState> by stateDelegate,
     EventViewModel<CreateAccountNameViewModel.ViewEvent> by eventDelegate {
-
     init {
         stateDelegate.setDefaultState(ViewState.Idle)
     }
 
     private var walletId: Int? = null
 
-    fun addNewAccount(accountCreation: AccountCreation, customName: String? = null) {
-              val updatedAccountCreation = customName?.let {
-                  accountCreation.copy(customName = it,)
-              } ?: accountCreation
-              viewModelScope.launch {
-                  try {
-                      nameRegistrationUseCase.addNewAccount(updatedAccountCreation)
-                      AccountCreationManager.clearPendingAccountCreation()
-                      eventDelegate.sendEvent(ViewEvent.FinishedAccountCreation)
-                  } catch (e: Exception) {
-                      displayError(e.message ?: "Unknown error")
-                  }
-              }
-
+    fun addNewAccount(
+        accountCreation: AccountCreation,
+        customName: String? = null,
+    ) {
+        val updatedAccountCreation =
+            customName?.let {
+                accountCreation.copy(customName = it)
+            } ?: accountCreation
+        viewModelScope.launch {
+            try {
+                nameRegistrationUseCase.addNewAccount(updatedAccountCreation)
+                AccountCreationManager.clearPendingAccountCreation()
+                eventDelegate.sendEvent(ViewEvent.FinishedAccountCreation)
+            } catch (e: Exception) {
+                displayError(e.message ?: "Unknown error")
+            }
+        }
     }
 
     private suspend fun displayError(message: String) {
@@ -59,27 +61,32 @@ class CreateAccountNameViewModel(
     }
 
     private fun handleHDAccount(seedId: Int?) {
-              viewModelScope.launch(Dispatchers.IO) {
-                  val resolvedId = seedId ?: ((getMaxHdSeedId.invoke() ?: 0) + 1)
-                  walletId = resolvedId
-                  stateDelegate.updateState { ViewState.Content(walletId) }
-              }
+        viewModelScope.launch(Dispatchers.IO) {
+            val resolvedId = seedId ?: ((getMaxHdSeedId.invoke() ?: 0) + 1)
+            walletId = resolvedId
+            stateDelegate.updateState { ViewState.Content(walletId) }
+        }
     }
 
     private fun handleAlgo25Account() {
         stateDelegate.updateState { ViewState.Content() }
     }
 
-
     sealed interface ViewState {
         data object Idle : ViewState
-        data object Loading : ViewState
-        data class Content(val walletId: Int? = null) : ViewState
 
+        data object Loading : ViewState
+
+        data class Content(
+            val walletId: Int? = null,
+        ) : ViewState
     }
 
     sealed interface ViewEvent {
         data object FinishedAccountCreation : ViewEvent
-        data class Error(val message: String) : ViewEvent
+
+        data class Error(
+            val message: String,
+        ) : ViewEvent
     }
 }

@@ -18,17 +18,16 @@ import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class HDWalletSelectionViewModel(
-/*    private val aesPlatformManager: AESPlatformManager,*/
+// private val aesPlatformManager: AESPlatformManager,
     private val getHdWalletSummaries: GetHdWalletSummaries,
     private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,
     private val getHdEntropy: GetHdEntropy,
-/*    private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,*/
+// private val algorandBip39WalletProvider: AlgorandBip39WalletProvider,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
     StateViewModel<HDWalletSelectionViewModel.ViewState> by stateDelegate,
     EventViewModel<HDWalletSelectionViewModel.ViewEvent> by eventDelegate {
-
     init {
         stateDelegate.setDefaultState(ViewState.Idle)
         loadLocalWallets()
@@ -37,16 +36,18 @@ class HDWalletSelectionViewModel(
     fun loadLocalWallets() {
         stateDelegate.updateState { ViewState.Loading }
         viewModelScope.launch {
-            val walletItemPreviews = getHdWalletSummaries()?.map {
-                WalletItemPreview(
-                    seedId = it.seedId,
-                    name = "Wallet #${it.seedId}",
-                    numberOfAccounts = "${it.accountCount} account",
-                    primaryValue = it.primaryValue,
-                    secondaryValue = it.secondaryValue,
-                    maxAccountIndex = it.maxAccountIndex
-                )
-            }.orEmpty()
+            val walletItemPreviews =
+                getHdWalletSummaries()
+                    ?.map {
+                        WalletItemPreview(
+                            seedId = it.seedId,
+                            name = "Wallet #${it.seedId}",
+                            numberOfAccounts = "${it.accountCount} account",
+                            primaryValue = it.primaryValue,
+                            secondaryValue = it.secondaryValue,
+                            maxAccountIndex = it.maxAccountIndex,
+                        )
+                    }.orEmpty()
             stateDelegate.updateState {
                 ViewState.Content(
                     walletItemPreviews = walletItemPreviews,
@@ -55,26 +56,30 @@ class HDWalletSelectionViewModel(
         }
     }
 
-    fun createNewHdAccount(seedId: Int, maxAccountIndex: Int) {
+    fun createNewHdAccount(
+        seedId: Int,
+        maxAccountIndex: Int,
+    ) {
         viewModelScope.launch {
             val entropy = getHdEntropy(seedId) ?: return@launch
             val nextHdAccountIndex = maxAccountIndex + 1
             val wallet = getBip39Wallet(entropy)
             val index = HdKeyAddressIndex(nextHdAccountIndex, changeIndex = 0, keyIndex = 0)
             val hdKeyAddress = wallet.generateAddress(index)
-            val accountCreation = AccountCreation(
-                address = hdKeyAddress.address,
-                customName = null,
-                isBackedUp = false,
-                type = accountCreationHdKeyTypeMapper(entropy, hdKeyAddress, seedId),
-                creationType = CreationType.CREATE
-            )
+            val accountCreation =
+                AccountCreation(
+                    address = hdKeyAddress.address,
+                    customName = null,
+                    isBackedUp = false,
+                    type = accountCreationHdKeyTypeMapper(entropy, hdKeyAddress, seedId),
+                    creationType = CreationType.CREATE,
+                )
             // Store the account creation data in the manager
             AccountCreationManager.storePendingAccountCreation(accountCreation)
             eventDelegate.sendEvent(
                 ViewEvent.AccountCreated(
-                    accountCreation
-                )
+                    accountCreation,
+                ),
             )
         }
     }
@@ -87,21 +92,22 @@ class HDWalletSelectionViewModel(
                 accountCreationHdKeyTypeMapper(
                     wallet.getEntropy().value,
                     hdKeyAddress,
-                    seedId = null
+                    seedId = null,
                 )
-            val accountCreation = AccountCreation(
-                address = hdKeyAddress.address,
-                customName = null,
-                isBackedUp = false,
-                type = hdKeyType,
-                creationType = CreationType.CREATE
-            )
+            val accountCreation =
+                AccountCreation(
+                    address = hdKeyAddress.address,
+                    customName = null,
+                    isBackedUp = false,
+                    type = hdKeyType,
+                    creationType = CreationType.CREATE,
+                )
             // Store the account creation data in the manager
             AccountCreationManager.storePendingAccountCreation(accountCreation)
             eventDelegate.sendEvent(
                 ViewEvent.AccountCreated(
-                    accountCreation
-                )
+                    accountCreation,
+                ),
             )
         }
     }
@@ -118,21 +124,30 @@ class HDWalletSelectionViewModel(
         val numberOfAccounts: String,
         val primaryValue: String,
         val secondaryValue: String,
-        val maxAccountIndex: Int
+        val maxAccountIndex: Int,
     )
 
     sealed interface ViewState {
         data object Idle : ViewState
+
         data object Loading : ViewState
+
         data class Content(
             val walletItemPreviews: List<WalletItemPreview> = emptyList(),
         ) : ViewState
 
-        data class Error(val message: String) : ViewState
+        data class Error(
+            val message: String,
+        ) : ViewState
     }
 
     sealed interface ViewEvent {
-        data class AccountCreated(val accountCreation: AccountCreation) : ViewEvent
-        data class Error(val message: String) : ViewEvent
+        data class AccountCreated(
+            val accountCreation: AccountCreation,
+        ) : ViewEvent
+
+        data class Error(
+            val message: String,
+        ) : ViewEvent
     }
 }

@@ -24,8 +24,8 @@ internal class SendAndRemoveAssetTransactionBuilderImpl
         private fun createTxnByteArray(
             payload: SendAndRemoveAssetTransactionPayload,
             params: SuggestedTransactionParams,
-        ): ByteArray {
-            return with(payload) {
+        ): ByteArray =
+            with(payload) {
                 algoSdk.createSendAndRemoveAssetTxn(
                     senderAddress = senderAddress,
                     receiverAddress = receiverAddress,
@@ -35,5 +35,4 @@ internal class SendAndRemoveAssetTransactionBuilderImpl
                     suggestedTransactionParams = params,
                 )
             }
-        }
     }

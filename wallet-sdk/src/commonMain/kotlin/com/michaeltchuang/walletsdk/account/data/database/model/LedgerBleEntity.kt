@@ -9,13 +9,10 @@ internal data class LedgerBleEntity(
     @PrimaryKey
     @ColumnInfo("algo_address")
     val algoAddress: String,
-
     @ColumnInfo("device_mac_address")
     val deviceMacAddress: String,
-
     @ColumnInfo("account_index_in_ledger")
     val accountIndexInLedger: Int,
-
     @ColumnInfo("bluetooth_name")
-    val bluetoothName: String?
+    val bluetoothName: String?,
 )

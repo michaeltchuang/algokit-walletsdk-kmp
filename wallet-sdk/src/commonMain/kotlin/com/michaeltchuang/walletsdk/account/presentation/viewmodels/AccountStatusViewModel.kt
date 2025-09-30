@@ -10,9 +10,8 @@ import kotlinx.coroutines.launch
 class AccountStatusViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
     private val eventDelegate: EventDelegate<AccountsEvent>,
-) : ViewModel(), EventViewModel<AccountStatusViewModel.AccountsEvent> by eventDelegate {
-
-
+) : ViewModel(),
+    EventViewModel<AccountStatusViewModel.AccountsEvent> by eventDelegate {
     fun deleteAccount(address: String) {
         viewModelScope.launch {
             try {

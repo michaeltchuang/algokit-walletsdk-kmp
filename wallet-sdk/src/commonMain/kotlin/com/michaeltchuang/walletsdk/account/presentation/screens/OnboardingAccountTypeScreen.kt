@@ -88,9 +88,8 @@ private const val TAG = "OnboardingAccountTypeScreen"
 @Composable
 fun OnboardingAccountTypeScreen(
     navController: NavHostController,
-    onClick: (message: String) -> Unit
+    onClick: (message: String) -> Unit,
 ) {
-
     val viewModel: OnboardingAccountTypeViewModel = koinViewModel()
     val scope = rememberCoroutineScope()
     val viewState = viewModel.state.collectAsStateWithLifecycle().value
@@ -111,13 +110,14 @@ fun OnboardingAccountTypeScreen(
     when (viewState) {
         is OnboardingAccountTypeViewModel.ViewState.Idle -> {}
         is OnboardingAccountTypeViewModel.ViewState.Loading -> LoadingState()
-        is OnboardingAccountTypeViewModel.ViewState.Content -> ContentState(
-            isHasAnySeed = viewState.hasAnySeed,
-            viewModel = viewModel,
-            scope = scope,
-            navController = navController,
-            onClick = onClick
-        )
+        is OnboardingAccountTypeViewModel.ViewState.Content ->
+            ContentState(
+                isHasAnySeed = viewState.hasAnySeed,
+                viewModel = viewModel,
+                scope = scope,
+                navController = navController,
+                onClick = onClick,
+            )
     }
 }
 
@@ -127,40 +127,44 @@ private fun ContentState(
     viewModel: OnboardingAccountTypeViewModel,
     scope: CoroutineScope,
     navController: NavHostController,
-    onClick: (message: String) -> Unit
+    onClick: (message: String) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Top
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 style = typography.title.regular.sansMedium,
                 color = AlgoKitTheme.colors.textMain,
-                text = stringResource(
-                    Res.string.welcome_to_pera
-                )
+                text =
+                    stringResource(
+                        Res.string.welcome_to_pera,
+                    ),
             )
             Spacer(modifier = Modifier.weight(1f))
             AlgoKitIcon(
                 painter = painterResource(Res.drawable.pera_icon_3d),
-                contentDescription = stringResource(Res.string.add_a_wallet_or_account)
+                contentDescription = stringResource(Res.string.add_a_wallet_or_account),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        if (isHasAnySeed)
+        if (isHasAnySeed) {
             CreateNewAccountCard {
                 navController.navigate(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name)
             }
+        }
         Spacer(modifier = Modifier.height(20.dp))
         CreateWalletHdWidget(viewModel, scope)
         ImportHdWalletWidget(navController)
@@ -184,7 +188,7 @@ private fun CreateWalletHdWidget(
             scope.launch {
                 viewModel.createHdKeyAccount()
             }
-        }
+        },
     )
 }
 
@@ -195,7 +199,7 @@ private fun ImportHdWalletWidget(navController: NavController) {
         description = stringResource(Res.string.import_an_existing),
         iconContentDescription = stringResource(Res.string.import_an_existing),
         icon = vectorResource(Res.drawable.ic_key),
-        onClick = { navController.navigate(AlgoKitScreens.ACCOUNT_RECOVERY_TYPE_SCREEN.name) }
+        onClick = { navController.navigate(AlgoKitScreens.ACCOUNT_RECOVERY_TYPE_SCREEN.name) },
     )
 }
 
@@ -203,7 +207,7 @@ private fun ImportHdWalletWidget(navController: NavController) {
 @Composable
 fun CreateNewAccountCard(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     val icon = vectorResource(Res.drawable.ic_hd_wallet)
     val outlineColor = AlgoKitTheme.colors.wallet3IconGovernor
@@ -219,25 +223,26 @@ fun CreateNewAccountCard(
                     color = outlineColor,
                     size = Size(size.width, size.height),
                     cornerRadius = CornerRadius(12.dp.toPx(), 12.dp.toPx()),
-                    style = Stroke(width = 2.dp.toPx(), pathEffect = dashEffect)
+                    style = Stroke(width = 2.dp.toPx(), pathEffect = dashEffect),
                 )
-            }
+            },
     ) {
         Row(
             Modifier
                 .fillMaxWidth()
                 .padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(AlgoKitTheme.colors.layerGrayLighter)
-                    .padding(8.dp),
+                modifier =
+                    Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(AlgoKitTheme.colors.layerGrayLighter)
+                        .padding(8.dp),
                 imageVector = icon,
                 contentDescription = stringResource(Res.string.add_a_new_account_desc),
-                tint = AlgoKitTheme.colors.textMain
+                tint = AlgoKitTheme.colors.textMain,
             )
 
             Spacer(Modifier.width(24.dp))
@@ -245,13 +250,13 @@ fun CreateNewAccountCard(
                 Text(
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textMain,
-                    text = stringResource(Res.string.add_a_new_account)
+                    text = stringResource(Res.string.add_a_new_account),
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     style = typography.footnote.sans,
                     color = AlgoKitTheme.colors.textGray,
-                    text = stringResource(Res.string.add_a_new_account_desc)
+                    text = stringResource(Res.string.add_a_new_account_desc),
                 )
             }
         }
@@ -262,19 +267,19 @@ fun CreateNewAccountCard(
                 .offset(y = (-12).dp)
                 .background(AlgoKitTheme.colors.background)
                 .padding(horizontal = 8.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             AlgoKitIcon(
                 painter = painterResource(Res.drawable.ic_info),
                 contentDescription = stringResource(Res.string.warning),
                 modifier = Modifier.size(20.dp),
-                tintColor = AlgoKitTheme.colors.wallet3IconGovernor
+                tintColor = AlgoKitTheme.colors.wallet3IconGovernor,
             )
             Spacer(Modifier.width(4.dp))
             Text(
                 text = stringResource(Res.string.because_you_have_already),
                 style = typography.footnote.sansMedium,
-                color = AlgoKitTheme.colors.wallet3IconGovernor
+                color = AlgoKitTheme.colors.wallet3IconGovernor,
             )
         }
     }
@@ -287,97 +292,106 @@ private fun WatchAddressWidget(onClick: (message: String) -> Unit) {
         description = stringResource(Res.string.monitor_an_algorand_address),
         iconContentDescription = stringResource(Res.string.monitor_an_algorand_address),
         icon = vectorResource(Res.drawable.ic_eye),
-        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) }
+        onClick = { onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET) },
     )
 }
 
 @Composable
 fun TermsAndPrivacy(modifier: Modifier = Modifier) {
-    val layoutResult = remember {
-        mutableStateOf<TextLayoutResult?>(null)
-    }
+    val layoutResult =
+        remember {
+            mutableStateOf<TextLayoutResult?>(null)
+        }
     val annotatedString = createAnnotatedString()
     val webViewController by rememberWebViewController()
     WebViewPlatform(webViewController = webViewController)
     Text(
         style = typography.footnote.sans,
         color = AlgoKitTheme.colors.textGray,
-        modifier = modifier
-            .pointerInput(annotatedString) {
-                detectTapGestures { pos ->
-                    layoutResult.value?.let { layoutResult ->
-                        // Adjust the position to account for padding
-                        val adjustedPos =
-                            pos.copy(x = pos.x - 43.dp.toPx(), y = pos.y - 24.dp.toPx())
-                        val offset = layoutResult.getOffsetForPosition(adjustedPos)
-                        annotatedString.getStringAnnotations(
-                            tag = "TERMS_AND_CONDITIONS",
-                            start = offset,
-                            end = offset + 1
-                        ).firstOrNull()?.let {
-                            webViewController.open(TERMS_AND_SERVICES_URL)
-                        }
-                        annotatedString.getStringAnnotations(
-                            tag = "PRIVACY_POLICY",
-                            start = offset,
-                            end = offset + 1
-                        ).firstOrNull()?.let {
-                            webViewController.open(PRIVACY_POLICY_URL)
+        modifier =
+            modifier
+                .pointerInput(annotatedString) {
+                    detectTapGestures { pos ->
+                        layoutResult.value?.let { layoutResult ->
+                            // Adjust the position to account for padding
+                            val adjustedPos =
+                                pos.copy(x = pos.x - 43.dp.toPx(), y = pos.y - 24.dp.toPx())
+                            val offset = layoutResult.getOffsetForPosition(adjustedPos)
+                            annotatedString
+                                .getStringAnnotations(
+                                    tag = "TERMS_AND_CONDITIONS",
+                                    start = offset,
+                                    end = offset + 1,
+                                ).firstOrNull()
+                                ?.let {
+                                    webViewController.open(TERMS_AND_SERVICES_URL)
+                                }
+                            annotatedString
+                                .getStringAnnotations(
+                                    tag = "PRIVACY_POLICY",
+                                    start = offset,
+                                    end = offset + 1,
+                                ).firstOrNull()
+                                ?.let {
+                                    webViewController.open(PRIVACY_POLICY_URL)
+                                }
                         }
                     }
-                }
-            }
-            .padding(horizontal = 43.dp, vertical = 24.dp),
+                }.padding(horizontal = 43.dp, vertical = 24.dp),
         text = annotatedString,
         onTextLayout = {
             layoutResult.value = it
-        }
+        },
     )
 }
 
 @Composable
-private fun createAnnotatedString() = buildAnnotatedString {
-    val fullText = stringResource(
-        Res.string.by_creating_account
-    )
-    val termsAndConditionsText = stringResource(Res.string.terms_and_conditions)
-    val privacyPolicyText = stringResource(Res.string.privacy_policy)
+private fun createAnnotatedString() =
+    buildAnnotatedString {
+        val fullText =
+            stringResource(
+                Res.string.by_creating_account,
+            )
+        val termsAndConditionsText = stringResource(Res.string.terms_and_conditions)
+        val privacyPolicyText = stringResource(Res.string.privacy_policy)
 
-    val termsAndConditionsStartIndex = fullText.indexOf(termsAndConditionsText)
-    val termsAndConditionsEndIndex = termsAndConditionsStartIndex + termsAndConditionsText.length
-    val privacyPolicyStartIndex = fullText.indexOf(privacyPolicyText)
-    val privacyPolicyEndIndex = privacyPolicyStartIndex + privacyPolicyText.length
+        val termsAndConditionsStartIndex = fullText.indexOf(termsAndConditionsText)
+        val termsAndConditionsEndIndex = termsAndConditionsStartIndex + termsAndConditionsText.length
+        val privacyPolicyStartIndex = fullText.indexOf(privacyPolicyText)
+        val privacyPolicyEndIndex = privacyPolicyStartIndex + privacyPolicyText.length
 
-    append(fullText)
+        append(fullText)
 
-    addStyle(
-        style = SpanStyle(
-            color = AlgoKitTheme.colors.linkPrimary
-        ),
-        start = termsAndConditionsStartIndex,
-        end = termsAndConditionsEndIndex
-    )
-    addStringAnnotation(
-        tag = "TERMS_AND_CONDITIONS",
-        annotation = TERMS_AND_SERVICES_URL,
-        start = termsAndConditionsStartIndex,
-        end = termsAndConditionsEndIndex
-    )
+        addStyle(
+            style =
+                SpanStyle(
+                    color = AlgoKitTheme.colors.linkPrimary,
+                ),
+            start = termsAndConditionsStartIndex,
+            end = termsAndConditionsEndIndex,
+        )
+        addStringAnnotation(
+            tag = "TERMS_AND_CONDITIONS",
+            annotation = TERMS_AND_SERVICES_URL,
+            start = termsAndConditionsStartIndex,
+            end = termsAndConditionsEndIndex,
+        )
 
-    addStyle(
-        style = SpanStyle(
-            color = AlgoKitTheme.colors.linkPrimary
-        ),
-        start = privacyPolicyStartIndex,
-        end = privacyPolicyEndIndex
-    )
-    addStringAnnotation(
-        tag = "PRIVACY_POLICY",
-        annotation = PRIVACY_POLICY_URL,
-        start = privacyPolicyStartIndex,
-        end = privacyPolicyEndIndex
-    )
-}
+        addStyle(
+            style =
+                SpanStyle(
+                    color = AlgoKitTheme.colors.linkPrimary,
+                ),
+            start = privacyPolicyStartIndex,
+            end = privacyPolicyEndIndex,
+        )
+        addStringAnnotation(
+            tag = "PRIVACY_POLICY",
+            annotation = PRIVACY_POLICY_URL,
+            start = privacyPolicyStartIndex,
+            end = privacyPolicyEndIndex,
+        )
+    }
 
 @Composable
 private fun LoadingState() {

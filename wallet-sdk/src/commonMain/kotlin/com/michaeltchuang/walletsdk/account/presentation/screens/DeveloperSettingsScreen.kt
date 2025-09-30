@@ -24,7 +24,6 @@ import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAc
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.utils.Log
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -32,7 +31,10 @@ import org.koin.compose.viewmodel.koinViewModel
 private const val TAG = "CreateAccountTypeScreen"
 
 @Composable
-fun DeveloperSettingsScreen(navController: NavController, onClick: (message: String) -> Unit) {
+fun DeveloperSettingsScreen(
+    navController: NavController,
+    onClick: (message: String) -> Unit,
+) {
     val viewModel: OnboardingAccountTypeViewModel = koinViewModel()
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
@@ -50,31 +52,32 @@ fun DeveloperSettingsScreen(navController: NavController, onClick: (message: Str
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
     ) {
         AlgoKitTopBar(
             title = stringResource(Res.string.developer_settings),
-            onClick = { navController.popBackStack() })
+            onClick = { navController.popBackStack() },
+        )
 
         SettingsItem(
             Res.drawable.ic_node,
-            stringResource(Res.string.node_settings)
+            stringResource(Res.string.node_settings),
         ) {
             navController.navigate(AlgoKitScreens.NODE_SETTINGS_SCREEN.name)
         }
 
         SettingsItem(
             Res.drawable.ic_wallet,
-            stringResource(Res.string.create_legacy_algo25_account)
+            stringResource(Res.string.create_legacy_algo25_account),
         ) {
             viewModel.createAlgoAccount()
         }
     }
-
 }
 
 @Preview
@@ -82,7 +85,6 @@ fun DeveloperSettingsScreen(navController: NavController, onClick: (message: Str
 fun DeveloperSettingsScreenPreview() {
     AlgoKitTheme {
         DeveloperSettingsScreen(navController = rememberNavController()) {
-
         }
     }
 }

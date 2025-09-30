@@ -28,7 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AlgoKitHeadlineText(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
 ) {
     Text(
         modifier = modifier,
@@ -42,7 +42,7 @@ fun AlgoKitHeadlineText(
 fun AlgoKitTitleText(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AlgoKitTheme.colors.textMain
+    color: Color = AlgoKitTheme.colors.textMain,
 ) {
     Text(
         modifier = modifier,
@@ -50,7 +50,7 @@ fun AlgoKitTitleText(
         style = AlgoKitTheme.typography.body.large.sansMedium,
         color = color,
         maxLines = 1,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
     )
 }
 
@@ -59,7 +59,7 @@ fun AlgoKitBodyText(
     modifier: Modifier = Modifier,
     text: String,
     textAlign: TextAlign = TextAlign.Left,
-    color: Color = AlgoKitTheme.colors.textGray
+    color: Color = AlgoKitTheme.colors.textGray,
 ) {
     Text(
         modifier = modifier,
@@ -67,7 +67,7 @@ fun AlgoKitBodyText(
         style = AlgoKitTheme.typography.body.regular.sansMedium,
         color = color,
         overflow = TextOverflow.Ellipsis,
-        textAlign = textAlign
+        textAlign = textAlign,
     )
 }
 
@@ -75,7 +75,7 @@ fun AlgoKitBodyText(
 fun AlgoKitBodyText(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
-    onTextLayout: (TextLayoutResult) -> Unit
+    onTextLayout: (TextLayoutResult) -> Unit,
 ) {
     Text(
         modifier = modifier,
@@ -83,12 +83,15 @@ fun AlgoKitBodyText(
         style = AlgoKitTheme.typography.body.regular.sansMedium,
         color = AlgoKitTheme.colors.textGray,
         overflow = TextOverflow.Ellipsis,
-        onTextLayout = onTextLayout
+        onTextLayout = onTextLayout,
     )
 }
 
 @Composable
-fun AlgoKitLinkText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitLinkText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     Text(
         modifier = modifier,
         text = text,
@@ -98,7 +101,10 @@ fun AlgoKitLinkText(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun AlgoKitScrimText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitScrimText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     Text(
         modifier = modifier,
         text = text,
@@ -108,7 +114,10 @@ fun AlgoKitScrimText(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun AlgoKitFootnoteText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitFootnoteText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     Text(
         modifier = modifier,
         text = text,
@@ -118,13 +127,16 @@ fun AlgoKitFootnoteText(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun AlgoKitWarningText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitWarningText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     Row(modifier = modifier) {
         Image(
             modifier = Modifier.align(alignment = Alignment.CenterVertically),
             painter = painterResource(Res.drawable.ic_error),
             colorFilter = ColorFilter.tint(color = AlgoKitTheme.colors.negative),
-            contentDescription = stringResource(Res.string.error)
+            contentDescription = stringResource(Res.string.error),
         )
         Text(
             modifier = Modifier.padding(start = 12.dp),
@@ -140,42 +152,50 @@ fun AlgoKitHighlightedText(
     modifier: Modifier = Modifier,
     text: String,
     textColor: Color,
-    backgroundColor: Color
+    backgroundColor: Color,
 ) {
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(color = backgroundColor),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(8.dp))
+                .background(color = backgroundColor),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
-            modifier = Modifier.padding(
-                horizontal = 8.dp,
-                vertical = 4.dp
-            ),
+            modifier =
+                Modifier.padding(
+                    horizontal = 8.dp,
+                    vertical = 4.dp,
+                ),
             text = text,
             style = AlgoKitTheme.typography.caption.sansMedium,
-            color = textColor
+            color = textColor,
         )
     }
 }
 
 @Composable
-fun AlgoKitHighlightedGreenText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitHighlightedGreenText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     AlgoKitHighlightedText(
         modifier = modifier,
         text = text,
         textColor = AlgoKitTheme.colors.wallet4Icon,
-        backgroundColor = AlgoKitTheme.colors.wallet4
+        backgroundColor = AlgoKitTheme.colors.wallet4,
     )
 }
 
 @Composable
-fun AlgoKitHighlightedGrayText(modifier: Modifier = Modifier, text: String) {
+fun AlgoKitHighlightedGrayText(
+    modifier: Modifier = Modifier,
+    text: String,
+) {
     AlgoKitHighlightedText(
         modifier = modifier,
         text = text,
         textColor = AlgoKitTheme.colors.textGray,
-        backgroundColor = AlgoKitTheme.colors.textGrayLighter
+        backgroundColor = AlgoKitTheme.colors.textGrayLighter,
     )
 }

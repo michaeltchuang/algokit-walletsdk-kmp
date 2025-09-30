@@ -5,12 +5,12 @@ import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
 
 class AccountRecoveryTypeSelectionViewModel(
-   /* private val sharedPref: SharedPreferences,*/
-    /* private val isThereAnyLocalAccount: IsThereAnyLocalAccount,*/
+    // private val sharedPref: SharedPreferences,
+    // private val isThereAnyLocalAccount: IsThereAnyLocalAccount,
     private val stateDelegate: StateDelegate<ViewState>,
-    /*  private val isOnHdWalletUseCase: IsOnHdWalletUseCase*/
-) : ViewModel(), StateViewModel<AccountRecoveryTypeSelectionViewModel.ViewState> by stateDelegate {
-
+    // private val isOnHdWalletUseCase: IsOnHdWalletUseCase
+) : ViewModel(),
+    StateViewModel<AccountRecoveryTypeSelectionViewModel.ViewState> by stateDelegate {
     init {
         stateDelegate.setDefaultState(ViewState.Idle)
     }
@@ -42,6 +42,7 @@ class AccountRecoveryTypeSelectionViewModel(
 
     sealed interface ViewState {
         data object Idle : ViewState
+
         data object NoLocalAccountState : ViewState
     }
 }

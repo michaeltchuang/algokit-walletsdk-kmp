@@ -34,7 +34,9 @@ private const val SAMPLE_HD_MNEMONIC =
 @Composable
 fun AlgoKitBip39Screen(onAlgoKitEvent: (event: AlgoKitEvent) -> Unit) {
     Column(
-        Modifier.fillMaxHeight(0.5f).fillMaxWidth()
+        Modifier
+            .fillMaxHeight(0.5f)
+            .fillMaxWidth()
             .background(color = AlgoKitTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

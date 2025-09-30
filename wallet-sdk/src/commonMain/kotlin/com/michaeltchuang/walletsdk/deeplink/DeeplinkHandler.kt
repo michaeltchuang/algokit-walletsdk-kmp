@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DeeplinkHandler(
-    private val createDeepLink: CreateDeepLink
+    private val createDeepLink: CreateDeepLink,
 ) {
     private var _deepLinkState = MutableSharedFlow<DeepLinkState>()
     val deepLinkState: SharedFlow<DeepLinkState> = _deepLinkState
@@ -51,8 +51,14 @@ class DeeplinkHandler(
     }
 
     sealed class DeepLinkState {
-        data class OnImportAccountDeepLink(var mnemonic: String) : DeepLinkState()
-        data class KeyReg(var keyReg: DeepLink.KeyReg) : DeepLinkState()
+        data class OnImportAccountDeepLink(
+            var mnemonic: String,
+        ) : DeepLinkState()
+
+        data class KeyReg(
+            var keyReg: DeepLink.KeyReg,
+        ) : DeepLinkState()
+
         object OnUnrecognizedDeepLink : DeepLinkState()
     }
 }

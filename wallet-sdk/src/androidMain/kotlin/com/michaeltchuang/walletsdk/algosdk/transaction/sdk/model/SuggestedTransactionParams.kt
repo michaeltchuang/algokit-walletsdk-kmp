@@ -9,7 +9,10 @@ data class SuggestedTransactionParams(
     val minFee: Long?,
     val fee: TransactionFee,
 ) {
-    data class TransactionFee(val fee: Long, val type: FeeType) {
+    data class TransactionFee(
+        val fee: Long,
+        val type: FeeType,
+    ) {
         sealed interface FeeType {
             data object Suggested : FeeType
 

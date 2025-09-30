@@ -12,17 +12,15 @@ import kotlinx.coroutines.withContext
 class GetLocalAccountsUseCase(
     private val hdKeyAccountRepository: HdKeyAccountRepository,
     private val algo25AccountRepository: Algo25AccountRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
 ) : GetLocalAccounts {
-
-    override suspend fun invoke(): List<LocalAccount> {
-        return withContext(dispatcher) {
+    override suspend fun invoke(): List<LocalAccount> =
+        withContext(dispatcher) {
             val deferredHdKeyAccounts = async { hdKeyAccountRepository.getAll() }
             val deferredAlgo25Accounts = async { algo25AccountRepository.getAll() }
             awaitAll(
                 deferredHdKeyAccounts,
-                deferredAlgo25Accounts
+                deferredAlgo25Accounts,
             ).flatten()
         }
-    }
 }

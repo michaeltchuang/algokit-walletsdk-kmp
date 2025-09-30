@@ -46,7 +46,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun AccountStatusScreen(
     navController: NavController,
     address: String,
-    onAccountDeleted: () -> Unit
+    onAccountDeleted: () -> Unit,
 ) {
     val viewModel: AccountStatusViewModel = koinViewModel()
     LaunchedEffect(Unit) {
@@ -59,46 +59,45 @@ fun AccountStatusScreen(
                 is AccountStatusViewModel.AccountsEvent.ShowError -> {}
             }
         }
-
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AlgoKitTheme.colors.background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = AlgoKitTheme.colors.background)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
     ) {
-
         Text(
             text = stringResource(Res.string.account),
-            modifier = Modifier
-                .padding(vertical = 16.dp),
+            modifier =
+                Modifier
+                    .padding(vertical = 16.dp),
             color = AlgoKitTheme.colors.textMain,
             fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         AccountStatusItem(
             icon = Res.drawable.ic_key,
-            title = stringResource(Res.string.view_passphrase)
+            title = stringResource(Res.string.view_passphrase),
         ) {
             navController.navigate(
-                AlgoKitScreens.PASS_PHRASE_ACKNOWLEDGE_SCREEN.name
+                AlgoKitScreens.PASS_PHRASE_ACKNOWLEDGE_SCREEN.name,
             )
         }
 
         AccountStatusItem(
             icon = Res.drawable.ic_unlink,
             isRemoveAccount = true,
-            title = stringResource(Res.string.remove_account)
+            title = stringResource(Res.string.remove_account),
         ) {
             viewModel.deleteAccount(address)
         }
     }
-
 }
 
 @Composable
@@ -106,20 +105,21 @@ fun AccountStatusItem(
     icon: DrawableResource,
     isRemoveAccount: Boolean = false,
     title: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(vertical = 12.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(vertical = 12.dp),
     ) {
         Icon(
             painter = painterResource(icon),
             contentDescription = title,
             tint = if (isRemoveAccount) AlgoKitTheme.colors.negative else AlgoKitTheme.colors.textMain,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
@@ -131,7 +131,7 @@ fun AccountStatusItem(
         Icon(
             Icons.Default.KeyboardArrowRight,
             tint = AlgoKitTheme.colors.textMain,
-            contentDescription = stringResource(Res.string.next)
+            contentDescription = stringResource(Res.string.next),
         )
     }
 }
@@ -143,7 +143,7 @@ fun SettingsScreenPreview() {
         AccountStatusScreen(
             navController = rememberNavController(),
             address = "ASDFGHJKL",
-            onAccountDeleted = {}
+            onAccountDeleted = {},
         )
     }
 }

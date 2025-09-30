@@ -52,18 +52,21 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TransactionSignatureRequestScreen(
-    navController: NavController, keyReg: DeepLink.KeyReg
+    navController: NavController,
+    keyReg: DeepLink.KeyReg,
 ) {
-
     Box(
-        modifier = Modifier
-            .background(color = AlgoKitTheme.colors.background)
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxSize()
+                .padding(16.dp),
     ) {
         Column {
             AlgoKitTopBar(
-                title = "Transaction Signature Request", onClick = { navController.popBackStack() })
+                title = "Transaction Signature Request",
+                onClick = { navController.popBackStack() },
+            )
             ContentScreen(keyReg)
         }
 
@@ -72,9 +75,10 @@ fun TransactionSignatureRequestScreen(
                 navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name)
             },
             text = stringResource(Res.string.confirm_transaction),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth(),
         )
     }
 }
@@ -82,21 +86,22 @@ fun TransactionSignatureRequestScreen(
 @Composable
 fun ContentScreen(keyReg: DeepLink.KeyReg) {
     Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize()
-            .padding(bottom = 72.dp)
+        modifier =
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .padding(bottom = 72.dp),
     ) {
-
         Spacer(modifier = Modifier.height(16.dp))
 
         // Address Section
         LabeledText(
-            label = "Address", value = keyReg.senderAddress
+            label = "Address",
+            value = keyReg.senderAddress,
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6" )+ (keyReg.fee ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (keyReg.fee ?: "0.001"))
 
         // Type
         LabeledText(label = "Type", value = keyReg.type)
@@ -125,18 +130,21 @@ fun Divider() {
 }
 
 @Composable
-fun LabeledText(label: String, value: String) {
+fun LabeledText(
+    label: String,
+    value: String,
+) {
     Row(modifier = Modifier.padding(vertical = 16.dp)) {
         Text(
             modifier = Modifier.fillMaxWidth(.25f),
             text = label,
             color = AlgoKitTheme.colors.textGray,
-            style = typography.body.regular.sansMedium
+            style = typography.body.regular.sansMedium,
         )
         Text(
             text = value,
             color = AlgoKitTheme.colors.textMain,
-            style = typography.body.regular.sansMedium
+            style = typography.body.regular.sansMedium,
         )
     }
 }
@@ -155,33 +163,35 @@ fun AddNote() {
                 isAddNoteEnabled = false
             })
         } else {
-            Row(modifier = Modifier.clickable(onClick = {
-                isAddNoteEnabled = true
-            }), verticalAlignment = Alignment.CenterVertically) {
-
+            Row(
+                modifier =
+                    Modifier.clickable(onClick = {
+                        isAddNoteEnabled = true
+                    }),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 LabeledText(stringResource(Res.string.note), "")
                 if (noteText.isNotEmpty()) {
                     Text(
                         style = typography.body.regular.sansMedium,
                         text = noteText,
-                        color = AlgoKitTheme.colors.textMain
+                        color = AlgoKitTheme.colors.textMain,
                     )
                 } else {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = stringResource(Res.string.add_note),
-                        tint = AlgoKitTheme.colors.textMain
+                        tint = AlgoKitTheme.colors.textMain,
                     )
                     Text(
                         style = typography.body.large.sansMedium,
                         text = stringResource(Res.string.add_note),
-                        color = AlgoKitTheme.colors.textMain
+                        color = AlgoKitTheme.colors.textMain,
                     )
                 }
             }
         }
     }
-
 }
 
 @Composable
@@ -189,13 +199,14 @@ fun AddNoteTextField(
     value: String,
     onValueChange: (String) -> Unit,
     onClearClick: () -> Unit,
-    onDoneClick: () -> Unit
+    onDoneClick: () -> Unit,
 ) {
     Column(
-        Modifier.fillMaxWidth()
+        Modifier.fillMaxWidth(),
     ) {
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
                 style = typography.body.regular.sansMedium,
@@ -211,46 +222,59 @@ fun AddNoteTextField(
             )
         }
 
-
         Row(
-            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
         ) {
             BasicTextField(
                 value = value,
                 onValueChange = onValueChange,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(vertical = 8.dp),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(vertical = 8.dp),
                 singleLine = true,
-                textStyle = LocalTextStyle.current.copy(
-                    color = AlgoKitTheme.colors.textMain, fontSize = 16.sp
-                ),
+                textStyle =
+                    LocalTextStyle.current.copy(
+                        color = AlgoKitTheme.colors.textMain,
+                        fontSize = 16.sp,
+                    ),
             )
             IconButton(onClick = onClearClick) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Clear",
-                    tint = Color.Gray
+                    tint = Color.Gray,
                 )
             }
         }
 
         // Bottom Line
         HorizontalDivider(
-            thickness = 1.dp, color = Color.Gray
+            thickness = 1.dp,
+            color = Color.Gray,
         )
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewTransactionDetailsScreen() {
-    val keyReg = DeepLink.KeyReg(
-        "ASDFGHJKLQWERTYUIOPZXCVBNM", "", "", "", "", "", "", "", "", "", ""
-    )
+    val keyReg =
+        DeepLink.KeyReg(
+            "ASDFGHJKLQWERTYUIOPZXCVBNM",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+        )
     AlgoKitTheme {
         TransactionSignatureRequestScreen(rememberNavController(), keyReg)
     }
-
 }

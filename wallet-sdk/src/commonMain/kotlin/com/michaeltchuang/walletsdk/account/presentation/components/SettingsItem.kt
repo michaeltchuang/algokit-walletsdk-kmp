@@ -23,19 +23,24 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SettingsItem(icon: DrawableResource, title: String, onClick: () -> Unit) {
+fun SettingsItem(
+    icon: DrawableResource,
+    title: String,
+    onClick: () -> Unit,
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(vertical = 12.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(vertical = 12.dp),
     ) {
         Icon(
             painter = painterResource(icon),
             contentDescription = title,
             tint = AlgoKitTheme.colors.textMain,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
@@ -47,7 +52,7 @@ fun SettingsItem(icon: DrawableResource, title: String, onClick: () -> Unit) {
         Icon(
             Icons.Default.KeyboardArrowRight,
             tint = AlgoKitTheme.colors.textMain,
-            contentDescription = stringResource(Res.string.next)
+            contentDescription = stringResource(Res.string.next),
         )
     }
 }

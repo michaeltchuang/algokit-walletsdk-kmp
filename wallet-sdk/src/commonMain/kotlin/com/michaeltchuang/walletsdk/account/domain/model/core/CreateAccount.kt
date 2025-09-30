@@ -5,9 +5,8 @@ data class CreateAccount(
     var customName: String?,
     var orderIndex: Int,
     val isBackedUp: Boolean,
-    val type: Type
+    val type: Type,
 ) {
-
     sealed interface Type {
         data class HdKey(
             val publicKey: ByteArray,
@@ -16,16 +15,18 @@ data class CreateAccount(
             val account: Int,
             val change: Int,
             val keyIndex: Int,
-            val derivationType: Int
+            val derivationType: Int,
         ) : Type
 
-        data class Algo25(val encryptedSecretKey: ByteArray) : Type
+        data class Algo25(
+            val encryptedSecretKey: ByteArray,
+        ) : Type
+
         data class LedgerBle(
             val deviceMacAddress: String,
             val indexInLedger: Int,
-            val bluetoothName: String?
-        ) :
-            Type
+            val bluetoothName: String?,
+        ) : Type
 
         data object NoAuth : Type
     }
