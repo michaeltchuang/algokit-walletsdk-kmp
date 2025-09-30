@@ -41,3 +41,19 @@ inline fun <reified T> NavController.getData(): T? {
         ?.savedStateHandle
         ?.getObject()
 }
+
+fun String.formatAmount(rawAmount: String): String {
+    // Convert microAlgos to Algos and format for display
+    return try {
+        val microalgos = rawAmount.toLongOrNull() ?: return rawAmount
+        val algos = microalgos / 1_000_000.0
+        if (algos >= 1) {
+            val rounded = (algos * 100).toLong() / 100.0
+            rounded.toString()
+        } else {
+            algos.toString()
+        }
+    } catch (e: Exception) {
+        rawAmount
+    }
+}

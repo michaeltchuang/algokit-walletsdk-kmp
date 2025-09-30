@@ -64,7 +64,7 @@ fun DeveloperSettingsScreen(navController: NavController, onClick: (message: Str
             Res.drawable.ic_node,
             stringResource(Res.string.node_settings)
         ) {
-            onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
+            navController.navigate(AlgoKitScreens.NODE_SETTINGS_SCREEN.name)
         }
 
         SettingsItem(

@@ -39,6 +39,7 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseS
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
@@ -54,7 +55,7 @@ enum class AlgoKitEvent {
 }
 
 enum class AlgoKitScreens() {
-    ACCOUNT_RECOVERY_TYPE_SCREEN, CREATE_ACCOUNT_NAME, ON_BOARDING_ACCOUNT_TYPE_SCREEN, HD_WALLET_SELECTION_SCREEN, INITIAL_REGISTER_INTRO_SCREEN, QR_CODE_SCANNER_SCREEN, RECOVER_AN_ACCOUNT_SCREEN, RECOVER_PHRASE_SCREEN, SETTINGS_SCREEN, THEME_SCREEN, TRANSACTION_SIGNATURE_SCREEN, TRANSACTION_SUCCESS_SCREEN, WEBVIEW_PLATFORM_SCREEN, DEVELOPER_SETTINGS_SCREEN, ACCOUNT_STATUS_SCREEN, PASS_PHRASE_ACKNOWLEDGE_SCREEN, VIEW_PASSPHRASE_SCREEN
+    ACCOUNT_RECOVERY_TYPE_SCREEN, CREATE_ACCOUNT_NAME, ON_BOARDING_ACCOUNT_TYPE_SCREEN, HD_WALLET_SELECTION_SCREEN, INITIAL_REGISTER_INTRO_SCREEN, QR_CODE_SCANNER_SCREEN, RECOVER_AN_ACCOUNT_SCREEN, RECOVER_PHRASE_SCREEN, SETTINGS_SCREEN, THEME_SCREEN, TRANSACTION_SIGNATURE_SCREEN, TRANSACTION_SUCCESS_SCREEN, WEBVIEW_PLATFORM_SCREEN, DEVELOPER_SETTINGS_SCREEN, ACCOUNT_STATUS_SCREEN, PASS_PHRASE_ACKNOWLEDGE_SCREEN, VIEW_PASSPHRASE_SCREEN, NODE_SETTINGS_SCREEN
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -210,6 +211,9 @@ fun OnBoardingBottomSheetNavHost(
                 }
                 composable(route = AlgoKitScreens.THEME_SCREEN.name) {
                     ThemeScreen(navController)
+                }
+                composable(route = AlgoKitScreens.NODE_SETTINGS_SCREEN.name) {
+                    NodeSettingsScreen(navController)
                 }
                 composable(route = AlgoKitScreens.DEVELOPER_SETTINGS_SCREEN.name) {
                     DeveloperSettingsScreen(navController) {

@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.michaeltchuang.walletsdk.settings.domain.AndroidContextHolder
 
 class AndroidApp : Application() {
     companion object {
@@ -16,6 +17,7 @@ class AndroidApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        AndroidContextHolder.applicationContext = applicationContext
     }
 }
 

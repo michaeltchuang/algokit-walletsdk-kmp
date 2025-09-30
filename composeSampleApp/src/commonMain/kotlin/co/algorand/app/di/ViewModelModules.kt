@@ -13,6 +13,7 @@ val provideViewModelModules =
                 get(),
                 get(),
                 get(),
+                get(),
             )
         }
     }

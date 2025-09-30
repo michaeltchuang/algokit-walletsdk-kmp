@@ -8,19 +8,38 @@ import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.network.model.ApiResult
+import com.michaeltchuang.walletsdk.network.service.AccountInformationApiService
+import com.michaeltchuang.walletsdk.network.service.getBasicAccountInformation
+import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
+import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
+import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
+    private val accountApiService: AccountInformationApiService,
     private val stateDelegate: StateDelegate<AccountsState>,
     private val eventDelegate: EventDelegate<AccountsEvent>,
 ) : ViewModel(),
     StateViewModel<AccountListViewModel.AccountsState> by stateDelegate,
     EventViewModel<AccountListViewModel.AccountsEvent> by eventDelegate {
     var accountLite = emptyList<AccountLite>()
+    private var currentNetwork: AlgorandNetwork? = null
 
     init {
         stateDelegate.setDefaultState(AccountsState.Idle)
+
+        // Listen for network changes and refetch accounts when network changes
+        viewModelScope.launch {
+            provideNodePreferenceRepository().getSavedNodePreferenceFlow().collect { network ->
+                if (currentNetwork != null && currentNetwork != network) {
+                    // Network has changed, refetch accounts
+                    fetchAccounts()
+                }
+                currentNetwork = network
+            }
+        }
     }
 
     fun fetchAccounts() {
@@ -28,6 +47,14 @@ class AccountListViewModel(
         viewModelScope.launch {
             try {
                 accountLite = nameRegistrationUseCase.getAccountLite()
+
+                // Fetch account details for all accounts to get their amounts
+                val accountsWithAmounts = accountLite.map { account ->
+                    val accountInfo = getAccountDetails(account.address)
+                    account.copy(amount = accountInfo?.amount ?: "0")
+                }
+
+                accountLite = accountsWithAmounts
                 stateDelegate.updateState {
                     AccountsState.Content(accountLite)
                 }
@@ -56,6 +83,26 @@ class AccountListViewModel(
                         e.message ?: "Failed to delete account.",
                     ),
                 )
+            }
+        }
+    }
+
+    private suspend fun getAccountDetails(address: String): com.michaeltchuang.walletsdk.network.model.AccountInformation? {
+        val result = accountApiService.getBasicAccountInformation(address)
+        return when (result) {
+            is ApiResult.Success -> {
+                println("Account information: ${result.data.accountInformation?.amount}")
+                result.data.accountInformation
+            }
+
+            is ApiResult.Error -> {
+                println("Account information error: ${result.message}")
+                null
+            }
+
+            is ApiResult.NetworkError -> {
+                println("Account information network error: ${result.exception.message}")
+                null
             }
         }
     }

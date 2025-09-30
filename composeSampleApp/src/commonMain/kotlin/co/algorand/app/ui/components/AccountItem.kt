@@ -21,6 +21,7 @@ import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIconRoundShape
+import com.michaeltchuang.walletsdk.utils.formatAmount
 import com.michaeltchuang.walletsdk.utils.toShortenedAddress
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -35,7 +36,9 @@ fun AccountItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp).clickable(onClick = {
+                    onAccountItemClick(account.address)
+                }),
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(
@@ -57,10 +60,6 @@ fun AccountItem(
                         .padding(horizontal = 8.dp),
             ) {
                 Text(
-                    modifier =
-                        Modifier.clickable(onClick = {
-                            onAccountItemClick(account.address)
-                        }),
                     text = account.customName.ifEmpty { account.address.toShortenedAddress() },
                     style = typography.body.large.sansMedium,
                 )
@@ -70,7 +69,9 @@ fun AccountItem(
                 )
             }
 
-            Text(text = ("\u00A6") + "***", fontSize = 16.sp, style = typography.footnote.sansMedium)
+            Text(text = ("\u00A6") + (account.amount?.let { it.formatAmount(it) } ?: "0"),
+                fontSize = 16.sp,
+                style = typography.footnote.sansMedium)
         }
     }
 }
@@ -109,6 +110,8 @@ fun getAccountType(localAccount: AccountRegistrationType): String =
         }
     } + " Account"
 
+
+
 @Preview()
 @Composable
 fun AccountItemPreview() {
@@ -117,6 +120,7 @@ fun AccountItemPreview() {
         AccountLite(
             address = "ASDFGHJKLASDFGHJKL",
             customName = "Sample Account",
+            amount = "5000000000", // 5000 Algos in microAlgos
             registrationType = AccountRegistrationType.Algo25,
         )
 

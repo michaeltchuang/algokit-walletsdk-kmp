@@ -6,5 +6,6 @@ import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistratio
 data class AccountLite(
     val address: String,
     val customName: String,
-    val registrationType: AccountRegistrationType
+    val registrationType: AccountRegistrationType,
+    val amount: String?=null,
 )

@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.android
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getting
 import org.gradle.kotlin.dsl.invoke
@@ -145,6 +144,7 @@ kotlin {
             implementation(libs.datastore.preferences)
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
