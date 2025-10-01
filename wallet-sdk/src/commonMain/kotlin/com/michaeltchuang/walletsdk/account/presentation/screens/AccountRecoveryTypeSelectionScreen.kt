@@ -73,8 +73,8 @@ fun AccountRecoveryTypeSelectionScreen(
         Spacer(modifier = Modifier.height(30.dp))
         RecoverAnAccountWidget(navController = navController)
         RecoverAnAccountWithQRWidget(navController)
-        PairLedgerDeviceWidget(onClick)
-        ImportPeraWebWidget(onClick)
+        // PairLedgerDeviceWidget(onClick)
+        // ImportPeraWebWidget(onClick)
         // AlgorandSecureBackupWidget(onClick)
     }
 }
