@@ -1,0 +1,87 @@
+{
+  "originHash" : "980eda6283ed766edf8f6d1cb594a960850fd87d830b406a0e9ee6a6566763b9",
+  "pins" : [
+    {
+      "identity" : "algorand-devrel-xhd-wallet-api-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeltchuang/algorand-devrel-xHD-Wallet-API-swift",
+      "state" : {
+        "branch" : "fix/swiftlint",
+        "revision" : "09a564527aab2d69876e726a91a72b77fbc50bd8"
+      }
+    },
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt.git",
+      "state" : {
+        "revision" : "e07e00fa1fd435143a2dcf8b7eec9a7710b2fdfe",
+        "version" : "5.7.0"
+      }
+    },
+    {
+      "identity" : "jsonschema.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/algorandfoundation/JSONSchema.swift.git",
+      "state" : {
+        "revision" : "92385c024dee684e0b6b9dee6ee067844bf61f38",
+        "version" : "0.7.0"
+      }
+    },
+    {
+      "identity" : "messagepack.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/a2/MessagePack.swift.git",
+      "state" : {
+        "revision" : "27b35fd49e92fcae395bf8ccb233499d89cc7890",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "mnemonicswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Electric-Coin-Company/MnemonicSwift",
+      "state" : {
+        "revision" : "2d7f3e76e904621e111efada6cc9575f39543bb2",
+        "version" : "2.2.5"
+      }
+    },
+    {
+      "identity" : "pathkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/PathKit.git",
+      "state" : {
+        "revision" : "3bfd2737b700b9a36565a8c94f4ad2b050a5e574",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "spectre",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/Spectre.git",
+      "state" : {
+        "revision" : "26cc5e9ae0947092c7139ef7ba612e34646086c7",
+        "version" : "0.10.1"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "60f13f60c4d093691934dc6cfdf5f508ada1f894",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "swift-sodium-full",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/algorandfoundation/swift-sodium-full.git",
+      "state" : {
+        "revision" : "4859e76668cdf80e0b01d76eaf0c70d50e1f1bd9",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
