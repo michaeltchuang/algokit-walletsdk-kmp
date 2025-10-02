@@ -19,8 +19,8 @@ graph TD
     end
 
     subgraph "Algorand SDKs"
-        Core["AlgoKit-Core SDK"]
-        xHD["Algo xHD SDK"]
+        Core["AlgoKit-Core Rust SDK"]
+        xHD["Algo xHD Kotlin/Swift SDK"]
         JavaSDK["Algo Java SDK"]
         GoSDK["Algo Go SDK"]
     end
