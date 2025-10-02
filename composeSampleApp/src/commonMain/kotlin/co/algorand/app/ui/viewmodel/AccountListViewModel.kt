@@ -11,8 +11,8 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.network.model.ApiResult
 import com.michaeltchuang.walletsdk.network.service.AccountInformationApiService
 import com.michaeltchuang.walletsdk.network.service.getBasicAccountInformation
-import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
+import com.michaeltchuang.walletsdk.settings.presentation.screens.networkNodeSettings
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
@@ -31,12 +31,8 @@ class AccountListViewModel(
 
         // Listen for network changes and refetch accounts when network changes
         viewModelScope.launch {
-            provideNodePreferenceRepository().getSavedNodePreferenceFlow().collect { network ->
-                if (currentNetwork != null && currentNetwork != network) {
-                    // Network has changed, refetch accounts
-                    fetchAccounts()
-                }
-                currentNetwork = network
+            networkNodeSettings.collect { network ->
+                fetchAccounts()
             }
         }
     }

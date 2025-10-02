@@ -28,7 +28,7 @@ import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -41,12 +41,7 @@ enum class AlgorandNetwork(
     TESTNET("TestNet", "https://testnet-idx.algonode.cloud"),
 }
 
-// Utility function to get current network from anywhere in the app
-@Composable
-fun getCurrentNetwork(): Flow<AlgorandNetwork> {
-    val repository = provideNodePreferenceRepository()
-    return repository.getSavedNodePreferenceFlow()
-}
+val networkNodeSettings = MutableStateFlow<AlgorandNetwork?>(null)
 
 @Composable
 fun NodeSettingsScreen(
@@ -62,6 +57,7 @@ fun NodeSettingsScreen(
         if (network != currentNetwork) {
             coroutineScope.launch {
                 nodeRepository.saveNodePreference(network)
+                networkNodeSettings.value = currentNetwork
             }
         }
     }

@@ -12,27 +12,27 @@ import com.michaeltchuang.walletsdk.network.model.ApiResult
 /**
  * Get basic account information excluding heavy data like apps and assets
  */
-suspend fun AccountInformationApiService.getBasicAccountInformation(publicKey: String): ApiResult<AccountInformationResponse> =
+suspend fun AccountInformationApiService.getBasicAccountInformation(address: String): ApiResult<AccountInformationResponse> =
     getAccountInformation(
-        publicKey = publicKey,
+        address = address,
         excludes = "apps-local-state,created-apps,assets,created-assets",
     )
 
 /**
  * Get account information with only balance and status
  */
-suspend fun AccountInformationApiService.getAccountBalance(publicKey: String): ApiResult<AccountInformationResponse> =
+suspend fun AccountInformationApiService.getAccountBalance(address: String): ApiResult<AccountInformationResponse> =
     getAccountInformation(
-        publicKey = publicKey,
+        address = address,
         excludes = "apps-local-state,created-apps,assets,created-assets,participation",
     )
 
 /**
  * Get complete account information including all fields and closed accounts
  */
-suspend fun AccountInformationApiService.getCompleteAccountInformation(publicKey: String): ApiResult<AccountInformationResponse> =
+suspend fun AccountInformationApiService.getCompleteAccountInformation(address: String): ApiResult<AccountInformationResponse> =
     getAccountInformation(
-        publicKey = publicKey,
+        address = address,
         excludes = "",
         includeClosedAccounts = true,
     )
@@ -40,8 +40,8 @@ suspend fun AccountInformationApiService.getCompleteAccountInformation(publicKey
 /**
  * Check if an account exists (lightweight check)
  */
-suspend fun AccountInformationApiService.accountExists(publicKey: String): Boolean =
-    when (getBasicAccountInformation(publicKey)) {
+suspend fun AccountInformationApiService.accountExists(address: String): Boolean =
+    when (getBasicAccountInformation(address)) {
         is ApiResult.Success -> true
         is ApiResult.Error -> false
         is ApiResult.NetworkError -> false
@@ -51,11 +51,11 @@ suspend fun AccountInformationApiService.accountExists(publicKey: String): Boole
  * Get just the account information (unwrapped from the response)
  */
 suspend fun AccountInformationApiService.getAccountInformationOnly(
-    publicKey: String,
+    address: String,
     excludes: String = "",
     includeClosedAccounts: Boolean = false,
 ): ApiResult<AccountInformation> =
-    when (val result = getAccountInformation(publicKey, excludes, includeClosedAccounts)) {
+    when (val result = getAccountInformation(address, excludes, includeClosedAccounts)) {
         is ApiResult.Success -> {
             result.data.accountInformation?.let { accountInfo ->
                 ApiResult.Success(accountInfo)
@@ -72,8 +72,8 @@ suspend fun AccountInformationApiService.getAccountInformationOnly(
 /**
  * Get account balance amount directly
  */
-suspend fun AccountInformationApiService.getAccountBalanceAmount(publicKey: String): String? =
-    when (val result = getAccountBalance(publicKey)) {
+suspend fun AccountInformationApiService.getAccountBalanceAmount(address: String): String? =
+    when (val result = getAccountBalance(address)) {
         is ApiResult.Success -> result.data.accountInformation?.amount
         else -> null
     }
