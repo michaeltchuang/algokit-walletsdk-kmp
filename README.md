@@ -120,8 +120,9 @@ Coming Soon
 
 ### Wallet-SDK Screens - Transactions
 
-#### KeyReg
+#### KeyReg Flow
 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" />   
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/37d406cc-b584-44ae-9c95-94fed9c6baae" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/e8db4235-3e1f-45c0-825c-29ad929a716d" />
 
