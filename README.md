@@ -9,11 +9,12 @@ AlgoKit Wallet SDK currently uses UI theming inspired by [Pera Android](https://
 title: AlgoKit Wallet SDK High Level Overview
 ---
 graph TD
-    subgraph " "
-        App["Algorand App"]
+    subgraph "Algorand Apps"
+        App1["App 1"]
+        App2["App 2"]
     end
 
-    subgraph " "
+    subgraph wallet["Embedded Wallet/Service"]
         SDK["AlgoKit Wallet SDK<br/>(UI Components & Screens)"]
     end
 
@@ -24,18 +25,19 @@ graph TD
         GoSDK["Algo Go SDK"]
     end
 
-    App <--> SDK
+    App1 <--> wallet
+    App2 <--> wallet
     SDK <--> Core
     SDK <--> xHD
     SDK <--> JavaSDK
     SDK <--> GoSDK
 ```
 
-The sample apps (Android/iOS) demonstrate `wallet-sdk` usage through a simplified "Pera-lite" wallet application. Current and planned features include:
+The sample apps (Android/iOS) demonstrate `wallet-sdk` usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
 
 - Create and recover accounts (Algo25, HD)
 - Theme customization
-- Network switching (Mainnet/Testnet)
+- Network switching between Mainnet/Testnet (Code hasn't been audited, so use mainnet at your own risk)
 - QR code scanning for account imports and keyreg transactions
 - Algo-native experience
 - Account detail screens
@@ -74,7 +76,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/87f01910-8301-41fa-9bd3-b2d6aca22783" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/0872fc82-5abb-4806-a2db-61c90441dfbd" /> 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/992add95-3d16-4b00-a1c5-8ada8ef302b4" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/25b215b6-e502-436e-9110-a02e278e0d06" />
 
 #### Recover Algo25 Account Flow
 
@@ -120,7 +122,8 @@ Coming Soon
 
 #### KeyReg
 
-Coming Soon
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/37d406cc-b584-44ae-9c95-94fed9c6baae" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/e8db4235-3e1f-45c0-825c-29ad929a716d" />
 
 ## Architecture
 
