@@ -54,9 +54,11 @@ The project has the following modules:
 
 This project is developed using [Android Studio](https://developer.android.com/studio) stable version and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform).
 
-## Screenshots - Sample App
+## Screenshots
 
-#### Accounts List Screen
+### Sample App - Accounts List
+
+#### Fetching All Accounts Flow
 
 <img width="200" alt="Accounts List" src="https://github.com/user-attachments/assets/e7c48e52-89b9-4107-a530-decb41e8658e" />
 
