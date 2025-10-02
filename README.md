@@ -33,16 +33,58 @@ graph TD
     SDK <--> GoSDK
 ```
 
-The sample apps (Android/iOS) demonstrate `wallet-sdk` usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
+The sample apps (Android/iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
 
 - Create and recover accounts (Algo25, HD)
 - Theme customization
 - Network switching between Mainnet/Testnet (Code hasn't been audited, so use mainnet at your own risk)
 - QR code scanning for account imports and keyreg transactions
-- Algo-native experience
+- Algo-only experience for now (to swap memecoins...use Pera app, Haystack app, etc)
 - Account detail screens
 - Passphrase management
 - Localization
+
+```mermaid
+---
+config:
+  theme: 'neutral'
+---
+timeline
+    title AlgoKit Wallet SDK tentative roadmap
+
+    section Completed ✅
+    2025Q3  : ✅ Create sample app ("Pera Lite")
+            : ✅ Onboarding - Create Algo25 wallet and account flow
+            : ✅ Onboarding - Create HD wallet and account flow
+            : ✅ Onboarding - Recover Algo25 account flow
+            : ✅ Deeplink - Import Algo25 account using QR code flow
+            : ✅ Settings - Theme picker
+            : ✅ Onboarding - Embedded and external webview flow
+            : ✅ Account details - View passphrase flow
+
+    section In Progress 🔄
+    2025Q4  : 🔄 Onboarding - Add HD account to existing wallet flow
+            : ✅ Settings - Network switcher flow
+            : 🔄 Transaction - Sign KeyReg online/offline flow
+            : Transaction - Integrate new AlgoKit-Core Transact rust library
+            : Onboarding - Recover HD account flow
+            : Onboarding - Add encryption for Android secret keys in DB
+
+    section Future
+    2026Q1  : Account details - Add Copy Address Button and others
+            : Settings - Localization
+            : Onboarding - Rekey flow
+            : Onboarding - Ledger flow
+            : Onboarding - Add PQS account flow
+            : Account Details - Send Algo flow
+            : Android - Wallet SDK as a background service integration  
+    2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
+            : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
+            : Onboarding - Passkeys / Liquid Auth
+            : Account Details - Asset Inbox
+            : Account Details - Swap
+            : TBD
+```
 
 ## Project structure
 
