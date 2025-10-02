@@ -168,7 +168,7 @@ private fun ContentState(
         Spacer(modifier = Modifier.height(20.dp))
         CreateWalletHdWidget(viewModel, scope)
         ImportHdWalletWidget(navController)
-        WatchAddressWidget(onClick)
+        // WatchAddressWidget(onClick)
         Spacer(modifier = Modifier.weight(1f))
         TermsAndPrivacy()
     }
