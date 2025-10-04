@@ -55,12 +55,21 @@ class CreateAccountNameViewModel(
     fun fetchAccountDetails(accountCreation: AccountCreation) {
         when (val type = accountCreation.type) {
             is AccountCreation.Type.Algo25 -> handleAlgo25Account()
-            is AccountCreation.Type.HdKey -> handleHDAccount(type.seedId)
+            is AccountCreation.Type.Falcon24 -> handleFalcon24Account(seedId = type.seedId)
+            is AccountCreation.Type.HdKey -> handleHDAccount(seedId = type.seedId)
             is AccountCreation.Type.LedgerBle, is AccountCreation.Type.NoAuth -> Unit
         }
     }
 
     private fun handleHDAccount(seedId: Int?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val resolvedId = seedId ?: ((getMaxHdSeedId.invoke() ?: 0) + 1)
+            walletId = resolvedId
+            stateDelegate.updateState { ViewState.Content(walletId) }
+        }
+    }
+
+    private fun handleFalcon24Account(seedId: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
             val resolvedId = seedId ?: ((getMaxHdSeedId.invoke() ?: 0) + 1)
             walletId = resolvedId

@@ -1,8 +1,10 @@
 package com.michaeltchuang.walletsdk.account.data.repository
 
 import com.michaeltchuang.walletsdk.account.data.database.dao.HdKeyDao
+import com.michaeltchuang.walletsdk.account.data.database.dao.HdSeedDao
 import com.michaeltchuang.walletsdk.account.data.mapper.entity.HdKeyEntityMapper
 import com.michaeltchuang.walletsdk.account.data.mapper.model.HdKeyMapper
+import com.michaeltchuang.walletsdk.account.data.mapper.model.HdSeedWalletSummaryMapper
 import com.michaeltchuang.walletsdk.account.data.mapper.model.HdWalletSummaryMapper
 import com.michaeltchuang.walletsdk.account.domain.model.local.HdWalletSummary
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount.HdKey
@@ -19,6 +21,8 @@ internal class HdKeyAccountRepositoryImpl(
     private val hdKeyEntityMapper: HdKeyEntityMapper,
     private val hdWalletSummaryMapper: HdWalletSummaryMapper,
     private val hdKeyMapper: HdKeyMapper,
+    private val hdSeedDao: HdSeedDao,
+    private val hdSeedWalletSummaryMapper: HdSeedWalletSummaryMapper,
     // private val aesPlatformManager: AESPlatformManager,
     private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : HdKeyAccountRepository {
@@ -83,17 +87,23 @@ internal class HdKeyAccountRepositoryImpl(
 
     override suspend fun getHdWalletSummaries(): List<HdWalletSummary> =
         withContext(coroutineDispatcher) {
+            val walletEntities = hdSeedDao.getAll()
             val hdKeyEntities = hdKeyDao.getAll()
+            val hdKeyGroups = hdKeyEntities.groupBy { it.seedId }
+            val hdWalletSummaries =
+                walletEntities.map { hdSeedEntity ->
+                    val seedId = hdSeedEntity.seedId
+                    val keyGroup = hdKeyGroups[seedId]
+                    val accountCount = keyGroup?.size ?: 0
+                    val representativeKey = keyGroup?.maxByOrNull { it.account }
+                    if (representativeKey != null) {
+                        hdWalletSummaryMapper(representativeKey, accountCount)
+                    } else {
+                        hdSeedWalletSummaryMapper(hdSeedEntity, accountCount)
+                    }
+                }
 
-            val uniqueHdKeyEntities =
-                hdKeyEntities
-                    .groupBy { it.seedId }
-                    .mapNotNull { (_, group) -> group.maxByOrNull { it.account } }
-
-            uniqueHdKeyEntities.map { uniqueHdKeyEntity ->
-                val accountCount = hdKeyEntities.count { uniqueHdKeyEntity.seedId == it.seedId }
-                hdWalletSummaryMapper(uniqueHdKeyEntity, accountCount)
-            }
+            hdWalletSummaries
         }
 
     override suspend fun getHdSeedId(address: String): Int? =

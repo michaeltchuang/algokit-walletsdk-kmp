@@ -1,5 +1,6 @@
 package com.michaeltchuang.walletsdk.account.domain.usecase.core
 
+import com.michaeltchuang.walletsdk.account.domain.repository.local.Falcon24AccountRepository
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdKeyAccountRepository
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
 import com.michaeltchuang.walletsdk.account.domain.usecase.custom.DeleteHdSeedCustomInfo
@@ -7,6 +8,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.DeleteHdKeyAcco
 
 class DeleteHdKeyAccountUseCase(
     private val hdKeyAccountRepository: HdKeyAccountRepository,
+    private val falcon24AccountRepository: Falcon24AccountRepository,
     private val deleteHdSeedCustomInfo: DeleteHdSeedCustomInfo,
     private val hdSeedRepository: HdSeedRepository,
 ) : DeleteHdKeyAccount {
@@ -20,7 +22,9 @@ class DeleteHdKeyAccountUseCase(
         deleteHdSeedCustomInfo.invoke(hdKey.seedId)
         val derivedAddressesCount =
             hdKeyAccountRepository.getDerivedAddressCountOfSeed(hdKey.seedId)
-        if (derivedAddressesCount == 0) {
+        val falcon24Count =
+            falcon24AccountRepository.getDerivedAddressCountOfSeed(hdKey.seedId)
+        if (derivedAddressesCount == 0 && falcon24Count == 0) {
             hdSeedRepository.deleteHdSeed(hdKey.seedId)
         }
     }

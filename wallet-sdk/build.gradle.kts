@@ -88,7 +88,8 @@ kotlin {
         androidMain.dependencies {
             // will turn this to implementation when app module references are moved to common
             api(libs.algosdk)
-            api(libs.algorand.go.mobile)
+            // api(libs.algorand.go.mobile)
+            api(files("libs/algosdkfalcon1.aar"))
 
             // toml files don't support aar files yet
             implementation("net.java.dev.jna:jna:5.17.0@aar")

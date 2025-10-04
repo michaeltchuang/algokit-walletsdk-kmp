@@ -5,9 +5,11 @@ package com.michaeltchuang.walletsdk.algosdk.bip39.sdk
 import cash.z.ecc.android.bip39.Mnemonics
 import cash.z.ecc.android.bip39.toSeed
 import com.algorand.algosdk.crypto.Address
+import com.algorand.algosdk.sdk.Sdk
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Mnemonic
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Seed
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.Falcon24
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressDerivationType
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
@@ -34,7 +36,7 @@ internal class AlgorandBip39Wallet internal constructor(
 
         val mnemonicCode = Mnemonics.MnemonicCode(entropy.value)
         seed = Bip39Seed(mnemonicCode.toSeed())
-        mnemonic = Bip39Mnemonic(mnemonicCode.words.map { it.toString() })
+        mnemonic = Bip39Mnemonic(mnemonicCode.words.map { String(it) })
         walletApi = XHDWalletAPIAndroid(seed.value)
     }
 
@@ -54,6 +56,16 @@ internal class AlgorandBip39Wallet internal constructor(
         return HdKeyAddressLite(
             address = Address(publicKey).toString(),
             index = index,
+        )
+    }
+
+    override fun generateFalcon24Address(): Falcon24 {
+        val mnemonicString = mnemonic.words.joinToString(" ")
+        val algorandKeyInfo = Sdk.deriveFromBIP39(mnemonicString)
+        return Falcon24(
+            address = algorandKeyInfo.algorandAddress,
+            publicKey = algorandKeyInfo.publicKey.toByteArray(),
+            privateKey = algorandKeyInfo.privateKey.toByteArray(),
         )
     }
 
