@@ -8,4 +8,6 @@ sealed interface AccountRegistrationType {
     data object NoAuth : AccountRegistrationType
 
     data object HdKey : AccountRegistrationType
+
+    data object Falcon24 : AccountRegistrationType
 }

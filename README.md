@@ -77,7 +77,8 @@ timeline
             : Onboarding - Ledger flow
             : Onboarding - Add PQS account flow
             : Account Details - Send Algo flow
-            : Android - Wallet SDK as a background service integration  
+            : Refactor Code and Add Tests
+            : Android - Wallet SDK as a background service integration
     2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
             : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
             : Onboarding - Passkeys / Liquid Auth
@@ -193,6 +194,11 @@ erDiagram
     }
     algo_25 {
         String algo_address PK
+        ByteArray encrypted_secret_key
+    }
+    falcon_24 {
+        String algo_address PK
+        Int seed_id FK
         ByteArray encrypted_secret_key
     }
     ledger_ble {

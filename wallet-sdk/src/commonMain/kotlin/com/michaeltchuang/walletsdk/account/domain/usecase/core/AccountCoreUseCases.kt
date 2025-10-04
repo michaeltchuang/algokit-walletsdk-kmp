@@ -16,6 +16,18 @@ fun interface AddHdSeed {
     suspend operator fun invoke(entropy: ByteArray): AlgoKitResult<Int>
 }
 
+fun interface AddFalcon24Account {
+    suspend operator fun invoke(
+        address: String,
+        publicKey: ByteArray,
+        privateKey: ByteArray,
+        seedId: Int,
+        isBackedUp: Boolean,
+        customName: String?,
+        orderIndex: Int,
+    )
+}
+
 fun interface AddHdKeyAccount {
     suspend operator fun invoke(
         address: String,

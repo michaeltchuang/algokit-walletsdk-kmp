@@ -6,7 +6,7 @@ data class AccountMnemonic(
 ) {
     sealed interface AccountType {
         data object Algo25 : AccountType
-
         data object HdKey : AccountType
+        data object Falcon24 : AccountType
     }
 }

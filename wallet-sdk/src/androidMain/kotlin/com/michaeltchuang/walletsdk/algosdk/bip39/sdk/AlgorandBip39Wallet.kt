@@ -5,14 +5,17 @@ package com.michaeltchuang.walletsdk.algosdk.bip39.sdk
 import cash.z.ecc.android.bip39.Mnemonics
 import cash.z.ecc.android.bip39.toSeed
 import com.algorand.algosdk.crypto.Address
+import com.google.common.collect.Multimaps.index
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Mnemonic
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Seed
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.Falcon24
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressDerivationType
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.encryption.domain.utils.clearFromMemory
+import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import foundation.algorand.xhdwalletapi.Bip32DerivationType
 import foundation.algorand.xhdwalletapi.KeyContext
 import foundation.algorand.xhdwalletapi.XHDWalletAPIAndroid
@@ -54,6 +57,14 @@ internal class AlgorandBip39Wallet internal constructor(
         return HdKeyAddressLite(
             address = Address(publicKey).toString(),
             index = index,
+        )
+    }
+
+    override fun generateFalcon24Address(): Falcon24 {
+        return Falcon24(
+            address = "7EU5HIQPDUOITRPXEZIOBTDS23I6RIWDJANLLXDNQPNCAITJSFX52QUSSI",
+            publicKey = WalletSdkConstants.FALCON24_PUBLIC_KEY.toByteArray(),
+            privateKey = WalletSdkConstants.FALCON24_PRIVATE_KEY.toByteArray(),
         )
     }
 

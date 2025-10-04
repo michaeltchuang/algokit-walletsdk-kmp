@@ -42,7 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.components.SettingsItem
+import com.michaeltchuang.walletsdk.settings.presentation.components.SettingsItem
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.DrawableResource

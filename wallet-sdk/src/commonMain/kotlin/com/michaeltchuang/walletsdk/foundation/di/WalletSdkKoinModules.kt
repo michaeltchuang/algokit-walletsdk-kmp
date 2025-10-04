@@ -10,6 +10,7 @@ import com.michaeltchuang.walletsdk.foundation.commonModule
 import com.michaeltchuang.walletsdk.foundation.delegateModule
 import com.michaeltchuang.walletsdk.foundation.json.jsonModule
 import com.michaeltchuang.walletsdk.network.di.networkModule
+import com.michaeltchuang.walletsdk.settings.di.settingsModule
 
 val walletSdkKoinModules =
     listOf(
@@ -23,4 +24,5 @@ val walletSdkKoinModules =
         networkModule,
         deepLinkModule,
         viewModelModule,
+        settingsModule,
     )

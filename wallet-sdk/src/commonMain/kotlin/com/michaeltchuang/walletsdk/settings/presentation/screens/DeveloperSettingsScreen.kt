@@ -1,6 +1,7 @@
-package com.michaeltchuang.walletsdk.account.presentation.screens
+package com.michaeltchuang.walletsdk.settings.presentation.screens
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_falcon24_account
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_legacy_algo25_account
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.developer_settings
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_node
@@ -19,32 +20,33 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.components.SettingsItem
+import com.michaeltchuang.walletsdk.settings.presentation.components.SettingsItem
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAccountTypeViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.DeveloperSettingsViewModel
 import com.michaeltchuang.walletsdk.utils.Log
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-private const val TAG = "CreateAccountTypeScreen"
+private const val TAG = "DeveloperSettingsScreen"
 
 @Composable
 fun DeveloperSettingsScreen(
     navController: NavController,
     onClick: (message: String) -> Unit,
 ) {
-    val viewModel: OnboardingAccountTypeViewModel = koinViewModel()
+    val viewModel: DeveloperSettingsViewModel = koinViewModel()
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
-                is OnboardingAccountTypeViewModel.ViewEvent.AccountCreated -> {
+                is DeveloperSettingsViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
                     Log.d(TAG, it.accountCreation.address)
                 }
 
-                is OnboardingAccountTypeViewModel.ViewEvent.Error -> {
+                is DeveloperSettingsViewModel.ViewEvent.Error -> {
                     Log.d(TAG, it.message)
                 }
             }
@@ -76,6 +78,13 @@ fun DeveloperSettingsScreen(
             stringResource(Res.string.create_legacy_algo25_account),
         ) {
             viewModel.createAlgoAccount()
+        }
+
+        SettingsItem(
+            Res.drawable.ic_wallet,
+            stringResource(Res.string.create_falcon24_account),
+        ) {
+            navController.navigate(AlgoKitScreens.FALCON24_WALLET_SELECTION_SCREEN.name)
         }
     }
 }

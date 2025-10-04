@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.account.presentation.components
+package com.michaeltchuang.walletsdk.settings.presentation.components
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.account.presentation.components
+package com.michaeltchuang.walletsdk.settings.presentation.components
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.next

@@ -30,6 +30,11 @@ sealed interface LocalAccount {
         override val algoAddress: String,
     ) : LocalAccount
 
+    data class Falcon24(
+        override val algoAddress: String,
+        val seedId: Int,
+    ) : LocalAccount
+
     data class LedgerBle(
         override val algoAddress: String,
         val deviceMacAddress: String,

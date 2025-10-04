@@ -22,6 +22,13 @@ data class AccountCreation(
             val seedId: Int? = null,
         ) : Type
 
+        data class Falcon24(
+            val publicKey: ByteArray,
+            val encryptedPrivateKey: ByteArray,
+            val encryptedEntropy: ByteArray,
+            val seedId: Int? = null,
+        ) : Type
+
         data class Algo25(
             val encryptedSecretKey: ByteArray,
         ) : Type
@@ -57,6 +64,13 @@ data class AccountCreation(
                     is Type.Algo25 ->
                         CreateAccount.Type.Algo25(
                             type.encryptedSecretKey,
+                        )
+
+                    is Type.Falcon24 ->
+                        CreateAccount.Type.Falcon24(
+                            publicKey = type.publicKey,
+                            encryptedPrivateKey = type.encryptedPrivateKey,
+                            encryptedEntropy = type.encryptedEntropy,
                         )
 
                     is Type.LedgerBle ->

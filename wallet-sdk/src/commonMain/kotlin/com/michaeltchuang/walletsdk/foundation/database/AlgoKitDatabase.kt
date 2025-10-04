@@ -8,6 +8,7 @@ import com.michaeltchuang.walletsdk.account.data.database.dao.Algo25Dao
 import com.michaeltchuang.walletsdk.account.data.database.dao.Algo25NoAuthDao
 import com.michaeltchuang.walletsdk.account.data.database.dao.CustomAccountInfoDao
 import com.michaeltchuang.walletsdk.account.data.database.dao.CustomHdSeedInfoDao
+import com.michaeltchuang.walletsdk.account.data.database.dao.Falcon24Dao
 import com.michaeltchuang.walletsdk.account.data.database.dao.HdKeyDao
 import com.michaeltchuang.walletsdk.account.data.database.dao.HdSeedDao
 import com.michaeltchuang.walletsdk.account.data.database.dao.LedgerBleDao
@@ -15,6 +16,7 @@ import com.michaeltchuang.walletsdk.account.data.database.dao.NoAuthDao
 import com.michaeltchuang.walletsdk.account.data.database.model.Algo25Entity
 import com.michaeltchuang.walletsdk.account.data.database.model.CustomAccountInfoEntity
 import com.michaeltchuang.walletsdk.account.data.database.model.CustomHdSeedInfoEntity
+import com.michaeltchuang.walletsdk.account.data.database.model.Falcon24Entity
 import com.michaeltchuang.walletsdk.account.data.database.model.HdKeyEntity
 import com.michaeltchuang.walletsdk.account.data.database.model.HdSeedEntity
 import com.michaeltchuang.walletsdk.account.data.database.model.LedgerBleEntity
@@ -27,6 +29,7 @@ import com.michaeltchuang.walletsdk.account.data.database.model.NoAuthEntity
         HdKeyEntity::class,
         HdSeedEntity::class,
         Algo25Entity::class,
+        Falcon24Entity::class,
         CustomAccountInfoEntity::class,
         CustomHdSeedInfoEntity::class,
     ],
@@ -43,6 +46,8 @@ internal abstract class AlgoKitDatabase : RoomDatabase() {
     abstract fun hdSeedDao(): HdSeedDao
 
     abstract fun algo25Dao(): Algo25Dao
+
+    abstract fun falcon24Dao(): Falcon24Dao
 
     abstract fun algo25NoAuthDao(): Algo25NoAuthDao
 
