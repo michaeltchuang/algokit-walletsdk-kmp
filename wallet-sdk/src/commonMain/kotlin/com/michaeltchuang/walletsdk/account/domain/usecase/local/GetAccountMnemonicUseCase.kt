@@ -17,7 +17,14 @@ internal class GetAccountMnemonicUseCase(
         val localAccount = getLocalAccount(address)
         return when (localAccount) {
             is LocalAccount.Algo25 -> getAlgo25Mnemonic(address)
-            is LocalAccount.HdKey -> getHdKeyMnemonic(address)
+            is LocalAccount.HdKey ->
+                getHdBasedMnemonic(
+                    localAccount = localAccount,
+                )
+            is LocalAccount.Falcon24 ->
+                getHdBasedMnemonic(
+                    localAccount = localAccount,
+                )
             else -> AlgoKitResult.Error(IllegalArgumentException())
         }
     }
@@ -32,19 +39,25 @@ internal class GetAccountMnemonicUseCase(
         return getAccountMnemonic(mnemonic, AccountMnemonic.AccountType.Algo25)
     }
 
-    private suspend fun getHdKeyMnemonic(address: String): AlgoKitResult<AccountMnemonic> {
-        val localAccount = getLocalAccount(address)
-        if (localAccount !is LocalAccount.HdKey) {
-            return AlgoKitResult.Error(IllegalArgumentException("Account is not an HD key account."))
-        }
+    private suspend fun getHdBasedMnemonic(localAccount: LocalAccount): AlgoKitResult<AccountMnemonic> {
+        val (seedId, accountType) =
+            when (localAccount) {
+                is LocalAccount.HdKey -> localAccount.seedId to AccountMnemonic.AccountType.HdKey
+                is LocalAccount.Falcon24 -> localAccount.seedId to AccountMnemonic.AccountType.Falcon24
+                else -> {
+                    return AlgoKitResult.Error(
+                        IllegalArgumentException("LocalAccount type not supported by getHdBasedMnemonic"),
+                    )
+                }
+            }
 
         val entropy =
-            getHdEntropy(localAccount.seedId) ?: return AlgoKitResult.Error(
-                IllegalArgumentException("HD entropy not found for seed"),
+            getHdEntropy(seedId) ?: return AlgoKitResult.Error(
+                IllegalArgumentException("HD entropy not found for seed $seedId"),
             )
 
         val mnemonic = getMnemonicFromEntropy(entropy)
-        return getAccountMnemonic(mnemonic, AccountMnemonic.AccountType.HdKey)
+        return getAccountMnemonic(mnemonic, accountType)
     }
 
     private fun getAccountMnemonic(

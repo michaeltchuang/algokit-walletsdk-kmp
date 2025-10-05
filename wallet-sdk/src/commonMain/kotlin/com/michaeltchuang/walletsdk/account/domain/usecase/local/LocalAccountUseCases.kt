@@ -17,6 +17,18 @@ internal fun interface DeleteAlgo25Account {
     suspend operator fun invoke(address: String)
 }
 
+internal fun interface SaveFalcon24Account {
+    suspend operator fun invoke(
+        account: LocalAccount.Falcon24,
+        seedId: Int,
+        privateKey: ByteArray,
+    )
+}
+
+internal fun interface DeleteFalcon24Account {
+    suspend operator fun invoke(address: String)
+}
+
 internal fun interface DeleteHdKeyAccount {
     suspend operator fun invoke(address: String)
 }
@@ -64,4 +76,12 @@ fun interface GetAccountMnemonic {
 
 fun interface GetAlgo25SecretKey {
     suspend operator fun invoke(address: String): ByteArray?
+}
+
+fun interface GetFalcon24SecretKey {
+    suspend operator fun invoke(address: String): ByteArray?
+}
+
+fun interface GetFalcon24WalletSummaries {
+    suspend operator fun invoke(): List<HdWalletSummary>?
 }

@@ -28,7 +28,6 @@ import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountRecoveryTypeSelectionScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.CreateAccountNameScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.DeveloperSettingsScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.HdWalletSelectionScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.InitialRegisterIntroScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingAccountTypeScreen
@@ -39,6 +38,8 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseS
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
+import com.michaeltchuang.walletsdk.settings.presentation.screens.DeveloperSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
@@ -75,6 +76,7 @@ enum class AlgoKitScreens {
     PASS_PHRASE_ACKNOWLEDGE_SCREEN,
     VIEW_PASSPHRASE_SCREEN,
     NODE_SETTINGS_SCREEN,
+    FALCON24_WALLET_SELECTION_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -192,7 +194,9 @@ fun OnBoardingBottomSheetNavHost(
                 composable(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name) {
                     HdWalletSelectionScreen(navController = navController)
                 }
-
+                composable(AlgoKitScreens.FALCON24_WALLET_SELECTION_SCREEN.name) {
+                    Falcon24WalletSelectionScreen(navController = navController)
+                }
                 composable(AlgoKitScreens.ACCOUNT_RECOVERY_TYPE_SCREEN.name) {
                     AccountRecoveryTypeSelectionScreen(navController = navController) {
                         coroutineScope.launch {
@@ -224,7 +228,6 @@ fun OnBoardingBottomSheetNavHost(
                 composable(route = AlgoKitScreens.WEBVIEW_PLATFORM_SCREEN.name) {
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
-
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                     navController.getData<DeepLink.KeyReg>()?.let {
                         TransactionSignatureRequestScreen(navController = navController, it)

@@ -4,12 +4,14 @@ import AlgorandIosSdk.spmAlgoApiBridge
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Mnemonic
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Seed
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.Falcon24
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressDerivationType
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
+import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
 import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -113,6 +115,13 @@ private fun getBit39Wallet(): Bip39Wallet =
             HdKeyAddressLite(
                 address = generateRandomAddress(),
                 index = HdKeyAddressIndex(0),
+            )
+
+        override fun generateFalcon24Address(): Falcon24 =
+            Falcon24(
+                address = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS,
+                publicKey = WalletSdkConstants.SAMPLE_FALCON24_PUBLIC_KEY.toByteArray(),
+                privateKey = WalletSdkConstants.SAMPLE_FALCON24_PRIVATE_KEY.toByteArray(),
             )
 
         override fun invalidate() {}

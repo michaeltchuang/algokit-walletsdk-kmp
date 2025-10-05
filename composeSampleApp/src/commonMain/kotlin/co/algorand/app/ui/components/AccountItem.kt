@@ -109,6 +109,10 @@ fun getAccountType(localAccount: AccountRegistrationType): String =
             "Algo25"
         }
 
+        is AccountRegistrationType.Falcon24 -> {
+            "Falcon24"
+        }
+
         is AccountRegistrationType.NoAuth -> {
             "Watch"
         }

@@ -22,7 +22,7 @@ class AccountInformationApiServiceImpl(
     ): ApiResult<AccountInformationResponse> =
         try {
             // Get the current network's base URL
-            val baseUrl =  provideNodePreferenceRepository().getSavedNodePreferenceFlow().first().baseUrl
+            val baseUrl = provideNodePreferenceRepository().getSavedNodePreferenceFlow().first().baseUrl
 
             val response: HttpResponse =
                 httpClient.get("$baseUrl/v2/accounts/$address") {

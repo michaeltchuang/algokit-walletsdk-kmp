@@ -66,6 +66,7 @@ timeline
     2025Q4  : 🔄 Onboarding - Add HD account to existing wallet flow
             : ✅ Settings - Network switcher flow
             : 🔄 Transaction - Sign KeyReg online/offline flow
+            : 🔄 Onboarding - Add PQS account flow
             : Transaction - Integrate new AlgoKit-Core Transact rust library
             : Onboarding - Recover HD account flow
             : Onboarding - Add encryption for Android secret keys in DB
@@ -75,9 +76,9 @@ timeline
             : Settings - Localization
             : Onboarding - Rekey flow
             : Onboarding - Ledger flow
-            : Onboarding - Add PQS account flow
             : Account Details - Send Algo flow
-            : Android - Wallet SDK as a background service integration  
+            : Refactor Code and Add Tests
+            : Android - Wallet SDK as a background service integration
     2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
             : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
             : Onboarding - Passkeys / Liquid Auth
@@ -94,7 +95,7 @@ The project has the following modules:
 - **iosSampleApp**: The iOS app for `composeSampleApp`. Open this module in Xcode if needed.
 - **wallet-sdk**: The AlgoKit Wallet SDK - a UI layer built with [Kotlin Multiplatform](https://developer.android.com/kotlin/multiplatform) on top of [AlgoKit-Core SDK](https://github.com/algorandfoundation/algokit-core), [Algo xHD SDK](https://github.com/algorandfoundation/xHD-Wallet-API-kt), [Algo Java SDK](https://github.com/algorand/java-algorand-sdk), and [Algo Go SDK](https://github.com/perawallet/algorand-go-mobile-sdk) projects. 
 
-This project is developed using [Android Studio](https://developer.android.com/studio) stable version and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform).
+This project is developed using [Android Studio](https://developer.android.com/studio) (stable version) and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform). As a mobile development project, it is primarily developed on macOS, support for Windows and Linux is quite limited.
 
 ## Screenshots
 
@@ -193,6 +194,12 @@ erDiagram
     }
     algo_25 {
         String algo_address PK
+        ByteArray encrypted_secret_key
+    }
+    falcon_24 {
+        String algo_address PK
+        Int seed_id FK
+        ByteArray public_key UK
         ByteArray encrypted_secret_key
     }
     ledger_ble {

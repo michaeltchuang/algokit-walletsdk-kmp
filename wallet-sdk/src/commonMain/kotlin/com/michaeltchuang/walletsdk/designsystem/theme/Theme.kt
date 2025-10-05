@@ -8,8 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.michaeltchuang.walletsdk.account.presentation.components.SetPreferredTheme
 import com.michaeltchuang.walletsdk.designsystem.typography.AlgoKitTypography
+import com.michaeltchuang.walletsdk.settings.presentation.components.SetPreferredTheme
 import kotlinx.coroutines.flow.Flow
 
 val LocalCustomColors =

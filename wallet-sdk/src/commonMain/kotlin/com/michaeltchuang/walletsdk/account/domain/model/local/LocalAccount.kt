@@ -30,6 +30,32 @@ sealed interface LocalAccount {
         override val algoAddress: String,
     ) : LocalAccount
 
+    data class Falcon24(
+        override val algoAddress: String,
+        val seedId: Int,
+        val publicKey: ByteArray,
+    ) : LocalAccount {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null || this::class != other::class) return false
+
+            other as Falcon24
+
+            if (seedId != other.seedId) return false
+            if (algoAddress != other.algoAddress) return false
+            if (!publicKey.contentEquals(other.publicKey)) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = seedId
+            result = 31 * result + algoAddress.hashCode()
+            result = 31 * result + publicKey.contentHashCode()
+            return result
+        }
+    }
+
     data class LedgerBle(
         override val algoAddress: String,
         val deviceMacAddress: String,
