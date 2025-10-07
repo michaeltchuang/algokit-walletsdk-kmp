@@ -19,7 +19,7 @@ interface Bip39Wallet {
 
     fun generateAddressLite(index: HdKeyAddressIndex): HdKeyAddressLite
 
-    fun generateFalcon24Address(): Falcon24
+    fun generateFalcon24Address(mnemonic: String): Falcon24
 
     fun invalidate()
 }

@@ -58,7 +58,8 @@ class Falcon24WalletSelectionViewModel(
         viewModelScope.launch {
             val entropy = getHdEntropy(seedId) ?: return@launch
             val wallet = getBip39Wallet(entropy)
-            val falcon24 = wallet.generateFalcon24Address()
+            val mnemonic = wallet.getMnemonic().words.joinToString(" ")
+            val falcon24 = wallet.generateFalcon24Address(mnemonic)
             val accountCreation =
                 AccountCreation(
                     address = falcon24.address,
@@ -80,7 +81,8 @@ class Falcon24WalletSelectionViewModel(
     fun createFalcon24Account() {
         viewModelScope.launch {
             val wallet = createBip39Wallet()
-            val falcon24 = wallet.generateFalcon24Address()
+            val mnemonic = wallet.getMnemonic().words.joinToString(" ")
+            val falcon24 = wallet.generateFalcon24Address(mnemonic)
             val falcon24Type =
                 accountCreationFalcon24TypeMapper(
                     wallet.getEntropy().value,
