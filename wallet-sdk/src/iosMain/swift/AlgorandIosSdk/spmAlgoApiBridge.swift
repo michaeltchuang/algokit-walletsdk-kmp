@@ -92,14 +92,15 @@ import AlgoSDK
     }
 
     public func getAlgo25MnemonicFromSecretKey(secretKey: Data) -> String {
-        do {
-            var error: NSError?
-            let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)
-            return mnemonic
-        } catch {
+        var error: NSError?
+        let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)
+
+        if let error = error {
             print("Error generating mnemonic: \(error)")
             return ""
         }
+
+        return mnemonic
     }
 
     public func generateAddressFromSK(secretKey: String) -> String {
@@ -111,5 +112,43 @@ import AlgoSDK
         }
 
         return AlgoSDK.AlgoSdkGenerateAddressFromSK(data, nil)
+    }
+
+    public func getFalconAddressFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            } else {
+                print("Failed to derive from BIP39 - no key info returned")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.algorandAddress
+    }
+
+    public func getFalconPublicKeyFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.publicKey
+    }
+
+    public func getFalconPrivateKeyFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.privateKey
     }
 }

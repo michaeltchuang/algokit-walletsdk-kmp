@@ -82,6 +82,7 @@ actual fun createBip39Wallet(): Bip39Wallet = getBit39Wallet()
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
+@OptIn(ExperimentalForeignApi::class)
 private fun getBit39Wallet(): Bip39Wallet =
     object : Bip39Wallet {
         override fun getEntropy(): Bip39Entropy =
@@ -117,12 +118,14 @@ private fun getBit39Wallet(): Bip39Wallet =
                 index = HdKeyAddressIndex(0),
             )
 
-        override fun generateFalcon24Address(): Falcon24 =
-            Falcon24(
-                address = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS,
-                publicKey = WalletSdkConstants.SAMPLE_FALCON24_PUBLIC_KEY.toByteArray(),
-                privateKey = WalletSdkConstants.SAMPLE_FALCON24_PRIVATE_KEY.toByteArray(),
+        override fun generateFalcon24Address(mnemonic2: String): Falcon24 {
+            val mnemonic = WalletSdkConstants.SAMPLE_HD_MNEMONIC
+            return Falcon24(
+                address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic),
+                publicKey = spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
+                privateKey = spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
             )
+        }
 
         override fun invalidate() {}
     }

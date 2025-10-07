@@ -59,9 +59,8 @@ internal class AlgorandBip39Wallet internal constructor(
         )
     }
 
-    override fun generateFalcon24Address(): Falcon24 {
-        val mnemonicString = mnemonic.words.joinToString(" ")
-        val algorandKeyInfo = Sdk.deriveFromBIP39(mnemonicString)
+    override fun generateFalcon24Address(mnemonic: String): Falcon24 {
+        val algorandKeyInfo = Sdk.deriveFromBIP39(mnemonic)
         return Falcon24(
             address = algorandKeyInfo.algorandAddress,
             publicKey = algorandKeyInfo.publicKey.toByteArray(),

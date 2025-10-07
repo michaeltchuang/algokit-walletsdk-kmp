@@ -78,7 +78,7 @@ kotlin {
                     products = {
                         add("x-hd-wallet-api")
                     },
-                    branch = "fix/swiftlint",
+                    branch = "fix/upgrade_sodium",
                 )
             }
         }
