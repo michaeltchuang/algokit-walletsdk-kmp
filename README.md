@@ -54,18 +54,14 @@ timeline
 
     section Completed ✅
     2025Q3  : ✅ Create sample KMP app ("Pera Lite")
-            : ✅ Onboarding - Create Algo25 wallet and account flow
-            : ✅ Onboarding - Create HD wallet and account flow
-            : ✅ Onboarding - Recover Algo25 account flow
-            : ✅ Deeplink - Import Algo25 account using QR code flow
+            : ✅ Onboarding - Create Algo25/HD/Falcon24 wallet and account flow
+            : ✅ Onboarding - Recover Algo25/Falcon24 account flow
+            : ✅ Deeplink - Import Algo25/Falcon24 account using QR code flow
             : ✅ Settings - Theme picker
             : ✅ Onboarding - Embedded and external webview flow
             : ✅ Account Details - View passphrase flow
             : ✅ Settings - Network switcher flow
             : ✅ Onboarding - Add HD account to existing wallet flow for Android
-            : ✅ Onboarding - Create Falcon24 wallet and account flow
-            : ✅ Onboarding - Recover Falcon24 account flow
-            : ✅ Deeplink - Import Falcon24 account using QR code flow
 
     section In Progress 🔄
     2025Q4  : Onboarding - Add HD account to existing wallet flow for iOS
