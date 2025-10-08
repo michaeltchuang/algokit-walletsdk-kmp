@@ -42,6 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountType
+import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.RecoverPassphraseViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
@@ -59,6 +60,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun RecoveryPhraseScreen(
     navController: NavController,
+    accountType: AccountMnemonic.AccountType,
     mnemonicString: String,
     snackBar: (message: String) -> Unit,
 ) {
@@ -167,7 +169,14 @@ fun RecoveryPhraseScreen(
                             )
                         }
 
-                        OnboardingAccountType.HdKey.wordCount -> {}
+                        OnboardingAccountType.Falcon24.wordCount -> {
+                            viewModel.onRecoverAccount(
+                                mnemonic,
+                                OnboardingAccountType.Falcon24,
+                            )
+                        }
+
+                        else -> { }
                     }
                 },
                 text = stringResource(Res.string.finish_account_creation),
@@ -267,6 +276,7 @@ fun RecoveryPhraseScreenPreview() {
     val words = SAMPLE_ALGO25_MNEMONIC
     RecoveryPhraseScreen(
         rememberNavController(),
+        accountType = AccountMnemonic.AccountType.Falcon24,
         words,
     ) {}
 }

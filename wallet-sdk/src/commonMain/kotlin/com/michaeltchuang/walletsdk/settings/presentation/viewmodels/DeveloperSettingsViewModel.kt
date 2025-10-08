@@ -2,7 +2,6 @@ package com.michaeltchuang.walletsdk.settings.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
 import com.michaeltchuang.walletsdk.algosdk.createAlgo25Account

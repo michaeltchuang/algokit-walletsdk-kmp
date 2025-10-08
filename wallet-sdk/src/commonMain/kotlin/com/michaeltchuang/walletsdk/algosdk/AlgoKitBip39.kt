@@ -13,7 +13,7 @@ object AlgoKitBip39 {
     }
 
     @OptIn(ExperimentalStdlibApi::class)
-    fun getEntropyFromMnemonic(mnemonic: String): String {
+    fun getEntropyFromMnemonic(mnemonic: String): ByteArray {
         // First validate the mnemonic
 //    if (!MnemonicCode.validate(mnemonic)) {
 //        throw IllegalArgumentException("Invalid mnemonic")
@@ -61,7 +61,7 @@ object AlgoKitBip39 {
         // }
 //
 //        println("Extracted entropy: ${entropyBytes.toHexString()}")
-        return entropyBytes.toHexString()
+        return entropyBytes
     }
 
     fun getMnemonicFromEntropy(entropy: ByteArray): String {

@@ -53,28 +53,34 @@ timeline
     title AlgoKit Wallet SDK tentative roadmap
 
     section Completed ✅
-    2025Q3  : ✅ Create sample app ("Pera Lite")
+    2025Q3  : ✅ Create sample KMP app ("Pera Lite")
             : ✅ Onboarding - Create Algo25 wallet and account flow
             : ✅ Onboarding - Create HD wallet and account flow
             : ✅ Onboarding - Recover Algo25 account flow
             : ✅ Deeplink - Import Algo25 account using QR code flow
             : ✅ Settings - Theme picker
             : ✅ Onboarding - Embedded and external webview flow
-            : ✅ Account details - View passphrase flow
+            : ✅ Account Details - View passphrase flow
+            : ✅ Settings - Network switcher flow
+            : ✅ Onboarding - Add HD account to existing wallet flow for Android
+            : ✅ Onboarding - Create Falcon24 wallet and account flow
+            : ✅ Onboarding - Recover Falcon24 account flow
+            : ✅ Deeplink - Import Falcon24 account using QR code flow
 
     section In Progress 🔄
-    2025Q4  : 🔄 Onboarding - Add HD account to existing wallet flow
-            : ✅ Settings - Network switcher flow
-            : 🔄 Transaction - Sign KeyReg online/offline flow
-            : 🔄 Onboarding - Add PQS account flow
+    2025Q4  : Onboarding - Add HD account to existing wallet flow for iOS
+            : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow
+            : Account Details - Add Copy Address Button
+            : Account Details - Add Copy Passphrase Button
             : Transaction - Integrate new AlgoKit-Core Transact rust library
-            : Onboarding - Recover HD account flow
-            : Onboarding - Add encryption for Android secret keys in DB
+            : Onboarding - Encrypt Android secret keys in DB
+            : Onboarding - Encrypt iOS secret keys in DB
+            : Settings - Localization
 
     section Future
-    2026Q1  : Account details - Add Copy Address Button and others
-            : Settings - Localization
+    2026Q1  : Account Details - Add more items in Account Detail screen
             : Onboarding - Rekey flow
+            : Onboarding - Recover HD account flow
             : Onboarding - Ledger flow
             : Account Details - Send Algo flow
             : Refactor Code and Add Tests
