@@ -88,16 +88,14 @@ private fun getBit39Wallet(): Bip39Wallet =
         override fun getEntropy(): Bip39Entropy =
             Bip39Entropy(
                 AlgoKitBip39
-                    .getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic())
-                    .toByteArray(),
+                    .getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic()),
             )
 
         override fun getSeed(): Bip39Seed =
             Bip39Seed(
                 AlgoKitBip39.getSeedFromEntropy(
                     AlgoKitBip39
-                        .getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic())
-                        .toByteArray(),
+                        .getEntropyFromMnemonic(AlgoKitBip39.generate24WordMnemonic()),
                 ),
             )
 

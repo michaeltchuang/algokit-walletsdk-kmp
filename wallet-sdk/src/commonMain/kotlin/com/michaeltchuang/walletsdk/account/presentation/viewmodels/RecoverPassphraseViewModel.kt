@@ -45,7 +45,8 @@ class RecoverPassphraseViewModel(
         val splittedText = mnemonic.splitMnemonic()
         if (
             splittedText.size != OnboardingAccountType.Algo25.wordCount &&
-            splittedText.size != OnboardingAccountType.HdKey.wordCount
+            splittedText.size != OnboardingAccountType.HdKey.wordCount &&
+            splittedText.size != OnboardingAccountType.Falcon24.wordCount
         ) {
             viewModelScope.launch {
                 eventDelegate.sendEvent(

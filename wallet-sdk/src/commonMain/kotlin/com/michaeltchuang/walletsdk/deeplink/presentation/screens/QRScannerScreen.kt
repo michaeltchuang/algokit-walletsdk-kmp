@@ -35,7 +35,7 @@ fun QRCodeScannerScreen(
         viewModel.viewEvent.collect {
             when (it) {
                 is QRScannerViewModel.ViewEvent.NavigateToRecoveryPhraseScreen -> {
-                    navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/${it.mnemonic}")
+                    navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/?mnemonic=${it.mnemonic}")
                 }
 
                 is QRScannerViewModel.ViewEvent.NavigateToTransactionSignatureRequestScreen -> {

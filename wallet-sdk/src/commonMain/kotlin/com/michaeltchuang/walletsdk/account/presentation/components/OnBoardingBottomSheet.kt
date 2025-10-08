@@ -22,9 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.PreferencesSerializer.defaultValue
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountRecoveryTypeSelectionScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.CreateAccountNameScreen
@@ -209,12 +213,44 @@ fun OnBoardingBottomSheetNavHost(
                         coroutineScope.launch { snackbarHostState.showSnackbar(it) }
                     }, closeSheet = { closeSheet() })
                 }
-                composable(route = AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/{mnemonic}") { it ->
-                    it.arguments?.getString("mnemonic")?.let {
-                        RecoveryPhraseScreen(navController = navController, it) {
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar(it)
+                composable(
+                    route = AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/{accountType}?mnemonic={mnemonic}",
+                    arguments =
+                        listOf(
+                            navArgument("accountType") {
+                                type = NavType.StringType
+                            },
+                            navArgument("mnemonic") {
+                                type = NavType.StringType
+                                nullable = true
+                                defaultValue = null
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val accountTypeString = backStackEntry.arguments?.getString("accountType", "falcon24")
+                    val scannedMnemonic = backStackEntry.arguments?.getString("mnemonic", "") ?: ""
+
+                    val accountType =
+                        when {
+                            !scannedMnemonic.isNullOrEmpty() -> {
+                                val wordCount = scannedMnemonic.trim().split("\\s+".toRegex()).size
+                                when (wordCount) {
+                                    25 -> AccountMnemonic.AccountType.Algo25
+                                    else -> AccountMnemonic.AccountType.Falcon24 // 24 words default
+                                }
                             }
+                            accountTypeString == "algo25" -> AccountMnemonic.AccountType.Algo25
+                            accountTypeString == "hdkey" -> AccountMnemonic.AccountType.HdKey
+                            else -> AccountMnemonic.AccountType.Falcon24
+                        }
+
+                    RecoveryPhraseScreen(
+                        navController = navController,
+                        accountType = accountType,
+                        mnemonicString = scannedMnemonic,
+                    ) { message ->
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(message)
                         }
                     }
                 }
