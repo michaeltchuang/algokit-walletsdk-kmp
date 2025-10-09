@@ -64,10 +64,11 @@ timeline
 
     section In Progress 🔄
     2025Q4  : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow
+            : 🔄 Account Details - Add Copy Address Button
             : Onboarding - Encrypt Android secret keys in DB
             : Onboarding - Encrypt iOS secret keys in DB
+            : GitOps - Release first aar library file on Maven Central
             : Transaction - Send Algo using QR Code flow
-            : Account Details - Add Copy Address Button
             : Onboarding - Passkeys / Liquid Auth
             : Settings - Localization
             : Testing - Add Kover Test Coverage
@@ -95,7 +96,7 @@ The project has the following modules:
 
 - **composeSampleApp**: A [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) sample wallet app that demonstrates `wallet-sdk` usage.
 - **iosSampleApp**: The iOS app for `composeSampleApp`. Open this module in Xcode if needed.
-- **wallet-sdk**: The AlgoKit Wallet SDK - a UI layer built with [Kotlin Multiplatform](https://developer.android.com/kotlin/multiplatform) on top of [AlgoKit-Core SDK](https://github.com/algorandfoundation/algokit-core), [Algo xHD SDK](https://github.com/algorandfoundation/xHD-Wallet-API-kt), [Algo Java SDK](https://github.com/algorand/java-algorand-sdk), and [Algo Go SDK](https://github.com/perawallet/algorand-go-mobile-sdk) projects. 
+- **wallet-sdk**: The AlgoKit Wallet SDK - a UI layer built with [Kotlin Multiplatform](https://developer.android.com/kotlin/multiplatform) on top of [AlgoKit-Core SDK](https://github.com/algorandfoundation/algokit-core), [Algo xHD Swift SDK](https://github.com/algorandfoundation/xHD-Wallet-API-swift), [Algo xHD Kotlin SDK](https://github.com/algorandfoundation/xHD-Wallet-API-kt), [Algo Java SDK](https://github.com/algorand/java-algorand-sdk), and [Algo Go SDK](https://github.com/perawallet/algorand-go-mobile-sdk) projects.
 
 This project is developed using [Android Studio](https://developer.android.com/studio) (stable version) and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform). As a mobile development project, it is primarily developed on macOS, support for Windows and Linux is quite limited.
 
