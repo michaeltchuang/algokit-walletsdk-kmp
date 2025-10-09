@@ -1,13 +1,13 @@
-package com.michaeltchuang.walletsdk.account.presentation.screens
+package com.michaeltchuang.walletsdk.settings.presentation.screen
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_a_new_algorand_account_with
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_a_new_wallet
-import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_your_new_account
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_your_new_falcon24_account
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_plus
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_wallet
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.plus
-import algokit_walletsdk_kmp.wallet_sdk.generated.resources.select_universal_wallet
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.select_falcon24_wallet
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,11 +39,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.HDWalletSelectionViewModel
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.Falcon24WalletSelectionViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitSecondaryButton
 import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIcon
+import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelectionScreenContent
+import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.utils.Log
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -51,48 +53,47 @@ import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-private const val TAG = "HdWalletSelectionScreen"
+private const val TAG = "Falcon24WalletSelectionScreen"
 
 @Composable
-fun HdWalletSelectionScreen(
-    viewModel: HDWalletSelectionViewModel = koinViewModel(),
+fun Falcon24WalletSelectionScreen(
+    viewModel: Falcon24WalletSelectionViewModel = koinViewModel(),
     navController: NavController,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
-                is HDWalletSelectionViewModel.ViewEvent.AccountCreated -> {
+                is Falcon24WalletSelectionViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
                     Log.d(TAG, it.accountCreation.address)
                 }
 
-                is HDWalletSelectionViewModel.ViewEvent.Error -> {
+                is Falcon24WalletSelectionViewModel.ViewEvent.Error -> {
                     Log.d(TAG, it.message)
                 }
             }
         }
     }
 
-    HdWalletSelectionScreenContent(
+    Falcon24WalletSelectionScreenContent(
         viewState = viewState,
         navController = navController,
-        createNewWalletClick = { viewModel.createHdKeyAccount() },
+        createNewWalletClick = { viewModel.createFalcon24Account() },
         walletItemClick = {
-            viewModel.createNewHdAccount(
+            viewModel.createNewFalcon24Account(
                 it.seedId,
-                it.maxAccountIndex,
             )
         },
     )
 }
 
 @Composable
-fun HdWalletSelectionScreenContent(
-    viewState: HDWalletSelectionViewModel.ViewState,
+fun Falcon24WalletSelectionScreenContent(
+    viewState: Falcon24WalletSelectionViewModel.ViewState,
     navController: NavController,
     createNewWalletClick: () -> Unit = {},
-    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit = {},
+    walletItemClick: (Falcon24WalletSelectionViewModel.WalletItemPreview) -> Unit = {},
 ) {
     Box(
         modifier =
@@ -112,7 +113,7 @@ fun HdWalletSelectionScreenContent(
                 onClick = { navController.popBackStack() },
             )
             when (viewState) {
-                is HDWalletSelectionViewModel.ViewState.Content -> {
+                is Falcon24WalletSelectionViewModel.ViewState.Content -> {
                     ContentState(
                         navController,
                         viewState.walletItemPreviews,
@@ -121,9 +122,9 @@ fun HdWalletSelectionScreenContent(
                     )
                 }
 
-                is HDWalletSelectionViewModel.ViewState.Error -> {}
-                is HDWalletSelectionViewModel.ViewState.Idle -> {}
-                is HDWalletSelectionViewModel.ViewState.Loading -> {}
+                is Falcon24WalletSelectionViewModel.ViewState.Error -> {}
+                is Falcon24WalletSelectionViewModel.ViewState.Idle -> {}
+                is Falcon24WalletSelectionViewModel.ViewState.Loading -> {}
             }
         }
     }
@@ -133,9 +134,9 @@ fun HdWalletSelectionScreenContent(
 @Composable
 private fun ContentState(
     navController: NavController,
-    walletItems: List<HDWalletSelectionViewModel.WalletItemPreview>,
+    walletItems: List<Falcon24WalletSelectionViewModel.WalletItemPreview>,
     createNewWalletClick: () -> Unit,
-    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit,
+    walletItemClick: (Falcon24WalletSelectionViewModel.WalletItemPreview) -> Unit,
 ) {
     Box {
         Column(
@@ -146,12 +147,12 @@ private fun ContentState(
         ) {
             Text(
                 style = AlgoKitTheme.typography.title.regular.sansMedium,
-                text = stringResource(Res.string.select_universal_wallet),
+                text = stringResource(Res.string.select_falcon24_wallet),
                 color = AlgoKitTheme.colors.textMain,
             )
             Text(
                 style = AlgoKitTheme.typography.body.regular.sans,
-                text = stringResource(Res.string.create_your_new_account),
+                text = stringResource(Res.string.create_your_new_falcon24_account),
                 color = AlgoKitTheme.colors.textGray,
                 modifier = Modifier.padding(top = 12.dp),
             )

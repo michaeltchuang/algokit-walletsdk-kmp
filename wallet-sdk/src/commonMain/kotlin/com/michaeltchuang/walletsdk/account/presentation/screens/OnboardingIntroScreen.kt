@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAccountTypeViewModel
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAIntroViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitTertiaryButton
@@ -45,20 +45,20 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-private const val TAG = "InitialRegisterIntroScreen"
+private const val TAG = "OnboardingIntroScreen"
 
 @Composable
-fun InitialRegisterIntroScreen(navController: NavController = rememberNavController()) {
-    val viewModel: OnboardingAccountTypeViewModel = koinViewModel()
+fun OnboardingIntroScreen(navController: NavController = rememberNavController()) {
+    val viewModel: OnboardingAIntroViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
-                is OnboardingAccountTypeViewModel.ViewEvent.AccountCreated -> {
+                is OnboardingAIntroViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
                 }
 
-                is OnboardingAccountTypeViewModel.ViewEvent.Error -> {
+                is OnboardingAIntroViewModel.ViewEvent.Error -> {
                     Log.d(TAG, it.message)
                 }
             }
@@ -123,7 +123,7 @@ fun InitialRegisterIntroScreen(navController: NavController = rememberNavControl
 }
 
 @Composable
-private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
+private fun CreateNewWalletWidget(viewModel: OnboardingAIntroViewModel) {
     Column {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp),
@@ -140,7 +140,7 @@ private fun CreateNewWalletWidget(viewModel: OnboardingAccountTypeViewModel) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
             onClick = {
-                viewModel.createHdKeyAccount()
+                viewModel.createFalcon24Account()
             },
             text = stringResource(Res.string.create_a_new_wallet),
             leftIcon = {
@@ -203,7 +203,7 @@ private fun ImportAccountWidget(navController: NavController) {
 private fun InitialRegisterIntroScreenPreview() {
     AlgoKitTheme {
         Column {
-            InitialRegisterIntroScreen()
+            OnboardingIntroScreen()
         }
     }
 }

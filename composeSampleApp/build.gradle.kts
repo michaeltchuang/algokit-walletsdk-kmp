@@ -85,7 +85,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
-            implementation("androidx.datastore:datastore-preferences:1.0.0")
+            implementation(libs.datastore.preferences)
         }
 
         iosMain.dependencies {

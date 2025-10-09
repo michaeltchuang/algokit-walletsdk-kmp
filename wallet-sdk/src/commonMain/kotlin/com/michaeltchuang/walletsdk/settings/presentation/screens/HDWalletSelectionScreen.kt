@@ -1,9 +1,9 @@
-package com.michaeltchuang.walletsdk.settings.presentation.screen
+package com.michaeltchuang.walletsdk.settings.presentation.screens
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_a_new_algorand_account_with
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_a_new_wallet
-import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_your_new_account
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.create_your_new_hd_account
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_plus
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_wallet
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.plus
@@ -39,13 +39,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.screens.HdWalletSelectionScreenContent
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitSecondaryButton
 import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIcon
-import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.Falcon24WalletSelectionViewModel
+import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.utils.Log
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -56,44 +54,45 @@ import org.koin.compose.viewmodel.koinViewModel
 private const val TAG = "HdWalletSelectionScreen"
 
 @Composable
-fun Falcon24WalletSelectionScreen(
-    viewModel: Falcon24WalletSelectionViewModel = koinViewModel(),
+fun HdWalletSelectionScreen(
+    viewModel: HDWalletSelectionViewModel = koinViewModel(),
     navController: NavController,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
-                is Falcon24WalletSelectionViewModel.ViewEvent.AccountCreated -> {
+                is HDWalletSelectionViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
                     Log.d(TAG, it.accountCreation.address)
                 }
 
-                is Falcon24WalletSelectionViewModel.ViewEvent.Error -> {
+                is HDWalletSelectionViewModel.ViewEvent.Error -> {
                     Log.d(TAG, it.message)
                 }
             }
         }
     }
 
-    Falcon24WalletSelectionScreenContent(
+    HdWalletSelectionScreenContent(
         viewState = viewState,
         navController = navController,
-        createNewWalletClick = { viewModel.createFalcon24Account() },
+        createNewWalletClick = { viewModel.createHdKeyAccount() },
         walletItemClick = {
-            viewModel.createNewFalcon24Account(
+            viewModel.createNewHdAccount(
                 it.seedId,
+                it.maxAccountIndex,
             )
         },
     )
 }
 
 @Composable
-fun Falcon24WalletSelectionScreenContent(
-    viewState: Falcon24WalletSelectionViewModel.ViewState,
+fun HdWalletSelectionScreenContent(
+    viewState: HDWalletSelectionViewModel.ViewState,
     navController: NavController,
     createNewWalletClick: () -> Unit = {},
-    walletItemClick: (Falcon24WalletSelectionViewModel.WalletItemPreview) -> Unit = {},
+    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit = {},
 ) {
     Box(
         modifier =
@@ -113,7 +112,7 @@ fun Falcon24WalletSelectionScreenContent(
                 onClick = { navController.popBackStack() },
             )
             when (viewState) {
-                is Falcon24WalletSelectionViewModel.ViewState.Content -> {
+                is HDWalletSelectionViewModel.ViewState.Content -> {
                     ContentState(
                         navController,
                         viewState.walletItemPreviews,
@@ -122,9 +121,9 @@ fun Falcon24WalletSelectionScreenContent(
                     )
                 }
 
-                is Falcon24WalletSelectionViewModel.ViewState.Error -> {}
-                is Falcon24WalletSelectionViewModel.ViewState.Idle -> {}
-                is Falcon24WalletSelectionViewModel.ViewState.Loading -> {}
+                is HDWalletSelectionViewModel.ViewState.Error -> {}
+                is HDWalletSelectionViewModel.ViewState.Idle -> {}
+                is HDWalletSelectionViewModel.ViewState.Loading -> {}
             }
         }
     }
@@ -134,9 +133,9 @@ fun Falcon24WalletSelectionScreenContent(
 @Composable
 private fun ContentState(
     navController: NavController,
-    walletItems: List<Falcon24WalletSelectionViewModel.WalletItemPreview>,
+    walletItems: List<HDWalletSelectionViewModel.WalletItemPreview>,
     createNewWalletClick: () -> Unit,
-    walletItemClick: (Falcon24WalletSelectionViewModel.WalletItemPreview) -> Unit,
+    walletItemClick: (HDWalletSelectionViewModel.WalletItemPreview) -> Unit,
 ) {
     Box {
         Column(
@@ -152,7 +151,7 @@ private fun ContentState(
             )
             Text(
                 style = AlgoKitTheme.typography.body.regular.sans,
-                text = stringResource(Res.string.create_your_new_account),
+                text = stringResource(Res.string.create_your_new_hd_account),
                 color = AlgoKitTheme.colors.textGray,
                 modifier = Modifier.padding(top = 12.dp),
             )

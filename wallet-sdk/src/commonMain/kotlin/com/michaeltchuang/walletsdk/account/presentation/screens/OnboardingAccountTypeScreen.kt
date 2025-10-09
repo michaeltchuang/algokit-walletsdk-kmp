@@ -162,13 +162,13 @@ private fun ContentState(
         Spacer(modifier = Modifier.weight(1f))
         if (isHasAnySeed) {
             CreateNewAccountCard {
-                navController.navigate(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name)
+                navController.navigate(AlgoKitScreens.FALCON24_WALLET_SELECTION_SCREEN.name)
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
         CreateWalletHdWidget(viewModel, scope)
         ImportHdWalletWidget(navController)
-        // WatchAddressWidget(onClick)
+        WatchAddressWidget(onClick)
         Spacer(modifier = Modifier.weight(1f))
         TermsAndPrivacy()
     }

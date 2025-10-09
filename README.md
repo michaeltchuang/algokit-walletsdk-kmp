@@ -61,25 +61,25 @@ timeline
             : ✅ Onboarding - Embedded and external webview flow
             : ✅ Account Details - View passphrase flow
             : ✅ Settings - Network switcher flow
-            : ✅ Onboarding - Add HD account to existing wallet flow for Android
 
     section In Progress 🔄
-    2025Q4  : Onboarding - Add HD account to existing wallet flow for iOS
-            : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow
-            : Account Details - Add Copy Address Button
-            : Account Details - Add Copy Passphrase Button
-            : Transaction - Integrate new AlgoKit-Core Transact rust library
+    2025Q4  : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow
             : Onboarding - Encrypt Android secret keys in DB
             : Onboarding - Encrypt iOS secret keys in DB
+            : Transaction - Send Algo using QR Code flow
+            : Account Details - Add Copy Address Button
+            : Onboarding - Passkeys
             : Settings - Localization
+            : Testing - Add Kover Test Coverage
 
     section Future
-    2026Q1  : Account Details - Add more items in Account Detail screen
+    2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow
             : Onboarding - Ledger flow
-            : Account Details - Send Algo flow
-            : Refactor Code and Add Tests
+            : Onboarding - Fun App Splash Screen
+            : Account Details - Add more items in Account Detail screen
+            : Testing - Add Screenshot Testing Infrastructure
             : Android - Wallet SDK as a background service integration
     2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
             : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
@@ -114,41 +114,37 @@ This project is developed using [Android Studio](https://developer.android.com/s
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/cb4563d7-e34e-4df1-9a4d-e7748d8f7afe" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/25b215b6-e502-436e-9110-a02e278e0d06" />
 
-#### Create HD Wallet Flow
+#### Create Falcon24 Wallet Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/1fcba333-5d68-45e8-93a3-0da893135696" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/17745845-422a-436a-8a20-c26885f778af" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/77da2564-a81b-4172-8784-6f8fbfdfedda" />
 
-#### Add HD Account To Existing Wallet Flow
+#### Add Falcon24 Account To Existing Wallet Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/87f01910-8301-41fa-9bd3-b2d6aca22783" /> 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/0872fc82-5abb-4806-a2db-61c90441dfbd" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/17745845-422a-436a-8a20-c26885f778af" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/7059079a-f078-4c69-8fb2-76ed0f90aec1" />
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/25b215b6-e502-436e-9110-a02e278e0d06" />
 
-#### Recover Algo25 Account Flow
+#### Recover Falcon24/Algo25 Account Flow
 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/1653a674-a532-4f6d-b81e-246c10d39616" /> 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/877eb324-2a22-4f57-8532-3a521879eecc" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/3f5b80f4-b42f-4ecf-b1da-3bbdf83258ee" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/25a361fe-0410-49ad-9178-7b5baaa9bdad" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/6c021283-7050-4b33-a11f-aacf2774cfa3" />
 
-#### Recover Algo25 Account with QR Code Flow
+#### Recover Falcon24/Algo25 Account with QR Code Flow
 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/4ec7bcdd-fa74-4ed7-a095-90705b049ebb" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/6c021283-7050-4b33-a11f-aacf2774cfa3" />
-
-#### Recover HD Account with QR Code Flow
-
-Coming Soon
 
 ### Wallet-SDK Screens - Account Details
 
 #### View Passphrase Flow
 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/b0fe4ff5-73fa-4dab-8c35-97c16cce2fa1" /> 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/56dbc88b-a35d-409f-9acd-1ff211e3c902" /> 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/d0cf983f-5349-4230-b742-16a4896cd0a3" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/9c50546c-20da-46ed-b4fb-4a77779de443" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/48f6bd29-2b92-460c-8ef8-146bb07e3508" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/3f85712f-7248-40f3-9c53-9458019a7d28" />
 
 ### Wallet-SDK Screens - Settings
@@ -159,11 +155,20 @@ Coming Soon
 
 #### Network Switcher Flow
 
-<img width="200" alt="Settings Screen" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" />
 
-#### Create Algo25 Account Flow
+#### Create Legacy Algo25 Account Flow
 
-<img width="200" alt="Settings Screen" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Algo25 Create 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Algo25 Create 2" src="https://github.com/user-attachments/assets/5ad40b83-43d6-4750-98eb-b39667d4d290" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/15cc6a7f-a1ed-498b-9ae6-ea8e9f28d586" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/5ad40b83-43d6-4750-98eb-b39667d4d290" />
+
+#### Create Legacy Universal HD Account Flow
+
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/15cc6a7f-a1ed-498b-9ae6-ea8e9f28d586" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/0872fc82-5abb-4806-a2db-61c90441dfbd" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/25b215b6-e502-436e-9110-a02e278e0d06" />
 
 ### Wallet-SDK Screens - Transactions
 
@@ -198,12 +203,6 @@ erDiagram
         String algo_address PK
         ByteArray encrypted_secret_key
     }
-    falcon_24 {
-        String algo_address PK
-        Int seed_id FK
-        ByteArray public_key UK
-        ByteArray encrypted_secret_key
-    }
     ledger_ble {
         String algo_address PK
         String device_mac_address
@@ -218,6 +217,12 @@ erDiagram
         ByteArray encrypted_entropy UK
         ByteArray encrypted_seed UK
     }
+    falcon_24 {
+        String algo_address PK
+        Int seed_id FK
+        ByteArray public_key UK
+        ByteArray encrypted_secret_key
+    }
     hd_keys {
         String algo_address PK
         ByteArray public_key UK
@@ -229,6 +234,7 @@ erDiagram
         Int derivation_type
     }
     hd_keys ||--o{ hd_seeds : links
+    falcon_24 ||--o{ hd_seeds : links
 ```
 
 ## Contributing
