@@ -22,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.PreferencesSerializer.defaultValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,9 +31,8 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountRecoveryTypeSelectionScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.CreateAccountNameScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.HdWalletSelectionScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.InitialRegisterIntroScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingAccountTypeScreen
+import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingIntroScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.PassphraseAcknowledgeScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoverAnAccountScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseScreen
@@ -44,6 +42,7 @@ import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerS
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.DeveloperSettingsScreen
+import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelectionScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
@@ -177,7 +176,7 @@ fun OnBoardingBottomSheetNavHost(
                                 .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.Top,
                     ) {
-                        InitialRegisterIntroScreen(navController)
+                        OnboardingIntroScreen(navController)
                     }
                 }
                 composable(AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name) {
@@ -275,7 +274,7 @@ fun OnBoardingBottomSheetNavHost(
                     }
                 }
                 composable(route = AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name) {
-                    InitialRegisterIntroScreen(navController)
+                    OnboardingIntroScreen(navController)
                 }
                 composable(route = AlgoKitScreens.SETTINGS_SCREEN.name) {
                     SettingsScreen(navController)

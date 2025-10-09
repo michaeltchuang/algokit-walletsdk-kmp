@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.account.presentation.viewmodels
+package com.michaeltchuang.walletsdk.settings.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

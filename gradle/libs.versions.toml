@@ -2,12 +2,12 @@
 agp = "8.10.0"
 algoSdk = "2.8.2"
 algoGoMobilesdk = "1.0.1"
-android-compileSdk = "35"
+android-compileSdk = "36"
 android-discover-staging = "4"
 android-discover-prod = "4"
 android-minSdk = "28"
 android-namespace = "com.michaelchuang.walletsdk"
-android-targetSdk = "35"
+android-targetSdk = "36"
 android-versionCode = "1"
 android-versionName = "0.0.1"
 androidx-compose-activity = "1.10.1"
@@ -73,7 +73,6 @@ paging = "3.3.6"
 peraCompactDecimalFormat = "1.0.1"
 peraWalletConnect = "1.0.1"
 qrkit = "3.0.5"
-retrofit = "2.11.0"
 review = "2.0.2"
 room = "2.7.0"
 sqlite = "2.5.0"
@@ -148,7 +147,6 @@ java-websocket = { module = "org.java-websocket:Java-WebSocket", version.ref = "
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 # Database / ORM
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
