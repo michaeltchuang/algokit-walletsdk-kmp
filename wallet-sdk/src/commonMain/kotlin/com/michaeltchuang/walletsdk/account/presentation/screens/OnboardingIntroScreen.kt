@@ -35,11 +35,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAIntroViewModel
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitTertiaryButton
-import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIcon
-import com.michaeltchuang.walletsdk.utils.Log
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitTertiaryButton
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.icon.AlgoKitIcon
+import com.michaeltchuang.walletsdk.foundation.utils.Log
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

@@ -5,14 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.Falcon24WalletSelectionViewModel
 import com.michaeltchuang.walletsdk.algosdk.createBip39Wallet
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.utils.CreationType
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.foundation.utils.CreationType
+import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class OnboardingAIntroViewModel(

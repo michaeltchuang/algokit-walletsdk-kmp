@@ -29,17 +29,20 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountRecoveryTypeSelectionScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.CreateAccountNameScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingAccountTypeScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingIntroScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.PassphraseAcknowledgeScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoverAnAccountScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.AccountStatusScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.PassphraseAcknowledgeScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.ViewPassphraseScreen
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.REPO_URL
+import com.michaeltchuang.walletsdk.foundation.utils.getData
+import com.michaeltchuang.walletsdk.foundation.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.DeveloperSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelectionScreen
@@ -48,9 +51,6 @@ import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSuccessScreen
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.REPO_URL
-import com.michaeltchuang.walletsdk.utils.getData
-import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 

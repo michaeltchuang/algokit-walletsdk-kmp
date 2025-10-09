@@ -10,10 +10,5 @@ expect fun nativeConfig(): KoinAppDeclaration
 val initKoinConfig =
     koinConfiguration {
         includes(nativeConfig())
-        modules(appModules())
+        modules(provideViewModelModules + walletSdkKoinModules)
     }
-
-fun appModules() =
-    listOf(
-        provideViewModelModules,
-    ).plus(walletSdkKoinModules)

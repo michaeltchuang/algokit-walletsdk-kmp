@@ -41,11 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.designsystem.widget.GroupChoiceWidget
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.GroupChoiceWidget
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.Resource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource

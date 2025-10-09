@@ -24,8 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
 import kotlinx.coroutines.flow.MutableStateFlow

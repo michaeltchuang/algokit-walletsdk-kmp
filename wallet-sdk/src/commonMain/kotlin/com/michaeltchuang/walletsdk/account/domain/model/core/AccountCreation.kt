@@ -1,6 +1,6 @@
 package com.michaeltchuang.walletsdk.account.domain.model.core
 
-import com.michaeltchuang.walletsdk.utils.CreationType
+import com.michaeltchuang.walletsdk.foundation.utils.CreationType
 
 data class AccountCreation(
     val address: String,

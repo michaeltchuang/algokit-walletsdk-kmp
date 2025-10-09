@@ -6,7 +6,7 @@ import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedReposi
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetSeedIdIfExistingEntropy
 import com.michaeltchuang.walletsdk.algosdk.getSeedFromEntropy
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
-import com.michaeltchuang.walletsdk.utils.clearFromMemory
+import com.michaeltchuang.walletsdk.foundation.utils.clearFromMemory
 
 internal class AddHdSeedUseCase(
     private val hdSeedRepository: HdSeedRepository,
