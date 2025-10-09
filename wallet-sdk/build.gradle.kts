@@ -20,7 +20,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta05"
+    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
 }
 
 kotlin {

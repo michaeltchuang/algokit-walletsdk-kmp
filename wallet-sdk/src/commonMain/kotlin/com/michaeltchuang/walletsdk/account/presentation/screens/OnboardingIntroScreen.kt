@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAIntroViewModel
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingIntroViewModel
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitTertiaryButton
@@ -49,16 +49,16 @@ private const val TAG = "OnboardingIntroScreen"
 
 @Composable
 fun OnboardingIntroScreen(navController: NavController = rememberNavController()) {
-    val viewModel: OnboardingAIntroViewModel = koinViewModel()
+    val viewModel: OnboardingIntroViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect {
             when (it) {
-                is OnboardingAIntroViewModel.ViewEvent.AccountCreated -> {
+                is OnboardingIntroViewModel.ViewEvent.AccountCreated -> {
                     navController.navigate(AlgoKitScreens.CREATE_ACCOUNT_NAME.name)
                 }
 
-                is OnboardingAIntroViewModel.ViewEvent.Error -> {
+                is OnboardingIntroViewModel.ViewEvent.Error -> {
                     Log.d(TAG, it.message)
                 }
             }
@@ -123,7 +123,7 @@ fun OnboardingIntroScreen(navController: NavController = rememberNavController()
 }
 
 @Composable
-private fun CreateNewWalletWidget(viewModel: OnboardingAIntroViewModel) {
+private fun CreateNewWalletWidget(viewModel: OnboardingIntroViewModel) {
     Column {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp),

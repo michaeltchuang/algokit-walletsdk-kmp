@@ -13,8 +13,9 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.foundation.utils.CreationType
 import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
+import org.koin.core.KoinApplication.Companion.init
 
-class OnboardingAIntroViewModel(
+class OnboardingIntroViewModel(
     /*  private val androidEncryptionManager: AndroidEncryptionManager,
       private val aesPlatformManager: AESPlatformManager,
       private val runtimeAwareSdk: RuntimeAwareSdk, */
@@ -23,8 +24,8 @@ class OnboardingAIntroViewModel(
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
-    StateViewModel<OnboardingAIntroViewModel.ViewState> by stateDelegate,
-    EventViewModel<OnboardingAIntroViewModel.ViewEvent> by eventDelegate {
+    StateViewModel<OnboardingIntroViewModel.ViewState> by stateDelegate,
+    EventViewModel<OnboardingIntroViewModel.ViewEvent> by eventDelegate {
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
         //  viewModelScope.launch { androidEncryptionManager.initializeEncryptionManager() }
@@ -77,9 +78,11 @@ class OnboardingAIntroViewModel(
     }
 
     sealed interface ViewState {
-        data object Idle : ViewState
+        data object Idle :
+            ViewState
 
-        data object Loading : ViewState
+        data object Loading :
+            ViewState
 
         data class Content(
             val hasAnySeed: Boolean,
