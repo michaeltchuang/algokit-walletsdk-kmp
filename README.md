@@ -35,7 +35,7 @@ graph TD
 
 The sample apps (Android/iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
 
-- Create and recover accounts (Algo25, HD)
+- Create and recover accounts (Algo25, Universal HD, Falcon24)
 - Theme customization
 - Network switching between Mainnet/Testnet (Code hasn't been audited, so use mainnet at your own risk)
 - QR code scanning for account imports and keyreg transactions
