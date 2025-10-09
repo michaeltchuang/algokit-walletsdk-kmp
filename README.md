@@ -35,7 +35,7 @@ graph TD
 
 The sample apps (Android/iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
 
-- Create and recover accounts (Algo25, HD)
+- Create and recover accounts (Algo25, Universal HD, Falcon24)
 - Theme customization
 - Network switching between Mainnet/Testnet (Code hasn't been audited, so use mainnet at your own risk)
 - QR code scanning for account imports and keyreg transactions
@@ -68,7 +68,7 @@ timeline
             : Onboarding - Encrypt iOS secret keys in DB
             : Transaction - Send Algo using QR Code flow
             : Account Details - Add Copy Address Button
-            : Onboarding - Passkeys
+            : Onboarding - Passkeys / Liquid Auth
             : Settings - Localization
             : Testing - Add Kover Test Coverage
 
@@ -83,7 +83,7 @@ timeline
             : Android - Wallet SDK as a background service integration
     2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
             : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
-            : Onboarding - Passkeys / Liquid Auth
+            : Onboarding - Decentralized Identity
             : Account Details - Asset Inbox
             : Account Details - Swap
             : TBD
@@ -105,7 +105,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### Fetching All Accounts Flow
 
-<img width="200" alt="Accounts List" src="https://github.com/user-attachments/assets/e7c48e52-89b9-4107-a530-decb41e8658e" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/d86ffc6a-7fa2-4f9c-8c45-9603911efb3e" />
 
 ### Wallet-SDK Screens - Onboarding
 
