@@ -20,7 +20,9 @@ import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.dataWithBytes
 import kotlin.random.Random
+import okio.ByteString.Companion.toByteString
 import platform.posix.index
+import platform.posix.memcpy
 
 @OptIn(ExperimentalForeignApi::class)
 fun ByteArray.toNSData(): NSData =
@@ -30,6 +32,21 @@ fun ByteArray.toNSData(): NSData =
             length = this.size.toULong(),
         )
     }
+
+@OptIn(ExperimentalForeignApi::class)
+fun NSData.toByteArray(): ByteArray {
+    val length = this.length.toInt()
+
+    if (length == 0) return ByteArray(0)
+
+    val result = ByteArray(length)
+
+    result.usePinned { pinned ->
+        memcpy(pinned.addressOf(0), this.bytes, length.toULong() )
+    }
+
+    return result
+}
 
 private fun String.fromBase64ToByteArray(): ByteArray =
     try {
@@ -122,7 +139,7 @@ private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
                 address = getAddressFromPublicKey(publicKey),
                 index = index,
                 privateKey = privateKey.toByteArray(),
-                publicKey = publicKey,
+                publicKey = publicKey.toByteArray(),
                 derivationType = HdKeyAddressDerivationType.Peikert,
             )
         }
@@ -145,20 +162,20 @@ private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
 
         override fun invalidate() {}
 
-        fun generatePublicKey(index: HdKeyAddressIndex): ByteArray {
+        fun generatePublicKey(index: HdKeyAddressIndex): String {
             val publicKey = spmAlgoApiBridge().getHdPublicKeyWithMnemonic(
                 mnemonic,
                 index.accountIndex.toLong(),
                 index.changeIndex.toLong(),
                 index.keyIndex.toLong()
             )
-            return publicKey.toByteArray()
+            return publicKey
         }
 
-        fun getAddressFromPublicKey(publicKey: ByteArray): String {
+        fun getAddressFromPublicKey(publicKey: String): String {
             return spmAlgoApiBridge()
                 .generateAddressFromPublicKeyWithPublicKey(
-                    publicKey = publicKey.toString())
+                    publicKey = publicKey)
         }
     }
 

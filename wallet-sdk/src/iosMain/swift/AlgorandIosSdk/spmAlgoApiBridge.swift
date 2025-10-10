@@ -41,34 +41,31 @@ import AlgoSDK
                 return ""
             }
 
-            let publicKey = try wallet.keyGen(
+            let privateKey = try wallet.keyGen(
                 context: .Address,
                 account: UInt32(account),
                 change: UInt32(change),
                 keyIndex: UInt32(keyIndex)
             )
-            print("Public Key: \(publicKey)")
-            return publicKey.base64EncodedString()
 
-//            let account: UInt32 = 0
-//            let change: UInt32 = 0
-//            let keyIndex: UInt32 = 0
-//            let bip44Path = wallet.fromSeed(Data) .getBIP44PathFromContext(
-//                context: .Address,
-//                account: account,
-//                change: change,
-//                keyIndex: keyIndex
-//            )
-//
-//            // Generate key
-//            let privateKey = wallet.deriveKey(
-//                rootKey: wallet.fromSeed(seed: seedData),
-//                bip44Path: bip44Path,
-//                isPrivate: false,
-//                derivationType: BIP32DerivationType.Peikert
-//            )
-//            print("Private Key: \(privateKey)")
-//            return privateKey.base64EncodedString()
+           // let account: UInt32 = UInt32(account)
+           // let change: UInt32 = UInt32(change)
+           // let keyIndex: UInt32 = UInt32(keyIndex)
+           // let bip44Path = wallet.fromSeed(Data).getBIP44PathFromContext(
+           //     context: .Address,
+           //     account: account,
+           //     change: change,
+           //     keyIndex: keyIndex
+           // )
+           //
+           // let privateKey = wallet.deriveKey(
+           //     rootKey: wallet.fromSeed(seed: seedData),
+           //     bip44Path: bip44Path,
+           //     isPrivate: false,
+           //     derivationType: BIP32DerivationType.Peikert
+           // )
+           print("Private Key: \(privateKey)")
+           return privateKey.base64EncodedString()
 
         } catch {
             print("Failed to generate seed or key: \(error)")
