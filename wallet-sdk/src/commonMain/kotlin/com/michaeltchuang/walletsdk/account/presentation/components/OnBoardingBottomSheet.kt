@@ -22,32 +22,36 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.presentation.screens.AccountRecoveryTypeSelectionScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.CreateAccountNameScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.DeveloperSettingsScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.HdWalletSelectionScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.InitialRegisterIntroScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingAccountTypeScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.PassphraseAcknowledgeScreen
+import com.michaeltchuang.walletsdk.account.presentation.screens.OnboardingIntroScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoverAnAccountScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseScreen
-import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.AccountStatusScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.PassphraseAcknowledgeScreen
+import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.ViewPassphraseScreen
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
 import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.REPO_URL
+import com.michaeltchuang.walletsdk.foundation.utils.getData
+import com.michaeltchuang.walletsdk.foundation.webview.AlgoKitWebViewPlatformScreen
+import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
+import com.michaeltchuang.walletsdk.settings.presentation.screens.DeveloperSettingsScreen
+import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelectionScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSuccessScreen
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.REPO_URL
-import com.michaeltchuang.walletsdk.utils.getData
-import com.michaeltchuang.walletsdk.webview.AlgoKitWebViewPlatformScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -76,6 +80,7 @@ enum class AlgoKitScreens {
     PASS_PHRASE_ACKNOWLEDGE_SCREEN,
     VIEW_PASSPHRASE_SCREEN,
     NODE_SETTINGS_SCREEN,
+    FALCON24_WALLET_SELECTION_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -172,7 +177,7 @@ fun OnBoardingBottomSheetNavHost(
                                 .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.Top,
                     ) {
-                        InitialRegisterIntroScreen(navController)
+                        OnboardingIntroScreen(navController)
                     }
                 }
                 composable(AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name) {
@@ -193,7 +198,9 @@ fun OnBoardingBottomSheetNavHost(
                 composable(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name) {
                     HdWalletSelectionScreen(navController = navController)
                 }
-
+                composable(AlgoKitScreens.FALCON24_WALLET_SELECTION_SCREEN.name) {
+                    Falcon24WalletSelectionScreen(navController = navController)
+                }
                 composable(AlgoKitScreens.ACCOUNT_RECOVERY_TYPE_SCREEN.name) {
                     AccountRecoveryTypeSelectionScreen(navController = navController) {
                         coroutineScope.launch {
@@ -206,12 +213,44 @@ fun OnBoardingBottomSheetNavHost(
                         coroutineScope.launch { snackbarHostState.showSnackbar(it) }
                     }, closeSheet = { closeSheet() })
                 }
-                composable(route = AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/{mnemonic}") { it ->
-                    it.arguments?.getString("mnemonic")?.let {
-                        RecoveryPhraseScreen(navController = navController, it) {
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar(it)
+                composable(
+                    route = AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/{accountType}?mnemonic={mnemonic}",
+                    arguments =
+                        listOf(
+                            navArgument("accountType") {
+                                type = NavType.StringType
+                            },
+                            navArgument("mnemonic") {
+                                type = NavType.StringType
+                                nullable = true
+                                defaultValue = null
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val accountTypeString = backStackEntry.arguments?.getString("accountType", "falcon24")
+                    val scannedMnemonic = backStackEntry.arguments?.getString("mnemonic", "") ?: ""
+
+                    val accountType =
+                        when {
+                            !scannedMnemonic.isNullOrEmpty() -> {
+                                val wordCount = scannedMnemonic.trim().split("\\s+".toRegex()).size
+                                when (wordCount) {
+                                    25 -> AccountMnemonic.AccountType.Algo25
+                                    else -> AccountMnemonic.AccountType.Falcon24 // 24 words default
+                                }
                             }
+                            accountTypeString == "algo25" -> AccountMnemonic.AccountType.Algo25
+                            accountTypeString == "hdkey" -> AccountMnemonic.AccountType.HdKey
+                            else -> AccountMnemonic.AccountType.Falcon24
+                        }
+
+                    RecoveryPhraseScreen(
+                        navController = navController,
+                        accountType = accountType,
+                        mnemonicString = scannedMnemonic,
+                    ) { message ->
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(message)
                         }
                     }
                 }
@@ -225,7 +264,6 @@ fun OnBoardingBottomSheetNavHost(
                 composable(route = AlgoKitScreens.WEBVIEW_PLATFORM_SCREEN.name) {
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
-
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                     navController.getData<KeyRegTransactionDetail>()?.let {
                         TransactionSignatureRequestScreen(navController = navController, it)
@@ -237,7 +275,7 @@ fun OnBoardingBottomSheetNavHost(
                     }
                 }
                 composable(route = AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name) {
-                    InitialRegisterIntroScreen(navController)
+                    OnboardingIntroScreen(navController)
                 }
                 composable(route = AlgoKitScreens.SETTINGS_SCREEN.name) {
                     SettingsScreen(navController)

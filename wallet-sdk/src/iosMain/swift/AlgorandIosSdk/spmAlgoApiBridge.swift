@@ -5,20 +5,22 @@ import AlgoSDK
 
 @objcMembers public class spmAlgoApiBridge: NSObject {
 
-    public func getHdPublicKey(mnemonic: String) -> String {
+    public func getHdPublicKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
 
         do {
-            // Generate deterministic seed
             let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
 
-            // Create wallet
             guard let wallet = XHDWalletAPI(seed: seed) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            // Generate key
-            let publicKey = try wallet.keyGen(context: .Address, account: 0, change: 0, keyIndex: 0)
+            let publicKey = try wallet.keyGen(
+                context: .Address,
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex)
+            )
             print("Public Key: \(publicKey)")
             return publicKey.base64EncodedString()
 
@@ -28,43 +30,38 @@ import AlgoSDK
         }
     }
 
-    public func getHdPrivateKey(mnemonic: String) -> String {
+    public func getHdPrivateKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
 
         do {
-            // Generate deterministic seed
             let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
-            let seedData = Data(base64Encoded: seed)
+            guard let nonOptionalSeedData = Data(base64Encoded: seed) else {
+                throw NSError(domain: "WalletError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid Base64 seed string"])
+            }
 
-            // Create wallet
             guard let wallet = XHDWalletAPI(seed: seed) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            // return public key for private as placeholder for now
-            let publicKey = try wallet.keyGen(context: .Address, account: 0, change: 0, keyIndex: 0)
-            print("Private Key: \(publicKey)")
-            return publicKey.base64EncodedString()
+            let account: UInt32 = UInt32(account)
+            let change: UInt32 = UInt32(change)
+            let keyIndex: UInt32 = UInt32(keyIndex)
 
-//            let account: UInt32 = 0
-//            let change: UInt32 = 0
-//            let keyIndex: UInt32 = 0
-//            let bip44Path = wallet.fromSeed(Data) .getBIP44PathFromContext(
-//                context: .Address,
-//                account: account,
-//                change: change,
-//                keyIndex: keyIndex
-//            )
-//
-//            // Generate key
-//            let privateKey = wallet.deriveKey(
-//                rootKey: wallet.fromSeed(seed: seedData),
-//                bip44Path: bip44Path,
-//                isPrivate: false,
-//                derivationType: BIP32DerivationType.Peikert
-//            )
-//            print("Private Key: \(privateKey)")
-//            return privateKey.base64EncodedString()
+            let bip44Path = wallet.getBIP44PathFromContext(
+                context: .Address,
+                account: account,
+                change: change,
+                keyIndex: keyIndex
+            )
+
+            let privateKey = try wallet.deriveKey(
+                rootKey: wallet.fromSeed(nonOptionalSeedData),
+                bip44Path: bip44Path,
+                isPrivate: false,
+                derivationType: BIP32DerivationType.Peikert
+            )
+            print("Private Key: \(privateKey)")
+            return privateKey.base64EncodedString()
 
         } catch {
             print("Failed to generate seed or key: \(error)")
@@ -92,14 +89,26 @@ import AlgoSDK
     }
 
     public func getAlgo25MnemonicFromSecretKey(secretKey: Data) -> String {
-        do {
-            var error: NSError?
-            let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)
-            return mnemonic
-        } catch {
+        var error: NSError?
+        let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)
+
+        if let error = error {
             print("Error generating mnemonic: \(error)")
             return ""
         }
+
+        return mnemonic
+    }
+
+    public func generateAddressFromPublicKey(publicKey: String) -> String {
+        guard
+            !publicKey.isEmpty,
+            let data = Data(base64Encoded: publicKey)
+        else {
+            return ""
+        }
+
+        return AlgoSDK.AlgoSdkGenerateAddressFromPublicKey(data, nil)
     }
 
     public func generateAddressFromSK(secretKey: String) -> String {
@@ -111,5 +120,43 @@ import AlgoSDK
         }
 
         return AlgoSDK.AlgoSdkGenerateAddressFromSK(data, nil)
+    }
+
+    public func getFalconAddressFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            } else {
+                print("Failed to derive from BIP39 - no key info returned")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.algorandAddress
+    }
+
+    public func getFalconPublicKeyFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.publicKey
+    }
+
+    public func getFalconPrivateKeyFromMnemonic(passphrase: String) -> String {
+        var error: NSError?
+        guard let algorandKeyInfo = AlgoSdkDeriveFromBIP39(passphrase, &error) else {
+            if let error = error {
+                print("Error deriving from BIP39: \(error)")
+            }
+            return ""
+        }
+
+        return algorandKeyInfo.privateKey
     }
 }

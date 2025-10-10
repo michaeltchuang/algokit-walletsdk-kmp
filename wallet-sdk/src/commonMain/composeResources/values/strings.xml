@@ -608,7 +608,7 @@
     <string name="i_want_to_create_an_algorand_account">I want to create\nan Algorand account</string>
     <string name="create_a_new_account">Create a new account</string>
     <string name="add_a_new_account">Add a new account</string>
-    <string name="add_a_new_account_desc">Create a new account for an existing Universal Wallet</string>
+    <string name="add_a_new_account_desc">Create a new account for an existing Falcon24 Wallet</string>
     <string name="create_a_new_wallet">Create a new wallet</string>
     <string name="add_a_wallet_or_account">Add a wallet\nor account</string>
     <string name="create_a_new_wallet_desc">Create a new Algorand wallet with a new address and recovery passphrase</string>
@@ -1369,7 +1369,7 @@
     <string name="monitor_an_algorand_address">Monitor an Algorand address by providing its address</string>
     <string name="recover_an_account_with_qr">Recover an account with QR code</string>
     <string name="i_want_to_recover_qr">I want to recover an Algorand account using my QR code</string>
-    <string name="because_you_have_already">Because you have already a Universal Wallet</string>
+    <string name="because_you_have_already">Because you have already a Falcon24 Wallet</string>
 
     <string name="action_required">ACTION REQUIRED</string>
     <string name="you_need_to_backup_account">You need to backup the passphrase of your account</string>
@@ -1478,6 +1478,10 @@
 
     <string name="you_dont_have_any">You don\'t have any authorized account matching with %1$s</string>
 
+    <string name="mnemonic_type_falcon24_title">Falcon24</string>
+    <string name="mnemonic_type_falcon24_description">New inter-operable format that enables important features like post-quantum resistant wallets and accounts</string>
+    <string name="mnemonic_type_falcon24_footer">24 Key mnemonic keys</string>
+
     <string name="mnemonic_type_universal_title">Universal</string>
     <string name="mnemonic_type_universal_description">New inter-operable format that enables important features like HD Wallet</string>
     <string name="mnemonic_type_universal_footer">24 Key mnemonic keys</string>
@@ -1492,6 +1496,7 @@
     <string name="create_your_new_account_under">Create your new account under an HD wallet you already have</string>
 
     <string name="create_legacy_algo25_account">Create Legacy Algo25 Account</string>
+    <string name="create_legacy_hd_account">Create Legacy Universal HD Account</string>
 
     <string name="migration_viewer">Migration Viewer</string>
     <string name="migration_troubleshooter">Migration Troubleshooter</string>
@@ -1543,7 +1548,10 @@
     <string name="unable_to_extract_data_from_intent">Unable to extract data from intent</string>
     <string name="empty" />
     <string name="select_universal_wallet">Select Universal Wallet</string>
-    <string name="create_your_new_account">Create your new account under a Universal Wallet you already have</string>
+    <string name="create_your_new_hd_account">Create your new account under a Universal Wallet you already have</string>
+
+    <string name="select_falcon24_wallet">Select Falcon24 Wallet</string>
+    <string name="create_your_new_falcon24_account">Create your new account under a Falcon24 Wallet you already have</string>
 
     <string name="recover_a_wallet">Recover a wallet</string>
     <string name="i_want_to_recover_wallet">I want to recover an Algorand wallet.</string>
@@ -1561,7 +1569,7 @@
     <string name="nobody_can_see_my_screen">Nobody can see my screen.</string>
     <string name="i_risk_losing_all_my">I risk losing all my funds if I share my Recovery Phrase with anyone.</string>
     <string name="my_funds_are_permanently_lost">My funds are permanently lost if I lose my Recovery Phrase and lose access to my wallet.</string>
-    <string name="pera_employees_will_never_ask">Pera employees will NEVER ask for my Recovery Phrase.</string>
+    <string name="pera_employees_will_never_ask">Algorand Foundation and Pera employees will NEVER ask for my Recovery Phrase.</string>
     <string name="confirm_and_acknowledge_the_following">Confirm and acknowledge the following:</string>
     <string name="keep_it_secret_keep_it">Keep it secret. Keep it safe.</string>
     <string name="reveal_passphrase">Reveal Passphrase</string>

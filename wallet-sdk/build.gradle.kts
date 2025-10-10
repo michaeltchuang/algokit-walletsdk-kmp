@@ -20,7 +20,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta05"
+    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
 }
 
 kotlin {
@@ -78,7 +78,7 @@ kotlin {
                     products = {
                         add("x-hd-wallet-api")
                     },
-                    branch = "fix/swiftlint",
+                    branch = "fix/upgrade_sodium",
                 )
             }
         }
@@ -88,7 +88,8 @@ kotlin {
         androidMain.dependencies {
             // will turn this to implementation when app module references are moved to common
             api(libs.algosdk)
-            api(libs.algorand.go.mobile)
+            // api(libs.algorand.go.mobile)
+            api(files("libs/algosdkfalcon1.aar"))
 
             // toml files don't support aar files yet
             implementation("net.java.dev.jna:jna:5.17.0@aar")

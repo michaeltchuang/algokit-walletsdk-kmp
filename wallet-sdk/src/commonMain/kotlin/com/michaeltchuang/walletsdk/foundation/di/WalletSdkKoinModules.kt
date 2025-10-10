@@ -1,5 +1,9 @@
 package com.michaeltchuang.walletsdk.foundation.di
 
+import com.michaeltchuang.walletsdk.account.di.accountModules
+import com.michaeltchuang.walletsdk.accountdetail.di.accountDetailModules
+import com.michaeltchuang.walletsdk.deeplink.di.deepLinkModules
+import com.michaeltchuang.walletsdk.settings.di.settingsModules
 import com.michaeltchuang.walletsdk.account.di.accountCoreModule
 import com.michaeltchuang.walletsdk.account.di.customInfoModule
 import com.michaeltchuang.walletsdk.account.di.localAccountsModule
@@ -13,16 +17,10 @@ import com.michaeltchuang.walletsdk.network.di.networkModule
 import com.michaeltchuang.walletsdk.transaction.di.keyRegTransactionModule
 
 val walletSdkKoinModules =
-    listOf(
-        delegateModule,
-        commonModule,
-        platformKoinModule(),
-        localAccountsModule,
-        customInfoModule,
-        accountCoreModule,
-        jsonModule,
-        networkModule,
-        deepLinkModule,
-        keyRegTransactionModule,
-        viewModelModule,
-    )
+    buildList {
+        addAll(foundationModules)
+        addAll(accountModules)
+        addAll(accountDetailModules)
+        addAll(deepLinkModules)
+        addAll(settingsModules)
+    }

@@ -6,6 +6,9 @@ import algokit_walletsdk_kmp.wallet_sdk.generated.resources.legacy_text
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_algo25_description
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_algo25_footer
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_algo25_title
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_falcon24_description
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_falcon24_footer
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_falcon24_title
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_universal_description
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_universal_footer
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mnemonic_type_universal_title
@@ -25,13 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.designsystem.widget.PeraCard
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitHighlightedGrayText
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitHighlightedGreenText
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitTitleText
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.PeraCard
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitHighlightedGrayText
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitHighlightedGreenText
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitTitleText
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -61,16 +64,16 @@ fun RecoverAnAccountScreen(
         )
         Spacer(Modifier.height(24.dp))
         PeraCard(
-            title = stringResource(Res.string.mnemonic_type_universal_title),
-            description = stringResource(Res.string.mnemonic_type_universal_description),
-            footer = stringResource(Res.string.mnemonic_type_universal_footer),
+            title = stringResource(Res.string.mnemonic_type_falcon24_title),
+            description = stringResource(Res.string.mnemonic_type_falcon24_description),
+            footer = stringResource(Res.string.mnemonic_type_falcon24_footer),
             highlightContent = {
                 AlgoKitHighlightedGreenText(
                     text = stringResource(Res.string.new_text),
                 )
             },
             onClick = {
-                onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
+                navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/falcon24")
             },
         )
 
@@ -84,7 +87,21 @@ fun RecoverAnAccountScreen(
                 )
             },
             onClick = {
-                navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/")
+                navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/algo25")
+            },
+        )
+        Spacer(Modifier.height(24.dp))
+        PeraCard(
+            title = stringResource(Res.string.mnemonic_type_universal_title),
+            description = stringResource(Res.string.mnemonic_type_universal_description),
+            footer = stringResource(Res.string.mnemonic_type_universal_footer),
+            highlightContent = {
+                AlgoKitHighlightedGrayText(
+                    text = stringResource(Res.string.legacy_text),
+                )
+            },
+            onClick = {
+                onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
             },
         )
     }

@@ -1,6 +1,6 @@
 package com.michaeltchuang.walletsdk.account.domain.model.core
 
-import com.michaeltchuang.walletsdk.utils.CreationType
+import com.michaeltchuang.walletsdk.foundation.utils.CreationType
 
 data class AccountCreation(
     val address: String,
@@ -19,6 +19,13 @@ data class AccountCreation(
             val change: Int,
             val keyIndex: Int,
             val derivationType: Int,
+            val seedId: Int? = null,
+        ) : Type
+
+        data class Falcon24(
+            val publicKey: ByteArray,
+            val encryptedPrivateKey: ByteArray,
+            val encryptedEntropy: ByteArray,
             val seedId: Int? = null,
         ) : Type
 
@@ -57,6 +64,13 @@ data class AccountCreation(
                     is Type.Algo25 ->
                         CreateAccount.Type.Algo25(
                             type.encryptedSecretKey,
+                        )
+
+                    is Type.Falcon24 ->
+                        CreateAccount.Type.Falcon24(
+                            publicKey = type.publicKey,
+                            encryptedPrivateKey = type.encryptedPrivateKey,
+                            encryptedEntropy = type.encryptedEntropy,
                         )
 
                     is Type.LedgerBle ->

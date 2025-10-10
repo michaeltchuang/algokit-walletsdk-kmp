@@ -3,6 +3,7 @@ package com.michaeltchuang.walletsdk.algosdk.bip39.sdk
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Entropy
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Mnemonic
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.Bip39Seed
+import com.michaeltchuang.walletsdk.algosdk.bip39.model.Falcon24
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
@@ -17,6 +18,8 @@ interface Bip39Wallet {
     fun generateAddress(index: HdKeyAddressIndex): HdKeyAddress
 
     fun generateAddressLite(index: HdKeyAddressIndex): HdKeyAddressLite
+
+    fun generateFalcon24Address(mnemonic: String): Falcon24
 
     fun invalidate()
 }

@@ -14,6 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.QRScannerViewModel
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.utils.navigateWithArgument
 import com.michaeltchuang.walletsdk.deeplink.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
@@ -35,7 +39,7 @@ fun QRCodeScannerScreen(
         viewModel.viewEvent.collect {
             when (it) {
                 is QRScannerViewModel.ViewEvent.NavigateToRecoveryPhraseScreen -> {
-                    navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/${it.mnemonic}")
+                    navController.navigate(AlgoKitScreens.RECOVER_PHRASE_SCREEN.name + "/?mnemonic=${it.mnemonic}")
                 }
 
                 is QRScannerViewModel.ViewEvent.NavigateToTransactionSignatureRequestScreen -> {

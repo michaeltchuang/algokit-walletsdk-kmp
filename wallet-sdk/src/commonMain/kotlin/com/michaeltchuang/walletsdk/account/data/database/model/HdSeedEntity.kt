@@ -20,4 +20,24 @@ internal data class HdSeedEntity(
     val encryptedEntropy: ByteArray,
     @ColumnInfo("encrypted_seed", typeAffinity = ColumnInfo.BLOB)
     val encryptedSeed: ByteArray,
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as HdSeedEntity
+
+        if (seedId != other.seedId) return false
+        if (!encryptedEntropy.contentEquals(other.encryptedEntropy)) return false
+        if (!encryptedSeed.contentEquals(other.encryptedSeed)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = seedId
+        result = 31 * result + encryptedEntropy.contentHashCode()
+        result = 31 * result + encryptedSeed.contentHashCode()
+        return result
+    }
+}

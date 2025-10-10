@@ -42,7 +42,7 @@ val networkModule =
         // Provide AccountInformationApiService
         single<AccountInformationApiService> {
             AccountInformationApiServiceImpl(
-                httpClient = get()
+                httpClient = get(),
             )
         }
     }

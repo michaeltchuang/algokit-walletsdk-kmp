@@ -14,6 +14,7 @@ class NameRegistrationUseCase(
     private val getLocalAccountsUseCase: GetLocalAccountsUseCase,
     private val deleteHdKeyAccountUseCase: DeleteHdKeyAccountUseCase,
     private val deleteAlgo25AccountUseCase: DeleteAlgo25AccountUseCase,
+    private val deleteFalcon24AccountUseCase: DeleteFalcon24AccountUseCase,
 ) {
     suspend fun addNewAccount(accountCreation: AccountCreation) {
         accountAdditionUseCase.addNewAccount(accountCreation)
@@ -36,5 +37,6 @@ class NameRegistrationUseCase(
     suspend fun deleteAccount(address: String) {
         deleteAlgo25AccountUseCase(address)
         deleteHdKeyAccountUseCase(address)
+        deleteFalcon24AccountUseCase(address)
     }
 }

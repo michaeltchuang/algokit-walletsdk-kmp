@@ -68,14 +68,14 @@ import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAccountTypeViewModel
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.designsystem.widget.GroupChoiceWidget
-import com.michaeltchuang.walletsdk.designsystem.widget.icon.AlgoKitIcon
-import com.michaeltchuang.walletsdk.utils.Log
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.PRIVACY_POLICY_URL
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants.TERMS_AND_SERVICES_URL
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.GroupChoiceWidget
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.icon.AlgoKitIcon
+import com.michaeltchuang.walletsdk.foundation.utils.Log
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.PRIVACY_POLICY_URL
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.TERMS_AND_SERVICES_URL
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -162,13 +162,13 @@ private fun ContentState(
         Spacer(modifier = Modifier.weight(1f))
         if (isHasAnySeed) {
             CreateNewAccountCard {
-                navController.navigate(AlgoKitScreens.HD_WALLET_SELECTION_SCREEN.name)
+                navController.navigate(AlgoKitScreens.FALCON24_WALLET_SELECTION_SCREEN.name)
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
         CreateWalletHdWidget(viewModel, scope)
         ImportHdWalletWidget(navController)
-        // WatchAddressWidget(onClick)
+        WatchAddressWidget(onClick)
         Spacer(modifier = Modifier.weight(1f))
         TermsAndPrivacy()
     }
@@ -186,7 +186,7 @@ private fun CreateWalletHdWidget(
         iconContentDescription = stringResource(Res.string.create_a_new_algorand_account_with),
         onClick = {
             scope.launch {
-                viewModel.createHdKeyAccount()
+                viewModel.createFalcon24Account()
             }
         },
     )

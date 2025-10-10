@@ -38,7 +38,7 @@ import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitEvent
 import com.michaeltchuang.walletsdk.account.presentation.components.OnBoardingBottomSheet
-import com.michaeltchuang.walletsdk.utils.Log
+import com.michaeltchuang.walletsdk.foundation.utils.Log
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel

@@ -13,6 +13,7 @@
 
 @class AlgoSdkABIType;
 @class AlgoSdkAddMethodCallParams;
+@class AlgoSdkAlgorandKeyInfo;
 @class AlgoSdkAppBoxRefArray;
 @class AlgoSdkAtomicTransactionComposer;
 @class AlgoSdkBytesArray;
@@ -105,6 +106,18 @@ argument types. See `AddMethodArgumentTransaction()` for transaction type suppor
 creation or update.
  */
 - (void)addPrograms:(NSData* _Nullable)approvalProgram clearStateProgram:(NSData* _Nullable)clearStateProgram;
+@end
+
+@interface AlgoSdkAlgorandKeyInfo : NSObject <goSeqRefInterface> {
+}
+@property(strong, readonly) _Nonnull id _ref;
+
+- (nonnull instancetype)initWithRef:(_Nonnull id)ref;
+- (nonnull instancetype)init;
+@property (nonatomic) NSString* _Nonnull algorandAddress;
+@property (nonatomic) NSString* _Nonnull publicKey;
+@property (nonatomic) NSString* _Nonnull privateKey;
+- (NSString* _Nonnull)toJSON:(NSError* _Nullable* _Nullable)error;
 @end
 
 @interface AlgoSdkAppBoxRefArray : NSObject <goSeqRefInterface> {
@@ -447,6 +460,8 @@ FOUNDATION_EXPORT NSData* _Nullable AlgoSdkBackupMnemonicToKey(NSString* _Nullab
 
 
 FOUNDATION_EXPORT AlgoSdkEncryption* _Nullable AlgoSdkDecrypt(NSData* _Nullable data, NSData* _Nullable sk);
+
+FOUNDATION_EXPORT AlgoSdkAlgorandKeyInfo* _Nullable AlgoSdkDeriveFromBIP39(NSString* _Nullable mnemonic, NSError* _Nullable* _Nullable error);
 
 /**
  * DeserializeLogicSigAccountFromJSON deserializes a LogicSigAccount from a JSON string. See

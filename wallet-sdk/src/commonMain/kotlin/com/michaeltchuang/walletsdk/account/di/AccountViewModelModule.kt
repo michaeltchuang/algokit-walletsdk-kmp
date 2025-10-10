@@ -1,18 +1,27 @@
 package com.michaeltchuang.walletsdk.account.di
 
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.AccountStatusViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.CreateAccountNameViewModel
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAccountTypeViewModel
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingIntroViewModel
+import com.michaeltchuang.walletsdk.account.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.RecoverPassphraseViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.ViewPassphraseViewModel
 import com.michaeltchuang.walletsdk.deeplink.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTransactionViewModel
+import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.HDWalletSelectionViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-internal val viewModelModule =
+internal val accountViewModelModule =
     module {
+        viewModel {
+            OnboardingIntroViewModel(
+                get(),
+                get(),
+                get(),
+                get(),
+            )
+        }
         viewModel {
             OnboardingAccountTypeViewModel(
                 get(),
