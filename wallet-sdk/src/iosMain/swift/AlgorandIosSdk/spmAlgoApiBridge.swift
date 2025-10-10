@@ -5,20 +5,22 @@ import AlgoSDK
 
 @objcMembers public class spmAlgoApiBridge: NSObject {
 
-    public func getHdPublicKey(mnemonic: String) -> String {
+    public func getHdPublicKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
 
         do {
-            // Generate deterministic seed
             let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
 
-            // Create wallet
             guard let wallet = XHDWalletAPI(seed: seed) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            // Generate key
-            let publicKey = try wallet.keyGen(context: .Address, account: 0, change: 0, keyIndex: 0)
+            let publicKey = try wallet.keyGen(
+                context: .Address,
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex)
+            )
             print("Public Key: \(publicKey)")
             return publicKey.base64EncodedString()
 
@@ -28,22 +30,24 @@ import AlgoSDK
         }
     }
 
-    public func getHdPrivateKey(mnemonic: String) -> String {
+    public func getHdPrivateKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
 
         do {
-            // Generate deterministic seed
             let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
             let seedData = Data(base64Encoded: seed)
 
-            // Create wallet
             guard let wallet = XHDWalletAPI(seed: seed) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            // return public key for private as placeholder for now
-            let publicKey = try wallet.keyGen(context: .Address, account: 0, change: 0, keyIndex: 0)
-            print("Private Key: \(publicKey)")
+            let publicKey = try wallet.keyGen(
+                context: .Address,
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex)
+            )
+            print("Public Key: \(publicKey)")
             return publicKey.base64EncodedString()
 
 //            let account: UInt32 = 0
@@ -101,6 +105,17 @@ import AlgoSDK
         }
 
         return mnemonic
+    }
+
+    public func generateAddressFromPublicKey(publicKey: String) -> String {
+        guard
+            !publicKey.isEmpty,
+            let data = Data(base64Encoded: publicKey)
+        else {
+            return ""
+        }
+
+        return AlgoSDK.AlgoSdkGenerateAddressFromPublicKey(data, nil)
     }
 
     public func generateAddressFromSK(secretKey: String) -> String {

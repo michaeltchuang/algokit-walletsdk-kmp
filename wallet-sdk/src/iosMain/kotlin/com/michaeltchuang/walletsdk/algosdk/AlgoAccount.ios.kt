@@ -20,6 +20,7 @@ import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.dataWithBytes
 import kotlin.random.Random
+import platform.posix.index
 
 @OptIn(ExperimentalForeignApi::class)
 fun ByteArray.toNSData(): NSData =
@@ -76,14 +77,21 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
     return mnemonic
 }
 
-actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet = getBit39Wallet()
+actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet {
+    val mnemonic = AlgoKitBip39.getMnemonicFromEntropy(entropy)
+    return getBit39Wallet(mnemonic)
+}
 
-actual fun createBip39Wallet(): Bip39Wallet = getBit39Wallet()
+actual fun createBip39Wallet(): Bip39Wallet {
+    return getBit39Wallet(
+        AlgoKitBip39.generate24WordMnemonic()
+    )
+}
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
 @OptIn(ExperimentalForeignApi::class)
-private fun getBit39Wallet(): Bip39Wallet =
+private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
     object : Bip39Wallet {
         override fun getEntropy(): Bip39Entropy =
             Bip39Entropy(
@@ -99,25 +107,35 @@ private fun getBit39Wallet(): Bip39Wallet =
                 ),
             )
 
-        override fun getMnemonic(): Bip39Mnemonic = Bip39Mnemonic(emptyList())
+        override fun getMnemonic(): Bip39Mnemonic = Bip39Mnemonic(mnemonic.split(" "))
 
-        override fun generateAddress(index: HdKeyAddressIndex): HdKeyAddress =
-            HdKeyAddress(
-                address = generateRandomAddress(),
-                index = HdKeyAddressIndex(0),
-                privateKey = ByteArray(32),
-                publicKey = ByteArray(32),
+        override fun generateAddress(index: HdKeyAddressIndex): HdKeyAddress {
+            val publicKey = generatePublicKey(index)
+            val privateKey = spmAlgoApiBridge().getHdPrivateKeyWithMnemonic(
+                mnemonic,
+                index.accountIndex.toLong(),
+                index.changeIndex.toLong(),
+                index.keyIndex.toLong()
+            )
+
+            return HdKeyAddress(
+                address = getAddressFromPublicKey(publicKey),
+                index = index,
+                privateKey = privateKey.toByteArray(),
+                publicKey = publicKey,
                 derivationType = HdKeyAddressDerivationType.Peikert,
             )
+        }
 
-        override fun generateAddressLite(index: HdKeyAddressIndex): HdKeyAddressLite =
-            HdKeyAddressLite(
-                address = generateRandomAddress(),
-                index = HdKeyAddressIndex(0),
+        override fun generateAddressLite(index: HdKeyAddressIndex): HdKeyAddressLite {
+            val publicKey = generatePublicKey(index)
+            return HdKeyAddressLite(
+                address = getAddressFromPublicKey(publicKey),
+                index = index,
             )
+        }
 
-        override fun generateFalcon24Address(mnemonic2: String): Falcon24 {
-            val mnemonic = WalletSdkConstants.SAMPLE_HD_MNEMONIC
+        override fun generateFalcon24Address(mnemonic: String): Falcon24 {
             return Falcon24(
                 address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic),
                 publicKey = spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
@@ -126,13 +144,21 @@ private fun getBit39Wallet(): Bip39Wallet =
         }
 
         override fun invalidate() {}
+
+        fun generatePublicKey(index: HdKeyAddressIndex): ByteArray {
+            val publicKey = spmAlgoApiBridge().getHdPublicKeyWithMnemonic(
+                mnemonic,
+                index.accountIndex.toLong(),
+                index.changeIndex.toLong(),
+                index.keyIndex.toLong()
+            )
+            return publicKey.toByteArray()
+        }
+
+        fun getAddressFromPublicKey(publicKey: ByteArray): String {
+            return spmAlgoApiBridge()
+                .generateAddressFromPublicKeyWithPublicKey(
+                    publicKey = publicKey.toString())
+        }
     }
 
-private fun generateRandomAddress(): String {
-    val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" // Base32 characters
-    val addressLength = 58
-
-    return (1..addressLength)
-        .map { alphabet[Random.nextInt(alphabet.length)] }
-        .joinToString("")
-}
