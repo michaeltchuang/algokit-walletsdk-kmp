@@ -11,7 +11,6 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
-import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -19,8 +18,6 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.dataWithBytes
-import kotlin.random.Random
-import okio.ByteString.Companion.toByteString
 import platform.posix.index
 import platform.posix.memcpy
 
@@ -42,7 +39,7 @@ fun NSData.toByteArray(): ByteArray {
     val result = ByteArray(length)
 
     result.usePinned { pinned ->
-        memcpy(pinned.addressOf(0), this.bytes, length.toULong() )
+        memcpy(pinned.addressOf(0), this.bytes, length.toULong())
     }
 
     return result
@@ -99,11 +96,10 @@ actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet {
     return getBit39Wallet(mnemonic)
 }
 
-actual fun createBip39Wallet(): Bip39Wallet {
-    return getBit39Wallet(
-        AlgoKitBip39.generate24WordMnemonic()
+actual fun createBip39Wallet(): Bip39Wallet =
+    getBit39Wallet(
+        AlgoKitBip39.generate24WordMnemonic(),
     )
-}
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
@@ -128,12 +124,13 @@ private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
 
         override fun generateAddress(index: HdKeyAddressIndex): HdKeyAddress {
             val publicKey = generatePublicKey(index)
-            val privateKey = spmAlgoApiBridge().getHdPrivateKeyWithMnemonic(
-                mnemonic,
-                index.accountIndex.toLong(),
-                index.changeIndex.toLong(),
-                index.keyIndex.toLong()
-            )
+            val privateKey =
+                spmAlgoApiBridge().getHdPrivateKeyWithMnemonic(
+                    mnemonic,
+                    index.accountIndex.toLong(),
+                    index.changeIndex.toLong(),
+                    index.keyIndex.toLong(),
+                )
 
             return HdKeyAddress(
                 address = getAddressFromPublicKey(publicKey),
@@ -152,30 +149,29 @@ private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
             )
         }
 
-        override fun generateFalcon24Address(mnemonic: String): Falcon24 {
-            return Falcon24(
+        override fun generateFalcon24Address(mnemonic: String): Falcon24 =
+            Falcon24(
                 address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic),
                 publicKey = spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
                 privateKey = spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
             )
-        }
 
         override fun invalidate() {}
 
         fun generatePublicKey(index: HdKeyAddressIndex): String {
-            val publicKey = spmAlgoApiBridge().getHdPublicKeyWithMnemonic(
-                mnemonic,
-                index.accountIndex.toLong(),
-                index.changeIndex.toLong(),
-                index.keyIndex.toLong()
-            )
+            val publicKey =
+                spmAlgoApiBridge().getHdPublicKeyWithMnemonic(
+                    mnemonic,
+                    index.accountIndex.toLong(),
+                    index.changeIndex.toLong(),
+                    index.keyIndex.toLong(),
+                )
             return publicKey
         }
 
-        fun getAddressFromPublicKey(publicKey: String): String {
-            return spmAlgoApiBridge()
+        fun getAddressFromPublicKey(publicKey: String): String =
+            spmAlgoApiBridge()
                 .generateAddressFromPublicKeyWithPublicKey(
-                    publicKey = publicKey)
-        }
+                    publicKey = publicKey,
+                )
     }
-

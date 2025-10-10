@@ -3,11 +3,8 @@ package com.michaeltchuang.walletsdk.account.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
-import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationHdKeyTypeMapper
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
-import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
-import com.michaeltchuang.walletsdk.algosdk.createAlgo25Account
 import com.michaeltchuang.walletsdk.algosdk.createBip39Wallet
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
@@ -21,7 +18,7 @@ class OnboardingAccountTypeViewModel(
   /*  private val androidEncryptionManager: AndroidEncryptionManager,
     private val aesPlatformManager: AESPlatformManager,
     private val runtimeAwareSdk: RuntimeAwareSdk, */
-  private val accountCreationFalcon24TypeMapper: AccountCreationFalcon24TypeMapper,
+    private val accountCreationFalcon24TypeMapper: AccountCreationFalcon24TypeMapper,
     private val hdSeedRepository: HdSeedRepository,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,

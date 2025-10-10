@@ -34,38 +34,34 @@ import AlgoSDK
 
         do {
             let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
-            let seedData = Data(base64Encoded: seed)
+            guard let nonOptionalSeedData = Data(base64Encoded: seed) else {
+                throw NSError(domain: "WalletError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid Base64 seed string"])
+            }
 
             guard let wallet = XHDWalletAPI(seed: seed) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            let privateKey = try wallet.keyGen(
+            let account: UInt32 = UInt32(account)
+            let change: UInt32 = UInt32(change)
+            let keyIndex: UInt32 = UInt32(keyIndex)
+
+            let bip44Path = wallet.getBIP44PathFromContext(
                 context: .Address,
-                account: UInt32(account),
-                change: UInt32(change),
-                keyIndex: UInt32(keyIndex)
+                account: account,
+                change: change,
+                keyIndex: keyIndex
             )
 
-           // let account: UInt32 = UInt32(account)
-           // let change: UInt32 = UInt32(change)
-           // let keyIndex: UInt32 = UInt32(keyIndex)
-           // let bip44Path = wallet.fromSeed(Data).getBIP44PathFromContext(
-           //     context: .Address,
-           //     account: account,
-           //     change: change,
-           //     keyIndex: keyIndex
-           // )
-           //
-           // let privateKey = wallet.deriveKey(
-           //     rootKey: wallet.fromSeed(seed: seedData),
-           //     bip44Path: bip44Path,
-           //     isPrivate: false,
-           //     derivationType: BIP32DerivationType.Peikert
-           // )
-           print("Private Key: \(privateKey)")
-           return privateKey.base64EncodedString()
+            let privateKey = try wallet.deriveKey(
+                rootKey: wallet.fromSeed(nonOptionalSeedData),
+                bip44Path: bip44Path,
+                isPrivate: false,
+                derivationType: BIP32DerivationType.Peikert
+            )
+            print("Private Key: \(privateKey)")
+            return privateKey.base64EncodedString()
 
         } catch {
             print("Failed to generate seed or key: \(error)")

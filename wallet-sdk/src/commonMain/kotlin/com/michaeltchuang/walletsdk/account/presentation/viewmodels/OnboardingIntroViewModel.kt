@@ -13,7 +13,6 @@ import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.foundation.utils.CreationType
 import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
-import org.koin.core.KoinApplication.Companion.init
 
 class OnboardingIntroViewModel(
     /*  private val androidEncryptionManager: AndroidEncryptionManager,
