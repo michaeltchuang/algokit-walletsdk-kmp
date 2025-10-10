@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource

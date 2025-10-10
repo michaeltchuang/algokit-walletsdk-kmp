@@ -28,13 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.designsystem.widget.PeraCard
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitHighlightedGrayText
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitHighlightedGreenText
-import com.michaeltchuang.walletsdk.designsystem.widget.text.AlgoKitTitleText
-import com.michaeltchuang.walletsdk.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.PeraCard
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitHighlightedGrayText
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitHighlightedGreenText
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.text.AlgoKitTitleText
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

@@ -22,9 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitPrimaryButton
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

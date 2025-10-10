@@ -5,8 +5,8 @@ import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountT
 import com.michaeltchuang.walletsdk.algosdk.AlgoKitBip39.getEntropyFromMnemonic
 import com.michaeltchuang.walletsdk.algosdk.getBip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.recoverAlgo25Account
-import com.michaeltchuang.walletsdk.utils.CreationType
-import com.michaeltchuang.walletsdk.utils.toShortenedAddress
+import com.michaeltchuang.walletsdk.foundation.utils.CreationType
+import com.michaeltchuang.walletsdk.foundation.utils.toShortenedAddress
 import kotlinx.coroutines.flow.flow
 
 @Suppress("LongParameterList")

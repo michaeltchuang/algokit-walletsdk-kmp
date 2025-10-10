@@ -7,8 +7,8 @@ import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountT
 import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
-import com.michaeltchuang.walletsdk.utils.splitMnemonic
+import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.foundation.utils.splitMnemonic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.collectLatest

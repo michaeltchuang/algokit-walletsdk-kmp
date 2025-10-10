@@ -6,7 +6,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.core.GetLocalAccountU
 import com.michaeltchuang.walletsdk.algosdk.AlgoKitBip39.getMnemonicFromEntropy
 import com.michaeltchuang.walletsdk.algosdk.getMnemonicFromAlgo25SecretKey
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
-import com.michaeltchuang.walletsdk.utils.splitMnemonic
+import com.michaeltchuang.walletsdk.foundation.utils.splitMnemonic
 
 internal class GetAccountMnemonicUseCase(
     private val getLocalAccount: GetLocalAccountUseCase,

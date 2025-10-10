@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.utils.Log
 import com.michaeltchuang.walletsdk.settings.presentation.components.SettingsItem
 import com.michaeltchuang.walletsdk.settings.presentation.viewmodels.DeveloperSettingsViewModel
-import com.michaeltchuang.walletsdk.utils.Log
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel

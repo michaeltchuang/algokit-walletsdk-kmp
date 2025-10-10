@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.michaeltchuang.walletsdk.designsystem.theme.LocalThemeIsDark
-import com.michaeltchuang.walletsdk.designsystem.theme.ThemePreference
-import com.michaeltchuang.walletsdk.designsystem.theme.provideThemePreferenceRepository
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.LocalThemeIsDark
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.ThemePreference
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.provideThemePreferenceRepository
 
 @Composable
 fun SetPreferredTheme() {

@@ -9,8 +9,8 @@ import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.utils.CreationType
-import com.michaeltchuang.walletsdk.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.foundation.utils.CreationType
+import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class DeveloperSettingsViewModel(
