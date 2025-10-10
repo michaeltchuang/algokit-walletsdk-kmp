@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,6 +48,7 @@ val networkNodeSettings = MutableStateFlow<AlgorandNetwork?>(null)
 fun NodeSettingsScreen(
     navController: NavController,
     nodeRepository: NodePreferenceRepository = provideNodePreferenceRepository(),
+    onShowSnackbar: (String) -> Unit = {},
 ) {
     val coroutineScope = rememberCoroutineScope()
     val currentNetwork by nodeRepository
@@ -55,9 +57,13 @@ fun NodeSettingsScreen(
 
     fun onNetworkSelected(network: AlgorandNetwork) {
         if (network != currentNetwork) {
-            coroutineScope.launch {
-                nodeRepository.saveNodePreference(network)
-                networkNodeSettings.value = currentNetwork
+            if (network != AlgorandNetwork.MAINNET) {
+                coroutineScope.launch {
+                    nodeRepository.saveNodePreference(network)
+                    networkNodeSettings.value = currentNetwork
+                }
+            } else {
+                onShowSnackbar(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
             }
         }
     }
