@@ -1,16 +1,16 @@
 package com.michaeltchuang.walletsdk.transaction.di
 
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
-import com.michaeltchuang.walletsdk.transaction.data.TransactionsApiServiceImpl
-import com.michaeltchuang.walletsdk.transaction.signmanager.KeyRegTransactionSignManager
-import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOfflineTransaction
 import com.michaeltchuang.walletsdk.transaction.data.BuildKeyRegOfflineTransactionImpl
+import com.michaeltchuang.walletsdk.transaction.data.TransactionsApiServiceImpl
+import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOfflineTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransactionUseCase
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetTransactionParams
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetTransactionSignerUseCase
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.SendSignedTransactionUseCase
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionQueuingHelper
+import com.michaeltchuang.walletsdk.transaction.signmanager.KeyRegTransactionSignManager
 import org.koin.dsl.module
 
 val keyRegTransactionModule = module {

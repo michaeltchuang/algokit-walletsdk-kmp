@@ -7,7 +7,6 @@ import algokit_walletsdk_kmp.wallet_sdk.generated.resources.done
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.enter_your_note
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.key_reg_transaction_title
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.note
-import algokit_walletsdk_kmp.wallet_sdk.generated.resources.transaction_request
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -47,10 +46,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.designsystem.widget.button.AlgoKitPrimaryButton
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
 import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTransactionViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

@@ -11,6 +11,9 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdkNumberExtensi
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignHdKeyTransactionImpl
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
 import com.michaeltchuang.walletsdk.utils.toSuggestedParams
+import kotlinx.coroutines.CoroutineScope
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
 import kotlin.collections.toByteArray
 
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? =
@@ -38,6 +41,8 @@ actual fun signHdKeyTransaction(
     change: Int,
     key: Int
 ): ByteArray? {
+    Security.removeProvider("BC")
+    Security.insertProviderAt(BouncyCastleProvider(), 0)
     return SignHdKeyTransactionImpl().signTransaction(
         transactionByteArray,
         seed,
@@ -48,7 +53,10 @@ actual fun signHdKeyTransaction(
 }
 
 actual fun sdkSignTransaction(secretKey: ByteArray, signTx:ByteArray): ByteArray {
-    return Sdk.signTransaction(secretKey, signTx)
+    Security.removeProvider("BC")
+    Security.insertProviderAt(BouncyCastleProvider(), 0)
+    val signedTx = Sdk.signTransaction(secretKey, signTx)
+    return signedTx
 }
 
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray {

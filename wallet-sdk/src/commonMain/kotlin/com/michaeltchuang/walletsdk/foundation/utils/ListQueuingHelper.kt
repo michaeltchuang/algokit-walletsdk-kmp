@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.utils
+package com.michaeltchuang.walletsdk.foundation.utils
 
 import kotlin.properties.Delegates
 

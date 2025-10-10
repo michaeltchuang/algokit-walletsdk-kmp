@@ -8,14 +8,17 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
 import com.michaeltchuang.walletsdk.algosdk.signHdKeyTransaction
+import com.michaeltchuang.walletsdk.foundation.utils.clearFromMemory
+import com.michaeltchuang.walletsdk.foundation.utils.signTx
 import com.michaeltchuang.walletsdk.network.model.TransactionSigner
 import com.michaeltchuang.walletsdk.transaction.model.ExternalTransaction
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionQueuingHelper
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionSignResult
 import com.michaeltchuang.walletsdk.utils.LifecycleScopedCoroutineOwner
-import com.michaeltchuang.walletsdk.utils.ListQueuingHelper
-import com.michaeltchuang.walletsdk.utils.clearFromMemory
-import com.michaeltchuang.walletsdk.utils.signTx
+import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -91,8 +94,10 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
 
 
     private fun signTransactionWithSecretKey(transaction: ExternalTransaction, secretKey: ByteArray) {
-        val signedTransaction = transaction.transactionByteArray?.signTx(secretKey)
-        onTransactionSigned(transaction, signedTransaction)
+        CoroutineScope(Dispatchers.IO).launch {
+            val signedTransaction = transaction.transactionByteArray?.signTx(secretKey)
+            onTransactionSigned(transaction, signedTransaction)
+        }
     }
 
     private suspend fun signHdTransaction(transaction: ExternalTransaction, accountAddress: String) {
