@@ -4,8 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.RoundingMode
+import com.michaeltchuang.walletsdk.algosdk.sdkSignTransaction
+import com.michaeltchuang.walletsdk.network.model.TransactionParams
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import kotlin.io.encoding.Base64
 
 fun ByteArray.clearFromMemory(): ByteArray {
     // Overwrite the byte array contents with zeros
@@ -70,3 +73,7 @@ fun String.formatAmount(): String =
     } catch (e: Exception) {
         this
     }
+
+fun ByteArray.signTx(secretKey: ByteArray): ByteArray {
+    return sdkSignTransaction(secretKey, this)
+}

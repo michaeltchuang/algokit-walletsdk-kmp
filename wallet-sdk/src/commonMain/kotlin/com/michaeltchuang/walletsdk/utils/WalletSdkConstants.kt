@@ -11,5 +11,11 @@ object WalletSdkConstants {
     const val SUPPORT_URL = "https://perawallet.app/support/"
     const val PRIVACY_POLICY_URL = "https://perawallet.app/privacy-policy/"
     const val TERMS_AND_SERVICES_URL = "https://perawallet.app/terms-and-services/"
-    const val RECOVER_ACCOUNT_LEARN_MORE = "https://support.perawallet.app/en/article/recover-or-import-an-algorand-account-with-recovery-passphrase-11gdh1y/"
+    const val RECOVER_ACCOUNT_LEARN_MORE =
+        "https://support.perawallet.app/en/article/recover-or-import-an-algorand-account-with-recovery-passphrase-11gdh1y/"
+
+    const val NODE_MAINNET_URL = "https://mainnet-api.algonode.cloud"
+    const val NODE_TESTNET_URL = "https://testnet-api.algonode.cloud"
+    const val INDEXER_MAINNET_URL = "https://mainnet-idx.algonode.cloud"
+    const val INDEXER_TESTNET_URL = "https://testnet-idx.algonode.cloud"
 }

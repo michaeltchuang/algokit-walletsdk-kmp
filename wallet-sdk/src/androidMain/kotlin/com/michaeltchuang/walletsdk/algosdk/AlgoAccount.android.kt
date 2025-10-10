@@ -1,12 +1,20 @@
 package com.michaeltchuang.walletsdk.algosdk
 
+import com.algorand.algosdk.sdk.Sdk
+import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.AlgorandBip39WalletProvider
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoAccountSdkImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoKitBip39SdkImpl
+import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdkNumberExtensions.toUint64
+import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignHdKeyTransactionImpl
+import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
+import com.michaeltchuang.walletsdk.utils.toSuggestedParams
+import kotlin.collections.toByteArray
 
-actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
+actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? =
+    AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
 
 actual fun createAlgo25Account(): Algo25Account? = AlgoAccountSdkImpl().createAlgo25Account()
 
@@ -15,9 +23,55 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? =
 
 actual fun createBip39Wallet(): Bip39Wallet = AlgorandBip39WalletProvider().createBip39Wallet()
 
-actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet = AlgorandBip39WalletProvider().getBip39Wallet(entropy)
+actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet =
+    AlgorandBip39WalletProvider().getBip39Wallet(entropy)
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? {
     val seed = AlgoKitBip39SdkImpl().getSeedFromEntropy(entropy)
     return seed
+}
+
+actual fun signHdKeyTransaction(
+    transactionByteArray: ByteArray,
+    seed: ByteArray,
+    account: Int,
+    change: Int,
+    key: Int
+): ByteArray? {
+    return SignHdKeyTransactionImpl().signTransaction(
+        transactionByteArray,
+        seed,
+        account,
+        change,
+        key
+    )
+}
+
+actual fun sdkSignTransaction(secretKey: ByteArray, signTx:ByteArray): ByteArray {
+    return Sdk.signTransaction(secretKey, signTx)
+}
+
+actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray {
+    return with(payload) {
+        val suggestedParams = txnParams.toSuggestedParams()
+        if (flatFee != null) {
+            suggestedParams.fee = flatFee.toString().toLong()
+            suggestedParams.flatFee = true
+        }
+
+        val defaultVoteValue = java.math.BigInteger.ZERO.toUint64()
+
+        Sdk.makeKeyRegTxnWithStateProofKey(
+            senderAddress,
+            note?.toByteArray(),
+            suggestedParams,
+            null,
+            null,
+            null,
+            defaultVoteValue,
+            defaultVoteValue,
+            defaultVoteValue,
+            false
+        )
+    }
 }

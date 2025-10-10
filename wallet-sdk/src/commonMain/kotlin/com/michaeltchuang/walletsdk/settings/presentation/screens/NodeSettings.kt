@@ -35,10 +35,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class AlgorandNetwork(
     val displayName: String,
-    val baseUrl: String,
-) {
-    MAINNET("Algorand MainNet Node", "https://mainnet-idx.algonode.cloud"),
-    TESTNET("TestNet", "https://testnet-idx.algonode.cloud"),
+) { MAINNET("Algorand MainNet Node"),
+    TESTNET("TestNet"),
 }
 
 val networkNodeSettings = MutableStateFlow<AlgorandNetwork?>(null)

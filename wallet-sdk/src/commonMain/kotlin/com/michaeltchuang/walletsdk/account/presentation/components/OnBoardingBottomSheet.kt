@@ -37,6 +37,7 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.RecoverAnAccoun
 import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseScreen
 import com.michaeltchuang.walletsdk.account.presentation.screens.ViewPassphraseScreen
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
+import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
@@ -226,7 +227,7 @@ fun OnBoardingBottomSheetNavHost(
                 }
 
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
-                    navController.getData<DeepLink.KeyReg>()?.let {
+                    navController.getData<KeyRegTransactionDetail>()?.let {
                         TransactionSignatureRequestScreen(navController = navController, it)
                     }
                 }

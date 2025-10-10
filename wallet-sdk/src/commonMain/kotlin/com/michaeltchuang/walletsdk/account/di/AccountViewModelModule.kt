@@ -4,9 +4,10 @@ import com.michaeltchuang.walletsdk.account.presentation.viewmodels.AccountStatu
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.CreateAccountNameViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.OnboardingAccountTypeViewModel
-import com.michaeltchuang.walletsdk.account.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.RecoverPassphraseViewModel
 import com.michaeltchuang.walletsdk.account.presentation.viewmodels.ViewPassphraseViewModel
+import com.michaeltchuang.walletsdk.deeplink.presentation.viewmodels.QRScannerViewModel
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTransactionViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -55,5 +56,8 @@ internal val viewModelModule =
         }
         viewModel {
             AccountStatusViewModel(get(), get())
+        }
+        viewModel {
+            KeyRegTransactionViewModel(get(), get(), get(), get())
         }
     }

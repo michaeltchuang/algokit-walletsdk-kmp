@@ -29,6 +29,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.core.AddHdSeedUseCase
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAlgo25SecretKey
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdEntropy
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdWalletSummaries
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetMaxHdSeedId
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetSeedIdIfExistingEntropy
@@ -73,4 +74,5 @@ val localAccountsModule =
         single<AddHdSeed> { AddHdSeedUseCase(get(), get(), get()) }
         single { GetMaxHdSeedId(get<HdSeedRepository>()::getMaxSeedId) }
         single { GetHdEntropy(get<HdSeedRepository>()::getEntropy) }
+        single { GetHdSeed(get<HdSeedRepository>()::getSeed) }
     }

@@ -10,6 +10,7 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
+import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
 import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -78,7 +79,26 @@ actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet = getBit39Wallet()
 
 actual fun createBip39Wallet(): Bip39Wallet = getBit39Wallet()
 
-actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
+actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? =
+    AlgoKitBip39.getSeedFromEntropy(entropy)
+
+actual fun signHdKeyTransaction(
+    transactionByteArray: ByteArray,
+    seed: ByteArray,
+    account: Int,
+    change: Int,
+    key: Int
+): ByteArray? {
+    return ByteArray(0)
+}
+
+actual fun sdkSignTransaction(secretKey: ByteArray, signTx: ByteArray): ByteArray {
+    return ByteArray(0)
+}
+
+actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray{
+    return ByteArray(0)
+}
 
 private fun getBit39Wallet(): Bip39Wallet =
     object : Bip39Wallet {

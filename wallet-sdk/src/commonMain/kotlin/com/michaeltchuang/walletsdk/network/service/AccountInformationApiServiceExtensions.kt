@@ -77,3 +77,9 @@ suspend fun AccountInformationApiService.getAccountBalanceAmount(address: String
         is ApiResult.Success -> result.data.accountInformation?.amount
         else -> null
     }
+
+suspend fun AccountInformationApiService.getAccountRekeyAdminAddress(address: String): String? =
+    when (val result = getBasicAccountInformation(address)) {
+        is ApiResult.Success -> result.data.accountInformation?.authAddr
+        else -> null
+    }
