@@ -51,8 +51,6 @@ class AccountAdditionUseCase(
                     createAccount.orderIndex,
                 )
             }
-            // }
-            // }
         }
     }
 
@@ -76,8 +74,6 @@ class AccountAdditionUseCase(
                     createAccount.orderIndex,
                 )
             }
-            // }
-            // }
         }
     }
 

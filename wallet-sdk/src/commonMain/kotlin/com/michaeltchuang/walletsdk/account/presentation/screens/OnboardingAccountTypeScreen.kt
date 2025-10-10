@@ -186,7 +186,7 @@ private fun CreateWalletHdWidget(
         iconContentDescription = stringResource(Res.string.create_a_new_algorand_account_with),
         onClick = {
             scope.launch {
-                viewModel.createHdKeyAccount()
+                viewModel.createFalcon24Account()
             }
         },
     )
