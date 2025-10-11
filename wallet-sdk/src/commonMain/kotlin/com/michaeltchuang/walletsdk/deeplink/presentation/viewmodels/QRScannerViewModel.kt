@@ -1,9 +1,10 @@
-package com.michaeltchuang.walletsdk.account.presentation.viewmodels
+package com.michaeltchuang.walletsdk.deeplink.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.deeplink.DeeplinkHandler
 import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
+import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,11 +25,7 @@ class QRScannerViewModel(
                     }
 
                     is DeeplinkHandler.DeepLinkState.KeyReg -> {
-                        eventDelegate.sendEvent(
-                            ViewEvent.NavigateToTransactionSignatureRequestScreen(
-                                it.keyReg,
-                            ),
-                        )
+                        handleKeyRegDeepLink(it.keyReg)
                     }
 
                     is DeeplinkHandler.DeepLinkState.OnUnrecognizedDeepLink -> {
@@ -37,6 +34,28 @@ class QRScannerViewModel(
                 }
             }
         }
+    }
+
+    fun handleKeyRegDeepLink(deepLink: DeepLink.KeyReg) {
+        val txnDetail =
+            KeyRegTransactionDetail(
+                address = deepLink.senderAddress,
+                type = deepLink.type,
+                voteKey = deepLink.voteKey,
+                selectionPublicKey = deepLink.selkey,
+                sprfkey = deepLink.sprfkey,
+                voteFirstRound = deepLink.votefst,
+                voteLastRound = deepLink.votelst,
+                voteKeyDilution = deepLink.votekd,
+                fee = deepLink.fee,
+                note = deepLink.note,
+                xnote = deepLink.xnote,
+            )
+
+        eventDelegate.sendEvent(
+            scope = viewModelScope,
+            newEvent = ViewEvent.NavigateToTransactionSignatureRequestScreen(txnDetail),
+        )
     }
 
     fun handleDeeplink(uri: String) {
@@ -51,7 +70,7 @@ class QRScannerViewModel(
         ) : ViewEvent
 
         data class NavigateToTransactionSignatureRequestScreen(
-            val keyReg: DeepLink.KeyReg,
+            val txnDetail: KeyRegTransactionDetail,
         ) : ViewEvent
 
         object ShowUnrecognizedDeeplink : ViewEvent

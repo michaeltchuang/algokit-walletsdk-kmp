@@ -34,7 +34,7 @@ val networkModule =
                                 println("HTTP Client: $message")
                             }
                         }
-                    level = LogLevel.INFO
+                    level = LogLevel.ALL
                 }
             }
         }

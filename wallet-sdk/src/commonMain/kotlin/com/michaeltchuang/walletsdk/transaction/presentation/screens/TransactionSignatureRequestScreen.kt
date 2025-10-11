@@ -5,6 +5,7 @@ import algokit_walletsdk_kmp.wallet_sdk.generated.resources.add_note
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.confirm_transaction
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.done
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.enter_your_note
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.key_reg_transaction_title
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.note
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,22 +41,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
-import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
+import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTransactionViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TransactionSignatureRequestScreen(
     navController: NavController,
-    keyReg: DeepLink.KeyReg,
+    txnDetail: KeyRegTransactionDetail,
+    viewModel: KeyRegTransactionViewModel = koinViewModel(),
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(Unit) {
+        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
+    }
+    LaunchedEffect(Unit) {
+        viewModel.viewEvent.collect { event ->
+            when (event) {
+                is KeyRegTransactionViewModel.ViewEvent.SendSignedTransactionFailed -> {}
+                is KeyRegTransactionViewModel.ViewEvent.SendSignedTransactionSuccess -> {
+                    navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name)
+                }
+            }
+        }
+    }
+
     Box(
         modifier =
             Modifier
@@ -64,15 +85,15 @@ fun TransactionSignatureRequestScreen(
     ) {
         Column {
             AlgoKitTopBar(
-                title = "Transaction Signature Request",
+                title = stringResource(Res.string.key_reg_transaction_title),
                 onClick = { navController.popBackStack() },
             )
-            ContentScreen(keyReg)
+            ContentScreen(txnDetail)
         }
 
         AlgoKitPrimaryButton(
             onClick = {
-                navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name)
+                viewModel.confirmTransaction(txnDetail)
             },
             text = stringResource(Res.string.confirm_transaction),
             modifier =
@@ -84,7 +105,7 @@ fun TransactionSignatureRequestScreen(
 }
 
 @Composable
-fun ContentScreen(keyReg: DeepLink.KeyReg) {
+fun ContentScreen(txnDetail: KeyRegTransactionDetail) {
     Column(
         modifier =
             Modifier
@@ -97,26 +118,26 @@ fun ContentScreen(keyReg: DeepLink.KeyReg) {
         // Address Section
         LabeledText(
             label = "Address",
-            value = keyReg.senderAddress,
+            value = txnDetail.address,
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6") + (keyReg.fee ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail.fee ?: "0.001"))
 
         // Type
-        LabeledText(label = "Type", value = keyReg.type)
+        LabeledText(label = "Type", value = txnDetail.type)
 
         Divider()
 
-        LabeledText(label = "Vote Key", value = keyReg.voteKey ?: "")
-        LabeledText(label = "Selection Key", value = keyReg.selkey ?: "")
+        LabeledText(label = "Vote Key", value = txnDetail.voteKey ?: "")
+        LabeledText(label = "Selection Key", value = txnDetail.selectionPublicKey ?: "")
         LabeledText(label = "State Proof Key", value = "")
         LabeledText(label = "Valid First Round", value = "")
-        LabeledText(label = "Valid Last Round", value = keyReg.fee ?: "")
-        LabeledText(label = "Vote Key Dilution", value = keyReg.votelst ?: "")
+        LabeledText(label = "Valid Last Round", value = txnDetail.fee ?: "")
+        LabeledText(label = "Vote Key Dilution", value = txnDetail.voteKey ?: "")
         Spacer(modifier = Modifier.height(8.dp))
         Divider()
-        AddNote()
+        AddNote(txnDetail)
     }
 }
 
@@ -150,7 +171,7 @@ fun LabeledText(
 }
 
 @Composable
-fun AddNote() {
+fun AddNote(txnDetail: KeyRegTransactionDetail) {
     var isAddNoteEnabled by remember { mutableStateOf(false) }
     var noteText by remember { mutableStateOf("") }
     Column {
@@ -160,6 +181,7 @@ fun AddNote() {
             }, {
                 noteText = ""
             }, {
+                txnDetail.copy(note = noteText)
                 isAddNoteEnabled = false
             })
         } else {
@@ -260,21 +282,22 @@ fun AddNoteTextField(
 @Preview
 @Composable
 fun PreviewTransactionDetailsScreen() {
-    val keyReg =
-        DeepLink.KeyReg(
-            "ASDFGHJKLQWERTYUIOPZXCVBNM",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+    val txnDetail =
+        KeyRegTransactionDetail(
+            address = "ASDFGHJKLQWERTYUIOPZXCVBNM",
+            type = "keyreg",
+            voteKey = "",
+            selectionPublicKey = "",
+            sprfkey = "",
+            voteFirstRound = "",
+            voteLastRound = "",
+            voteKeyDilution = "",
+            fee = "",
+            note = "",
+            xnote = "",
         )
+
     AlgoKitTheme {
-        TransactionSignatureRequestScreen(rememberNavController(), keyReg)
+        TransactionSignatureRequestScreen(rememberNavController(), txnDetail)
     }
 }

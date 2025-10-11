@@ -5,6 +5,7 @@ import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.account.domain.model.local.HdWalletSummary
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.foundation.AlgoKitResult
+import com.michaeltchuang.walletsdk.network.model.TransactionSigner
 
 internal fun interface SaveAlgo25Account {
     suspend operator fun invoke(
@@ -84,4 +85,20 @@ fun interface GetFalcon24SecretKey {
 
 fun interface GetFalcon24WalletSummaries {
     suspend operator fun invoke(): List<HdWalletSummary>?
+}
+
+fun interface IsAccountRekeyedToAnotherAccount {
+    suspend operator fun invoke(address: String): Boolean
+}
+
+fun interface GetAccountRekeyAdminAddress {
+    suspend operator fun invoke(address: String): String?
+}
+
+fun interface GetTransactionSigner {
+    suspend operator fun invoke(address: String): TransactionSigner
+}
+
+fun interface GetHdSeed {
+    suspend operator fun invoke(seedId: Int): ByteArray?
 }

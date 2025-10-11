@@ -70,3 +70,5 @@ fun String.formatAmount(): String =
     } catch (e: Exception) {
         this
     }
+
+expect fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray
