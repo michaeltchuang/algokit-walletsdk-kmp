@@ -3,6 +3,7 @@
 package com.michaeltchuang.walletsdk.foundation.utils
 
 import android.util.Base64
+import com.algorand.algosdk.sdk.Sdk
 import com.algorand.algosdk.sdk.SuggestedParams
 import com.algorand.algosdk.sdk.Uint64
 import com.michaeltchuang.walletsdk.network.model.TransactionParams
@@ -31,7 +32,4 @@ fun BigInteger.toUint64(): Uint64 =
         lower = and(UInt.MAX_VALUE.toLong().toBigInteger()).toLong()
     }
 
-actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray {
-    // return Sdk.signTransaction(secretKey, this)
-    return ByteArray(0)
-}
+actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray = Sdk.signTransaction(secretKey, this)

@@ -22,6 +22,7 @@ val keyRegTransactionModule =
                 externalTransactionQueuingHelper = get(),
                 getTransactionSigner = get(),
                 getAlgo25SecretKey = get(),
+                getFalcon24SecretKey = get(),
                 getHdSeed = get(),
                 getLocalAccount = get(),
             )

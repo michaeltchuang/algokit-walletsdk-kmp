@@ -7,6 +7,7 @@ import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoAccountSdkImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoKitBip39SdkImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdkNumberExtensions.toUint64
+import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignFalcon24TransactionImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignHdKeyTransactionImpl
 import com.michaeltchuang.walletsdk.foundation.utils.toSuggestedParams
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
@@ -44,6 +45,20 @@ actual fun signHdKeyTransaction(
         account,
         change,
         key,
+    )
+}
+
+actual fun signFalcon24Transaction(
+    transactionByteArray: ByteArray,
+    publicKey: ByteArray,
+    privateKey: ByteArray,
+): ByteArray? {
+    Security.removeProvider("BC")
+    Security.insertProviderAt(BouncyCastleProvider(), 0)
+    return SignFalcon24TransactionImpl().signTransaction(
+        transactionByteArray,
+        publicKey,
+        privateKey,
     )
 }
 

@@ -115,8 +115,8 @@ creation or update.
 - (nonnull instancetype)initWithRef:(_Nonnull id)ref;
 - (nonnull instancetype)init;
 @property (nonatomic) NSString* _Nonnull algorandAddress;
-@property (nonatomic) NSString* _Nonnull publicKey;
-@property (nonatomic) NSString* _Nonnull privateKey;
+@property (nonatomic) NSData* _Nullable publicKey;
+@property (nonatomic) NSData* _Nullable privateKey;
 - (NSString* _Nonnull)toJSON:(NSError* _Nullable* _Nullable)error;
 @end
 
@@ -897,6 +897,8 @@ FOUNDATION_EXPORT NSData* _Nullable AlgoSdkSignBid(NSData* _Nullable sk, NSData*
  * SignBytes signs the bytes and returns the signature
  */
 FOUNDATION_EXPORT NSData* _Nullable AlgoSdkSignBytes(NSData* _Nullable sk, NSData* _Nullable bytesToSign, NSError* _Nullable* _Nullable error);
+
+FOUNDATION_EXPORT NSData* _Nullable AlgoSdkSignFalconTransaction(NSData* _Nullable unsignedTxBytes, NSData* _Nullable publicKeyBytes, NSData* _Nullable privateKeyBytes, NSError* _Nullable* _Nullable error);
 
 /**
  * SignLogicSigTransaction signs a transaction with a LogicSigAccount.
