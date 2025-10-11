@@ -112,6 +112,12 @@ actual fun signHdKeyTransaction(
     key: Int,
 ): ByteArray? = ByteArray(0)
 
+actual fun signFalcon24Transaction(
+    transactionByteArray: ByteArray,
+    publicKey: ByteArray,
+    privateKey: ByteArray,
+): ByteArray? = ByteArray(0)
+
 actual fun sdkSignTransaction(
     secretKey: ByteArray,
     signTx: ByteArray,

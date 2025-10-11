@@ -4,9 +4,11 @@ package com.michaeltchuang.walletsdk.transaction.external
 import androidx.lifecycle.Lifecycle
 import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAlgo25SecretKey
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetFalcon24SecretKey
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
+import com.michaeltchuang.walletsdk.algosdk.signFalcon24Transaction
 import com.michaeltchuang.walletsdk.algosdk.signHdKeyTransaction
 import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
 import com.michaeltchuang.walletsdk.foundation.utils.clearFromMemory
@@ -25,6 +27,7 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
     private val externalTransactionQueuingHelper: ExternalTransactionQueuingHelper,
     private val getTransactionSigner: GetTransactionSigner,
     private val getAlgo25SecretKey: GetAlgo25SecretKey,
+    private val getFalcon24SecretKey: GetFalcon24SecretKey,
     private val getHdSeed: GetHdSeed,
     private val getLocalAccount: GetLocalAccount,
 ) : LifecycleScopedCoroutineOwner() {
@@ -83,6 +86,9 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
                 is TransactionSigner.HdKey -> {
                     signHdTransaction(this@signTransaction, transactionSigner.address)
                 }
+                is TransactionSigner.Falcon24 -> {
+                    signFalconTransaction(this@signTransaction, transactionSigner.address)
+                }
                 is TransactionSigner.LedgerBle -> {
                     //       sendTransactionWithLedger(transactionSigner, currentTransactionIndex, totalTransactionCount)
                 }
@@ -116,6 +122,25 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
             ) ?: return handleSignError(transaction)
 
         seed.clearFromMemory()
+        onTransactionSigned(transaction, transactionSignedByteArray)
+    }
+
+    private suspend fun signFalconTransaction(
+        transaction: ExternalTransaction,
+        accountAddress: String,
+    ) {
+        val transactionBytes = transaction.transactionByteArray ?: return handleSignError(transaction)
+        val falcon24Account = getLocalAccount(accountAddress) as? LocalAccount.Falcon24 ?: return
+        val falcon24SecretKey = getFalcon24SecretKey(accountAddress) ?: return handleSignError(transaction)
+
+        val transactionSignedByteArray =
+            signFalcon24Transaction(
+                transactionBytes,
+                falcon24Account.publicKey.copyOf(),
+                falcon24SecretKey.copyOf(),
+            ) ?: return handleSignError(transaction)
+
+        falcon24SecretKey.clearFromMemory()
         onTransactionSigned(transaction, transactionSignedByteArray)
     }
 

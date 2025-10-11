@@ -24,6 +24,12 @@ expect fun signHdKeyTransaction(
     key: Int,
 ): ByteArray?
 
+expect fun signFalcon24Transaction(
+    transactionByteArray: ByteArray,
+    publicKey: ByteArray,
+    privateKey: ByteArray,
+): ByteArray?
+
 expect fun sdkSignTransaction(
     secretKey: ByteArray,
     signTx: ByteArray,
