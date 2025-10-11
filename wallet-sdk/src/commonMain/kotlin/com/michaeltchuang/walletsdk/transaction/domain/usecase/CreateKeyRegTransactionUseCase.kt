@@ -12,7 +12,6 @@ import com.michaeltchuang.walletsdk.utils.Result
 import com.michaeltchuang.walletsdk.utils.Result.Error
 import com.michaeltchuang.walletsdk.utils.Result.Success
 
-
 interface CreateKeyRegTransaction {
     suspend operator fun invoke(txnDetail: KeyRegTransactionDetail): Result<KeyRegTransaction>
 }
@@ -22,9 +21,8 @@ internal class CreateKeyRegTransactionUseCase(
     private val buildKeyRegOfflineTransaction: BuildKeyRegOfflineTransaction,
     private val accountApiService: AccountInformationApiService,
 ) : CreateKeyRegTransaction {
-
-    override suspend fun invoke(txnDetail: KeyRegTransactionDetail): Result<KeyRegTransaction> {
-        return when (val params = getTransactionParams()) {
+    override suspend fun invoke(txnDetail: KeyRegTransactionDetail): Result<KeyRegTransaction> =
+        when (val params = getTransactionParams()) {
             is Success -> {
                 val txnByteArray = createTransactionByteArray(txnDetail, params.data)
                 if (txnByteArray == null) {
@@ -38,11 +36,10 @@ internal class CreateKeyRegTransactionUseCase(
                 Error(params.exception, params.code)
             }
         }
-    }
 
     private fun createTransactionByteArray(
         txnDetail: KeyRegTransactionDetail,
-        params: TransactionParams
+        params: TransactionParams,
     ): ByteArray? {
         /*   return if (txnDetail.isOnlineKeyRegTxn()) {
                buildKeyRegOnlineTransaction(
@@ -63,28 +60,27 @@ internal class CreateKeyRegTransactionUseCase(
                 txnDetail.address,
                 txnDetail.fee?.toBigInteger(),
                 txnDetail.note,
-                params
-            )
+                params,
+            ),
         )
     }
 
     private suspend fun createKeyRegTransactionResult(
         txnDetail: KeyRegTransactionDetail,
-        txnByteArray: ByteArray
-    ): KeyRegTransaction {
-        return KeyRegTransaction(
+        txnByteArray: ByteArray,
+    ): KeyRegTransaction =
+        KeyRegTransaction(
             transactionByteArray = txnByteArray,
             accountAddress = txnDetail.address,
             accountAuthAddress = accountApiService.getAccountRekeyAdminAddress(txnDetail.address),
-            isRekeyedToAnotherAccount = false
+            isRekeyedToAnotherAccount = false,
         )
-    }
 
     private fun KeyRegTransactionDetail.toOnlineTxnPayload(
         txnDetail: KeyRegTransactionDetail,
-        params: TransactionParams
-    ): OnlineKeyRegTransactionPayload {
-        return OnlineKeyRegTransactionPayload(
+        params: TransactionParams,
+    ): OnlineKeyRegTransactionPayload =
+        OnlineKeyRegTransactionPayload(
             senderAddress = address,
             selectionPublicKey = selectionPublicKey.orEmpty(),
             stateProofKey = sprfkey.orEmpty(),
@@ -94,12 +90,13 @@ internal class CreateKeyRegTransactionUseCase(
             voteKeyDilution = voteKeyDilution.orEmpty(),
             txnParams = params,
             note = xnote ?: note,
-            flatFee = txnDetail.fee?.toBigInteger()
+            flatFee = txnDetail.fee?.toBigInteger(),
         )
-    }
 
-    private fun KeyRegTransactionDetail.isOnlineKeyRegTxn(): Boolean {
-        return !voteKey.isNullOrBlank() && !selectionPublicKey.isNullOrBlank() && !voteFirstRound.isNullOrBlank() &&
-                !voteLastRound.isNullOrBlank() && !voteKeyDilution.isNullOrBlank()
-    }
+    private fun KeyRegTransactionDetail.isOnlineKeyRegTxn(): Boolean =
+        !voteKey.isNullOrBlank() &&
+            !selectionPublicKey.isNullOrBlank() &&
+            !voteFirstRound.isNullOrBlank() &&
+            !voteLastRound.isNullOrBlank() &&
+            !voteKeyDilution.isNullOrBlank()
 }

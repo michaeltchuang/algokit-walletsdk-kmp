@@ -102,26 +102,22 @@ actual fun createBip39Wallet(): Bip39Wallet =
         AlgoKitBip39.generate24WordMnemonic(),
     )
 
-actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? =
-    AlgoKitBip39.getSeedFromEntropy(entropy)
+actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
 actual fun signHdKeyTransaction(
     transactionByteArray: ByteArray,
     seed: ByteArray,
     account: Int,
     change: Int,
-    key: Int
-): ByteArray? {
-    return ByteArray(0)
-}
+    key: Int,
+): ByteArray? = ByteArray(0)
 
-actual fun sdkSignTransaction(secretKey: ByteArray, signTx: ByteArray): ByteArray {
-    return ByteArray(0)
-}
+actual fun sdkSignTransaction(
+    secretKey: ByteArray,
+    signTx: ByteArray,
+): ByteArray = ByteArray(0)
 
-actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray{
-    return ByteArray(0)
-}
+actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray = ByteArray(0)
 
 @OptIn(ExperimentalForeignApi::class)
 private fun getBit39Wallet(mnemonic: String): Bip39Wallet =

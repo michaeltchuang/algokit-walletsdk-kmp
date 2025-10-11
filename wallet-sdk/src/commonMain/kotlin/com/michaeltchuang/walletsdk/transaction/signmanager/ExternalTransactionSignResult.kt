@@ -1,29 +1,25 @@
 package com.michaeltchuang.walletsdk.transaction.signmanager
 
-
-
 sealed class ExternalTransactionSignResult {
-
     data class Success<T>(
         val signedTransaction: List<T>,
-        val signedTransactionsByteArray: List<ByteArray?>? = null
+        val signedTransactionsByteArray: List<ByteArray?>? = null,
     ) : ExternalTransactionSignResult()
 
-    sealed class Error() : ExternalTransactionSignResult() {
-        fun getMessage(): String {
-            return when (this) {
+    sealed class Error : ExternalTransactionSignResult() {
+        fun getMessage(): String =
+            when (this) {
                 is Defined -> "Error"
                 is Api -> "Api Error"
             }
-        }
 
         class Defined : Error()
 
-        class Api: Error()
+        class Api : Error()
     }
 
     data class TransactionCancelled(
-        val error: Error = Error.Defined()
+        val error: Error = Error.Defined(),
     ) : ExternalTransactionSignResult()
 
     object Loading : ExternalTransactionSignResult()
@@ -32,9 +28,10 @@ sealed class ExternalTransactionSignResult {
         val ledgerName: String?,
         val currentTransactionIndex: Int?,
         val totalTransactionCount: Int?,
-        val isTransactionIndicatorVisible: Boolean
+        val isTransactionIndicatorVisible: Boolean,
     ) : ExternalTransactionSignResult()
 
     object LedgerScanFailed : ExternalTransactionSignResult()
+
     object NotInitialized : ExternalTransactionSignResult()
 }

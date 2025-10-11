@@ -6,14 +6,9 @@ import com.michaeltchuang.walletsdk.network.model.TransactionParams
 import com.michaeltchuang.walletsdk.utils.Result
 
 interface TransactionApiService {
-    suspend fun getTransactionParams(
-    ): Result<TransactionParams>
+    suspend fun getTransactionParams(): Result<TransactionParams>
 
-    suspend fun postTrackTransaction(
-        trackTransactionRequest: TrackTransactionRequest
-    ): Result<Unit>
+    suspend fun postTrackTransaction(trackTransactionRequest: TrackTransactionRequest): Result<Unit>
 
-    suspend fun sendSignedTransaction(
-        rawTransactionData: ByteArray
-    ): Result<SendTransactionResponse>
+    suspend fun sendSignedTransaction(rawTransactionData: ByteArray): Result<SendTransactionResponse>
 }

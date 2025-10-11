@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
 abstract class LifecycleScopedCoroutineOwner {
-
     lateinit var currentScope: CoroutineScope
     private var lifecycle: Lifecycle? = null
 
@@ -23,14 +22,19 @@ abstract class LifecycleScopedCoroutineOwner {
     abstract fun stopAllResources()
 
     private fun addDestroyObserver() {
-        lifecycle?.addObserver(object : LifecycleEventObserver {
-            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                if (event == Lifecycle.Event.ON_DESTROY) {
-                    stopAllResources()
-                    lifecycle?.removeObserver(this)
-                    lifecycle = null
+        lifecycle?.addObserver(
+            object : LifecycleEventObserver {
+                override fun onStateChanged(
+                    source: LifecycleOwner,
+                    event: Lifecycle.Event,
+                ) {
+                    if (event == Lifecycle.Event.ON_DESTROY) {
+                        stopAllResources()
+                        lifecycle?.removeObserver(this)
+                        lifecycle = null
+                    }
                 }
-            }
-        })
+            },
+        )
     }
 }

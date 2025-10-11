@@ -8,7 +8,6 @@ import com.michaeltchuang.walletsdk.network.model.TransactionSigner
 internal class GetTransactionSignerUseCase(
     private val getAccountDetail: GetLocalAccount,
 ) : GetTransactionSigner {
-
     override suspend fun invoke(address: String): TransactionSigner {
         val accountDetail = getAccountDetail(address)
         return when (accountDetail) {
@@ -28,12 +27,7 @@ internal class GetTransactionSignerUseCase(
         }
     }
 
-    private fun getAlgo25Signer(address: String): TransactionSigner {
-        return TransactionSigner.Algo25(address)
-    }
+    private fun getAlgo25Signer(address: String): TransactionSigner = TransactionSigner.Algo25(address)
 
-    private fun getHdKeySigner(address: String): TransactionSigner {
-        return TransactionSigner.HdKey(address)
-    }
-
+    private fun getHdKeySigner(address: String): TransactionSigner = TransactionSigner.HdKey(address)
 }

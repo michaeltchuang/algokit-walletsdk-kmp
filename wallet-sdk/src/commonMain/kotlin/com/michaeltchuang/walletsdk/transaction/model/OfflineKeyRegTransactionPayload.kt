@@ -7,5 +7,5 @@ data class OfflineKeyRegTransactionPayload(
     val senderAddress: String,
     val flatFee: BigInteger?,
     val note: String?,
-    val txnParams: TransactionParams
+    val txnParams: TransactionParams,
 )

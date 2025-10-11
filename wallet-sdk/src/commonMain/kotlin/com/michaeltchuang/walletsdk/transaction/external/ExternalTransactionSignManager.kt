@@ -8,17 +8,14 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
 import com.michaeltchuang.walletsdk.algosdk.signHdKeyTransaction
+import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
 import com.michaeltchuang.walletsdk.foundation.utils.clearFromMemory
-import com.michaeltchuang.walletsdk.foundation.utils.signTx
+import com.michaeltchuang.walletsdk.foundation.utils.signTransaction
 import com.michaeltchuang.walletsdk.network.model.TransactionSigner
 import com.michaeltchuang.walletsdk.transaction.model.ExternalTransaction
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionQueuingHelper
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionSignResult
 import com.michaeltchuang.walletsdk.utils.LifecycleScopedCoroutineOwner
-import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,33 +28,34 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
     private val getHdSeed: GetHdSeed,
     private val getLocalAccount: GetLocalAccount,
 ) : LifecycleScopedCoroutineOwner() {
-
-    private val _signResultFlow = MutableStateFlow<ExternalTransactionSignResult>(
-        ExternalTransactionSignResult.NotInitialized
-    )
+    private val _signResultFlow =
+        MutableStateFlow<ExternalTransactionSignResult>(
+            ExternalTransactionSignResult.NotInitialized,
+        )
     protected val signResultFlow: StateFlow<ExternalTransactionSignResult>
         get() = _signResultFlow
 
     protected var transaction: List<TRANSACTION>? = null
 
-    private val signHelperListener = object : ListQueuingHelper.Listener<ExternalTransaction, ByteArray> {
-        override fun onAllItemsDequeued(signedTransactions: List<ByteArray?>) {
-            transaction?.run {
-                _signResultFlow.value = ExternalTransactionSignResult.Success(this, signedTransactions)
+    private val signHelperListener =
+        object : ListQueuingHelper.Listener<ExternalTransaction, ByteArray> {
+            override fun onAllItemsDequeued(signedTransactions: List<ByteArray?>) {
+                transaction?.run {
+                    _signResultFlow.value = ExternalTransactionSignResult.Success(this, signedTransactions)
+                }
+            }
+
+            override fun onNextItemToBeDequeued(
+                transaction: ExternalTransaction,
+                currentItemIndex: Int,
+                totalItemCount: Int,
+            ) {
+                transaction.signTransaction(
+                    currentTransactionIndex = currentItemIndex,
+                    totalTransactionCount = totalItemCount,
+                )
             }
         }
-
-        override fun onNextItemToBeDequeued(
-            transaction: ExternalTransaction,
-            currentItemIndex: Int,
-            totalItemCount: Int
-        ) {
-            transaction.signTransaction(
-                currentTransactionIndex = currentItemIndex,
-                totalTransactionCount = totalItemCount
-            )
-        }
-    }
 
     fun setup(lifecycle: Lifecycle) {
         assignToLifecycle(lifecycle)
@@ -72,7 +70,7 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
 
     private fun ExternalTransaction.signTransaction(
         currentTransactionIndex: Int?,
-        totalTransactionCount: Int?
+        totalTransactionCount: Int?,
     ) {
         currentScope.launch {
             when (val transactionSigner = getTransactionSigner(accountAddress)) {
@@ -86,28 +84,36 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
                     signHdTransaction(this@signTransaction, transactionSigner.address)
                 }
                 is TransactionSigner.LedgerBle -> {
-             //       sendTransactionWithLedger(transactionSigner, currentTransactionIndex, totalTransactionCount)
+                    //       sendTransactionWithLedger(transactionSigner, currentTransactionIndex, totalTransactionCount)
                 }
             }
         }
     }
 
-
-    private fun signTransactionWithSecretKey(transaction: ExternalTransaction, secretKey: ByteArray) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val signedTransaction = transaction.transactionByteArray?.signTx(secretKey)
-            onTransactionSigned(transaction, signedTransaction)
-        }
+    private fun signTransactionWithSecretKey(
+        transaction: ExternalTransaction,
+        secretKey: ByteArray,
+    ) {
+        val signedTransaction = transaction.transactionByteArray?.signTransaction(secretKey)
+        onTransactionSigned(transaction, signedTransaction)
     }
 
-    private suspend fun signHdTransaction(transaction: ExternalTransaction, accountAddress: String) {
+    private suspend fun signHdTransaction(
+        transaction: ExternalTransaction,
+        accountAddress: String,
+    ) {
         val transactionBytes = transaction.transactionByteArray ?: return handleSignError(transaction)
         val hdKey = getLocalAccount(accountAddress) as? LocalAccount.HdKey ?: return handleSignError(transaction)
         val seed = getHdSeed(seedId = hdKey.seedId) ?: return handleSignError(transaction)
 
-        val transactionSignedByteArray = signHdKeyTransaction(
-            transactionBytes, seed.copyOf(), hdKey.account, hdKey.change, hdKey.keyIndex
-        ) ?: return handleSignError(transaction)
+        val transactionSignedByteArray =
+            signHdKeyTransaction(
+                transactionBytes,
+                seed.copyOf(),
+                hdKey.account,
+                hdKey.change,
+                hdKey.keyIndex,
+            ) ?: return handleSignError(transaction)
 
         seed.clearFromMemory()
         onTransactionSigned(transaction, transactionSignedByteArray)
@@ -117,7 +123,10 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
         onTransactionSigned(transaction, null)
     }
 
-    protected open fun onTransactionSigned(transaction: ExternalTransaction, signedTransaction: ByteArray?) {
+    protected open fun onTransactionSigned(
+        transaction: ExternalTransaction,
+        signedTransaction: ByteArray?,
+    ) {
         externalTransactionQueuingHelper.cacheDequeuedItem(signedTransaction)
     }
 

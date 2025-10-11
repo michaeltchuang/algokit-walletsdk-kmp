@@ -4,5 +4,5 @@ data class KeyRegTransaction(
     override val transactionByteArray: ByteArray?,
     override val accountAddress: String,
     override val accountAuthAddress: String?,
-    override val isRekeyedToAnotherAccount: Boolean
+    override val isRekeyedToAnotherAccount: Boolean,
 ) : ExternalTransaction

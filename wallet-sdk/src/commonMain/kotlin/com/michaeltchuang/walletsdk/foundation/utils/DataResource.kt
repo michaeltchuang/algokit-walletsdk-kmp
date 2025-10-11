@@ -17,17 +17,23 @@ package com.michaeltchuang.walletsdk.utils
  * @param <T>
 </T> */
 sealed class DataResource<T> {
-
-    data class Success<T>(val data: T) : DataResource<T>()
+    data class Success<T>(
+        val data: T,
+    ) : DataResource<T>()
 
     sealed class Error<T>(
         open val exception: Throwable? = null,
         open val code: Int? = null,
-        open val data: T? = null
+        open val data: T? = null,
     ) : DataResource<T>() {
+        data class Api<T>(
+            override val exception: Throwable,
+            override val code: Int?,
+        ) : Error<T>(exception, code)
 
-        data class Api<T>(override val exception: Throwable, override val code: Int?) : Error<T>(exception, code)
-        data class Local<T>(override val exception: Throwable) : Error<T>(exception)
+        data class Local<T>(
+            override val exception: Throwable,
+        ) : Error<T>(exception)
     }
 
     class Loading<T> : DataResource<T>()

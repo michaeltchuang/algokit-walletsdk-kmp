@@ -35,7 +35,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class AlgorandNetwork(
     val displayName: String,
-) { MAINNET("Algorand MainNet Node"),
+) {
+    MAINNET("Algorand MainNet Node"),
     TESTNET("TestNet"),
 }
 

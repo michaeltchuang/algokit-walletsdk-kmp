@@ -21,9 +21,9 @@ class KeyRegTransactionViewModel(
     private val sendSignedTransactionUseCase: SendSignedTransactionUseCase,
     private val createKeyRegTransaction: CreateKeyRegTransaction,
     private val keyRegTransactionSignManager: KeyRegTransactionSignManager,
-    private val eventDelegate: EventDelegate<ViewEvent>
-) : ViewModel(), EventViewModel<KeyRegTransactionViewModel.ViewEvent> by eventDelegate {
-
+    private val eventDelegate: EventDelegate<ViewEvent>,
+) : ViewModel(),
+    EventViewModel<KeyRegTransactionViewModel.ViewEvent> by eventDelegate {
     init {
         viewModelScope.launch {
             keyRegTransactionSignManager.keyRegTransactionSignResultFlow.collect {
@@ -52,8 +52,8 @@ class KeyRegTransactionViewModel(
                     signKeyRegTransaction(transaction)
                 },
                 onFailed = { exception, _ ->
-                    println("confirmTransaction Failed: ${exception.message.toString()}")
-                }
+                    println("confirmTransaction Failed: ${exception.message}")
+                },
             )
         }
     }
@@ -67,21 +67,22 @@ class KeyRegTransactionViewModel(
             val signedTxnByteArray = signedTransactions.first() as? ByteArray ?: return@launch
             val signedTransactionDetail =
                 SignedTransactionDetail.ExternalTransaction(signedTxnByteArray)
-            sendSignedTransactionUseCase.sendSignedTransaction(signedTransactionDetail)
+            sendSignedTransactionUseCase
+                .sendSignedTransaction(signedTransactionDetail)
                 .collectLatest {
                     it.useSuspended(
                         onSuccess = {
                             eventDelegate.sendEvent(ViewEvent.SendSignedTransactionSuccess)
-                            println("sendSignedTransaction onSuccess: ${it}")
+                            println("sendSignedTransaction onSuccess: $it")
                         },
                         onFailed = {
                             eventDelegate.sendEvent(
                                 ViewEvent.SendSignedTransactionFailed(
-                                    it.exception?.message ?: ""
-                                )
+                                    it.exception?.message ?: "",
+                                ),
                             )
                             println("sendSignedTransaction Failed: ${it.exception?.message}")
-                        }
+                        },
                     )
                 }
         }
@@ -89,8 +90,9 @@ class KeyRegTransactionViewModel(
 
     sealed interface ViewEvent {
         object SendSignedTransactionSuccess : ViewEvent
-        data class SendSignedTransactionFailed(val error: String) : ViewEvent
+
+        data class SendSignedTransactionFailed(
+            val error: String,
+        ) : ViewEvent
     }
-
 }
-

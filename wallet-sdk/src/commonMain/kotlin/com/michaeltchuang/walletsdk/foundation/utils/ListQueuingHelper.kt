@@ -3,7 +3,6 @@ package com.michaeltchuang.walletsdk.foundation.utils
 import kotlin.properties.Delegates
 
 open class ListQueuingHelper<E, D> {
-
     val currentItem: E?
         get() = _currentItem
 
@@ -21,7 +20,7 @@ open class ListQueuingHelper<E, D> {
                 item = newValue,
                 // list index starts from zero, so we need to add 1 manually
                 currentItemIndex = currentItemIndex,
-                totalItemCount = totalItemCount
+                totalItemCount = totalItemCount,
             )
         }
     }
@@ -69,6 +68,11 @@ open class ListQueuingHelper<E, D> {
 
     interface Listener<E, D> {
         fun onAllItemsDequeued(dequeuedItemList: List<D?>)
-        fun onNextItemToBeDequeued(item: E, currentItemIndex: Int, totalItemCount: Int)
+
+        fun onNextItemToBeDequeued(
+            item: E,
+            currentItemIndex: Int,
+            totalItemCount: Int,
+        )
     }
 }

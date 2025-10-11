@@ -37,20 +37,20 @@ class QRScannerViewModel(
     }
 
     fun handleKeyRegDeepLink(deepLink: DeepLink.KeyReg) {
-
-        val txnDetail = KeyRegTransactionDetail(
-            address = deepLink.senderAddress,
-            type = deepLink.type,
-            voteKey = deepLink.voteKey,
-            selectionPublicKey = deepLink.selkey,
-            sprfkey = deepLink.sprfkey,
-            voteFirstRound = deepLink.votefst,
-            voteLastRound = deepLink.votelst,
-            voteKeyDilution = deepLink.votekd,
-            fee = deepLink.fee,
-            note = deepLink.note,
-            xnote = deepLink.xnote
-        )
+        val txnDetail =
+            KeyRegTransactionDetail(
+                address = deepLink.senderAddress,
+                type = deepLink.type,
+                voteKey = deepLink.voteKey,
+                selectionPublicKey = deepLink.selkey,
+                sprfkey = deepLink.sprfkey,
+                voteFirstRound = deepLink.votefst,
+                voteLastRound = deepLink.votelst,
+                voteKeyDilution = deepLink.votekd,
+                fee = deepLink.fee,
+                note = deepLink.note,
+                xnote = deepLink.xnote,
+            )
 
         eventDelegate.sendEvent(
             scope = viewModelScope,

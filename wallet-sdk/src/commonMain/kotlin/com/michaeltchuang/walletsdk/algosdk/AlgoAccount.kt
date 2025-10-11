@@ -21,9 +21,12 @@ expect fun signHdKeyTransaction(
     seed: ByteArray,
     account: Int,
     change: Int,
-    key: Int
+    key: Int,
 ): ByteArray?
 
-expect fun sdkSignTransaction(secretKey: ByteArray, signTx:ByteArray): ByteArray
+expect fun sdkSignTransaction(
+    secretKey: ByteArray,
+    signTx: ByteArray,
+): ByteArray
 
 expect fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray

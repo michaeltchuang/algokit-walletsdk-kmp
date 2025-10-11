@@ -282,19 +282,20 @@ fun AddNoteTextField(
 @Preview
 @Composable
 fun PreviewTransactionDetailsScreen() {
-    val txnDetail = KeyRegTransactionDetail(
-        address = "ASDFGHJKLQWERTYUIOPZXCVBNM",
-        type = "keyreg",
-        voteKey = "",
-        selectionPublicKey = "",
-        sprfkey = "",
-        voteFirstRound = "",
-        voteLastRound = "",
-        voteKeyDilution = "",
-        fee = "",
-        note = "",
-        xnote = ""
-    )
+    val txnDetail =
+        KeyRegTransactionDetail(
+            address = "ASDFGHJKLQWERTYUIOPZXCVBNM",
+            type = "keyreg",
+            voteKey = "",
+            selectionPublicKey = "",
+            sprfkey = "",
+            voteFirstRound = "",
+            voteLastRound = "",
+            voteKeyDilution = "",
+            fee = "",
+            note = "",
+            xnote = "",
+        )
 
     AlgoKitTheme {
         TransactionSignatureRequestScreen(rememberNavController(), txnDetail)

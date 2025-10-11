@@ -2,7 +2,6 @@ package com.michaeltchuang.walletsdk.deeplink.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class KeyRegTransactionDetail(
     val address: String,
@@ -15,5 +14,5 @@ data class KeyRegTransactionDetail(
     val voteKeyDilution: String?,
     val fee: String?,
     val note: String?,
-    val xnote: String?
+    val xnote: String?,
 )

@@ -13,32 +13,33 @@ import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionQ
 import com.michaeltchuang.walletsdk.transaction.signmanager.KeyRegTransactionSignManager
 import org.koin.dsl.module
 
-val keyRegTransactionModule = module {
+val keyRegTransactionModule =
+    module {
 
-    single { TransactionsApiServiceImpl(get()) }
-    single {
-        KeyRegTransactionSignManager(
-            externalTransactionQueuingHelper = get(),
-            getTransactionSigner = get(),
-            getAlgo25SecretKey = get(),
-            getHdSeed = get(),
-            getLocalAccount = get()
-        )
-    }
-    single { ExternalTransactionQueuingHelper() }
-    single { GetTransactionSignerUseCase(get()) }
-    single<GetTransactionSigner> { get<GetTransactionSignerUseCase>() }
-    single { SendSignedTransactionUseCase(get()) }
-    factory {
-        GetTransactionParams(get<TransactionsApiServiceImpl>()::getTransactionParams)
-    }
-    single<BuildKeyRegOfflineTransaction> { BuildKeyRegOfflineTransactionImpl() }
+        single { TransactionsApiServiceImpl(get()) }
+        single {
+            KeyRegTransactionSignManager(
+                externalTransactionQueuingHelper = get(),
+                getTransactionSigner = get(),
+                getAlgo25SecretKey = get(),
+                getHdSeed = get(),
+                getLocalAccount = get(),
+            )
+        }
+        single { ExternalTransactionQueuingHelper() }
+        single { GetTransactionSignerUseCase(get()) }
+        single<GetTransactionSigner> { get<GetTransactionSignerUseCase>() }
+        single { SendSignedTransactionUseCase(get()) }
+        factory {
+            GetTransactionParams(get<TransactionsApiServiceImpl>()::getTransactionParams)
+        }
+        single<BuildKeyRegOfflineTransaction> { BuildKeyRegOfflineTransactionImpl() }
 
-    single<CreateKeyRegTransaction> {
-        CreateKeyRegTransactionUseCase(
-            get(),
-            get(),
-            get(),
-        )
+        single<CreateKeyRegTransaction> {
+            CreateKeyRegTransactionUseCase(
+                get(),
+                get(),
+                get(),
+            )
+        }
     }
-}

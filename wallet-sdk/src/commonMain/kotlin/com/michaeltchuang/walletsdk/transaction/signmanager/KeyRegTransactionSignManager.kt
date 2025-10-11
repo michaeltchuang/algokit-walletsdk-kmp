@@ -15,25 +15,26 @@ class KeyRegTransactionSignManager(
     getHdSeed: GetHdSeed,
     getLocalAccount: GetLocalAccount,
 ) : ExternalTransactionSignManager<KeyRegTransaction>(
-    externalTransactionQueuingHelper,
-    getTransactionSigner,
-    getAlgo25SecretKey,
-    getHdSeed,
-    getLocalAccount
-) {
-
+        externalTransactionQueuingHelper,
+        getTransactionSigner,
+        getAlgo25SecretKey,
+        getHdSeed,
+        getLocalAccount,
+    ) {
     private var unsignedTransaction: KeyRegTransaction? = null
 
-    val keyRegTransactionSignResultFlow = signResultFlow.map {
-        when (it) {
-            is ExternalTransactionSignResult.Success<*> -> mapSignedTransaction(
-                unsignedTransaction,
-                it.signedTransactionsByteArray
-            )
+    val keyRegTransactionSignResultFlow =
+        signResultFlow.map {
+            when (it) {
+                is ExternalTransactionSignResult.Success<*> ->
+                    mapSignedTransaction(
+                        unsignedTransaction,
+                        it.signedTransactionsByteArray,
+                    )
 
-            else -> it
+                else -> it
+            }
         }
-    }
 
     fun signKeyRegTransaction(keyRegTransaction: KeyRegTransaction) {
         unsignedTransaction = keyRegTransaction
@@ -42,7 +43,7 @@ class KeyRegTransactionSignManager(
 
     private fun mapSignedTransaction(
         transaction: KeyRegTransaction?,
-        signedTransactions: List<ByteArray?>?
+        signedTransactions: List<ByteArray?>?,
     ): ExternalTransactionSignResult {
         if (transaction == null) return ExternalTransactionSignResult.Error.Defined()
         val signedTransaction = signedTransactions?.firstOrNull()

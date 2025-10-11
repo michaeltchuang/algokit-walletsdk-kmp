@@ -4,8 +4,9 @@ import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTr
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val keyRegTransactionViewModelModule = module {
-    viewModel {
-        KeyRegTransactionViewModel(get(), get(), get(), get())
+val keyRegTransactionViewModelModule =
+    module {
+        viewModel {
+            KeyRegTransactionViewModel(get(), get(), get(), get())
+        }
     }
-}
