@@ -18,6 +18,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
+import platform.Foundation.base64EncodedStringWithOptions
 import platform.Foundation.dataWithBytes
 import platform.posix.index
 import platform.posix.memcpy
@@ -104,6 +105,7 @@ actual fun createBip39Wallet(): Bip39Wallet =
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun signHdKeyTransaction(
     transactionByteArray: ByteArray,
     seed: ByteArray,
@@ -112,11 +114,29 @@ actual fun signHdKeyTransaction(
     key: Int,
 ): ByteArray? = ByteArray(0)
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun signFalcon24Transaction(
     transactionByteArray: ByteArray,
     publicKey: ByteArray,
     privateKey: ByteArray,
-): ByteArray? = ByteArray(0)
+): ByteArray? =
+    try {
+        val transactionData = transactionByteArray.toNSData()
+        val publicKeyBase64 = publicKey.toNSData().base64EncodedStringWithOptions(0u)
+        val privateKeyBase64 = privateKey.toNSData().base64EncodedStringWithOptions(0u)
+
+        val signedData =
+            spmAlgoApiBridge().signFalconTransactionWithTransactionBytes(
+                transactionBytes = transactionData,
+                publicKeyBase64 = publicKeyBase64,
+                privateKeyBase64 = privateKeyBase64,
+            )
+
+        signedData?.toByteArray()
+    } catch (e: Exception) {
+        println("ERROR signing Falcon transaction: ${e.message}")
+        null
+    }
 
 actual fun sdkSignTransaction(
     secretKey: ByteArray,
@@ -171,12 +191,19 @@ private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
             )
         }
 
-        override fun generateFalcon24Address(mnemonic: String): Falcon24 =
-            Falcon24(
-                address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic),
-                publicKey = spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
-                privateKey = spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic).toByteArray(),
+        override fun generateFalcon24Address(mnemonic: String): Falcon24 {
+            val address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic)
+            val publicKeyBase64 =
+                spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic)
+            val privateKeyBase64 =
+                spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic)
+
+            return Falcon24(
+                address = address,
+                publicKey = publicKeyBase64.fromBase64ToByteArray(),
+                privateKey = privateKeyBase64.fromBase64ToByteArray(),
             )
+        }
 
         override fun invalidate() {}
 

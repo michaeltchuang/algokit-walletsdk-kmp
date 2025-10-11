@@ -14,7 +14,8 @@
 		BA1BD2402E86CBA2005CAA71 /* ed25519swift in Frameworks */ = {isa = PBXBuildFile; productRef = BA1BD23F2E86CBA2005CAA71 /* ed25519swift */; };
 		BA1BD2432E86CBB3005CAA71 /* MnemonicSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA1BD2422E86CBB3005CAA71 /* MnemonicSwift */; };
 		BA38E79F2E94987500388513 /* x-hd-wallet-api in Frameworks */ = {isa = PBXBuildFile; productRef = BA38E79E2E94987500388513 /* x-hd-wallet-api */; };
-		BA38E7A42E94B11E00388513 /* AlgoSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA38E7A32E94B11E00388513 /* AlgoSDK.xcframework */; };
+		BADD91532E9B16FC00DC64A1 /* AlgoSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BADD91512E9B16E800DC64A1 /* AlgoSDK.xcframework */; };
+		BADD91542E9B16FC00DC64A1 /* AlgoSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BADD91512E9B16E800DC64A1 /* AlgoSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				BADD91542E9B16FC00DC64A1 /* AlgoSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +38,7 @@
 		A93A953E29CC810D00F8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A93A954129CC810D00F8E227 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA0473392CF53E5E004A8EBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA38E7A32E94B11E00388513 /* AlgoSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AlgoSDK.xcframework; path = "../wallet-sdk/src/iosMain/xcframeworks/AlgoSDK.xcframework"; sourceTree = SOURCE_ROOT; };
+		BADD91512E9B16E800DC64A1 /* AlgoSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AlgoSDK.xcframework; path = "../wallet-sdk/src/iosMain/xcframeworks/AlgoSDK.xcframework"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 			files = (
 				BA38E79F2E94987500388513 /* x-hd-wallet-api in Frameworks */,
 				BA1BD2432E86CBB3005CAA71 /* MnemonicSwift in Frameworks */,
-				BA38E7A42E94B11E00388513 /* AlgoSDK.xcframework in Frameworks */,
+				BADD91532E9B16FC00DC64A1 /* AlgoSDK.xcframework in Frameworks */,
 				BA1BD2402E86CBA2005CAA71 /* ed25519swift in Frameworks */,
 				BA1BD23D2E86CB06005CAA71 /* x-hd-wallet-api in Frameworks */,
 			);
@@ -58,7 +60,7 @@
 		A93A952E29CC810C00F8E227 = {
 			isa = PBXGroup;
 			children = (
-				BA38E7A32E94B11E00388513 /* AlgoSDK.xcframework */,
+				BADD91512E9B16E800DC64A1 /* AlgoSDK.xcframework */,
 				A93A953929CC810C00F8E227 /* iosApp */,
 				A93A953829CC810C00F8E227 /* Products */,
 				C4127409AE3703430489E7BC /* Frameworks */,

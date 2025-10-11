@@ -145,7 +145,11 @@ import AlgoSDK
             return ""
         }
 
-        return algorandKeyInfo.publicKey
+        guard let publicKeyData = algorandKeyInfo.publicKey else {
+            print("Public key data is nil")
+            return ""
+        }
+        return publicKeyData.base64EncodedString()
     }
 
     public func getFalconPrivateKeyFromMnemonic(passphrase: String) -> String {
@@ -157,6 +161,37 @@ import AlgoSDK
             return ""
         }
 
-        return algorandKeyInfo.privateKey
+        guard let privateKeyData = algorandKeyInfo.privateKey else {
+            print("Private key data is nil")
+            return ""
+        }
+        return privateKeyData.base64EncodedString()
+    }
+
+    public func signFalconTransaction(
+        transactionBytes: Data,
+        publicKeyBase64: String,
+        privateKeyBase64: String
+    ) -> Data? {
+        guard let publicKeyData = Data(base64Encoded: publicKeyBase64),
+              let privateKeyData = Data(base64Encoded: privateKeyBase64) else {
+            print("Failed to decode base64 keys")
+            return nil
+        }
+
+        var error: NSError?
+        guard let signedBytes = AlgoSdkSignFalconTransaction(
+            transactionBytes,
+            publicKeyData,
+            privateKeyData,
+            &error
+        ) else {
+            if let error = error {
+                print("Error signing Falcon transaction: \(error)")
+            }
+            return nil
+        }
+
+        return signedBytes
     }
 }
