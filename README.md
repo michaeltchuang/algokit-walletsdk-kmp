@@ -98,7 +98,7 @@ The project has the following modules:
 - **iosSampleApp**: The iOS app for `composeSampleApp`. Open this module in Xcode if needed.
 - **wallet-sdk**: The AlgoKit Wallet SDK - a UI layer built with [Kotlin Multiplatform](https://developer.android.com/kotlin/multiplatform) on top of [AlgoKit-Core SDK](https://github.com/algorandfoundation/algokit-core), [Algo xHD Swift SDK](https://github.com/algorandfoundation/xHD-Wallet-API-swift), [Algo xHD Kotlin SDK](https://github.com/algorandfoundation/xHD-Wallet-API-kt), [Algo Java SDK](https://github.com/algorand/java-algorand-sdk), and [Algo Go SDK](https://github.com/perawallet/algorand-go-mobile-sdk) projects.
 
-This project is developed using [Android Studio](https://developer.android.com/studio) (stable version) and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform). As a mobile development project, it is primarily developed on macOS, support for Windows and Linux is quite limited.
+This project is developed using [Android Studio](https://developer.android.com/studio) (stable version) and the [Kotlin Multiplatform Plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform). As a mobile development project, it is primarily developed on macOS, support for Windows and Linux is quite limited.  We also follow the [KMP compatibility guide](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-compatibility-guide.html).
 
 ## Screenshots
 
@@ -156,7 +156,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### Network Switcher Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" /> <img width="200" alt="Image" src="https://github.com/user-attachments/assets/b80cae28-ade1-45e6-a0b1-f91bc0eb9654" />
 
 #### Create Legacy Algo25 Account Flow
 
@@ -177,6 +177,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" />   
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/37d406cc-b584-44ae-9c95-94fed9c6baae" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a20d571d-ea2f-461b-a75f-0ddfc19bbd19" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/e8db4235-3e1f-45c0-825c-29ad929a716d" />
 
 ## Architecture

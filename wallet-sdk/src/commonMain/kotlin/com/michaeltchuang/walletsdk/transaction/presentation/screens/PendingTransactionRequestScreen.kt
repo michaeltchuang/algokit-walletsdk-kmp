@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
@@ -50,17 +51,18 @@ import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
-import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.KeyRegTransactionViewModel
+import com.michaeltchuang.walletsdk.transaction.presentation.components.SendingTransactionLoading
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.PendingTransactionRequestViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun TransactionSignatureRequestScreen(
+fun PendingTransactionRequestScreen(
     navController: NavController,
-    txnDetail: KeyRegTransactionDetail,
-    viewModel: KeyRegTransactionViewModel = koinViewModel(),
+    viewModel: PendingTransactionRequestViewModel = koinViewModel(),
 ) {
+    val viewState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(Unit) {
         viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
@@ -68,14 +70,34 @@ fun TransactionSignatureRequestScreen(
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect { event ->
             when (event) {
-                is KeyRegTransactionViewModel.ViewEvent.SendSignedTransactionFailed -> {}
-                is KeyRegTransactionViewModel.ViewEvent.SendSignedTransactionSuccess -> {
-                    navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name)
+                is PendingTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
+                is PendingTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
+                    navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
+                        popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
+                            inclusive = true
+                        }
+                    }
                 }
             }
         }
     }
 
+    when (viewState) {
+        is PendingTransactionRequestViewModel.ViewState.Content -> {
+            Content(navController, viewModel)
+        }
+
+        is PendingTransactionRequestViewModel.ViewState.Loading -> {
+            SendingTransactionLoading()
+        }
+    }
+}
+
+@Composable
+fun Content(
+    navController: NavController,
+    viewModel: PendingTransactionRequestViewModel,
+) {
     Box(
         modifier =
             Modifier
@@ -88,12 +110,12 @@ fun TransactionSignatureRequestScreen(
                 title = stringResource(Res.string.key_reg_transaction_title),
                 onClick = { navController.popBackStack() },
             )
-            ContentScreen(txnDetail)
+            ContentItems(viewModel.getPendingTransactionRequest())
         }
 
         AlgoKitPrimaryButton(
             onClick = {
-                viewModel.confirmTransaction(txnDetail)
+                viewModel.confirmTransaction()
             },
             text = stringResource(Res.string.confirm_transaction),
             modifier =
@@ -105,7 +127,7 @@ fun TransactionSignatureRequestScreen(
 }
 
 @Composable
-fun ContentScreen(txnDetail: KeyRegTransactionDetail) {
+fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
     Column(
         modifier =
             Modifier
@@ -118,23 +140,23 @@ fun ContentScreen(txnDetail: KeyRegTransactionDetail) {
         // Address Section
         LabeledText(
             label = "Address",
-            value = txnDetail.address,
+            value = txnDetail?.address ?: "Unknown",
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail.fee ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee ?: "0.001"))
 
         // Type
-        LabeledText(label = "Type", value = txnDetail.type)
+        LabeledText(label = "Type", value = txnDetail?.type ?: "Unknown")
 
         Divider()
 
-        LabeledText(label = "Vote Key", value = txnDetail.voteKey ?: "")
-        LabeledText(label = "Selection Key", value = txnDetail.selectionPublicKey ?: "")
+        LabeledText(label = "Vote Key", value = txnDetail?.voteKey ?: "")
+        LabeledText(label = "Selection Key", value = txnDetail?.selectionPublicKey ?: "")
         LabeledText(label = "State Proof Key", value = "")
         LabeledText(label = "Valid First Round", value = "")
-        LabeledText(label = "Valid Last Round", value = txnDetail.fee ?: "")
-        LabeledText(label = "Vote Key Dilution", value = txnDetail.voteKey ?: "")
+        LabeledText(label = "Valid Last Round", value = txnDetail?.fee ?: "")
+        LabeledText(label = "Vote Key Dilution", value = txnDetail?.voteKey ?: "")
         Spacer(modifier = Modifier.height(8.dp))
         Divider()
         AddNote(txnDetail)
@@ -171,7 +193,7 @@ fun LabeledText(
 }
 
 @Composable
-fun AddNote(txnDetail: KeyRegTransactionDetail) {
+fun AddNote(txnDetail: KeyRegTransactionDetail?) {
     var isAddNoteEnabled by remember { mutableStateOf(false) }
     var noteText by remember { mutableStateOf("") }
     Column {
@@ -181,7 +203,7 @@ fun AddNote(txnDetail: KeyRegTransactionDetail) {
             }, {
                 noteText = ""
             }, {
-                txnDetail.copy(note = noteText)
+                txnDetail?.copy(note = noteText)
                 isAddNoteEnabled = false
             })
         } else {
@@ -282,22 +304,7 @@ fun AddNoteTextField(
 @Preview
 @Composable
 fun PreviewTransactionDetailsScreen() {
-    val txnDetail =
-        KeyRegTransactionDetail(
-            address = "ASDFGHJKLQWERTYUIOPZXCVBNM",
-            type = "keyreg",
-            voteKey = "",
-            selectionPublicKey = "",
-            sprfkey = "",
-            voteFirstRound = "",
-            voteLastRound = "",
-            voteKeyDilution = "",
-            fee = "",
-            note = "",
-            xnote = "",
-        )
-
     AlgoKitTheme {
-        TransactionSignatureRequestScreen(rememberNavController(), txnDetail)
+        PendingTransactionRequestScreen(rememberNavController())
     }
 }

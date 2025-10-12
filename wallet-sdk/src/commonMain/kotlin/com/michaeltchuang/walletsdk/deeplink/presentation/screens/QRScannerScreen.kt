@@ -17,7 +17,7 @@ import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScree
 import com.michaeltchuang.walletsdk.deeplink.presentation.viewmodels.QRScannerViewModel
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.foundation.utils.navigateWithArgument
+import com.michaeltchuang.walletsdk.transaction.signmanager.PendingTransactionRequestManger.storePendingTransactionRequest
 import org.koin.compose.viewmodel.koinViewModel
 import qrscanner.CameraLens
 import qrscanner.QrScanner
@@ -39,10 +39,8 @@ fun QRCodeScannerScreen(
                 }
 
                 is QRScannerViewModel.ViewEvent.NavigateToTransactionSignatureRequestScreen -> {
-                    navController.navigateWithArgument(
-                        AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name,
-                        it.txnDetail,
-                    )
+                    storePendingTransactionRequest(it.txnDetail)
+                    navController.navigate(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name)
                 }
 
                 is QRScannerViewModel.ViewEvent.ShowUnrecognizedDeeplink -> {

@@ -1585,4 +1585,7 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
 
+    <string name="mainnet_warning">Mainnet Disclaimer</string>
+    <string name="mainnet_warning_desc">This code has not been audited yet.  Using mainnet may put real funds at risk.  Proceed with caution.</string>
+
 </resources>

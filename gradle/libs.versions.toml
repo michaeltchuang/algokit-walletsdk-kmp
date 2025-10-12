@@ -23,10 +23,11 @@ browser = "1.8.0"
 buildConfig = "5.6.5"
 constraintLayout = "2.2.1"
 coil = "3.0.1"
-compose = "1.7.1"
+compose = "1.7.3"
 compose-ui = "1.8.2"
 composeFoundation = "1.8.2"
 composeWebview = "1.9.40"
+compottie = "1.1.2"
 converterGson = "2.11.0"
 core = "1.6.1"
 coreKtx = "1.16.0"
@@ -60,7 +61,6 @@ ktorContentNegotiation = "3.0.0"
 legacySupport = "1.0.0"
 lifecycle = "2.9.0"
 lifecycleExt = "2.2.0"
-lottie = "6.6.2"
 material = "1.12.0"
 mockk = "1.13.13"
 moshi = "1.15.1"
@@ -162,9 +162,8 @@ room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 
 # Image Loading / Animations / Video Player
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
 exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoPlayer" }
-lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 # Sensors - Bluetooth / Camera
 biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
