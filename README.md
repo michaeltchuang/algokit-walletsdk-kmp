@@ -156,7 +156,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### Network Switcher Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" />
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a79f7d70-f070-45ae-83a0-a45cb9789dbb" /> <img width="200" alt="Network Switcher 1" src="https://github.com/user-attachments/assets/7f0ece09-f0c5-4c02-8b07-5da2d1910a46" /> <img width="200" alt="Network Switcher 2" src="https://github.com/user-attachments/assets/cb8e96ff-6e97-456f-a576-1309c0dfd0a6" /> <img width="200" alt="Image" src="https://github.com/user-attachments/assets/b80cae28-ade1-45e6-a0b1-f91bc0eb9654" />
 
 #### Create Legacy Algo25 Account Flow
 

@@ -1,7 +1,11 @@
 package com.michaeltchuang.walletsdk.settings.presentation.screens
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.cancel
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mainnet_warning
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.mainnet_warning_desc
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.node_settings
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ok
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,13 +15,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,13 +35,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
-import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.settings.domain.NodePreferenceRepository
 import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import qrgenerator.qrkitpainter.text
 
 enum class AlgorandNetwork(
     val displayName: String,
@@ -47,24 +56,73 @@ val networkNodeSettings = MutableStateFlow<AlgorandNetwork?>(null)
 fun NodeSettingsScreen(
     navController: NavController,
     nodeRepository: NodePreferenceRepository = provideNodePreferenceRepository(),
-    onShowSnackbar: (String) -> Unit = {},
 ) {
     val coroutineScope = rememberCoroutineScope()
     val currentNetwork by nodeRepository
         .getSavedNodePreferenceFlow()
         .collectAsState(initial = null)
+    var showMainnetWarningDialog by remember { mutableStateOf(false) }
 
     fun onNetworkSelected(network: AlgorandNetwork) {
         if (network != currentNetwork) {
-            if (network != AlgorandNetwork.MAINNET) {
+            if (network == AlgorandNetwork.MAINNET) {
+                showMainnetWarningDialog = true
+            } else {
                 coroutineScope.launch {
                     nodeRepository.saveNodePreference(network)
-                    networkNodeSettings.value = currentNetwork
+                    networkNodeSettings.value = network
                 }
-            } else {
-                onShowSnackbar(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
             }
         }
+    }
+
+    if (showMainnetWarningDialog) {
+        AlertDialog(
+            onDismissRequest = { showMainnetWarningDialog = false },
+            title = {
+                Text(
+                    text = stringResource(Res.string.mainnet_warning),
+                    color = AlgoKitTheme.colors.textMain,
+                    style = AlgoKitTheme.typography.body.large.sansMedium,
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(Res.string.mainnet_warning_desc),
+                    color = AlgoKitTheme.colors.textMain,
+                    style = AlgoKitTheme.typography.body.regular.sansMedium,
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showMainnetWarningDialog = false
+                        coroutineScope.launch {
+                            nodeRepository.saveNodePreference(AlgorandNetwork.MAINNET)
+                            networkNodeSettings.value = AlgorandNetwork.MAINNET
+                        }
+                    },
+                ) {
+                    Text(
+                        text = stringResource(Res.string.ok),
+                        color = AlgoKitTheme.colors.positive,
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showMainnetWarningDialog = false },
+                ) {
+                    Text(
+                        text = stringResource(Res.string.cancel),
+                        color = AlgoKitTheme.colors.textMain,
+                    )
+                }
+            },
+            containerColor = AlgoKitTheme.colors.background,
+            titleContentColor = AlgoKitTheme.colors.textMain,
+            textContentColor = AlgoKitTheme.colors.textMain,
+        )
     }
 
     Column(

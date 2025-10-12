@@ -281,11 +281,7 @@ fun OnBoardingBottomSheetNavHost(
                     ThemeScreen(navController)
                 }
                 composable(route = AlgoKitScreens.NODE_SETTINGS_SCREEN.name) {
-                    NodeSettingsScreen(navController) {
-                        coroutineScope.launch {
-                            snackbarHostState.showSnackbar(it)
-                        }
-                    }
+                    NodeSettingsScreen(navController)
                 }
                 composable(route = AlgoKitScreens.DEVELOPER_SETTINGS_SCREEN.name) {
                     DeveloperSettingsScreen(navController) {
