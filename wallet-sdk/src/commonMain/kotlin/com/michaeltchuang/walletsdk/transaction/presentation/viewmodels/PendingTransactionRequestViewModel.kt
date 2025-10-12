@@ -58,9 +58,7 @@ class PendingTransactionRequestViewModel(
         keyRegTransactionSignManager.setup(lifecycle)
     }
 
-    fun getPendingTransactionRequest(): KeyRegTransactionDetail? {
-        return PendingTransactionRequestManger.getPendingTransactionRequest()
-    }
+    fun getPendingTransactionRequest(): KeyRegTransactionDetail? = PendingTransactionRequestManger.getPendingTransactionRequest()
 
     fun confirmTransaction() {
         getPendingTransactionRequest()?.let {
@@ -77,7 +75,7 @@ class PendingTransactionRequestViewModel(
                     },
                 )
             }
-        }?: run {
+        } ?: run {
             transactionFailed("No pending transaction request found")
         }
     }

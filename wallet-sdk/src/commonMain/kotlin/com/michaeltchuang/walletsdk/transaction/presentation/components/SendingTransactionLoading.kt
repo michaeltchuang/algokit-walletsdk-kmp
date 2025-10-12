@@ -27,23 +27,24 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SendingTransactionLoading() {
-
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AlgoKitTheme.colors.background),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(AlgoKitTheme.colors.background),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(horizontal = 32.dp)
+            modifier = Modifier.padding(horizontal = 32.dp),
         ) {
             Box(
-                modifier = Modifier
-                    .size(64.dp)
-                    .background(Color(0xFF2A2A1E), CircleShape),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .size(64.dp)
+                        .background(Color(0xFF2A2A1E), CircleShape),
+                contentAlignment = Alignment.Center,
             ) {
                 LottieConfetti()
             }
@@ -62,7 +63,7 @@ fun SendingTransactionLoading() {
                 text = stringResource(Res.string.your_transaction_is_processed_algorand),
                 color = AlgoKitTheme.colors.textGray,
                 style = typography.body.regular.sansMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }

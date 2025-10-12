@@ -146,7 +146,7 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(libs.bignum)
-            implementation("io.github.alexzhirkevich:compottie:1.1.2")
+            implementation(libs.compottie)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

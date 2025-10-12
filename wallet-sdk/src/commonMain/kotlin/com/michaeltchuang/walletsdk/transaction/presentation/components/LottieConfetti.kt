@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.transaction.presentation.components
 
-import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -8,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.michaeltchuang.walletsdk.foundation.utils.LottieJsonAnimations
 import io.github.alexzhirkevich.compottie.LottieAnimation
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
@@ -20,7 +20,7 @@ fun LottieConfetti(modifier: Modifier = Modifier) {
     var animationData by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        animationData = Res.readBytes("files/transaction_loading_animation.json").decodeToString()
+        animationData = LottieJsonAnimations.TRANSACTION_LOADING
     }
 
     val composition by rememberLottieComposition(
