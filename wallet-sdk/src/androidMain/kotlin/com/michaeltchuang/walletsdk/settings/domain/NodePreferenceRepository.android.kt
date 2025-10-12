@@ -24,7 +24,7 @@ actual class NodePreferenceRepository actual constructor() {
 
     private fun networkToString(network: AlgorandNetwork): String = network.name
 
-    private fun stringToNetwork(str: String?): AlgorandNetwork = AlgorandNetwork.entries.find { it.name == str } ?: AlgorandNetwork.MAINNET
+    private fun stringToNetwork(str: String?): AlgorandNetwork = AlgorandNetwork.entries.find { it.name == str } ?: AlgorandNetwork.TESTNET
 
     actual fun getSavedNodePreferenceFlow(): Flow<AlgorandNetwork> =
         if (ctx != null) {

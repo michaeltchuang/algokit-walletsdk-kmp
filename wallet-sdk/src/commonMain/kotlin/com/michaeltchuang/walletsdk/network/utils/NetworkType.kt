@@ -17,8 +17,8 @@ suspend fun getIndexerBaseUrl(): String =
         .async {
             val networkType = provideNodePreferenceRepository().getSavedNodePreferenceFlow().first()
             when (networkType) {
-                AlgorandNetwork.MAINNET -> INDEXER_MAINNET_URL
                 AlgorandNetwork.TESTNET -> INDEXER_TESTNET_URL
+                AlgorandNetwork.MAINNET -> INDEXER_MAINNET_URL
             }
         }.await()
 
@@ -27,7 +27,7 @@ suspend fun getNodeBaseUrl(): String =
         .async {
             val networkType = provideNodePreferenceRepository().getSavedNodePreferenceFlow().first()
             when (networkType) {
-                AlgorandNetwork.MAINNET -> NODE_MAINNET_URL
                 AlgorandNetwork.TESTNET -> NODE_TESTNET_URL
+                AlgorandNetwork.MAINNET -> NODE_MAINNET_URL
             }
         }.await()
