@@ -37,11 +37,9 @@ import com.michaeltchuang.walletsdk.account.presentation.screens.RecoveryPhraseS
 import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.PassphraseAcknowledgeScreen
 import com.michaeltchuang.walletsdk.accountdetail.presentation.screens.ViewPassphraseScreen
-import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.REPO_URL
-import com.michaeltchuang.walletsdk.foundation.utils.getData
 import com.michaeltchuang.walletsdk.foundation.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.DeveloperSettingsScreen
@@ -49,7 +47,7 @@ import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelect
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
-import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSignatureRequestScreen
+import com.michaeltchuang.walletsdk.transaction.presentation.screens.PendingTransactionRequestScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -226,7 +224,8 @@ fun OnBoardingBottomSheetNavHost(
                             },
                         ),
                 ) { backStackEntry ->
-                    val accountTypeString = backStackEntry.arguments?.getString("accountType", "falcon24")
+                    val accountTypeString =
+                        backStackEntry.arguments?.getString("accountType", "falcon24")
                     val scannedMnemonic = backStackEntry.arguments?.getString("mnemonic", "") ?: ""
 
                     val accountType =
@@ -238,6 +237,7 @@ fun OnBoardingBottomSheetNavHost(
                                     else -> AccountMnemonic.AccountType.Falcon24 // 24 words default
                                 }
                             }
+
                             accountTypeString == "algo25" -> AccountMnemonic.AccountType.Algo25
                             accountTypeString == "hdkey" -> AccountMnemonic.AccountType.HdKey
                             else -> AccountMnemonic.AccountType.Falcon24
@@ -264,9 +264,7 @@ fun OnBoardingBottomSheetNavHost(
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
-                    navController.getData<KeyRegTransactionDetail>()?.let {
-                        TransactionSignatureRequestScreen(navController = navController, it)
-                    }
+                    PendingTransactionRequestScreen(navController = navController)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
                     TransactionSuccessScreen {

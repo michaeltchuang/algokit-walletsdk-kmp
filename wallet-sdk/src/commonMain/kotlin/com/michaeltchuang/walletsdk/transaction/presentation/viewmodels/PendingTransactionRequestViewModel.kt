@@ -6,25 +6,31 @@ import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.SendSignedTransactionUseCase
 import com.michaeltchuang.walletsdk.transaction.model.KeyRegTransaction
 import com.michaeltchuang.walletsdk.transaction.model.SignedTransactionDetail
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionSignResult
 import com.michaeltchuang.walletsdk.transaction.signmanager.KeyRegTransactionSignManager
+import com.michaeltchuang.walletsdk.transaction.signmanager.PendingTransactionRequestManger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class KeyRegTransactionViewModel(
+class PendingTransactionRequestViewModel(
     private val sendSignedTransactionUseCase: SendSignedTransactionUseCase,
     private val createKeyRegTransaction: CreateKeyRegTransaction,
     private val keyRegTransactionSignManager: KeyRegTransactionSignManager,
+    private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
-    EventViewModel<KeyRegTransactionViewModel.ViewEvent> by eventDelegate {
+    StateViewModel<PendingTransactionRequestViewModel.ViewState> by stateDelegate,
+    EventViewModel<PendingTransactionRequestViewModel.ViewEvent> by eventDelegate {
     init {
+        stateDelegate.setDefaultState(ViewState.Content)
         viewModelScope.launch {
             keyRegTransactionSignManager.keyRegTransactionSignResultFlow.collect {
                 when (it) {
@@ -32,9 +38,16 @@ class KeyRegTransactionViewModel(
                         sendSignedTransaction(it.signedTransaction)
                     }
 
-                    is ExternalTransactionSignResult.Loading -> {}
+                    is ExternalTransactionSignResult.Error -> {
+                        transactionFailed(it.getMessage())
+                    }
+
+                    is ExternalTransactionSignResult.TransactionCancelled -> {
+                        transactionFailed(it.error.getMessage())
+                    }
+
                     else -> {
-                        eventDelegate.sendEvent(ViewEvent.SendSignedTransactionFailed("Something went wrong"))
+                        println("confirmTransaction Failed")
                     }
                 }
             }
@@ -45,16 +58,27 @@ class KeyRegTransactionViewModel(
         keyRegTransactionSignManager.setup(lifecycle)
     }
 
-    fun confirmTransaction(keyRegTransactionDetail: KeyRegTransactionDetail) {
-        viewModelScope.launch {
-            createKeyRegTransaction(keyRegTransactionDetail).use(
-                onSuccess = { transaction ->
-                    signKeyRegTransaction(transaction)
-                },
-                onFailed = { exception, _ ->
-                    println("confirmTransaction Failed: ${exception.message}")
-                },
-            )
+    fun getPendingTransactionRequest(): KeyRegTransactionDetail? {
+        return PendingTransactionRequestManger.getPendingTransactionRequest()
+    }
+
+    fun confirmTransaction() {
+        getPendingTransactionRequest()?.let {
+            stateDelegate.updateState {
+                ViewState.Loading
+            }
+            viewModelScope.launch(Dispatchers.IO) {
+                createKeyRegTransaction(it).use(
+                    onSuccess = { transaction ->
+                        signKeyRegTransaction(transaction)
+                    },
+                    onFailed = { exception, _ ->
+                        transactionFailed(exception.message ?: "Unknown error")
+                    },
+                )
+            }
+        }?: run {
+            transactionFailed("No pending transaction request found")
         }
     }
 
@@ -73,23 +97,37 @@ class KeyRegTransactionViewModel(
                     it.useSuspended(
                         onSuccess = {
                             eventDelegate.sendEvent(ViewEvent.SendSignedTransactionSuccess)
-                            println("sendSignedTransaction onSuccess: $it")
+                            PendingTransactionRequestManger.clearPendingTransactionRequest()
+                            println("SendSignedTransaction onSuccess: $it")
                         },
                         onFailed = {
-                            eventDelegate.sendEvent(
-                                ViewEvent.SendSignedTransactionFailed(
-                                    it.exception?.message ?: "",
-                                ),
-                            )
                             println("sendSignedTransaction Failed: ${it.exception?.message}")
+                            transactionFailed(it.exception?.message ?: "Unknown error")
                         },
                     )
                 }
         }
     }
 
+    private fun transactionFailed(error: String) {
+        stateDelegate.updateState { ViewState.Content }
+        viewModelScope.launch {
+            eventDelegate.sendEvent(ViewEvent.SendSignedTransactionFailed(error))
+        }
+        println("confirmTransaction Failed: $error")
+    }
+
+    sealed interface ViewState {
+        data object Loading :
+            ViewState
+
+        data object Content :
+            ViewState
+    }
+
     sealed interface ViewEvent {
-        object SendSignedTransactionSuccess : ViewEvent
+        object SendSignedTransactionSuccess :
+            ViewEvent
 
         data class SendSignedTransactionFailed(
             val error: String,
