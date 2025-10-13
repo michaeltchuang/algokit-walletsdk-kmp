@@ -51,16 +51,17 @@ import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
-import com.michaeltchuang.walletsdk.transaction.presentation.components.SendingTransactionLoading
-import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.PendingTransactionRequestViewModel
+import com.michaeltchuang.walletsdk.foundation.utils.formatAmount
+import com.michaeltchuang.walletsdk.transaction.presentation.components.PendingTransactionLoaderWidget
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.ConfirmTransactionRequestViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun PendingTransactionRequestScreen(
+fun ConfirmTransactionRequestScreen(
     navController: NavController,
-    viewModel: PendingTransactionRequestViewModel = koinViewModel(),
+    viewModel: ConfirmTransactionRequestViewModel = koinViewModel(),
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -70,8 +71,8 @@ fun PendingTransactionRequestScreen(
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect { event ->
             when (event) {
-                is PendingTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
-                is PendingTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
+                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
+                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
                     navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
                         popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                             inclusive = true
@@ -83,12 +84,12 @@ fun PendingTransactionRequestScreen(
     }
 
     when (viewState) {
-        is PendingTransactionRequestViewModel.ViewState.Content -> {
+        is ConfirmTransactionRequestViewModel.ViewState.Content -> {
             Content(navController, viewModel)
         }
 
-        is PendingTransactionRequestViewModel.ViewState.Loading -> {
-            SendingTransactionLoading()
+        is ConfirmTransactionRequestViewModel.ViewState.Loading -> {
+            PendingTransactionLoaderWidget()
         }
     }
 }
@@ -96,7 +97,7 @@ fun PendingTransactionRequestScreen(
 @Composable
 fun Content(
     navController: NavController,
-    viewModel: PendingTransactionRequestViewModel,
+    viewModel: ConfirmTransactionRequestViewModel,
 ) {
     Box(
         modifier =
@@ -144,7 +145,7 @@ fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee?.formatAmount() ?: "0.001"))
 
         // Type
         LabeledText(label = "Type", value = txnDetail?.type ?: "Unknown")
@@ -153,10 +154,10 @@ fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
 
         LabeledText(label = "Vote Key", value = txnDetail?.voteKey ?: "")
         LabeledText(label = "Selection Key", value = txnDetail?.selectionPublicKey ?: "")
-        LabeledText(label = "State Proof Key", value = "")
-        LabeledText(label = "Valid First Round", value = "")
-        LabeledText(label = "Valid Last Round", value = txnDetail?.fee ?: "")
-        LabeledText(label = "Vote Key Dilution", value = txnDetail?.voteKey ?: "")
+        LabeledText(label = "State Proof Key", value = txnDetail?.sprfkey.toString())
+        LabeledText(label = "Valid First Round", value = txnDetail?.voteFirstRound.toString())
+        LabeledText(label = "Valid Last Round", value = txnDetail?.voteLastRound ?: "")
+        LabeledText(label = "Vote Key Dilution", value = txnDetail?.voteKeyDilution ?: "")
         Spacer(modifier = Modifier.height(8.dp))
         Divider()
         AddNote(txnDetail)
@@ -305,6 +306,6 @@ fun AddNoteTextField(
 @Composable
 fun PreviewTransactionDetailsScreen() {
     AlgoKitTheme {
-        PendingTransactionRequestScreen(rememberNavController())
+        ConfirmTransactionRequestScreen(rememberNavController())
     }
 }

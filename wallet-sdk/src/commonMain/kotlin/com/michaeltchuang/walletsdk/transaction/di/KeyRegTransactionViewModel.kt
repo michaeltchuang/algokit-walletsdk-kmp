@@ -1,12 +1,12 @@
 package com.michaeltchuang.walletsdk.transaction.di
 
-import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.PendingTransactionRequestViewModel
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.ConfirmTransactionRequestViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val pendingTransactionRequestViewModelModule =
+val confirmTransactionRequestViewModelModule =
     module {
         viewModel {
-            PendingTransactionRequestViewModel(get(), get(), get(), get(), get())
+            ConfirmTransactionRequestViewModel(get(), get(), get(), get(), get())
         }
     }

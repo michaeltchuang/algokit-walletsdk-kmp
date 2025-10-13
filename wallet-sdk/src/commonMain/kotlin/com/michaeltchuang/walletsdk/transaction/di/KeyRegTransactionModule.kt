@@ -2,8 +2,10 @@ package com.michaeltchuang.walletsdk.transaction.di
 
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
 import com.michaeltchuang.walletsdk.transaction.data.BuildKeyRegOfflineTransactionImpl
+import com.michaeltchuang.walletsdk.transaction.data.BuildKeyRegOnlineTransactionImpl
 import com.michaeltchuang.walletsdk.transaction.data.TransactionsApiServiceImpl
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOfflineTransaction
+import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOnlineTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransactionUseCase
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetTransactionParams
@@ -35,9 +37,11 @@ val keyRegTransactionModule =
             GetTransactionParams(get<TransactionsApiServiceImpl>()::getTransactionParams)
         }
         single<BuildKeyRegOfflineTransaction> { BuildKeyRegOfflineTransactionImpl() }
+        single<BuildKeyRegOnlineTransaction> { BuildKeyRegOnlineTransactionImpl() }
 
         single<CreateKeyRegTransaction> {
             CreateKeyRegTransactionUseCase(
+                get(),
                 get(),
                 get(),
                 get(),

@@ -47,7 +47,7 @@ import com.michaeltchuang.walletsdk.settings.presentation.screens.HdWalletSelect
 import com.michaeltchuang.walletsdk.settings.presentation.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screens.ThemeScreen
-import com.michaeltchuang.walletsdk.transaction.presentation.screens.PendingTransactionRequestScreen
+import com.michaeltchuang.walletsdk.transaction.presentation.screens.ConfirmTransactionRequestScreen
 import com.michaeltchuang.walletsdk.transaction.presentation.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -264,7 +264,7 @@ fun OnBoardingBottomSheetNavHost(
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
-                    PendingTransactionRequestScreen(navController = navController)
+                    ConfirmTransactionRequestScreen(navController = navController)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
                     TransactionSuccessScreen {

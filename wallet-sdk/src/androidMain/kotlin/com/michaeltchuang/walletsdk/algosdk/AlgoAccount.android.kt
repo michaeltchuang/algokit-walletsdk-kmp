@@ -14,7 +14,9 @@ import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.AlgoSdkNumberExtensi
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignFalcon24TransactionImpl
 import com.michaeltchuang.walletsdk.algosdk.transaction.sdk.SignHdKeyTransactionImpl
 import com.michaeltchuang.walletsdk.foundation.utils.toSuggestedParams
+import com.michaeltchuang.walletsdk.foundation.utils.urlSafeBase64ToStandard
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
+import com.michaeltchuang.walletsdk.transaction.model.OnlineKeyRegTransactionPayload
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 import kotlin.jvm.java
@@ -101,6 +103,32 @@ actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArra
             defaultVoteValue,
             defaultVoteValue,
             defaultVoteValue,
+            false,
+        )
+    }
+
+actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray =
+    with(payload) {
+        val suggestedParams = txnParams.toSuggestedParams()
+        if (flatFee != null) {
+            suggestedParams.fee = flatFee.toString().toLong()
+            suggestedParams.flatFee = true
+        }
+
+        val voteFirst = voteFirstRound.toLongOrNull() ?: 0L
+        val voteLast = voteLastRound.toLongOrNull() ?: 0L
+        val voteDilution = voteKeyDilution.toLongOrNull() ?: 0L
+
+        Sdk.makeKeyRegTxnWithStateProofKey(
+            senderAddress,
+            note?.toByteArray(),
+            suggestedParams,
+            voteKey.urlSafeBase64ToStandard(),
+            selectionPublicKey.urlSafeBase64ToStandard(),
+            stateProofKey.urlSafeBase64ToStandard(),
+            voteFirst.toUint64(),
+            voteLast.toUint64(),
+            voteDilution.toUint64(),
             false,
         )
     }

@@ -19,6 +19,7 @@ interface CreateKeyRegTransaction {
 internal class CreateKeyRegTransactionUseCase(
     private val getTransactionParams: GetTransactionParams,
     private val buildKeyRegOfflineTransaction: BuildKeyRegOfflineTransaction,
+    private val buildKeyRegOnlineTransaction: BuildKeyRegOnlineTransaction,
     private val accountApiService: AccountInformationApiService,
 ) : CreateKeyRegTransaction {
     override suspend fun invoke(txnDetail: KeyRegTransactionDetail): Result<KeyRegTransaction> =
@@ -40,30 +41,21 @@ internal class CreateKeyRegTransactionUseCase(
     private fun createTransactionByteArray(
         txnDetail: KeyRegTransactionDetail,
         params: TransactionParams,
-    ): ByteArray? {
-        /*   return if (txnDetail.isOnlineKeyRegTxn()) {
-               buildKeyRegOnlineTransaction(
-                   params = txnDetail.toOnlineTxnPayload(txnDetail, params)
-               )
-           } else {
-               buildKeyRegOfflineTransaction(
-                   OfflineKeyRegTransactionPayload(
-                       txnDetail.address,
-                       txnDetail.fee?.toBigInteger(),
-                       txnDetail.note,
-                       params
-                   )
-               )
-           }*/
-        return buildKeyRegOfflineTransaction(
-            OfflineKeyRegTransactionPayload(
-                txnDetail.address,
-                txnDetail.fee?.toBigInteger(),
-                txnDetail.note,
-                params,
-            ),
-        )
-    }
+    ): ByteArray? =
+        if (txnDetail.isOnlineKeyRegTxn()) {
+            buildKeyRegOnlineTransaction(
+                params = txnDetail.toOnlineTxnPayload(txnDetail, params),
+            )
+        } else {
+            buildKeyRegOfflineTransaction(
+                OfflineKeyRegTransactionPayload(
+                    txnDetail.address,
+                    txnDetail.fee?.toBigInteger(),
+                    txnDetail.note,
+                    params,
+                ),
+            )
+        }
 
     private suspend fun createKeyRegTransactionResult(
         txnDetail: KeyRegTransactionDetail,
