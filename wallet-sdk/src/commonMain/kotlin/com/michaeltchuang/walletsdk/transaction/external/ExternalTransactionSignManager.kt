@@ -8,6 +8,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetFalcon24Secr
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetTransactionSigner
+import com.michaeltchuang.walletsdk.algosdk.signAlgo25Transaction
 import com.michaeltchuang.walletsdk.algosdk.signFalcon24Transaction
 import com.michaeltchuang.walletsdk.algosdk.signHdKeyTransaction
 import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
@@ -81,7 +82,7 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
                     externalTransactionQueuingHelper.cacheDequeuedItem(null)
                 }
                 is TransactionSigner.Algo25 -> {
-                    signTransactionWithSecretKey(this@signTransaction, getAlgo25SecretKey(transactionSigner.address)!!)
+                    signLegacyAlgo25Transaction(this@signTransaction, getAlgo25SecretKey(transactionSigner.address)!!)
                 }
                 is TransactionSigner.HdKey -> {
                     signHdTransaction(this@signTransaction, transactionSigner.address)
@@ -96,12 +97,13 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
         }
     }
 
-    private fun signTransactionWithSecretKey(
+    private fun signLegacyAlgo25Transaction(
         transaction: ExternalTransaction,
         secretKey: ByteArray,
     ) {
-        val signedTransaction = transaction.transactionByteArray?.signTransaction(secretKey)
-        onTransactionSigned(transaction, signedTransaction)
+        val transactionBytes = transaction.transactionByteArray ?: return handleSignError(transaction)
+        val transactionSignedByteArray = signAlgo25Transaction(secretKey, transactionBytes)
+        onTransactionSigned(transaction, transactionSignedByteArray)
     }
 
     private suspend fun signHdTransaction(

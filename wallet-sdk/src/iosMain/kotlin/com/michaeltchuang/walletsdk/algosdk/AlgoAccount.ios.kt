@@ -138,9 +138,9 @@ actual fun signFalcon24Transaction(
         null
     }
 
-actual fun sdkSignTransaction(
+actual fun signAlgo25Transaction(
     secretKey: ByteArray,
-    signTx: ByteArray,
+    transactionByteArray: ByteArray,
 ): ByteArray = ByteArray(0)
 
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray = ByteArray(0)

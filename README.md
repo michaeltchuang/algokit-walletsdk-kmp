@@ -63,18 +63,20 @@ timeline
             : ✅ Settings - Network switcher flow
 
     section In Progress 🔄
-    2025Q4  : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow
+    2025Q4  : ✅ Transaction - Sign KeyReg offline flow with QR code flow (Android)
+            : 🔄 Transaction - Sign KeyReg offline flow with QR code flow (iOS)
+            : Transaction - Sign KeyReg online flow with QR code flow (Android/iOS)
             : 🔄 Account Details - Add Copy Address Button
             : Onboarding - Encrypt Android secret keys in DB
             : Onboarding - Encrypt iOS secret keys in DB
             : GitOps - Release first aar library file on Maven Central
             : Transaction - Send Algo using QR Code flow
-            : Onboarding - Passkeys / Liquid Auth
             : Settings - Localization
             : Testing - Add Kover Test Coverage
 
     section Future
     2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
+            : Onboarding - Passkeys / Liquid Auth
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow
             : Onboarding - Ledger flow

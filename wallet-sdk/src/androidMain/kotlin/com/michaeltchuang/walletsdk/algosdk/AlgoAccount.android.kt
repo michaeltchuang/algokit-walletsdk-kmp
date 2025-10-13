@@ -1,6 +1,10 @@
 package com.michaeltchuang.walletsdk.algosdk
 
+import com.algorand.algosdk.account.Account
 import com.algorand.algosdk.sdk.Sdk
+import com.algorand.algosdk.transaction.SignedTransaction
+import com.algorand.algosdk.transaction.Transaction
+import com.algorand.algosdk.util.Encoder
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.AlgorandBip39WalletProvider
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
@@ -13,6 +17,7 @@ import com.michaeltchuang.walletsdk.foundation.utils.toSuggestedParams
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
+import kotlin.jvm.java
 
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
 
@@ -62,14 +67,16 @@ actual fun signFalcon24Transaction(
     )
 }
 
-actual fun sdkSignTransaction(
+actual fun signAlgo25Transaction(
     secretKey: ByteArray,
-    signTx: ByteArray,
+    transactionByteArray: ByteArray,
 ): ByteArray {
     Security.removeProvider("BC")
     Security.insertProviderAt(BouncyCastleProvider(), 0)
-    val signedTx = Sdk.signTransaction(secretKey, signTx)
-    return signedTx
+    val account = Account(secretKey)
+    val transaction = Encoder.decodeFromMsgPack(transactionByteArray, Transaction::class.java)
+    val signedTransaction: SignedTransaction = account.signTransaction(transaction)
+    return Encoder.encodeToMsgPack(signedTransaction)
 }
 
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray =

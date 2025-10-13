@@ -50,6 +50,7 @@ import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_ALGO25_MNEMONIC
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_BIP39_MNEMONIC
 import com.michaeltchuang.walletsdk.foundation.utils.splitMnemonic
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -161,15 +162,15 @@ fun RecoveryPhraseScreen(
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                 {
-                    when (mnemonicList.size) {
-                        OnboardingAccountType.Algo25.wordCount -> {
+                    when (accountType) {
+                        AccountMnemonic.AccountType.Algo25 -> {
                             viewModel.onRecoverAccount(
                                 mnemonic,
                                 OnboardingAccountType.Algo25,
                             )
                         }
 
-                        OnboardingAccountType.Falcon24.wordCount -> {
+                        AccountMnemonic.AccountType.Falcon24 -> {
                             viewModel.onRecoverAccount(
                                 mnemonic,
                                 OnboardingAccountType.Falcon24,
@@ -272,11 +273,22 @@ fun RecoveryWordField(
 
 @Preview
 @Composable
-fun RecoveryPhraseScreenPreview() {
-    val words = SAMPLE_ALGO25_MNEMONIC
+fun RecoveryPhrase24WordScreenPreview() {
+    val words = SAMPLE_BIP39_MNEMONIC
     RecoveryPhraseScreen(
         rememberNavController(),
         accountType = AccountMnemonic.AccountType.Falcon24,
+        words,
+    ) {}
+}
+
+@Preview
+@Composable
+fun RecoveryPhrase25WordScreenPreview() {
+    val words = SAMPLE_ALGO25_MNEMONIC
+    RecoveryPhraseScreen(
+        rememberNavController(),
+        accountType = AccountMnemonic.AccountType.Algo25,
         words,
     ) {}
 }
