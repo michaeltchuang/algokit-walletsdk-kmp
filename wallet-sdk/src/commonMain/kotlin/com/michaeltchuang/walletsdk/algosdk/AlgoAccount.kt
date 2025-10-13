@@ -3,6 +3,7 @@ package com.michaeltchuang.walletsdk.algosdk
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
+import com.michaeltchuang.walletsdk.transaction.model.OnlineKeyRegTransactionPayload
 
 expect fun recoverAlgo25Account(mnemonic: String): Algo25Account?
 
@@ -36,3 +37,5 @@ expect fun signAlgo25Transaction(
 ): ByteArray
 
 expect fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray
+
+expect fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray

@@ -20,15 +20,15 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class PendingTransactionRequestViewModel(
+class ConfirmTransactionRequestViewModel(
     private val sendSignedTransactionUseCase: SendSignedTransactionUseCase,
     private val createKeyRegTransaction: CreateKeyRegTransaction,
     private val keyRegTransactionSignManager: KeyRegTransactionSignManager,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
-    StateViewModel<PendingTransactionRequestViewModel.ViewState> by stateDelegate,
-    EventViewModel<PendingTransactionRequestViewModel.ViewEvent> by eventDelegate {
+    StateViewModel<ConfirmTransactionRequestViewModel.ViewState> by stateDelegate,
+    EventViewModel<ConfirmTransactionRequestViewModel.ViewEvent> by eventDelegate {
     init {
         stateDelegate.setDefaultState(ViewState.Content)
         viewModelScope.launch {

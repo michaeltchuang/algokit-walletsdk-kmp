@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.RoundingMode
+import com.michaeltchuang.walletsdk.network.model.TransactionParams
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 
@@ -70,5 +71,11 @@ fun String.formatAmount(): String =
     } catch (e: Exception) {
         this
     }
+
+expect class SuggestedParams
+
+expect class TransactionParams
+
+expect fun TransactionParams.toSuggestedParams(addGenesisId: Boolean = true): SuggestedParams
 
 expect fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray

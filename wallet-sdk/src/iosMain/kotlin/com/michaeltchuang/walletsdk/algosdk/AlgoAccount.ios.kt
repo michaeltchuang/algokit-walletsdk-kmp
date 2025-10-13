@@ -12,6 +12,7 @@ import com.michaeltchuang.walletsdk.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.algosdk.domain.model.Algo25Account
 import com.michaeltchuang.walletsdk.transaction.model.OfflineKeyRegTransactionPayload
+import com.michaeltchuang.walletsdk.transaction.model.OnlineKeyRegTransactionPayload
 import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -144,6 +145,8 @@ actual fun signAlgo25Transaction(
 ): ByteArray = ByteArray(0)
 
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray = ByteArray(0)
+
+actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray = ByteArray(0)
 
 @OptIn(ExperimentalForeignApi::class)
 private fun getBit39Wallet(mnemonic: String): Bip39Wallet =

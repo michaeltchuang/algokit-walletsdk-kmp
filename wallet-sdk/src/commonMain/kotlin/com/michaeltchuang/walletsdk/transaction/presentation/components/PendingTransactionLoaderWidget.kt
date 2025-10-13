@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun SendingTransactionLoading() {
+fun PendingTransactionLoaderWidget() {
     Box(
         modifier =
             Modifier
@@ -72,5 +72,5 @@ fun SendingTransactionLoading() {
 @Preview
 @Composable
 fun SendingTransactionLoadingPreview() {
-    SendingTransactionLoading()
+    PendingTransactionLoaderWidget()
 }
