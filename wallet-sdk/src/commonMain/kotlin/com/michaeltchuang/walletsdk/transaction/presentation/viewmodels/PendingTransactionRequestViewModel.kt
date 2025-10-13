@@ -60,6 +60,7 @@ class PendingTransactionRequestViewModel(
 
     fun getPendingTransactionRequest(): KeyRegTransactionDetail? = PendingTransactionRequestManger.getPendingTransactionRequest()
 
+
     fun confirmTransaction() {
         getPendingTransactionRequest()?.let {
             stateDelegate.updateState {
