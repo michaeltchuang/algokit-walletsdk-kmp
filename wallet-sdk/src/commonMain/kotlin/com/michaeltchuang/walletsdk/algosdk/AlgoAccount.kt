@@ -30,9 +30,9 @@ expect fun signFalcon24Transaction(
     privateKey: ByteArray,
 ): ByteArray?
 
-expect fun sdkSignTransaction(
+expect fun signAlgo25Transaction(
     secretKey: ByteArray,
-    signTx: ByteArray,
+    transactionByteArray: ByteArray,
 ): ByteArray
 
 expect fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray

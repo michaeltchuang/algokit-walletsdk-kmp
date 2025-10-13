@@ -30,6 +30,7 @@ import com.michaeltchuang.walletsdk.accountdetail.presentation.viewmodels.ViewPa
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_ALGO25_MNEMONIC
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_BIP39_MNEMONIC
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -153,7 +154,17 @@ fun ViewPassphraseWordField(
 
 @Preview
 @Composable
-fun ViewPassphraseScreenScreenPreview() {
+fun ViewPassphrase24WordScreenScreenPreview() {
+    val words = SAMPLE_BIP39_MNEMONIC
+    ViewPassphraseScreen(
+        rememberNavController(),
+        words,
+    )
+}
+
+@Preview
+@Composable
+fun ViewPassphrase25WordScreenScreenPreview() {
     val words = SAMPLE_ALGO25_MNEMONIC
     ViewPassphraseScreen(
         rememberNavController(),
