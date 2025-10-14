@@ -143,7 +143,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### View Passphrase Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/b0fe4ff5-73fa-4dab-8c35-97c16cce2fa1" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/b6378ca8-8179-4d99-acc6-243b62fb2dac" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/9c50546c-20da-46ed-b4fb-4a77779de443" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/48f6bd29-2b92-460c-8ef8-146bb07e3508" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/3f85712f-7248-40f3-9c53-9458019a7d28" />
