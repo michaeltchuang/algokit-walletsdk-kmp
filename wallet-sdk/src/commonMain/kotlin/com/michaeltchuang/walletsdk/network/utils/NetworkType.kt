@@ -1,5 +1,7 @@
 package com.michaeltchuang.walletsdk.network.utils
 
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.EXPLORER_MAINNET_URL
+import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.EXPLORER_TESTNET_URL
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.INDEXER_MAINNET_URL
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.INDEXER_TESTNET_URL
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.NODE_MAINNET_URL
@@ -29,5 +31,15 @@ suspend fun getNodeBaseUrl(): String =
             when (networkType) {
                 AlgorandNetwork.TESTNET -> NODE_TESTNET_URL
                 AlgorandNetwork.MAINNET -> NODE_MAINNET_URL
+            }
+        }.await()
+
+suspend fun getExplorerBaseUrl(): String =
+    CoroutineScope(Dispatchers.IO)
+        .async {
+            val networkType = provideNodePreferenceRepository().getSavedNodePreferenceFlow().first()
+            when (networkType) {
+                AlgorandNetwork.TESTNET -> EXPLORER_TESTNET_URL
+                AlgorandNetwork.MAINNET -> EXPLORER_MAINNET_URL
             }
         }.await()

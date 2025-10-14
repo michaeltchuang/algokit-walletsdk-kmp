@@ -20,4 +20,6 @@ object WalletSdkConstants {
     const val NODE_TESTNET_URL = "https://testnet-api.algonode.cloud"
     const val INDEXER_MAINNET_URL = "https://mainnet-idx.algonode.cloud"
     const val INDEXER_TESTNET_URL = "https://testnet-idx.algonode.cloud"
+    const val EXPLORER_MAINNET_URL = "https://explorer.perawallet.app"
+    const val EXPLORER_TESTNET_URL = "https://testnet.explorer.perawallet.app"
 }

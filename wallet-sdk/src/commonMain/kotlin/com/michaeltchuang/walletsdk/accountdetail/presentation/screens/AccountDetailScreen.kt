@@ -2,6 +2,9 @@ package com.michaeltchuang.walletsdk.accountdetail.presentation.screens
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.account
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.address_copied_to_clipboard
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.copy_address
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_key
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.ic_unlink
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.next
@@ -28,11 +31,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
+import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.accountdetail.presentation.viewmodels.AccountDetailViewModel
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
@@ -42,10 +50,12 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+
 @Composable
 fun AccountStatusScreen(
     navController: NavController,
     address: String,
+    showSnackBar: (String) -> Unit,
     onAccountDeleted: () -> Unit,
 ) {
     val viewModel: AccountDetailViewModel = koinViewModel()
@@ -81,6 +91,10 @@ fun AccountStatusScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        CopyAddress(address, showSnackBar)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         AccountStatusItem(
             icon = Res.drawable.ic_key,
             title = stringResource(Res.string.view_passphrase),
@@ -89,6 +103,8 @@ fun AccountStatusScreen(
                 AlgoKitScreens.PASS_PHRASE_ACKNOWLEDGE_SCREEN.name,
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         AccountStatusItem(
             icon = Res.drawable.ic_unlink,
@@ -99,6 +115,50 @@ fun AccountStatusScreen(
         }
     }
 }
+
+
+@Composable
+fun CopyAddress(address: String, showSnackBar: (String) -> Unit) {
+    val clipboardManager = LocalClipboardManager.current
+    val copyMessage = stringResource(Res.string.address_copied_to_clipboard)
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                clipboardManager.setText(AnnotatedString(address))
+                showSnackBar(copyMessage)
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(Res.drawable.ic_copy),
+            contentDescription = stringResource(Res.string.copy_address),
+            tint = AlgoKitTheme.colors.textMain,
+            modifier = Modifier.size(24.dp)
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Column {
+            Text(
+                text = stringResource(Res.string.copy_address),
+                color = AlgoKitTheme.colors.textMain,
+                style = AlgoKitTheme.typography.body.regular.sansMedium,
+            )
+
+            Text(
+                text = address,
+                color = AlgoKitTheme.colors.textGray,
+                style = AlgoKitTheme.typography.body.regular.sansMedium,
+                maxLines = 1,
+                fontSize = 12.sp,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+}
+
 
 @Composable
 fun AccountStatusItem(
@@ -143,6 +203,7 @@ fun SettingsScreenPreview() {
         AccountStatusScreen(
             navController = rememberNavController(),
             address = "ASDFGHJKL",
+            showSnackBar = {},
             onAccountDeleted = {},
         )
     }

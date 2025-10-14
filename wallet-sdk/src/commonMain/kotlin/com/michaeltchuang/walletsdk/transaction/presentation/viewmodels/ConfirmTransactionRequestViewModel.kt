@@ -94,7 +94,7 @@ class ConfirmTransactionRequestViewModel(
                 .collectLatest {
                     it.useSuspended(
                         onSuccess = {
-                            eventDelegate.sendEvent(ViewEvent.SendSignedTransactionSuccess)
+                            eventDelegate.sendEvent(ViewEvent.SendSignedTransactionSuccess(it))
                             PendingTransactionRequestManger.clearPendingTransactionRequest()
                             println("SendSignedTransaction onSuccess: $it")
                         },
@@ -124,8 +124,7 @@ class ConfirmTransactionRequestViewModel(
     }
 
     sealed interface ViewEvent {
-        object SendSignedTransactionSuccess :
-            ViewEvent
+        data class SendSignedTransactionSuccess (val transactionId: String): ViewEvent
 
         data class SendSignedTransactionFailed(
             val error: String,

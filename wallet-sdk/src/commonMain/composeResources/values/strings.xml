@@ -921,7 +921,7 @@
         <item quantity="other">Sign Transactions</item>
     </plurals>
     <string name="signing_index_out_of_count">Signing %1$d out of %2$d…</string>
-    <string name="view_transaction_detail_in_pera_explorer">View Transaction detail in Pera Explorer</string>
+    <string name="view_transaction_detail_in_pera_explorer">View Transaction detail in Lora Explorer</string>
     <string name="go_to_homepage">Go to Homepage</string>
 
     <string name="sending_the_transaction">Sending the transaction</string>

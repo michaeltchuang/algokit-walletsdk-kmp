@@ -2,6 +2,7 @@ package com.michaeltchuang.walletsdk.transaction.presentation.screens
 
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk.generated.resources.done
+import algokit_walletsdk_kmp.wallet_sdk.generated.resources.view_transaction_detail_in_pera_explorer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,18 +19,29 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
+import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.foundation.designsystem.widget.button.AlgoKitPrimaryButton
+import com.michaeltchuang.walletsdk.transaction.presentation.viewmodels.TransactionSuccessViewModel
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
+fun TransactionSuccessScreen(transactionId: String, onDoneClick: () -> Unit) {
+    val viewModel: TransactionSuccessViewModel = koinViewModel()
+    val scope = rememberCoroutineScope()
+    val webViewController by rememberWebViewController()
+    WebViewPlatform(webViewController = webViewController)
+
     Box(
         modifier =
             Modifier
@@ -84,10 +96,14 @@ fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
                     .padding(16.dp),
         ) {
             Text(
-                text = "View Transaction detail in Pera Explorer",
+                text = stringResource(Res.string.view_transaction_detail_in_pera_explorer),
                 color = AlgoKitTheme.colors.textMain,
                 style = typography.footnote.sansMedium,
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    scope.launch {
+                        webViewController.open(viewModel.getExplorerBaseUrl() + "/tx/$transactionId")
+                    }
+                },
             )
             AlgoKitPrimaryButton(
                 onClick = {
@@ -107,6 +123,6 @@ fun TransactionSuccessScreen(onDoneClick: () -> Unit) {
 @Composable
 fun TransactionSuccessScreenPreview() {
     AlgoKitTheme {
-        TransactionSuccessScreen {}
+        TransactionSuccessScreen("transactionId") {}
     }
 }
