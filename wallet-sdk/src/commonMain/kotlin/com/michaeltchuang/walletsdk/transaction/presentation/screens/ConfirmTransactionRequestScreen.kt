@@ -62,6 +62,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ConfirmTransactionRequestScreen(
     navController: NavController,
     viewModel: ConfirmTransactionRequestViewModel = koinViewModel(),
+    showSnackBar: (message: String, isError: Boolean) -> Unit,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -71,7 +72,9 @@ fun ConfirmTransactionRequestScreen(
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect { event ->
             when (event) {
-                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
+                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {
+                    showSnackBar(event.error, true)
+                }
                 is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
                     navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId=${event.transactionId}") {
                         popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
@@ -306,6 +309,12 @@ fun AddNoteTextField(
 @Composable
 fun PreviewTransactionDetailsScreen() {
     AlgoKitTheme {
-        ConfirmTransactionRequestScreen(rememberNavController())
+        ConfirmTransactionRequestScreen(
+            navController = rememberNavController(),
+            viewModel = koinViewModel(),
+            showSnackBar = { message, isError ->
+                println("Snackbar: $message")
+            }
+        )
     }
 }

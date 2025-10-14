@@ -123,4 +123,11 @@ object AlgoKitLightColor : AlgoKitColor {
     override val algoIcon = ColorPalette.White
 
     override val buttonStrokeColor = ColorPalette.Gray100
+
+    override val snackbarError = ColorPalette.Salmon500
+    override val snackbarSuccess = ColorPalette.Turquoise600
+    override val snackbarInfo = ColorPalette.Gray200
+    override val snackbarErrorText = ColorPalette.White
+    override val snackbarSuccessText = ColorPalette.White
+    override val snackbarInfoText = ColorPalette.Gray900
 }
