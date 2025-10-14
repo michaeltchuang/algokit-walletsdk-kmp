@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -153,6 +154,27 @@ fun OnBoardingBottomSheetNavHost(
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
+                modifier = Modifier.padding(bottom = 100.dp),
+                snackbar = { data ->
+                    val isError = data.visuals.actionLabel == "ERROR"
+                    val isSuccess = data.visuals.actionLabel == "SUCCESS"
+
+                    Snackbar(
+                        snackbarData = data,
+                        containerColor =
+                            when {
+                                isError -> AlgoKitTheme.colors.snackbarError
+                                isSuccess -> AlgoKitTheme.colors.snackbarSuccess
+                                else -> AlgoKitTheme.colors.snackbarInfo
+                            },
+                        contentColor =
+                            when {
+                                isError -> AlgoKitTheme.colors.snackbarErrorText
+                                isSuccess -> AlgoKitTheme.colors.snackbarSuccessText
+                                else -> AlgoKitTheme.colors.snackbarInfoText
+                            },
+                    )
+                },
             )
         },
     ) { padding ->
@@ -230,7 +252,7 @@ fun OnBoardingBottomSheetNavHost(
 
                     val accountType =
                         when {
-                            !scannedMnemonic.isNullOrEmpty() -> {
+                            scannedMnemonic.isNotEmpty() -> {
                                 val wordCount = scannedMnemonic.trim().split("\\s+".toRegex()).size
                                 when (wordCount) {
                                     25 -> AccountMnemonic.AccountType.Algo25
@@ -254,9 +276,12 @@ fun OnBoardingBottomSheetNavHost(
                     }
                 }
                 composable(route = AlgoKitScreens.RECOVER_AN_ACCOUNT_SCREEN.name) {
-                    RecoverAnAccountScreen(navController = navController) {
+                    RecoverAnAccountScreen(navController = navController) { message, isError ->
                         coroutineScope.launch {
-                            snackbarHostState.showSnackbar(it)
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                actionLabel = if (isError) "ERROR" else null,
+                            )
                         }
                     }
                 }
@@ -264,7 +289,14 @@ fun OnBoardingBottomSheetNavHost(
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
-                    ConfirmTransactionRequestScreen(navController = navController)
+                    ConfirmTransactionRequestScreen(navController = navController) { message, isError ->
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                actionLabel = if (isError) "ERROR" else null,
+                            )
+                        }
+                    }
                 }
                 composable(
                     route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId={transactionId}",

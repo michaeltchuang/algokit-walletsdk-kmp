@@ -41,7 +41,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun RecoverAnAccountScreen(
     navController: NavController,
-    onClick: (message: String) -> Unit,
+    showSnackbar: (message: String, isError: Boolean) -> Unit,
 ) {
     Column(
         modifier =
@@ -101,7 +101,7 @@ fun RecoverAnAccountScreen(
                 )
             },
             onClick = {
-                onClick(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET)
+                showSnackbar(WalletSdkConstants.FEATURE_NOT_SUPPORTED_YET, false)
             },
         )
     }
@@ -111,7 +111,11 @@ fun RecoverAnAccountScreen(
 @Composable
 fun RecoverAnAccountScreenPreview() {
     AlgoKitTheme {
-        RecoverAnAccountScreen(navController = rememberNavController()) {
-        }
+        RecoverAnAccountScreen(
+            navController = rememberNavController(),
+            showSnackbar = { message, isError ->
+                println("Snackbar: $message, isError: $isError")
+            },
+        )
     }
 }

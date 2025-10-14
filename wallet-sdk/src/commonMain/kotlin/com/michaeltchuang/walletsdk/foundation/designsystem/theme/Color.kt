@@ -225,4 +225,11 @@ interface AlgoKitColor {
     val algoIcon: Color
 
     val buttonStrokeColor: Color
+
+    val snackbarError: Color
+    val snackbarSuccess: Color
+    val snackbarInfo: Color
+    val snackbarErrorText: Color
+    val snackbarSuccessText: Color
+    val snackbarInfoText: Color
 }

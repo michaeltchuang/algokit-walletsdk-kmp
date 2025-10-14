@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
@@ -62,8 +63,10 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ConfirmTransactionRequestScreen(
     navController: NavController,
     viewModel: ConfirmTransactionRequestViewModel = koinViewModel(),
+    showSnackBar: (message: String, isError: Boolean) -> Unit,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
+    val minimumFee by viewModel.minimumFee.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(Unit) {
         viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
@@ -71,7 +74,9 @@ fun ConfirmTransactionRequestScreen(
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect { event ->
             when (event) {
-                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
+                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {
+                    showSnackBar(event.error, true)
+                }
                 is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
                     navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId=${event.transactionId}") {
                         popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
@@ -85,7 +90,7 @@ fun ConfirmTransactionRequestScreen(
 
     when (viewState) {
         is ConfirmTransactionRequestViewModel.ViewState.Content -> {
-            Content(navController, viewModel)
+            Content(navController, viewModel, minimumFee)
         }
 
         is ConfirmTransactionRequestViewModel.ViewState.Loading -> {
@@ -98,6 +103,7 @@ fun ConfirmTransactionRequestScreen(
 fun Content(
     navController: NavController,
     viewModel: ConfirmTransactionRequestViewModel,
+    minimumFee: String,
 ) {
     Box(
         modifier =
@@ -111,7 +117,14 @@ fun Content(
                 title = stringResource(Res.string.key_reg_transaction_title),
                 onClick = { navController.popBackStack() },
             )
-            ContentItems(viewModel.getPendingTransactionRequest())
+            val txnDetail = viewModel.getPendingTransactionRequest()
+            txnDetail?.let {
+                viewModel.calculateMinimumFee(txnDetail)
+                ContentItems(
+                    viewModel.getPendingTransactionRequest(),
+                    minimumFee,
+                )
+            }
         }
 
         AlgoKitPrimaryButton(
@@ -128,7 +141,10 @@ fun Content(
 }
 
 @Composable
-fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
+fun ContentItems(
+    txnDetail: KeyRegTransactionDetail?,
+    minimumFee: String,
+) {
     Column(
         modifier =
             Modifier
@@ -145,7 +161,7 @@ fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee?.formatAmount() ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee?.formatAmount() ?: minimumFee))
 
         // Type
         LabeledText(label = "Type", value = txnDetail?.type ?: "Unknown")
@@ -306,6 +322,12 @@ fun AddNoteTextField(
 @Composable
 fun PreviewTransactionDetailsScreen() {
     AlgoKitTheme {
-        ConfirmTransactionRequestScreen(rememberNavController())
+        ConfirmTransactionRequestScreen(
+            navController = rememberNavController(),
+            viewModel = koinViewModel(),
+            showSnackBar = { message, isError ->
+                println("Snackbar: $message")
+            },
+        )
     }
 }
