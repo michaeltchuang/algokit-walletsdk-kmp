@@ -42,6 +42,7 @@ import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAlgo25Secret
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetFalcon24SecretKey
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetFalcon24WalletSummaries
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdEntropy
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdKeyPrivateKey
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdSeed
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetHdWalletSummaries
 import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetMaxHdSeedId
@@ -102,7 +103,7 @@ val localAccountsModule =
                 get(),
             )
         }
-
+        factory { GetHdKeyPrivateKey(get<HdKeyAccountRepository>()::getPrivateKey) }
         single { SaveHdKeyAccount(get<HdKeyAccountRepository>()::addAccount) }
         single { GetHdWalletSummaries(get<HdKeyAccountRepository>()::getHdWalletSummaries) }
 

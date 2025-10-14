@@ -63,8 +63,7 @@ timeline
             : ✅ Settings - Network switcher flow
 
     section In Progress 🔄
-    2025Q4  : ✅ Transaction - Sign KeyReg online/offline flow with QR code flow (Android)
-            : 🔄 Transaction - Sign KeyReg online/offline flow with QR code flow (iOS)
+    2025Q4  : ✅ Transaction - Sign KeyReg online/offline flow with QR code flow
             : 🔄 Account Details - Add Copy Address Button
             : Onboarding - Encrypt Android secret keys in DB
             : Onboarding - Encrypt iOS secret keys in DB
