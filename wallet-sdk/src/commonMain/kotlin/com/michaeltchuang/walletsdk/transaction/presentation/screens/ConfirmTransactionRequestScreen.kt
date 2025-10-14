@@ -154,8 +154,8 @@ fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
 
         LabeledText(label = "Vote Key", value = txnDetail?.voteKey ?: "")
         LabeledText(label = "Selection Key", value = txnDetail?.selectionPublicKey ?: "")
-        LabeledText(label = "State Proof Key", value = txnDetail?.sprfkey.toString())
-        LabeledText(label = "Valid First Round", value = txnDetail?.voteFirstRound.toString())
+        LabeledText(label = "State Proof Key", value = txnDetail?.sprfkey ?: "")
+        LabeledText(label = "Valid First Round", value = txnDetail?.voteFirstRound ?: "")
         LabeledText(label = "Valid Last Round", value = txnDetail?.voteLastRound ?: "")
         LabeledText(label = "Vote Key Dilution", value = txnDetail?.voteKeyDilution ?: "")
         Spacer(modifier = Modifier.height(8.dp))

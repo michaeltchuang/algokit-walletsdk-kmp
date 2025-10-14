@@ -20,32 +20,40 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.base64EncodedStringWithOptions
-import platform.Foundation.dataWithBytes
-import platform.posix.index
+import platform.Foundation.create
 import platform.posix.memcpy
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+
+const val ROUND_THRESHOLD = 1000L
 
 @OptIn(ExperimentalForeignApi::class)
-fun ByteArray.toNSData(): NSData =
-    this.usePinned { pinned ->
-        NSData.dataWithBytes(
+fun ByteArray.toNSData(): NSData {
+    if (this.isEmpty()) {
+        return NSData()
+    }
+
+    // Create NSData with copied bytes
+    return this.usePinned { pinned ->
+        NSData.create(
             bytes = pinned.addressOf(0),
             length = this.size.toULong(),
-        )
+        ) ?: NSData()
     }
+}
 
 @OptIn(ExperimentalForeignApi::class)
 fun NSData.toByteArray(): ByteArray {
     val length = this.length.toInt()
-
-    if (length == 0) return ByteArray(0)
-
-    val result = ByteArray(length)
-
-    result.usePinned { pinned ->
-        memcpy(pinned.addressOf(0), this.bytes, length.toULong())
+    if (length == 0) {
+        return ByteArray(0)
     }
 
-    return result
+    return ByteArray(length).apply {
+        usePinned { pinned ->
+            memcpy(pinned.addressOf(0), this@toByteArray.bytes, this@toByteArray.length)
+        }
+    }
 }
 
 private fun String.fromBase64ToByteArray(): ByteArray =
@@ -139,14 +147,102 @@ actual fun signFalcon24Transaction(
         null
     }
 
+@OptIn(ExperimentalEncodingApi::class, ExperimentalForeignApi::class)
 actual fun signAlgo25Transaction(
     secretKey: ByteArray,
     transactionByteArray: ByteArray,
-): ByteArray = ByteArray(0)
+): ByteArray =
+    try {
+        val secretKeyBase64 = Base64.encode(secretKey)
+        val transactionBase64 = Base64.encode(transactionByteArray)
+        val signedDataBase64 =
+            spmAlgoApiBridge().signTransactionWithBase64WithSkBase64(
+                skBase64 = secretKeyBase64,
+                encodedTxBase64 = transactionBase64,
+            )
+        val result = Base64.decode(signedDataBase64)
 
-actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray = ByteArray(0)
+        result
+    } catch (e: Exception) {
+        println("ERROR signing Algo25 transaction: ${e.message}")
+        ByteArray(0)
+    }
 
-actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray = ByteArray(0)
+@OptIn(ExperimentalForeignApi::class)
+actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray {
+    val bridge = spmAlgoApiBridge()
+
+    val firstRound = payload.txnParams.lastRound
+    val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
+
+    val fee =
+        payload.flatFee
+            ?.toString()
+            ?.toLong()
+            ?.toULong() ?: payload.txnParams.fee.toULong()
+    val flatFeeEnabled = payload.flatFee != null
+
+    val addressString = payload.senderAddress
+
+    val encodedTx =
+        bridge.createOfflineKeyRegTransactionWithSenderAddress(
+            senderAddress = payload.senderAddress,
+            noteBase64 = payload.note,
+            fee = fee,
+            flatFee = flatFeeEnabled,
+            firstRound = firstRound.toULong(),
+            lastRound = lastRound.toULong(),
+            genesisHashBase64 = payload.txnParams.genesisHash,
+            genesisID = payload.txnParams.genesisId,
+        )
+
+    if (encodedTx.length == 0UL) {
+        println("ERROR: createOfflineKeyRegTransaction returned empty data")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray {
+    val bridge = spmAlgoApiBridge()
+
+    val firstRound = payload.txnParams.lastRound
+    val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
+
+    val fee =
+        payload.flatFee
+            ?.toString()
+            ?.toLong()
+            ?.toULong() ?: payload.txnParams.fee.toULong()
+    val flatFeeEnabled = payload.flatFee != null
+
+    val encodedTx =
+        bridge.createOnlineKeyRegTransactionWithSenderAddress(
+            senderAddress = payload.senderAddress,
+            noteBase64 = payload.note,
+            fee = fee,
+            flatFee = flatFeeEnabled,
+            firstRound = firstRound.toULong(),
+            lastRound = lastRound.toULong(),
+            genesisHashBase64 = payload.txnParams.genesisHash,
+            genesisID = payload.txnParams.genesisId,
+            voteKeyBase64 = payload.voteKey,
+            selectionKeyBase64 = payload.selectionPublicKey,
+            stateProofKeyBase64 = payload.stateProofKey,
+            voteFirstRound = payload.voteFirstRound.toULong(),
+            voteLastRound = payload.voteLastRound.toULong(),
+            voteKeyDilution = payload.voteKeyDilution.toULong(),
+        )
+
+    if (encodedTx.length == 0UL) {
+        println("ERROR: createOnlineKeyRegTransaction returned empty data")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
 
 @OptIn(ExperimentalForeignApi::class)
 private fun getBit39Wallet(mnemonic: String): Bip39Wallet =
