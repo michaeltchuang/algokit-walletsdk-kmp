@@ -5,12 +5,16 @@ import AlgoSDK
 
 @objcMembers public class spmAlgoApiBridge: NSObject {
 
-    public func getHdPublicKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
-
+    public func getHdPublicKeyFromSeed(seedBase64: String, account: Int, change: Int, keyIndex: Int) -> String {
         do {
-            let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
+            guard let seedData = Data(base64Encoded: seedBase64) else {
+                print("Failed to decode seed")
+                return ""
+            }
 
-            guard let wallet = XHDWalletAPI(seed: seed) else {
+            let seedHex = seedData.map { String(format: "%02x", $0) }.joined()
+
+            guard let wallet = XHDWalletAPI(seed: seedHex) else {
                 print("Failed to create wallet")
                 return ""
             }
@@ -21,51 +25,142 @@ import AlgoSDK
                 change: UInt32(change),
                 keyIndex: UInt32(keyIndex)
             )
-            print("Public Key: \(publicKey)")
+            print("Public Key: \(publicKey.base64EncodedString())")
             return publicKey.base64EncodedString()
 
         } catch {
-            print("Failed to generate seed or key: \(error)")
+            print("Failed to generate key: \(error)")
             return ""
         }
     }
 
-    public func getHdPrivateKey(mnemonic: String, account: Int, change: Int, keyIndex: Int) -> String {
-
+    public func getHdPrivateKeyFromSeed(seedBase64: String, account: Int, change: Int, keyIndex: Int) -> String {
         do {
-            let seed = try Mnemonic.deterministicSeedString(from: mnemonic)
-            guard let nonOptionalSeedData = Data(base64Encoded: seed) else {
-                throw NSError(domain: "WalletError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid Base64 seed string"])
+            guard let seedData = Data(base64Encoded: seedBase64) else {
+                print("Failed to decode seed")
+                return ""
             }
 
-            guard let wallet = XHDWalletAPI(seed: seed) else {
+            let seedHex = seedData.map { String(format: "%02x", $0) }.joined()
+
+            guard let wallet = XHDWalletAPI(seed: seedHex) else {
                 print("Failed to create wallet")
                 return ""
             }
 
-            let account: UInt32 = UInt32(account)
-            let change: UInt32 = UInt32(change)
-            let keyIndex: UInt32 = UInt32(keyIndex)
-
             let bip44Path = wallet.getBIP44PathFromContext(
                 context: .Address,
-                account: account,
-                change: change,
-                keyIndex: keyIndex
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex)
             )
 
-            let privateKey = try wallet.deriveKey(
-                rootKey: wallet.fromSeed(nonOptionalSeedData),
+            let rootKey = wallet.fromSeed(seedData)
+
+            // Get the full 96-byte extended private key (matches Android's isPrivate=true)
+            let extendedPrivateKey = try wallet.deriveKey(
+                rootKey: rootKey,
                 bip44Path: bip44Path,
-                isPrivate: false,
+                isPrivate: true,
                 derivationType: BIP32DerivationType.Peikert
             )
-            print("Private Key: \(privateKey)")
-            return privateKey.base64EncodedString()
+
+            print("Extended Private Key (96 bytes): \(extendedPrivateKey.base64EncodedString())")
+
+            // Return the full 96 bytes to match Android
+            return extendedPrivateKey.base64EncodedString()
 
         } catch {
-            print("Failed to generate seed or key: \(error)")
+            print("Failed to generate key: \(error)")
             return ""
+        }
+    }
+
+    public func signHdKeyTransaction(
+        transactionBytes: Data,
+        seedBase64: String,
+        account: Int,
+        change: Int,
+        keyIndex: Int
+    ) -> Data? {
+        print("=== signHdKeyTransaction START ===")
+        print("Transaction bytes length: \(transactionBytes.count)")
+        print("Seed Base64 length: \(seedBase64.count)")
+        print("Account: \(account), Change: \(change), KeyIndex: \(keyIndex)")
+
+        do {
+            print("Step 1: Decoding seed from Base64...")
+            guard let seedData = Data(base64Encoded: seedBase64) else {
+                print("❌ ERROR: Failed to decode seed from Base64")
+                return nil
+            }
+            print("✓ Seed decoded, length: \(seedData.count) bytes")
+
+            print("Step 2: Converting seed to hex for XHDWalletAPI...")
+            let seedHex = seedData.map { String(format: "%02x", $0) }.joined()
+            print("✓ Seed hex length: \(seedHex.count) characters")
+
+            print("Step 3: Creating XHDWalletAPI...")
+            guard let wallet = XHDWalletAPI(seed: seedHex) else {
+                print("❌ ERROR: Failed to create wallet")
+                return nil
+            }
+            print("✓ Wallet created")
+
+            print("Step 4: Preparing transaction with TX prefix...")
+            // Add "TX" prefix like Android does in rawTransactionBytesToSign
+            let txPrefix = "TX".data(using: .utf8)!
+            let prefixedTransaction = txPrefix + transactionBytes
+            print("✓ Prefixed transaction length: \(prefixedTransaction.count) bytes")
+
+            print("Step 5: Signing using wallet.sign()...")
+            // Use the sign method that matches Android's signAlgoTransaction
+            let signature = try wallet.sign(
+                context: .Address,
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex),
+                message: prefixedTransaction,
+                derivationType: .Peikert
+            )
+            print("✓ Signature created, length: \(signature.count) bytes")
+
+            print("Step 6: Getting public key...")
+            let publicKey = try wallet.keyGen(
+                context: .Address,
+                account: UInt32(account),
+                change: UInt32(change),
+                keyIndex: UInt32(keyIndex),
+                derivationType: .Peikert
+            )
+            let pkAddress = AlgoSDK.AlgoSdkGenerateAddressFromPublicKey(publicKey, nil)
+            print("✓ Public key address: \(pkAddress)")
+
+            print("Step 7: Attaching signature to transaction...")
+            // Now attach the signature to the transaction like Android does with Sdk.attachSignature
+            var error: NSError?
+            guard let signedTx = AlgoSDK.AlgoSdkAttachSignature(
+                signature,
+                transactionBytes,
+                &error
+            ) else {
+                if let error = error {
+                    print("❌ ERROR: AlgoSdkAttachSignature failed: \(error.localizedDescription)")
+                } else {
+                    print("❌ ERROR: AlgoSdkAttachSignature returned nil")
+                }
+                return nil
+            }
+
+            print("✓ Transaction signed successfully!")
+            print("Signed transaction length: \(signedTx.count) bytes")
+            print("=== signHdKeyTransaction END (SUCCESS) ===")
+            return signedTx
+
+        } catch {
+            print("❌ EXCEPTION: \(error.localizedDescription)")
+            print("=== signHdKeyTransaction END (FAILURE) ===")
+            return nil
         }
     }
 
@@ -122,9 +217,8 @@ import AlgoSDK
         return AlgoSDK.AlgoSdkGenerateAddressFromSK(data, nil)
     }
 
-    public func signTransactionWithBase64(skBase64: String, encodedTxBase64: String) -> String {
+    public func signAlgo25TransactionWithBase64(skBase64: String, encodedTxBase64: String) -> String {
 
-        // Decode Base64 strings to Data
         guard let skData = Data(base64Encoded: skBase64) else {
             print("Error: Failed to decode secret key from Base64")
             return ""
@@ -135,7 +229,6 @@ import AlgoSDK
             return ""
         }
 
-        // Validate secret key length
         guard skData.count == 64 else {
             print("Error signing transaction: Secret key (sk) must be 64 bytes long, but received \(skData.count) bytes.")
             return ""
@@ -146,10 +239,6 @@ import AlgoSDK
             return ""
         }
 
-        print("Swift: About to call AlgoSdkSignTransaction")
-        print("Swift: sk size = \(skData.count), encodedTx size = \(encodedTxData.count)")
-
-        // Use withUnsafeBytes to keep the Data alive during the SDK call
         let result = skData.withUnsafeBytes { (skPtr: UnsafeRawBufferPointer) -> String in
             let sk = Data(bytes: skPtr.baseAddress!, count: skData.count)
 
@@ -166,36 +255,11 @@ import AlgoSDK
                     return ""
                 }
 
-                print("Swift: Signing completed successfully")
                 return signedTxn.base64EncodedString()
             }
         }
 
         return result
-    }
-
-    public func signTransactionWithSk(sk: Data, encodedTx: Data) -> Data {
-
-        guard sk.count == 64 else {
-            print("Error signing transaction: Secret key (sk) must be 64 bytes long, but received \(sk.count) bytes.")
-            return Data()
-        }
-
-        guard !encodedTx.isEmpty else {
-            print("Error signing transaction: Unsigned transaction data (encodedTx) is empty.")
-            return Data()
-        }
-
-        var error: NSError?
-        guard let signedTxn = AlgoSDK.AlgoSdkSignTransaction(sk, encodedTx, &error) else {
-            if let error = error {
-                print("Error signing transaction (SDK failed): \(error.localizedDescription)")
-            } else {
-                print("Failed to sign transaction (SDK failed): unknown error.")
-            }
-            return Data()
-        }
-        return signedTxn
     }
 
     public func getFalconAddressFromMnemonic(passphrase: String) -> String {

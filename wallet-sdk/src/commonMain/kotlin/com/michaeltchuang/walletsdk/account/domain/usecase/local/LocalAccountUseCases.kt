@@ -79,6 +79,10 @@ fun interface GetAlgo25SecretKey {
     suspend operator fun invoke(address: String): ByteArray?
 }
 
+fun interface GetHdKeyPrivateKey {
+    suspend operator fun invoke(address: String): ByteArray?
+}
+
 fun interface GetFalcon24SecretKey {
     suspend operator fun invoke(address: String): ByteArray?
 }
