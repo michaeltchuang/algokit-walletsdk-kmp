@@ -39,8 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
-import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
 import com.michaeltchuang.walletsdk.accountdetail.presentation.viewmodels.AccountDetailViewModel
 import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
@@ -49,7 +47,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
-
 
 @Composable
 fun AccountStatusScreen(
@@ -116,26 +113,29 @@ fun AccountStatusScreen(
     }
 }
 
-
 @Composable
-fun CopyAddress(address: String, showSnackBar: (String) -> Unit) {
+fun CopyAddress(
+    address: String,
+    showSnackBar: (String) -> Unit,
+) {
     val clipboardManager = LocalClipboardManager.current
     val copyMessage = stringResource(Res.string.address_copied_to_clipboard)
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                clipboardManager.setText(AnnotatedString(address))
-                showSnackBar(copyMessage)
-            },
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable {
+                    clipboardManager.setText(AnnotatedString(address))
+                    showSnackBar(copyMessage)
+                },
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             painter = painterResource(Res.drawable.ic_copy),
             contentDescription = stringResource(Res.string.copy_address),
             tint = AlgoKitTheme.colors.textMain,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -153,12 +153,11 @@ fun CopyAddress(address: String, showSnackBar: (String) -> Unit) {
                 style = AlgoKitTheme.typography.body.regular.sansMedium,
                 maxLines = 1,
                 fontSize = 12.sp,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
 }
-
 
 @Composable
 fun AccountStatusItem(

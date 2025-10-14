@@ -268,11 +268,13 @@ fun OnBoardingBottomSheetNavHost(
                 }
                 composable(
                     route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId={transactionId}",
-                    arguments = listOf(
-                        navArgument("transactionId") {
-                            type = NavType.StringType
-                        }
-                    )) {
+                    arguments =
+                        listOf(
+                            navArgument("transactionId") {
+                                type = NavType.StringType
+                            },
+                        ),
+                ) {
                     val transactionId = it.arguments?.getString("transactionId")
                     transactionId?.let {
                         TransactionSuccessScreen(transactionId = it) {

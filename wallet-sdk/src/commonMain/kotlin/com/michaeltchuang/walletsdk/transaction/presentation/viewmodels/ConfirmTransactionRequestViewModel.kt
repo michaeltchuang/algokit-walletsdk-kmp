@@ -124,7 +124,9 @@ class ConfirmTransactionRequestViewModel(
     }
 
     sealed interface ViewEvent {
-        data class SendSignedTransactionSuccess (val transactionId: String): ViewEvent
+        data class SendSignedTransactionSuccess(
+            val transactionId: String,
+        ) : ViewEvent
 
         data class SendSignedTransactionFailed(
             val error: String,

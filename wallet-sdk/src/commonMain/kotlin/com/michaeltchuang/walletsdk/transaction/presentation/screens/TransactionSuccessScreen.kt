@@ -36,7 +36,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun TransactionSuccessScreen(transactionId: String, onDoneClick: () -> Unit) {
+fun TransactionSuccessScreen(
+    transactionId: String,
+    onDoneClick: () -> Unit,
+) {
     val viewModel: TransactionSuccessViewModel = koinViewModel()
     val scope = rememberCoroutineScope()
     val webViewController by rememberWebViewController()
@@ -99,11 +102,12 @@ fun TransactionSuccessScreen(transactionId: String, onDoneClick: () -> Unit) {
                 text = stringResource(Res.string.view_transaction_detail_in_pera_explorer),
                 color = AlgoKitTheme.colors.textMain,
                 style = typography.footnote.sansMedium,
-                modifier = Modifier.clickable {
-                    scope.launch {
-                        webViewController.open(viewModel.getExplorerBaseUrl() + "/tx/$transactionId")
-                    }
-                },
+                modifier =
+                    Modifier.clickable {
+                        scope.launch {
+                            webViewController.open(viewModel.getExplorerBaseUrl() + "/tx/$transactionId")
+                        }
+                    },
             )
             AlgoKitPrimaryButton(
                 onClick = {
