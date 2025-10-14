@@ -115,7 +115,7 @@ fun RecoverAnAccountScreenPreview() {
             navController = rememberNavController(),
             showSnackbar = { message, isError ->
                 println("Snackbar: $message, isError: $isError")
-            }
+            },
         )
     }
 }

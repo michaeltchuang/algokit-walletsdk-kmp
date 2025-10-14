@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.account.presentation.components.AlgoKitScreens
@@ -65,6 +66,7 @@ fun ConfirmTransactionRequestScreen(
     showSnackBar: (message: String, isError: Boolean) -> Unit,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
+    val minimumFee by viewModel.minimumFee.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(Unit) {
         viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
@@ -88,7 +90,7 @@ fun ConfirmTransactionRequestScreen(
 
     when (viewState) {
         is ConfirmTransactionRequestViewModel.ViewState.Content -> {
-            Content(navController, viewModel)
+            Content(navController, viewModel, minimumFee)
         }
 
         is ConfirmTransactionRequestViewModel.ViewState.Loading -> {
@@ -101,6 +103,7 @@ fun ConfirmTransactionRequestScreen(
 fun Content(
     navController: NavController,
     viewModel: ConfirmTransactionRequestViewModel,
+    minimumFee: String,
 ) {
     Box(
         modifier =
@@ -114,7 +117,14 @@ fun Content(
                 title = stringResource(Res.string.key_reg_transaction_title),
                 onClick = { navController.popBackStack() },
             )
-            ContentItems(viewModel.getPendingTransactionRequest())
+            val txnDetail = viewModel.getPendingTransactionRequest()
+            txnDetail?.let {
+                viewModel.calculateMinimumFee(txnDetail)
+                ContentItems(
+                    viewModel.getPendingTransactionRequest(),
+                    minimumFee,
+                )
+            }
         }
 
         AlgoKitPrimaryButton(
@@ -131,7 +141,10 @@ fun Content(
 }
 
 @Composable
-fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
+fun ContentItems(
+    txnDetail: KeyRegTransactionDetail?,
+    minimumFee: String,
+) {
     Column(
         modifier =
             Modifier
@@ -148,7 +161,7 @@ fun ContentItems(txnDetail: KeyRegTransactionDetail?) {
         )
 
         // Fee
-        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee?.formatAmount() ?: "0.001"))
+        LabeledText(label = "Fee", value = ("\u00A6") + (txnDetail?.fee?.formatAmount() ?: minimumFee))
 
         // Type
         LabeledText(label = "Type", value = txnDetail?.type ?: "Unknown")
@@ -314,7 +327,7 @@ fun PreviewTransactionDetailsScreen() {
             viewModel = koinViewModel(),
             showSnackBar = { message, isError ->
                 println("Snackbar: $message")
-            }
+            },
         )
     }
 }

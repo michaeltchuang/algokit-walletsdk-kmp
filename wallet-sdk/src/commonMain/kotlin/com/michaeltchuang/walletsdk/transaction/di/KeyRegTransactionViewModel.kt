@@ -8,7 +8,7 @@ import org.koin.dsl.module
 val confirmTransactionRequestViewModelModule =
     module {
         viewModel {
-            ConfirmTransactionRequestViewModel(get(), get(), get(), get(), get())
+            ConfirmTransactionRequestViewModel(get(), get(), get(), get(), get(), get())
         }
         viewModel {
             TransactionSuccessViewModel(get())

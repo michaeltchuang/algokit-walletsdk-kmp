@@ -3,6 +3,8 @@ package com.michaeltchuang.walletsdk.transaction.presentation.viewmodels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.michaeltchuang.walletsdk.account.domain.model.local.LocalAccount
+import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
@@ -17,6 +19,9 @@ import com.michaeltchuang.walletsdk.transaction.signmanager.KeyRegTransactionSig
 import com.michaeltchuang.walletsdk.transaction.signmanager.PendingTransactionRequestManger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,11 +29,15 @@ class ConfirmTransactionRequestViewModel(
     private val sendSignedTransactionUseCase: SendSignedTransactionUseCase,
     private val createKeyRegTransaction: CreateKeyRegTransaction,
     private val keyRegTransactionSignManager: KeyRegTransactionSignManager,
+    private val getLocalAccount: GetLocalAccount,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
     StateViewModel<ConfirmTransactionRequestViewModel.ViewState> by stateDelegate,
     EventViewModel<ConfirmTransactionRequestViewModel.ViewEvent> by eventDelegate {
+    private val _minimumFee = MutableStateFlow("0.001")
+    val minimumFee: StateFlow<String> = _minimumFee.asStateFlow()
+
     init {
         stateDelegate.setDefaultState(ViewState.Content)
         viewModelScope.launch {
@@ -77,6 +86,28 @@ class ConfirmTransactionRequestViewModel(
             }
         } ?: run {
             transactionFailed("No pending transaction request found")
+        }
+    }
+
+    fun calculateMinimumFee(txnDetail: KeyRegTransactionDetail?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val account = getLocalAccount.invoke(txnDetail?.address ?: return@launch)
+            val isOnlineKeyReg =
+                !txnDetail.voteKey.isNullOrEmpty() &&
+                    !txnDetail.selectionPublicKey.isNullOrEmpty() &&
+                    !txnDetail.voteFirstRound.isNullOrEmpty() &&
+                    !txnDetail.voteLastRound.isNullOrEmpty() &&
+                    !txnDetail.voteKeyDilution.isNullOrEmpty() &&
+                    !txnDetail.sprfkey.isNullOrEmpty()
+
+            val fee =
+                when {
+                    account is LocalAccount.Falcon24 && isOnlineKeyReg -> "2.003"
+                    account is LocalAccount.Falcon24 && !isOnlineKeyReg -> "0.004"
+                    isOnlineKeyReg -> "2.000"
+                    else -> "0.001"
+                }
+            _minimumFee.value = fee
         }
     }
 

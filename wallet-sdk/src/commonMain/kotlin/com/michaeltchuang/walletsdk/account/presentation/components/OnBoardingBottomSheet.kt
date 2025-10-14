@@ -161,18 +161,20 @@ fun OnBoardingBottomSheetNavHost(
 
                     Snackbar(
                         snackbarData = data,
-                        containerColor = when {
-                            isError -> AlgoKitTheme.colors.snackbarError
-                            isSuccess -> AlgoKitTheme.colors.snackbarSuccess
-                            else -> AlgoKitTheme.colors.snackbarInfo
-                        },
-                        contentColor = when {
-                            isError -> AlgoKitTheme.colors.snackbarErrorText
-                            isSuccess -> AlgoKitTheme.colors.snackbarSuccessText
-                            else -> AlgoKitTheme.colors.snackbarInfoText
-                        }
+                        containerColor =
+                            when {
+                                isError -> AlgoKitTheme.colors.snackbarError
+                                isSuccess -> AlgoKitTheme.colors.snackbarSuccess
+                                else -> AlgoKitTheme.colors.snackbarInfo
+                            },
+                        contentColor =
+                            when {
+                                isError -> AlgoKitTheme.colors.snackbarErrorText
+                                isSuccess -> AlgoKitTheme.colors.snackbarSuccessText
+                                else -> AlgoKitTheme.colors.snackbarInfoText
+                            },
                     )
-                }
+                },
             )
         },
     ) { padding ->
@@ -278,7 +280,8 @@ fun OnBoardingBottomSheetNavHost(
                         coroutineScope.launch {
                             snackbarHostState.showSnackbar(
                                 message = message,
-                                actionLabel = if (isError) "ERROR" else null)
+                                actionLabel = if (isError) "ERROR" else null,
+                            )
                         }
                     }
                 }
@@ -286,12 +289,11 @@ fun OnBoardingBottomSheetNavHost(
                     AlgoKitWebViewPlatformScreen(url = REPO_URL)
                 }
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
-                    ConfirmTransactionRequestScreen(navController = navController) {
-                        message, isError ->
+                    ConfirmTransactionRequestScreen(navController = navController) { message, isError ->
                         coroutineScope.launch {
                             snackbarHostState.showSnackbar(
                                 message = message,
-                                actionLabel = if (isError) "ERROR" else null
+                                actionLabel = if (isError) "ERROR" else null,
                             )
                         }
                     }
