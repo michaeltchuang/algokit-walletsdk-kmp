@@ -8,6 +8,7 @@ import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOfflin
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.BuildKeyRegOnlineTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransaction
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.CreateKeyRegTransactionUseCase
+import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetExplorerBaseUrlUseCase
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetTransactionParams
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.GetTransactionSignerUseCase
 import com.michaeltchuang.walletsdk.transaction.domain.usecase.SendSignedTransactionUseCase
@@ -47,4 +48,5 @@ val keyRegTransactionModule =
                 get(),
             )
         }
+        single { GetExplorerBaseUrlUseCase() }
     }

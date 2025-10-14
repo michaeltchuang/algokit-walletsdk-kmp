@@ -73,7 +73,7 @@ fun ConfirmTransactionRequestScreen(
             when (event) {
                 is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {}
                 is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
-                    navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
+                    navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId=${event.transactionId}") {
                         popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                             inclusive = true
                         }

@@ -266,9 +266,20 @@ fun OnBoardingBottomSheetNavHost(
                 composable(route = AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                     ConfirmTransactionRequestScreen(navController = navController)
                 }
-                composable(route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name) {
-                    TransactionSuccessScreen {
-                        closeSheet()
+                composable(
+                    route = AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId={transactionId}",
+                    arguments =
+                        listOf(
+                            navArgument("transactionId") {
+                                type = NavType.StringType
+                            },
+                        ),
+                ) {
+                    val transactionId = it.arguments?.getString("transactionId")
+                    transactionId?.let {
+                        TransactionSuccessScreen(transactionId = it) {
+                            closeSheet()
+                        }
                     }
                 }
                 composable(route = AlgoKitScreens.INITIAL_REGISTER_INTRO_SCREEN.name) {
@@ -292,7 +303,11 @@ fun OnBoardingBottomSheetNavHost(
                 }
                 composable(route = AlgoKitScreens.ACCOUNT_STATUS_SCREEN.name) {
                     address?.let { it1 ->
-                        AccountStatusScreen(navController, it1) {
+                        AccountStatusScreen(navController, it1, showSnackBar = {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(it)
+                            }
+                        }) {
                             onAccountDeleted()
                         }
                     }
