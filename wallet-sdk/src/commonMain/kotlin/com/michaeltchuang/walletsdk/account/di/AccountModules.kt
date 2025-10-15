@@ -5,5 +5,4 @@ val accountModules =
         accountCoreModule,
         localAccountsModule,
         accountCustomInfoModule,
-        accountViewModelModule,
     )

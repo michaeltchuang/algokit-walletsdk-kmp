@@ -8,11 +8,11 @@ import com.michaeltchuang.walletsdk.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.network.model.AlgorandNetwork
 import com.michaeltchuang.walletsdk.network.model.ApiResult
 import com.michaeltchuang.walletsdk.network.service.AccountInformationApiService
 import com.michaeltchuang.walletsdk.network.service.getBasicAccountInformation
-import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
-import com.michaeltchuang.walletsdk.settings.presentation.screens.networkNodeSettings
+import com.michaeltchuang.walletsdk.ui.settings.screens.networkNodeSettings
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(

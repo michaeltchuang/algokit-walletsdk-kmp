@@ -1,7 +1,6 @@
 package com.michaeltchuang.walletsdk.transaction.di
 
-val transactionModule =
+val transactionModules =
     listOf(
         keyRegTransactionModule,
-        confirmTransactionRequestViewModelModule,
     )

@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.michaeltchuang.walletsdk.account.domain.model.core.AccountRegistrationType
 import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
-import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.foundation.designsystem.theme.AlgoKitTheme.typography
-import com.michaeltchuang.walletsdk.foundation.designsystem.widget.icon.AlgoKitIconRoundShape
 import com.michaeltchuang.walletsdk.foundation.utils.formatAmount
 import com.michaeltchuang.walletsdk.foundation.utils.toShortenedAddress
+import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.icon.AlgoKitIconRoundShape
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

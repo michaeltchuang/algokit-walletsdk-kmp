@@ -13,7 +13,6 @@ import com.michaeltchuang.walletsdk.algosdk.signFalcon24Transaction
 import com.michaeltchuang.walletsdk.algosdk.signHdKeyTransaction
 import com.michaeltchuang.walletsdk.foundation.utils.ListQueuingHelper
 import com.michaeltchuang.walletsdk.foundation.utils.clearFromMemory
-import com.michaeltchuang.walletsdk.foundation.utils.signTransaction
 import com.michaeltchuang.walletsdk.network.model.TransactionSigner
 import com.michaeltchuang.walletsdk.transaction.model.ExternalTransaction
 import com.michaeltchuang.walletsdk.transaction.signmanager.ExternalTransactionQueuingHelper

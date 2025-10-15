@@ -6,8 +6,8 @@ import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.INDEXER_
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.INDEXER_TESTNET_URL
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.NODE_MAINNET_URL
 import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.NODE_TESTNET_URL
-import com.michaeltchuang.walletsdk.settings.domain.provideNodePreferenceRepository
-import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
+import com.michaeltchuang.walletsdk.network.domain.provideNodePreferenceRepository
+import com.michaeltchuang.walletsdk.network.model.AlgorandNetwork
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
