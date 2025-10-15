@@ -85,3 +85,6 @@ render.experimental.xml
 *.xcuserstate
 *.xcuserdatad/
 xcuserdata/
+
+!wallet-sdk-core/src/iosMain/xcframeworks/AlgoKitTransact.zip
+!wallet-sdk-core/src/iosMain/xcframeworks/AlgoSDK.xcframework.zip
