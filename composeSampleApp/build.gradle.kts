@@ -68,8 +68,9 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.core)
             implementation(libs.navigation.compose)
-            implementation("io.github.alexzhirkevich:compottie:1.1.2")
-            implementation(project(":wallet-sdk"))
+            implementation(libs.compottie)
+            api(project(":wallet-sdk"))
+            api(project(":wallet-sdk-ui"))
         }
 
         commonTest.dependencies {
