@@ -2,15 +2,15 @@ package com.michaeltchuang.walletsdk.ui.settings.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
-import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
-import com.michaeltchuang.walletsdk.algosdk.createAlgo25Account
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.foundation.StateDelegate
-import com.michaeltchuang.walletsdk.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.foundation.utils.CreationType
-import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreation
+import com.michaeltchuang.walletsdk.core.account.domain.repository.local.HdSeedRepository
+import com.michaeltchuang.walletsdk.core.algosdk.createAlgo25Account
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.core.foundation.utils.CreationType
+import com.michaeltchuang.walletsdk.core.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class DeveloperSettingsViewModel(

@@ -2,11 +2,11 @@ package com.michaeltchuang.walletsdk.ui.qrscanner.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.deeplink.DeeplinkHandler
-import com.michaeltchuang.walletsdk.deeplink.model.DeepLink
-import com.michaeltchuang.walletsdk.deeplink.model.KeyRegTransactionDetail
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.deeplink.DeeplinkHandler
+import com.michaeltchuang.walletsdk.core.deeplink.model.DeepLink
+import com.michaeltchuang.walletsdk.core.deeplink.model.KeyRegTransactionDetail
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch

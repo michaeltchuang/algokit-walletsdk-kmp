@@ -35,8 +35,8 @@ import co.algorand.app.ui.components.LottieConfetti
 import co.algorand.app.ui.navigation.ACTIONS
 import co.algorand.app.ui.viewmodel.AccountListViewModel
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
-import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
-import com.michaeltchuang.walletsdk.foundation.utils.Log
+import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
+import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitEvent
 import com.michaeltchuang.walletsdk.ui.base.navigation.OnBoardingBottomSheet
 import kotlinx.coroutines.delay

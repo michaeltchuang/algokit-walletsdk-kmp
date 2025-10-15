@@ -2,9 +2,9 @@ package com.michaeltchuang.walletsdk.ui.accountdetails.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
 import kotlinx.coroutines.launch
 
 class AccountDetailViewModel(

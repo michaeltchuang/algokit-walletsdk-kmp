@@ -1,6 +1,6 @@
 package com.michaeltchuang.walletsdk.ui.base.di
 
-import com.michaeltchuang.walletsdk.foundation.di.walletSdkCoreModules
+import com.michaeltchuang.walletsdk.core.foundation.di.walletSdkCoreModules
 import com.michaeltchuang.walletsdk.ui.accountdetails.di.accountDetailModules
 import com.michaeltchuang.walletsdk.ui.onboarding.di.onboardingModules
 import com.michaeltchuang.walletsdk.ui.qrscanner.di.qrScannerModules

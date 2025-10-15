@@ -1,8 +1,8 @@
 package com.michaeltchuang.walletsdk.ui.onboarding.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.michaeltchuang.walletsdk.foundation.StateDelegate
-import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
 
 class AccountRecoveryTypeSelectionViewModel(
     // private val sharedPref: SharedPreferences,

@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.deeplink.presentation.screens
+package com.michaeltchuang.walletsdk.core.deeplink.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.michaeltchuang.walletsdk.transaction.signmanager.PendingTransactionRequestManger.storePendingTransactionRequest
+import com.michaeltchuang.walletsdk.core.transaction.signmanager.PendingTransactionRequestManger.storePendingTransactionRequest
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitScreens

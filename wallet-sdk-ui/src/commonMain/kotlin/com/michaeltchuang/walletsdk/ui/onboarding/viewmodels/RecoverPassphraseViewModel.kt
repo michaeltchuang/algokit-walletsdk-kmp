@@ -2,13 +2,13 @@ package com.michaeltchuang.walletsdk.ui.onboarding.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
-import com.michaeltchuang.walletsdk.account.domain.model.core.OnboardingAccountType
-import com.michaeltchuang.walletsdk.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
-import com.michaeltchuang.walletsdk.foundation.utils.splitMnemonic
+import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreation
+import com.michaeltchuang.walletsdk.core.account.domain.model.core.OnboardingAccountType
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.foundation.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.core.foundation.utils.splitMnemonic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.collectLatest

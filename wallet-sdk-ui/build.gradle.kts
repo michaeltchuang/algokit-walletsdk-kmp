@@ -35,7 +35,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-                api(project(":wallet-sdk"))
+                api(project(":wallet-sdk-core"))
 
                 api(libs.napier)
 
@@ -121,4 +121,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+
+    sourceSets["main"].res.srcDirs("src/commonMain/composeResources", "src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 }

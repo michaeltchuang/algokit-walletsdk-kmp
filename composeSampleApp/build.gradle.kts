@@ -69,7 +69,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.navigation.compose)
             implementation(libs.compottie)
-            api(project(":wallet-sdk"))
+            api(project(":wallet-sdk-core"))
             api(project(":wallet-sdk-ui"))
         }
 

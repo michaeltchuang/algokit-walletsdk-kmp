@@ -2,12 +2,12 @@ package com.michaeltchuang.walletsdk.ui.accountdetails.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
-import com.michaeltchuang.walletsdk.account.domain.usecase.local.GetAccountMnemonic
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.foundation.StateDelegate
-import com.michaeltchuang.walletsdk.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.core.account.domain.model.local.AccountMnemonic
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMnemonic
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
 import kotlinx.coroutines.launch
 
 class ViewPassphraseViewModel(

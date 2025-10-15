@@ -28,10 +28,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.michaeltchuang.walletsdk.account.domain.model.local.AccountMnemonic
-import com.michaeltchuang.walletsdk.deeplink.presentation.screens.QRCodeScannerScreen
-import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.REPO_URL
-import com.michaeltchuang.walletsdk.foundation.webview.AlgoKitWebViewPlatformScreen
+import com.michaeltchuang.walletsdk.core.account.domain.model.local.AccountMnemonic
+import com.michaeltchuang.walletsdk.core.deeplink.presentation.screens.QRCodeScannerScreen
+import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.REPO_URL
+import com.michaeltchuang.walletsdk.core.foundation.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.settings.presentation.screen.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.PassphraseAcknowledgeScreen

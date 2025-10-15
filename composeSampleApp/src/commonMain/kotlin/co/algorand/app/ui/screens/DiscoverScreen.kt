@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import co.algorand.app.ui.widgets.snackbar.SnackbarViewModel
 import co.algorand.app.utils.SampleAppConstants.REPO_URL
-import com.michaeltchuang.walletsdk.foundation.webview.AlgoKitWebViewScreen
+import com.michaeltchuang.walletsdk.core.foundation.webview.AlgoKitWebViewScreen
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 
 @Composable

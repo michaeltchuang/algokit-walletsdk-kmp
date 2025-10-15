@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_ALGO25_MNEMONIC
-import com.michaeltchuang.walletsdk.foundation.utils.WalletSdkConstants.SAMPLE_BIP39_MNEMONIC
+import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.SAMPLE_ALGO25_MNEMONIC
+import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.SAMPLE_BIP39_MNEMONIC
 import com.michaeltchuang.walletsdk.ui.accountdetails.viewmodels.ViewPassphraseViewModel
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar

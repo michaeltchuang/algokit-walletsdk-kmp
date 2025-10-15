@@ -2,16 +2,16 @@ package com.michaeltchuang.walletsdk.ui.onboarding.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
-import com.michaeltchuang.walletsdk.account.domain.model.core.AccountCreation
-import com.michaeltchuang.walletsdk.account.domain.repository.local.HdSeedRepository
-import com.michaeltchuang.walletsdk.algosdk.createBip39Wallet
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.foundation.StateDelegate
-import com.michaeltchuang.walletsdk.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.foundation.utils.CreationType
-import com.michaeltchuang.walletsdk.foundation.utils.manager.AccountCreationManager
+import com.michaeltchuang.walletsdk.core.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
+import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreation
+import com.michaeltchuang.walletsdk.core.account.domain.repository.local.HdSeedRepository
+import com.michaeltchuang.walletsdk.core.algosdk.createBip39Wallet
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.core.foundation.utils.CreationType
+import com.michaeltchuang.walletsdk.core.foundation.utils.manager.AccountCreationManager
 import kotlinx.coroutines.launch
 
 class OnboardingIntroViewModel(
