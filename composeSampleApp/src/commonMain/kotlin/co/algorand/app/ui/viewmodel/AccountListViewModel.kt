@@ -2,17 +2,17 @@ package co.algorand.app.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.michaeltchuang.walletsdk.account.domain.model.custom.AccountLite
-import com.michaeltchuang.walletsdk.account.domain.usecase.core.NameRegistrationUseCase
-import com.michaeltchuang.walletsdk.foundation.EventDelegate
-import com.michaeltchuang.walletsdk.foundation.EventViewModel
-import com.michaeltchuang.walletsdk.foundation.StateDelegate
-import com.michaeltchuang.walletsdk.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.network.model.ApiResult
-import com.michaeltchuang.walletsdk.network.service.AccountInformationApiService
-import com.michaeltchuang.walletsdk.network.service.getBasicAccountInformation
-import com.michaeltchuang.walletsdk.settings.presentation.screens.AlgorandNetwork
-import com.michaeltchuang.walletsdk.settings.presentation.screens.networkNodeSettings
+import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
+import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
+import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
+import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
+import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
+import com.michaeltchuang.walletsdk.core.network.model.AlgorandNetwork
+import com.michaeltchuang.walletsdk.core.network.model.ApiResult
+import com.michaeltchuang.walletsdk.core.network.service.AccountInformationApiService
+import com.michaeltchuang.walletsdk.core.network.service.getBasicAccountInformation
+import com.michaeltchuang.walletsdk.ui.settings.screens.networkNodeSettings
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
@@ -83,7 +83,7 @@ class AccountListViewModel(
         }
     }
 
-    private suspend fun getAccountDetails(address: String): com.michaeltchuang.walletsdk.network.model.AccountInformation? {
+    private suspend fun getAccountDetails(address: String): com.michaeltchuang.walletsdk.core.network.model.AccountInformation? {
         val result = accountApiService.getBasicAccountInformation(address)
         return when (result) {
             is ApiResult.Success -> {

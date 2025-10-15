@@ -82,6 +82,7 @@ xhdwalletapi = "1.2.0"
 walletConnectBom = "1.34.1"
 webviewMultiplatform = "1.2.0"
 zxing = "4.3.0"
+kotlinStdlib = "2.2.10"
 
 [libraries]
 
@@ -233,6 +234,7 @@ kotlinx-coroutines-iosSimulatorArm64 = { module = "org.jetbrains.kotlinx:kotlinx
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
 
 [bundles]
 firebase = ["firebase-analytics",
@@ -254,3 +256,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }

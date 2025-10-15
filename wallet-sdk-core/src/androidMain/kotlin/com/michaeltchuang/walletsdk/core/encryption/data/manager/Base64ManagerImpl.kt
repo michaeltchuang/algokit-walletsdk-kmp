@@ -1,0 +1,22 @@
+package com.michaeltchuang.walletsdk.core.encryption.data.manager
+
+import com.michaeltchuang.walletsdk.core.encryption.domain.manager.Base64Manager
+import javax.inject.Inject
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+
+internal class Base64ManagerImpl
+    @Inject
+    constructor() : Base64Manager {
+        @OptIn(ExperimentalEncodingApi::class)
+        override fun encode(byteArray: ByteArray): String = Base64.encode(byteArray)
+
+        @OptIn(ExperimentalEncodingApi::class)
+        override fun decode(value: String): ByteArray = Base64.decode(value)
+
+        @OptIn(ExperimentalEncodingApi::class)
+        override fun decode(
+            value: String,
+            flags: Int,
+        ): ByteArray = Base64.decode(value, flags)
+    }

@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.michaeltchuang.walletsdk.settings.domain.AndroidContextHolder
+import com.michaeltchuang.walletsdk.core.network.domain.AndroidContextHolder
 
 class AndroidApp : Application() {
     companion object {
