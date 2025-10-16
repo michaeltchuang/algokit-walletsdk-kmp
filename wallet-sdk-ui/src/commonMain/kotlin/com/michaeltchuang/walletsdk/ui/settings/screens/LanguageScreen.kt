@@ -40,7 +40,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ThemeScreen(
+fun LanguageScreen(
     navController: NavController,
     themeRepository: ThemePreferenceRepository = provideThemePreferenceRepository(),
 ) {
@@ -81,7 +81,7 @@ fun ThemeScreen(
     val themeOptions =
         remember(currentThemePreference) {
             ThemePreference.entries.map { pref ->
-                ThemeListItem(
+                LanguageListItem(
                     theme = pref,
                     isSelected = pref == currentThemePreference,
                 )
@@ -126,16 +126,16 @@ fun ThemeScreen(
     }
 }
 
-private data class ThemeListItem(
+private data class LanguageListItem(
     val theme: ThemePreference,
     val isSelected: Boolean,
 )
 
 @Preview
 @Composable
-fun ThemeScreenPreview() {
+fun LanguageScreenPreview() {
     AlgoKitTheme {
-        ThemeScreen(
+        LanguageScreen(
             rememberNavController(),
             themeRepository = provideThemePreferenceRepository(),
         )

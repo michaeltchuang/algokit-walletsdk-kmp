@@ -229,6 +229,7 @@
     <string name="date">Date</string>
     <string name="copy">Copy</string>
     <string name="developer_settings">Developer Settings</string>
+    <string name="localization_settings">Language</string>
     <string name="currency">Currency</string>
     <string name="algorand_dispenser">Algorand Dispenser</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
