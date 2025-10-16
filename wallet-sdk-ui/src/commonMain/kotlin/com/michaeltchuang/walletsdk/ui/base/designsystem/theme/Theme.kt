@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.michaeltchuang.walletsdk.ui.base.designsystem.typography.AlgoKitTypography
 import com.michaeltchuang.walletsdk.ui.settings.components.SetPreferredTheme
-import kotlinx.coroutines.flow.Flow
 
 val LocalCustomColors =
     staticCompositionLocalOf {
@@ -48,29 +47,4 @@ object AlgoKitTheme {
         get() = AlgoKitTypography()
 }
 
-expect class ThemePreferenceRepository(
-    context: Any? = null,
-) {
-    fun getSavedThemePreferenceFlow(): Flow<ThemePreference>
 
-    suspend fun saveThemePreference(pref: ThemePreference)
-}
-
-@Composable
-expect fun provideThemePreferenceRepository(): ThemePreferenceRepository
-
-enum class ThemePreference {
-    LIGHT,
-    DARK,
-    SYSTEM,
-    ;
-
-    fun convertToSystemAbbr(): Int {
-        // Android's AppCompatDelegate modes
-        return when (this) {
-            LIGHT -> 1 // MODE_NIGHT_NO
-            DARK -> 2 // MODE_NIGHT_YES
-            SYSTEM -> 0 // MODE_NIGHT_FOLLOW_SYSTEM
-        }
-    }
-}
