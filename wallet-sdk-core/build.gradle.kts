@@ -21,6 +21,8 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
     id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
+    `maven-publish`
+    signing
 }
 
 kotlin {
@@ -221,5 +223,63 @@ dependencies {
     add("kspIosSimulatorArm64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosX64", libs.room.compiler)
-    add("kspCommonMainMetadata", libs.room.compiler)
+}
+
+publishing {
+    publications {
+        publications.withType<MavenPublication> {
+            groupId = "com.michaeltchuang.algokit"
+            version = System.getenv("VERSION_TAG") ?: "0.0.1-SNAPSHOT"
+
+            pom {
+                name.set("AlgoKit Wallet SDK Core")
+                description.set("A headless wallet engine for Algorand")
+                url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+
+                licenses {
+                    license {
+                        name.set("GPL3.0 License")
+                        url.set("https://opensource.org/licenses/GPL-3.0")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("michaeltchuang")
+                        name.set("Michael T Chuang")
+                        email.set("hello@michaeltchuang.com")
+                        organization.set("Michael T Chuang LLC")
+                        organizationUrl.set("https://github.com/michaeltchuangllc")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+                    developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+                    url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("OSSRH_USERNAME")
+                password = System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+}
+
+signing {
+    val signingKey = System.getenv("GPG_PRIVATE_KEY")
+    val signingPassword = System.getenv("GPG_PASSPHRASE")
+
+    if (signingKey != null && signingPassword != null) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
+    }
 }

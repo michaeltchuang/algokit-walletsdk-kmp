@@ -30,13 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
+import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.demo.ui.components.AccountItem
 import com.michaeltchuang.walletsdk.demo.ui.components.LottieConfetti
 import com.michaeltchuang.walletsdk.demo.ui.navigation.ACTIONS
 import com.michaeltchuang.walletsdk.demo.ui.viewmodel.AccountListViewModel
 import com.michaeltchuang.walletsdk.demo.ui.widgets.snackbar.SnackbarViewModel
-import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
-import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitEvent
 import com.michaeltchuang.walletsdk.ui.base.navigation.OnBoardingBottomSheet
 import kotlinx.coroutines.delay

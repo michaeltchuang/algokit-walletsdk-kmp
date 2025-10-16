@@ -37,5 +37,4 @@ actual class ThemePreferenceRepository actual constructor(
 }
 
 @Composable
-actual fun provideThemePreferenceRepository(): ThemePreferenceRepository =
-    ThemePreferenceRepository()
+actual fun provideThemePreferenceRepository(): ThemePreferenceRepository = ThemePreferenceRepository()

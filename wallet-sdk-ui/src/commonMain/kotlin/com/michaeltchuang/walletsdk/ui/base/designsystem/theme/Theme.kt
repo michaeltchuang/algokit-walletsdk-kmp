@@ -46,5 +46,3 @@ object AlgoKitTheme {
         @Composable
         get() = AlgoKitTypography()
 }
-
-
