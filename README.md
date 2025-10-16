@@ -69,7 +69,7 @@ timeline
             : ✅ Account Details - Add Copy Address Button
             : 🔄 Onboarding - Encrypt Android secret keys in DB
             : Onboarding - Encrypt iOS secret keys in DB
-            : 🔄 GitOps - Setup Maven Central for first library release (aar)
+            : ✅ GitOps - Setup Maven Central for library releases (aar)
             : Transaction - Send Algo using QR Code flow
             : Settings - Localization
             : Testing - Add Unit Test Coverage
