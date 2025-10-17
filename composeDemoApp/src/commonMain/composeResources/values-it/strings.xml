@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AlgoKit Demo Wallet</string>
+    <string name="open_github">Apri github</string>
+
+    <!-- Bottom Navigation Screen -->
+    <string name="nav_discover">Scopri</string>
+    <string name="nav_home">Home</string>
+    <string name="no_account_list">Nessun account trovato. Clicca su + e aggiungi un nuovo account!</string>
+
+</resources>

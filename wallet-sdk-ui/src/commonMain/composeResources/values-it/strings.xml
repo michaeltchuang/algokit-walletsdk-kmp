@@ -1454,4 +1454,8 @@
 
     <string name="mainnet_warning">Avviso Mainnet</string>
     <string name="mainnet_warning_desc">Questo codice non è ancora stato verificato. L\'uso di mainnet potrebbe mettere a rischio fondi reali. Procedere con cautela.</string>
+
+    <string name="localization_screen_title">Lingua</string>
+    <string name="italian">Italiano</string>
+    <string name="english">Inglese</string>
 </resources>

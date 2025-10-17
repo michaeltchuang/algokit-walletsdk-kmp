@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.ui.settings.theme
+package com.michaeltchuang.walletsdk.ui.settings.domain.theme
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.Flow

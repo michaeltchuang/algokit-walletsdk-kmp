@@ -1,13 +1,11 @@
 package com.michaeltchuang.walletsdk.ui.settings.screens
 
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
-import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.dark
-import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.light
-import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.system_default
-import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.theme
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.english
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.italian
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.localization_screen_title
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,11 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
-import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.LocalThemeIsDark
-import com.michaeltchuang.walletsdk.ui.settings.theme.ThemePreference
-import com.michaeltchuang.walletsdk.ui.settings.theme.ThemePreferenceRepository
-import com.michaeltchuang.walletsdk.ui.settings.theme.provideThemePreferenceRepository
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocalizationPreference
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocalizationPreferenceRepository
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.provideLocalizationPreferenceRepository
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -42,48 +39,34 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun LanguageScreen(
     navController: NavController,
-    themeRepository: ThemePreferenceRepository = provideThemePreferenceRepository(),
+    localizationRepository: LocalizationPreferenceRepository = provideLocalizationPreferenceRepository(),
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val currentThemePreference by themeRepository
-        .getSavedThemePreferenceFlow()
+    val currentLocalizationPreference by localizationRepository
+        .getSavedLocalizationPreferenceFlow()
         .collectAsState(initial = null)
-    val systemDark = isSystemInDarkTheme()
-    val isDark = LocalThemeIsDark.current
 
     @Composable
-    fun ThemePreference.displayString() =
+    fun LocalizationPreference.displayString() =
         when (this) {
-            ThemePreference.LIGHT -> stringResource(Res.string.light)
-            ThemePreference.DARK -> stringResource(Res.string.dark)
-            ThemePreference.SYSTEM -> stringResource(Res.string.system_default)
+            LocalizationPreference.ITALIAN -> stringResource(Res.string.italian)
+            LocalizationPreference.ENGLISH -> stringResource(Res.string.english)
         }
 
-    fun resolveIsDark(
-        theme: ThemePreference,
-        systemDark: Boolean,
-    ): Boolean =
-        when (theme) {
-            ThemePreference.LIGHT -> false
-            ThemePreference.DARK -> true
-            ThemePreference.SYSTEM -> systemDark
-        }
-
-    fun onThemeSelected(theme: ThemePreference) {
-        if (theme != currentThemePreference) {
+    fun onLanguageSelected(localization: LocalizationPreference) {
+        if (localization != currentLocalizationPreference) {
             coroutineScope.launch {
-                themeRepository.saveThemePreference(theme)
-                isDark.value = resolveIsDark(theme, systemDark)
+                localizationRepository.saveLocalizationPreference(localization)
             }
         }
     }
 
-    val themeOptions =
-        remember(currentThemePreference) {
-            ThemePreference.entries.map { pref ->
+    val localizationOptions =
+        remember(currentLocalizationPreference) {
+            LocalizationPreference.entries.map { pref ->
                 LanguageListItem(
-                    theme = pref,
-                    isSelected = pref == currentThemePreference,
+                    language = pref,
+                    isSelected = pref == currentLocalizationPreference,
                 )
             }
         }
@@ -95,26 +78,26 @@ fun LanguageScreen(
                 .background(color = AlgoKitTheme.colors.background)
                 .padding(horizontal = 16.dp),
     ) {
-        AlgoKitTopBar(title = stringResource(Res.string.theme)) { navController.popBackStack() }
+        AlgoKitTopBar(title = stringResource(Res.string.localization_screen_title)) { navController.popBackStack() }
         Spacer(modifier = Modifier.height(8.dp))
-        themeOptions.forEach { theme ->
+        localizationOptions.forEach { localization ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .clickable { onThemeSelected(theme.theme) }
+                        .clickable { onLanguageSelected(localization.language) }
                         .padding(vertical = 16.dp),
             ) {
                 Text(
-                    text = theme.theme.displayString(),
+                    text = localization.language.displayString(),
                     color = AlgoKitTheme.colors.textMain,
                     modifier = Modifier.weight(1f),
                     style = AlgoKitTheme.typography.body.regular.sansMedium,
                 )
                 RadioButton(
-                    selected = theme.isSelected,
-                    onClick = { onThemeSelected(theme.theme) },
+                    selected = localization.isSelected,
+                    onClick = { onLanguageSelected(localization.language) },
                     colors =
                         RadioButtonDefaults.colors(
                             selectedColor = AlgoKitTheme.colors.positive,
@@ -127,7 +110,7 @@ fun LanguageScreen(
 }
 
 private data class LanguageListItem(
-    val theme: ThemePreference,
+    val language: LocalizationPreference,
     val isSelected: Boolean,
 )
 
@@ -137,7 +120,7 @@ fun LanguageScreenPreview() {
     AlgoKitTheme {
         LanguageScreen(
             rememberNavController(),
-            themeRepository = provideThemePreferenceRepository(),
+            localizationRepository = provideLocalizationPreferenceRepository(),
         )
     }
 }

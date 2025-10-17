@@ -1589,4 +1589,8 @@
     <string name="mainnet_warning">Mainnet Disclaimer</string>
     <string name="mainnet_warning_desc">This code has not been audited yet.  Using mainnet may put real funds at risk.  Proceed with caution.</string>
 
+    <string name="localization_screen_title">Language</string>
+    <string name="italian">Italian</string>
+    <string name="english">English</string>
+
 </resources>
