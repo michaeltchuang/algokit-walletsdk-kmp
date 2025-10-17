@@ -2,16 +2,17 @@ package com.michaeltchuang.walletsdk.ui.settings.di
 
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.DeveloperSettingsViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.HDWalletSelectionViewModel
+import com.michaeltchuang.walletsdk.ui.settings.viewmodels.LanguageSelectorViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.ThemePickerViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-expect fun platformThemeModule(): Module
+expect fun platformModule(): Module
 
 internal val settingsModules =
     listOf(
-        platformThemeModule(),
+        platformModule(),
         module {
             viewModel {
                 DeveloperSettingsViewModel(
@@ -36,6 +37,15 @@ internal val settingsModules =
                     get(),
                     get(),
                     get(),
+                )
+            }
+
+            viewModel {
+                LanguageSelectorViewModel(
+                    get(),
+                    get(),
+                    get(),
+                    get()
                 )
             }
         },
