@@ -2,11 +2,16 @@ package com.michaeltchuang.walletsdk.ui.settings.di
 
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.DeveloperSettingsViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.HDWalletSelectionViewModel
+import com.michaeltchuang.walletsdk.ui.settings.viewmodels.ThemePickerViewModel
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
+expect fun platformThemeModule(): Module
+
 internal val settingsModules =
     listOf(
+        platformThemeModule(),
         module {
             viewModel {
                 DeveloperSettingsViewModel(
@@ -20,6 +25,14 @@ internal val settingsModules =
                 HDWalletSelectionViewModel(
                     get(),
                     get(),
+                    get(),
+                    get(),
+                    get(),
+                )
+            }
+
+            viewModel {
+                ThemePickerViewModel(
                     get(),
                     get(),
                     get(),
