@@ -69,7 +69,10 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.navigation.compose)
             implementation(libs.compottie)
-            api(project(":wallet-sdk-ui"))
+//            implementation(libs.walletsdk.ui)
+//            implementation(libs.walletsdk.core)
+            implementation(project(":wallet-sdk-core"))
+            implementation(project(":wallet-sdk-ui"))
         }
 
         commonTest.dependencies {

@@ -1,7 +1,7 @@
 [versions]
 agp = "8.10.0"
 algoSdk = "2.10.1"
-algoGoMobilesdk = "1.0.1"
+algoGoMobilesdk = "2025.4.0"
 android-compileSdk = "36"
 android-discover-staging = "4"
 android-discover-prod = "4"
@@ -53,6 +53,7 @@ kotlin = "2.2.10"
 kotlinfixture = "1.2.0"
 kotlinxDatetime = "0.6.2"
 kotlinxSerialization = "1.7.3"
+kotlinStdlib = "2.2.10"
 kover = "0.8.3"
 ksp = "2.2.10-2.0.2"
 ktlint = "13.0.0"
@@ -62,6 +63,7 @@ legacySupport = "1.0.0"
 lifecycle = "2.9.0"
 lifecycleExt = "2.2.0"
 material = "1.12.0"
+mavenPublish = "0.34.0"
 mockk = "1.13.13"
 moshi = "1.15.1"
 multidex = "2.0.1"
@@ -78,11 +80,13 @@ room = "2.7.0"
 sqlite = "2.5.0"
 runner = "1.6.2"
 tink = "1.14.0"
-xhdwalletapi = "1.2.0"
 walletConnectBom = "1.34.1"
+xhdwalletapi = "1.2.0"
+walletsdk-ui = "0.0.1-SNAPSHOT"
+walletsdk-core = "0.0.1-SNAPSHOT"
 webviewMultiplatform = "1.2.0"
 zxing = "4.3.0"
-kotlinStdlib = "2.2.10"
+
 
 [libraries]
 
@@ -181,7 +185,7 @@ webview-multiplatform-mobile = { module = "io.github.final-class:webview-multipl
 
 # Wallet SDK - Security / Blockchain / Crypto
 algosdk = { module = "com.algorand:algosdk", version.ref = "algoSdk" }
-algorand-go-mobile = { group = "io.github.perawallet", name = "algorand-go-mobile-sdk", version.ref = "algoGoMobilesdk" }
+algorand-go-mobile = { group = "com.michaeltchuang.algokit", name = "algorand-go-mobile-sdk", version.ref = "algoGoMobilesdk" }
 bignum = { group = "com.ionspin.kotlin", name ="bignum", version.ref = "bignum" }
 bitcoin-kmp = { module = "fr.acinq.bitcoin:bitcoin-kmp", version.ref = "bitcoin-kmp" }
 khex = { module = "com.github.komputing:khex", version.ref = "khex" }
@@ -235,6 +239,8 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+walletsdk-ui = { group = "com.michaeltchuang.algokit", name = "wallet-sdk-ui" , version.ref = "walletsdk-ui"}
+walletsdk-core = { group = "com.michaeltchuang.algokit", name = "wallet-sdk-core", version.ref = "walletsdk-core" }
 
 [bundles]
 firebase = ["firebase-analytics",
@@ -258,3 +264,4 @@ multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotl
 room = { id = "androidx.room", version.ref = "room" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
