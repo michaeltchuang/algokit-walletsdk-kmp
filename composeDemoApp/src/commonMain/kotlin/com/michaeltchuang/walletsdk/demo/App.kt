@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.michaeltchuang.walletsdk.demo.di.initKoinConfig
 import com.michaeltchuang.walletsdk.demo.ui.navigation.AppNavigation
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocaleAwareContent
 import org.koin.compose.KoinApplication
 
 @Composable
@@ -12,9 +13,9 @@ internal fun App() {
         application = initKoinConfig,
     ) {
         AlgoKitTheme {
-            AppNavigation()
+            LocaleAwareContent {
+                AppNavigation()
+            }
         }
     }
 }
-
-internal expect fun openUrl(url: String?)

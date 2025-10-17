@@ -1,5 +1,7 @@
 package com.michaeltchuang.walletsdk.demo.ui.screens
 
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.Res
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.no_account_list
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +43,7 @@ import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitEvent
 import com.michaeltchuang.walletsdk.ui.base.navigation.OnBoardingBottomSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 private const val CONFETTI_DURATION = 5000L
@@ -216,7 +219,7 @@ private fun AccountsList(
     onAccountItemClick: (String) -> Unit,
 ) {
     if (accounts.isEmpty()) {
-        CenteredMessage("No accounts found. Tap '+' to add one!")
+        CenteredMessage(stringResource(Res.string.no_account_list))
     } else {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),

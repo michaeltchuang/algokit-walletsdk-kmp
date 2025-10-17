@@ -6,8 +6,10 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.developer_setting
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.get_help
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_code
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_feedback
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_localization
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_moon
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_text_document
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.localization_settings
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.next
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.privacy_policy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.settings
@@ -79,10 +81,18 @@ fun SettingsScreen(navController: NavController) {
             style = AlgoKitTheme.typography.body.regular.sansMedium,
             modifier = Modifier.padding(vertical = 8.dp),
         )
-        SettingsItem(Res.drawable.ic_moon, stringResource(Res.string.theme)) {
+        SettingsItem(
+            icon = Res.drawable.ic_moon,
+            title = stringResource(Res.string.theme),
+        ) {
             navController.navigate(AlgoKitScreens.THEME_SCREEN.name)
         }
-
+        SettingsItem(
+            icon = Res.drawable.ic_localization,
+            title = stringResource(Res.string.localization_settings),
+        ) {
+            navController.navigate(AlgoKitScreens.LANGUAGE_SCREEN.name)
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Section: Support

@@ -135,7 +135,7 @@ mavenPublishing {
     coordinates(
         "com.michaeltchuang.algokit",
         "wallet-sdk-ui",
-        System.getenv("VERSION_TAG") ?: "0.0.1"
+        System.getenv("VERSION_TAG") ?: "0.0.1",
     )
 
     pom {

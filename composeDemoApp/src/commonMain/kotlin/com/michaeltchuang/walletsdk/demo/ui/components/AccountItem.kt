@@ -1,8 +1,14 @@
 package com.michaeltchuang.walletsdk.demo.ui.components
 
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.Res
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.account_type_algo25
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.account_type_falcon24
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.account_type_hd
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.account_type_ledger
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.account_type_watch
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_hd_wallet
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_wallet
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.wallet_icon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +29,9 @@ import com.michaeltchuang.walletsdk.core.foundation.utils.toShortenedAddress
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.icon.AlgoKitIconRoundShape
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.localizedStringResource
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -52,7 +60,7 @@ fun AccountItem(
             AlgoKitIconRoundShape(
                 modifier = Modifier,
                 imageVector = vectorResource(getWalletIcon(account.registrationType)),
-                contentDescription = "Wallet Icon",
+                contentDescription = localizedStringResource(Res.string.wallet_icon),
             )
             Column(
                 modifier =
@@ -65,7 +73,7 @@ fun AccountItem(
                     style = typography.body.large.sansMedium,
                 )
                 Text(
-                    text = getAccountType(account.registrationType),
+                    text = localizedStringResource(getAccountTypeResource(account.registrationType)),
                     style = typography.footnote.mono,
                 )
             }
@@ -99,28 +107,14 @@ fun getWalletIcon(localAccount: AccountRegistrationType): DrawableResource =
         }
     }
 
-fun getAccountType(localAccount: AccountRegistrationType): String =
+fun getAccountTypeResource(localAccount: AccountRegistrationType): StringResource =
     when (localAccount) {
-        is AccountRegistrationType.HdKey -> {
-            "HD"
-        }
-
-        is AccountRegistrationType.Algo25 -> {
-            "Algo25"
-        }
-
-        is AccountRegistrationType.Falcon24 -> {
-            "Falcon24"
-        }
-
-        is AccountRegistrationType.NoAuth -> {
-            "Watch"
-        }
-
-        is AccountRegistrationType.LedgerBle -> {
-            "Ledger"
-        }
-    } + " Account"
+        is AccountRegistrationType.HdKey -> Res.string.account_type_hd
+        is AccountRegistrationType.Algo25 -> Res.string.account_type_algo25
+        is AccountRegistrationType.Falcon24 -> Res.string.account_type_falcon24
+        is AccountRegistrationType.NoAuth -> Res.string.account_type_watch
+        is AccountRegistrationType.LedgerBle -> Res.string.account_type_ledger
+    }
 
 @Preview()
 @Composable

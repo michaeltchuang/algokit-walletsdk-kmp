@@ -45,6 +45,7 @@ import com.michaeltchuang.walletsdk.ui.onboarding.screens.RecoverAnAccountScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.RecoveryPhraseScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.DeveloperSettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.HdWalletSelectionScreen
+import com.michaeltchuang.walletsdk.ui.settings.screens.LanguageScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.ThemeScreen
@@ -70,6 +71,7 @@ enum class AlgoKitScreens {
     RECOVER_PHRASE_SCREEN,
     SETTINGS_SCREEN,
     THEME_SCREEN,
+    LANGUAGE_SCREEN,
     TRANSACTION_SIGNATURE_SCREEN,
     TRANSACTION_SUCCESS_SCREEN,
     WEBVIEW_PLATFORM_SCREEN,
@@ -322,6 +324,9 @@ fun NavigationBottomSheetNavHost(
                 }
                 composable(route = AlgoKitScreens.THEME_SCREEN.name) {
                     ThemeScreen(navController)
+                }
+                composable(route = AlgoKitScreens.LANGUAGE_SCREEN.name) {
+                    LanguageScreen(navController)
                 }
                 composable(route = AlgoKitScreens.NODE_SETTINGS_SCREEN.name) {
                     NodeSettingsScreen(navController)
