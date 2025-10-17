@@ -26,4 +26,5 @@ actual fun setDefaultLocale(localizationPreference: LocalizationPreference) {
         arrayListOf(languageCode),
         "AppleLanguages",
     )
+    NSUserDefaults.standardUserDefaults.synchronize()
 }

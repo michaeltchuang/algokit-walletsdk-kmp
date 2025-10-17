@@ -32,9 +32,9 @@ import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.LocalThemeIsDark
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.localizedStringResource
 import com.michaeltchuang.walletsdk.ui.settings.domain.theme.ThemePreference
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.ThemePickerViewModel
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -77,9 +77,9 @@ fun ThemeScreen(navController: NavController) {
     @Composable
     fun ThemePreference.displayString() =
         when (this) {
-            ThemePreference.LIGHT -> stringResource(Res.string.light)
-            ThemePreference.DARK -> stringResource(Res.string.dark)
-            ThemePreference.SYSTEM -> stringResource(Res.string.system_default)
+            ThemePreference.LIGHT -> localizedStringResource(Res.string.light)
+            ThemePreference.DARK -> localizedStringResource(Res.string.dark)
+            ThemePreference.SYSTEM -> localizedStringResource(Res.string.system_default)
         }
 
     Column(
@@ -90,7 +90,7 @@ fun ThemeScreen(navController: NavController) {
                 .padding(horizontal = 16.dp),
     ) {
         AlgoKitTopBar(
-            title = stringResource(Res.string.theme),
+            title = localizedStringResource(Res.string.theme),
         ) {
             navController.popBackStack()
         }

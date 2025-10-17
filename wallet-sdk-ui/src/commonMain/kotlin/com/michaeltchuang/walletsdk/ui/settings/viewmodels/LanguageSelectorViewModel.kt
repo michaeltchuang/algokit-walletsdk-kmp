@@ -8,33 +8,19 @@ import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocalizationPreference
 import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocalizationPreferenceRepository
-import com.michaeltchuang.walletsdk.ui.settings.domain.theme.ThemePreference
-import com.michaeltchuang.walletsdk.ui.settings.domain.theme.ThemePreferenceRepository
 import kotlinx.coroutines.launch
 
 class LanguageSelectorViewModel(
     private val localizationPreferenceRepository: LocalizationPreferenceRepository,
-    private val themePreferenceRepository: ThemePreferenceRepository,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
     StateViewModel<LanguageSelectorViewModel.ViewState> by stateDelegate,
     EventViewModel<LanguageSelectorViewModel.ViewEvent> by eventDelegate {
 
-    private var currentTheme: ThemePreference = ThemePreference.SYSTEM
-
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
         loadCurrentLocalizationPreference()
-        observeCurrentTheme()
-    }
-
-    private fun observeCurrentTheme() {
-        viewModelScope.launch {
-            themePreferenceRepository.getSavedThemePreferenceFlow().collect { theme ->
-                currentTheme = theme
-            }
-        }
     }
 
     private fun loadCurrentLocalizationPreference() {
@@ -55,12 +41,10 @@ class LanguageSelectorViewModel(
         viewModelScope.launch {
             try {
                 // Save the language preference
+                // This will trigger a recomposition in all composables that use localizedStringResource()
+                // because they read LocalAppLocale, which is provided via CompositionLocalProvider
+                // in AlgoKitTheme and updates when this flow emits a new value
                 localizationPreferenceRepository.saveLocalizationPreference(language)
-                // Force recomposition by re-saving the theme
-                // On Android: This triggers the Activity's observeLanguageChanges() via the language preference change,
-                //             which calls recreate(). The theme re-save ensures immediate UI feedback.
-                // On iOS: This forces a recomposition cascade that updates all stringResource() calls
-                themePreferenceRepository.saveThemePreference(currentTheme)
                 eventDelegate.sendEvent(ViewEvent.LanguageChanged(language))
             } catch (e: Exception) {
                 displayError(e.message ?: "Failed to save language preference")

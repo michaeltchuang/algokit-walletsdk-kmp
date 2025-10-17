@@ -30,8 +30,8 @@ import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.ui.settings.domain.localization.LocalizationPreference
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.localizedStringResource
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.LanguageSelectorViewModel
-import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -60,8 +60,8 @@ fun LanguageScreen(navController: NavController) {
     @Composable
     fun LocalizationPreference.displayString() =
         when (this) {
-            LocalizationPreference.ITALIAN -> stringResource(Res.string.italian)
-            LocalizationPreference.ENGLISH -> stringResource(Res.string.english)
+            LocalizationPreference.ITALIAN -> localizedStringResource(Res.string.italian)
+            LocalizationPreference.ENGLISH -> localizedStringResource(Res.string.english)
         }
 
     Column(
@@ -72,7 +72,7 @@ fun LanguageScreen(navController: NavController) {
                 .padding(horizontal = 16.dp),
     ) {
         AlgoKitTopBar(
-            title = stringResource(Res.string.localization_screen_title),
+            title = localizedStringResource(Res.string.localization_screen_title),
         ) {
             navController.popBackStack()
         }
