@@ -19,5 +19,3 @@ internal fun App() {
         }
     }
 }
-
-internal expect fun openUrl(url: String?)

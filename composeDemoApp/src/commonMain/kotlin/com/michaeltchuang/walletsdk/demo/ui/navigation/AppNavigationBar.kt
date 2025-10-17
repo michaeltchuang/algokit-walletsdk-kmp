@@ -3,6 +3,8 @@ package com.michaeltchuang.walletsdk.demo.ui.navigation
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.Res
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_home
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_settings
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.nav_discover
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.nav_home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -14,8 +16,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.settings.domain.localization.localizedStringResource
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -32,7 +36,7 @@ fun AppNavigationBar(
                 selected = navigationItem::class.qualifiedName == currentDestination?.route,
                 label = {
                     (navigationItem.type as? TopLevelRoute.Type.NavButton)?.let {
-                        Text(it.label)
+                        Text(localizedStringResource(it.labelResource))
                     }
                 },
                 icon = {
@@ -82,7 +86,7 @@ sealed interface TopLevelRoute {
 
     sealed interface Type {
         data class NavButton(
-            val label: String,
+            val labelResource: StringResource,
         ) : Type
 
         data object CircularButton : Type
@@ -91,7 +95,7 @@ sealed interface TopLevelRoute {
 
 @Serializable
 data object Accounts : TopLevelRoute {
-    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("Accounts")
+    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton(Res.string.nav_home)
     override val details =
         TopLevelRouteDetails(
             name = "Accounts",
@@ -102,7 +106,7 @@ data object Accounts : TopLevelRoute {
 
 @Serializable
 data object Discover : TopLevelRoute {
-    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton("GitHub Repo")
+    override val type: TopLevelRoute.Type = TopLevelRoute.Type.NavButton(Res.string.nav_discover)
     override val details =
         TopLevelRouteDetails(
             name = "Discover",
