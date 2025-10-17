@@ -24,8 +24,7 @@ actual class LocalizationPreferenceRepository actual constructor(
                 ?: LocalizationPreference.ENGLISH
     }
 
-    actual fun getSavedLocalizationPreferenceFlow(): Flow<LocalizationPreference> =
-        stateFlow.asStateFlow()
+    actual fun getSavedLocalizationPreferenceFlow(): Flow<LocalizationPreference> = stateFlow.asStateFlow()
 
     actual suspend fun saveLocalizationPreference(pref: LocalizationPreference) {
         withContext(Dispatchers.Default) {
@@ -39,5 +38,4 @@ actual class LocalizationPreferenceRepository actual constructor(
 }
 
 @Composable
-actual fun provideLocalizationPreferenceRepository(): LocalizationPreferenceRepository =
-    LocalizationPreferenceRepository()
+actual fun provideLocalizationPreferenceRepository(): LocalizationPreferenceRepository = LocalizationPreferenceRepository()

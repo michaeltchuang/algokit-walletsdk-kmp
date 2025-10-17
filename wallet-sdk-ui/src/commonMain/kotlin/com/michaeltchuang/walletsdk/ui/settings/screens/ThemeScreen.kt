@@ -31,10 +31,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.LocalThemeIsDark
+import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.ui.settings.domain.theme.ThemePreference
 import com.michaeltchuang.walletsdk.ui.settings.domain.theme.ThemePreferenceRepository
 import com.michaeltchuang.walletsdk.ui.settings.domain.theme.provideThemePreferenceRepository
-import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

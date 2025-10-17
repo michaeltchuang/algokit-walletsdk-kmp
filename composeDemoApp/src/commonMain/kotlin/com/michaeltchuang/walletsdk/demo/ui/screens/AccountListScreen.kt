@@ -1,7 +1,6 @@
 package com.michaeltchuang.walletsdk.demo.ui.screens
 
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.Res
-import algokit_walletsdk_kmp.composedemoapp.generated.resources.app_name
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.no_account_list
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight

@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.LocaleList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -42,21 +41,22 @@ class AppActivity : ComponentActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val savedLanguageCode: LocalizationPreference = runBlocking {
-            LocalizationPreferenceRepository(newBase).getSavedLocalizationPreferenceFlow().first()
-        }
+        val savedLanguageCode: LocalizationPreference =
+            runBlocking {
+                LocalizationPreferenceRepository(newBase).getSavedLocalizationPreferenceFlow().first()
+            }
         val localeAwareContext = LocalizationManager(newBase).actuateLocalization(savedLanguageCode)
         super.attachBaseContext(localeAwareContext as Context)
     }
 
     private fun observeLanguageChanges() {
-        LocalizationPreferenceRepository(this).getSavedLocalizationPreferenceFlow()
+        LocalizationPreferenceRepository(this)
+            .getSavedLocalizationPreferenceFlow()
             .distinctUntilChanged()
             .drop(1)
             .onEach { newLanguageCode ->
                 recreate()
-            }
-            .launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
     }
 }
 

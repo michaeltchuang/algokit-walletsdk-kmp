@@ -1,7 +1,7 @@
 [versions]
 agp = "8.10.0"
 algoSdk = "2.10.1"
-algoGoMobilesdk = "1.0.1"
+algoGoMobilesdk = "2025.4.0"
 android-compileSdk = "36"
 android-discover-staging = "4"
 android-discover-prod = "4"
@@ -181,7 +181,7 @@ webview-multiplatform-mobile = { module = "io.github.final-class:webview-multipl
 
 # Wallet SDK - Security / Blockchain / Crypto
 algosdk = { module = "com.algorand:algosdk", version.ref = "algoSdk" }
-algorand-go-mobile = { group = "io.github.perawallet", name = "algorand-go-mobile-sdk", version.ref = "algoGoMobilesdk" }
+algorand-go-mobile = { group = "com.michaeltchuang.algokit", name = "algorand-go-mobile-sdk", version.ref = "algoGoMobilesdk" }
 bignum = { group = "com.ionspin.kotlin", name ="bignum", version.ref = "bignum" }
 bitcoin-kmp = { module = "fr.acinq.bitcoin:bitcoin-kmp", version.ref = "bitcoin-kmp" }
 khex = { module = "com.github.komputing:khex", version.ref = "khex" }

@@ -8,23 +8,22 @@ import java.util.Locale
 actual class LocalizationManager actual constructor(
     private val context: Any?,
 ) {
-
     actual fun actuateLocalization(localizationPreference: LocalizationPreference): Any? {
         val context = context as Context
         val resources = context.resources
         val config = resources.configuration
 
-        val locale = when (localizationPreference) {
-            LocalizationPreference.ENGLISH -> Locale.ENGLISH
-            LocalizationPreference.ITALIAN -> Locale.ITALIAN
-        }
+        val locale =
+            when (localizationPreference) {
+                LocalizationPreference.ENGLISH -> Locale.ENGLISH
+                LocalizationPreference.ITALIAN -> Locale.ITALIAN
+            }
         setDefaultLocale(localizationPreference)
         config.setLocale(locale)
         val newContext = context.createConfigurationContext(config)
 
         return newContext
     }
-
 }
 
 @Composable
@@ -34,9 +33,10 @@ actual fun provideLocalizationManager(): LocalizationManager {
 }
 
 actual fun setDefaultLocale(localizationPreference: LocalizationPreference) {
-    val locale = when (localizationPreference) {
-        LocalizationPreference.ENGLISH -> Locale.ENGLISH
-        LocalizationPreference.ITALIAN -> Locale.ITALIAN
-    }
+    val locale =
+        when (localizationPreference) {
+            LocalizationPreference.ENGLISH -> Locale.ENGLISH
+            LocalizationPreference.ITALIAN -> Locale.ITALIAN
+        }
     Locale.setDefault(locale)
 }

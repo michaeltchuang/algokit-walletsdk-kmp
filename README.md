@@ -71,7 +71,7 @@ timeline
             : Onboarding - Encrypt iOS secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases (aar)
             : Transaction - Send Algo using QR Code flow
-            : Settings - Localization
+            : ✅ Settings - Localization (Italian)
             : Testing - Add Unit Test Coverage
 
     section Future

@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 
 expect class LocalizationManager(
-    context: Any? = null
+    context: Any? = null,
 ) {
     fun actuateLocalization(localizationPreference: LocalizationPreference): Any?
 }
