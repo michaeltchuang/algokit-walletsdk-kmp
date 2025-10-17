@@ -1,17 +1,19 @@
 plugins {
     alias(libs.plugins.multiplatform)
 
-    id("com.android.library")
+    alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ktlint)
-    `maven-publish`
-    signing
+    alias(libs.plugins.maven.publish)
 }
 
 kotlin {
     androidTarget {
+        publishLibraryVariants(
+            "release",
+        )
         compilations.all {
             compileTaskProvider {
                 compilerOptions {
@@ -37,9 +39,10 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-                api(project(":wallet-sdk-core"))
 
-                api(libs.napier)
+                implementation(project(":wallet-sdk-core"))
+
+                implementation(libs.napier)
 
                 implementation(compose.animation)
                 implementation(compose.components.resources)
@@ -128,61 +131,39 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 }
 
-publishing {
-    publications {
-        publications.withType<MavenPublication> {
-            groupId = "com.michaeltchuang.algokit"
-            version = System.getenv("VERSION_TAG") ?: "0.0.1-SNAPSHOT"
+mavenPublishing {
+    coordinates(
+        "com.michaeltchuang.algokit",
+        "wallet-sdk-ui",
+        System.getenv("VERSION_TAG") ?: "0.0.1"
+    )
 
-            pom {
-                name.set("AlgoKit Wallet SDK UI")
-                description.set("UI layer for AlgoKit Wallet SDK")
-                url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+    pom {
+        name.set("AlgoKit Wallet SDK UI")
+        description.set("UI layer for AlgoKit Wallet SDK")
+        url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
 
-                licenses {
-                    license {
-                        name.set("GPL3.0 License")
-                        url.set("https://opensource.org/licenses/GPL-3.0")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("michaeltchuang")
-                        name.set("Michael T Chuang")
-                        email.set("hello@michaeltchuang.com")
-                        organization.set("Michael T Chuang LLC")
-                        organizationUrl.set("https://github.com/michaeltchuangllc")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
-                    developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
-                    url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
-                }
+        licenses {
+            license {
+                name.set("GPL3.0 License")
+                url.set("https://opensource.org/licenses/GPL-3.0")
             }
         }
-    }
 
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
+        developers {
+            developer {
+                id.set("michaeltchuang")
+                name.set("Michael T Chuang")
+                email.set("hello@michaeltchuang.com")
+                organization.set("Michael T Chuang LLC")
+                organizationUrl.set("https://github.com/michaeltchuangllc")
             }
         }
-    }
-}
 
-signing {
-    val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    val signingPassword = System.getenv("GPG_PASSPHRASE")
-
-    if (signingKey != null && signingPassword != null) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications)
+        scm {
+            connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+            developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+            url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+        }
     }
 }
