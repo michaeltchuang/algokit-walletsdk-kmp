@@ -8,12 +8,11 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
-
 plugins {
     // this needs to be first in list
     alias(libs.plugins.multiplatform)
 
-    id("com.android.library")
+    alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
@@ -21,13 +20,13 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
     id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
-    `maven-publish`
-    signing
+    alias(libs.plugins.maven.publish)
 }
 
 kotlin {
 
     androidTarget {
+        publishLibraryVariants("release")
         compilations.all {
             compileTaskProvider {
                 compilerOptions {
@@ -88,10 +87,8 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            // will turn this to implementation when app module references are moved to common
-            api(libs.algosdk)
-            // api(libs.algorand.go.mobile)
-            api(files("libs/algosdkfalcon.aar"))
+            implementation(libs.algosdk)
+            implementation(libs.algorand.go.mobile)
 
             // toml files don't support aar files yet
             implementation("net.java.dev.jna:jna:5.17.0@aar")
@@ -209,9 +206,6 @@ android {
         // Only run lint on changed files
         checkDependencies = false
     }
-
-//    sourceSets["main"].res.srcDirs("src/commonMain/composeResources", "src/androidMain/res")
-//    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 }
 
 room {
@@ -225,61 +219,39 @@ dependencies {
     add("kspIosX64", libs.room.compiler)
 }
 
-publishing {
-    publications {
-        publications.withType<MavenPublication> {
-            groupId = "com.michaeltchuang.algokit"
-            version = System.getenv("VERSION_TAG") ?: "0.0.1-SNAPSHOT"
+mavenPublishing {
+    coordinates(
+        "com.michaeltchuang.algokit",
+        "wallet-sdk-core",
+        System.getenv("VERSION_TAG") ?: "0.0.1"
+    )
 
-            pom {
-                name.set("AlgoKit Wallet SDK Core")
-                description.set("A headless wallet engine for Algorand")
-                url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+    pom {
+        name.set("AlgoKit Wallet SDK Core")
+        description.set("A headless wallet engine for Algorand")
+        url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
 
-                licenses {
-                    license {
-                        name.set("GPL3.0 License")
-                        url.set("https://opensource.org/licenses/GPL-3.0")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("michaeltchuang")
-                        name.set("Michael T Chuang")
-                        email.set("hello@michaeltchuang.com")
-                        organization.set("Michael T Chuang LLC")
-                        organizationUrl.set("https://github.com/michaeltchuangllc")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
-                    developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
-                    url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
-                }
+        licenses {
+            license {
+                name.set("GPL-3.0 License")
+                url.set("https://opensource.org/licenses/GPL-3.0")
             }
         }
-    }
 
-    repositories {
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
+        developers {
+            developer {
+                id.set("michaeltchuang")
+                name.set("Michael T Chuang")
+                email.set("hello@michaeltchuang.com")
+                organization.set("Michael T Chuang LLC")
+                organizationUrl.set("https://github.com/michaeltchuangllc")
             }
         }
-    }
-}
 
-signing {
-    val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    val signingPassword = System.getenv("GPG_PASSPHRASE")
-
-    if (signingKey != null && signingPassword != null) {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications)
+        scm {
+            connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+            developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
+            url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+        }
     }
 }
