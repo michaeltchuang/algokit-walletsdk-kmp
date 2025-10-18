@@ -12,10 +12,9 @@ internal class DefaultAccountCreationFalcon24TypeMapperImpl() : AccountCreationF
     ): AccountCreation.Type.Falcon24 =
         with(falcon24) {
             AccountCreation.Type.Falcon24(
-                // aesPlatformManager.encryptByteArray(privateKey.toByteArray())
                 publicKey = publicKey,
                 encryptedPrivateKey = encryptByteArray(privateKey),
-                encryptedEntropy =encryptByteArray(entropy), // aesPlatformManager.encryptByteArray(entropy)
+                encryptedEntropy = encryptByteArray(entropy),
                 seedId = seedId,
             )
         }

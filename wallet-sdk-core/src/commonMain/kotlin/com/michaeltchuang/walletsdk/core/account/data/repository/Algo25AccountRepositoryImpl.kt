@@ -69,6 +69,6 @@ internal class Algo25AccountRepositoryImpl(
     override suspend fun getSecretKey(address: String): ByteArray? =
         withContext(coroutineDispatcher) {
             val encryptedSK = algo25Dao.get(address)?.encryptedSecretKey
-             encryptedSK?.let {decryptByteArray(it) }
+             encryptedSK?.let { decryptByteArray(it) }
         }
 }
