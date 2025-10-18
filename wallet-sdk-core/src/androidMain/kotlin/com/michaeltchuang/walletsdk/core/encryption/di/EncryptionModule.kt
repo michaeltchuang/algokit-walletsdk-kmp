@@ -78,7 +78,6 @@ val encryptionModule = module {
     single { AndroidEncryptionManagerImpl(get(), get()) }
     // AndroidEncryptionManager binding
     factory<AndroidEncryptionManager> { get<AndroidEncryptionManagerImpl>() }
-    factory<Unit> { get<AndroidEncryptionManagerImpl>()::initializeEncryptionManager }
 
     single {
         GetEncryptionSecretKey(get<AndroidEncryptionManager>()::getSecretKey)
