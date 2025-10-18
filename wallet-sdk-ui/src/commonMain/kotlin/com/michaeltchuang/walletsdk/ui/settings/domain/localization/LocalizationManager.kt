@@ -37,7 +37,10 @@ fun localizedStringResource(resource: StringResource): String {
  * when the app locale changes.
  */
 @Composable
-fun localizedStringResource(resource: StringResource, vararg formatArgs: Any): String {
+fun localizedStringResource(
+    resource: StringResource,
+    vararg formatArgs: Any,
+): String {
     // Read the current locale to trigger recomposition when it changes
     val currentLocale = LocalAppLocale.current
     // Return the string resource - the read of currentLocale above ensures recomposition

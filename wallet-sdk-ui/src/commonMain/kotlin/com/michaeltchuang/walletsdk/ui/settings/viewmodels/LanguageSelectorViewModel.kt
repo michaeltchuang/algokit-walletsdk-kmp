@@ -17,7 +17,6 @@ class LanguageSelectorViewModel(
 ) : ViewModel(),
     StateViewModel<LanguageSelectorViewModel.ViewState> by stateDelegate,
     EventViewModel<LanguageSelectorViewModel.ViewEvent> by eventDelegate {
-
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
         loadCurrentLocalizationPreference()
@@ -25,7 +24,8 @@ class LanguageSelectorViewModel(
 
     private fun loadCurrentLocalizationPreference() {
         viewModelScope.launch {
-            localizationPreferenceRepository.getSavedLocalizationPreferenceFlow()
+            localizationPreferenceRepository
+                .getSavedLocalizationPreferenceFlow()
                 .collect { localizationPreference ->
                     stateDelegate.updateState {
                         ViewState.Content(
