@@ -32,13 +32,13 @@ import com.michaeltchuang.walletsdk.core.account.domain.model.local.AccountMnemo
 import com.michaeltchuang.walletsdk.core.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.REPO_URL
 import com.michaeltchuang.walletsdk.core.foundation.webview.AlgoKitWebViewPlatformScreen
-import com.michaeltchuang.walletsdk.ui.onboarding.screens.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.AccountStatusScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.PassphraseAcknowledgeScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.ViewPassphraseScreen
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.AccountRecoveryTypeSelectionScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.CreateAccountNameScreen
+import com.michaeltchuang.walletsdk.ui.onboarding.screens.Falcon24WalletSelectionScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.OnboardingAccountTypeScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.OnboardingIntroScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.RecoverAnAccountScreen

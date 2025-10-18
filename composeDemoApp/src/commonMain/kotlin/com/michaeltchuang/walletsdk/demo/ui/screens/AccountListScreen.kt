@@ -117,6 +117,7 @@ fun AccountListScreen(
     ) { padding ->
         AccountListContent(
             state = state,
+            padding = padding,
             onAccountItemClick = { it ->
                 scope.launch {
                     address = it
@@ -163,29 +164,36 @@ fun AccountListScreen(
 @Composable
 private fun AccountListContent(
     state: AccountListViewModel.AccountsState,
+    padding: androidx.compose.foundation.layout.PaddingValues,
     onAccountItemClick: (String) -> Unit,
 ) {
-    when (state) {
-        AccountListViewModel.AccountsState.Idle -> {
-            CenteredMessage("Ready to load accounts...")
-        }
+    Box(
+        modifier =
+            Modifier
+                .fillMaxSize(),
+    ) {
+        when (state) {
+            AccountListViewModel.AccountsState.Idle -> {
+                CenteredMessage("Ready to load accounts...")
+            }
 
-        AccountListViewModel.AccountsState.Loading -> {
-            CenteredLoader()
-        }
+            AccountListViewModel.AccountsState.Loading -> {
+                CenteredLoader()
+            }
 
-        is AccountListViewModel.AccountsState.Content -> {
-            AccountsList(
-                accounts = state.accounts,
-                onAccountItemClick = onAccountItemClick,
-            )
-        }
+            is AccountListViewModel.AccountsState.Content -> {
+                AccountsList(
+                    accounts = state.accounts,
+                    onAccountItemClick = onAccountItemClick,
+                )
+            }
 
-        is AccountListViewModel.AccountsState.Error -> {
-            CenteredMessage(
-                text = "Error: ${state.message}",
-                color = Color.Red,
-            )
+            is AccountListViewModel.AccountsState.Error -> {
+                CenteredMessage(
+                    text = "Error: ${state.message}",
+                    color = Color.Red,
+                )
+            }
         }
     }
 }
@@ -199,7 +207,11 @@ private fun CenteredMessage(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text = text, color = color)
+        Text(
+            text = text,
+            color = color,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+        )
     }
 }
 

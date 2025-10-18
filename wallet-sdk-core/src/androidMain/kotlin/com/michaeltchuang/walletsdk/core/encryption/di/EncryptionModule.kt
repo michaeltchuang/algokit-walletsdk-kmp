@@ -16,7 +16,6 @@ import com.michaeltchuang.walletsdk.core.encryption.domain.repository.StrongBoxR
 import com.michaeltchuang.walletsdk.core.encryption.domain.usecase.GetEncryptionSecretKey
 import com.michaeltchuang.walletsdk.core.encryption.domain.usecase.GetStrongBoxUsedCheck
 import com.michaeltchuang.walletsdk.core.encryption.domain.usecase.SaveStrongBoxUsedCheck
-import com.michaeltchuang.walletsdk.core.foundation.account.AccountDeserializer
 import com.michaeltchuang.walletsdk.core.foundation.cache.PersistentCacheProvider
 import com.michaeltchuang.walletsdk.core.foundation.cache.PersistentCacheProviderImpl
 import org.koin.android.ext.koin.androidContext
@@ -26,16 +25,13 @@ const val SETTINGS = "algorand_settings"
 
 val encryptionModule = module {
 
-    single<Gson> {
-        GsonBuilder()
-            .registerTypeAdapter(Account::class.java, AccountDeserializer())
-            .create()
-    }
-
     single<SharedPreferences> {
         androidContext().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
     }
 
+    single<Gson> {
+        GsonBuilder().create()
+    }
 
     single {
         PersistentCacheProviderImpl(
