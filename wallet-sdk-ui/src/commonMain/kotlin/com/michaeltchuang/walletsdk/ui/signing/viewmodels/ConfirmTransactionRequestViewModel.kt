@@ -49,14 +49,21 @@ class ConfirmTransactionRequestViewModel(
 
                     is ExternalTransactionSignResult.Error -> {
                         transactionFailed(it.getMessage())
+                        keyRegTransactionSignManager.manualStopAllResources()
                     }
 
                     is ExternalTransactionSignResult.TransactionCancelled -> {
                         transactionFailed(it.error.getMessage())
+                        keyRegTransactionSignManager.manualStopAllResources()
+                    }
+
+                    is ExternalTransactionSignResult.NotInitialized,
+                    is ExternalTransactionSignResult.Loading -> {
+                        // Ignore these states - no action needed
                     }
 
                     else -> {
-                        println("confirmTransaction Failed")
+                        println("confirmTransaction: Unhandled state $it")
                     }
                 }
             }
@@ -127,6 +134,7 @@ class ConfirmTransactionRequestViewModel(
                         onSuccess = {
                             eventDelegate.sendEvent(ViewEvent.SendSignedTransactionSuccess(it))
                             PendingTransactionRequestManger.clearPendingTransactionRequest()
+                            keyRegTransactionSignManager.manualStopAllResources()
                             println("SendSignedTransaction onSuccess: $it")
                         },
                         onFailed = {
