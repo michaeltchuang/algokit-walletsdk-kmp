@@ -167,5 +167,6 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
     fun manualStopAllResources() {
         this.stopAllResources()
         currentScope.coroutineContext.cancelChildren()
+        _signResultFlow.value = ExternalTransactionSignResult.NotInitialized
     }
 }
