@@ -58,7 +58,8 @@ class ConfirmTransactionRequestViewModel(
                     }
 
                     is ExternalTransactionSignResult.NotInitialized,
-                    is ExternalTransactionSignResult.Loading -> {
+                    is ExternalTransactionSignResult.Loading,
+                    -> {
                         // Ignore these states - no action needed
                     }
 

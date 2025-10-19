@@ -15,4 +15,5 @@ actual fun encryptString(data: String): String {
 actual fun decryptString(encryptedData: String): String {
     return encryptedData
 }
-actual suspend fun initializeEncryptionManager(){}
+
+actual suspend fun initializeEncryptionManager() {}
