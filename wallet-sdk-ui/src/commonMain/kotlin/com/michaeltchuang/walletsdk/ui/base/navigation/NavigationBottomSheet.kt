@@ -210,8 +210,13 @@ fun NavigationBottomSheetNavHost(
                 }
                 composable(AlgoKitScreens.CREATE_ACCOUNT_NAME.name) {
                     CreateAccountNameScreen(
-                        navController,
-                        {
+                        navController = navController,
+                        showSnackBar = { message ->
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(message)
+                            }
+                        },
+                        onFinish = {
                             onFinish()
                         },
                     )

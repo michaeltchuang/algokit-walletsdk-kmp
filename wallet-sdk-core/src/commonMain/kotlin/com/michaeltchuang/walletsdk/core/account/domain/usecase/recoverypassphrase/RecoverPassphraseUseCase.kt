@@ -1,5 +1,8 @@
 package com.michaeltchuang.walletsdk.core.account.domain.usecase.recoverypassphrase
 
+import com.michaeltchuang.walletsdk.core.account.data.mapper.entity.AccountCreationFalcon24TypeMapper
+import com.michaeltchuang.walletsdk.core.account.data.mapper.entity.AccountCreationHdKeyTypeMapper
+import com.michaeltchuang.walletsdk.core.account.data.mapper.entity.Algo25AccountTypeMapper
 import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreation
 import com.michaeltchuang.walletsdk.core.account.domain.model.core.OnboardingAccountType
 import com.michaeltchuang.walletsdk.core.algosdk.AlgoKitBip39.getEntropyFromMnemonic
@@ -10,7 +13,11 @@ import com.michaeltchuang.walletsdk.core.foundation.utils.toShortenedAddress
 import kotlinx.coroutines.flow.flow
 
 @Suppress("LongParameterList")
-class RecoverPassphraseUseCase {
+class RecoverPassphraseUseCase(
+    private val accountCreationFalcon24TypeMapper: AccountCreationFalcon24TypeMapper,
+    private val Algo25AccountTypeMapper: Algo25AccountTypeMapper,
+    private val accountCreationHdKeyTypeMapper: AccountCreationHdKeyTypeMapper,
+) {
     fun validateEnteredMnemonics(
         mnemonics: String,
         onboardingAccountType: OnboardingAccountType,
@@ -34,7 +41,7 @@ class RecoverPassphraseUseCase {
                     customName = algo25account.address.toShortenedAddress(),
                     isBackedUp = false,
                     type =
-                        AccountCreation.Type.Algo25(
+                        Algo25AccountTypeMapper(
                             algo25account.secretKey,
                         ),
                     creationType = CreationType.RECOVER,
@@ -49,12 +56,7 @@ class RecoverPassphraseUseCase {
                     address = falcon24.address,
                     customName = falcon24.address.toShortenedAddress(),
                     isBackedUp = false,
-                    type =
-                        AccountCreation.Type.Falcon24(
-                            publicKey = falcon24.publicKey,
-                            encryptedPrivateKey = falcon24.privateKey,
-                            encryptedEntropy = entropy,
-                        ),
+                    type = accountCreationFalcon24TypeMapper(entropy, falcon24, null),
                     creationType = CreationType.RECOVER,
                 )
             }

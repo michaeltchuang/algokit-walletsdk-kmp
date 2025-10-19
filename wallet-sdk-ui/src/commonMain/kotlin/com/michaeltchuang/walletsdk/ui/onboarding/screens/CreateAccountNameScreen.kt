@@ -58,6 +58,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun CreateAccountNameScreen(
     navController: NavController,
+    showSnackBar: (message: String) -> Unit,
     onFinish: () -> Unit,
 ) {
     val accountCreation = AccountCreationManager.getPendingAccountCreation()
@@ -103,6 +104,7 @@ fun CreateAccountNameScreen(
                 }
 
                 is CreateAccountNameViewModel.ViewEvent.Error -> {
+                    showSnackBar(event.message)
                     Log.e("CreateAccountNameScreen", "Error: ${event.message}")
                 }
             }

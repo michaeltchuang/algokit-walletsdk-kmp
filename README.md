@@ -1,5 +1,8 @@
 # AlgoKit Wallet SDK
 
+[![Maven Central - wallet-sdk-ui](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit/wallet-sdk-ui.svg?label=wallet-sdk-ui)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-ui)
+[![Maven Central - wallet-sdk-core](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit/wallet-sdk-core.svg?label=wallet-sdk-core)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-core)
+
 This mobile utils library project provides common wallet UI components and screens out of the box, allowing native developers to skip building standard wallet functionality and focus more on unique, value-added features for their mobile applications.
 
 AlgoKit Wallet SDK currently uses UI theming inspired by [Pera Android](https://github.com/perawallet/pera-android) as a placeholder until official Algorand Foundation branding guidelines are available.
@@ -93,6 +96,19 @@ timeline
             : Account Details - Swap
             : TBD
 ```
+
+##  How to Use
+
+Add the following to your build.gradle.kts:
+```kotlin
+dependencies {
+    implementation("com.michaeltchuang.algokit:wallet-sdk-ui:2025.4.0")
+    implementation("com.michaeltchuang.algokit:wallet-sdk-core:2025.4.0")
+}
+```
+
+> **Note:** Check Maven Central for the latest
+> versions: [wallet-sdk-ui](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-ui) | [wallet-sdk-core](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-core)
 
 ## Project structure
 
@@ -246,3 +262,20 @@ erDiagram
 
 ## Contributing
 Development happens in this open source repo for the AlgoKit Wallet SDK. Algorand community is always welcome to contribute by reviewing or opening new pull requests.
+
+## Testing
+
+For QR code importing, you can use a tool like [Cyber Chef](https://gchq.github.io/CyberChef/#recipe=Generate_QR_Code('PNG',5,4,'Medium')) to get QR codes online
+
+### 24 word account
+
+```json
+{
+  "mnemonic": "define claw hungry wave umbrella boost blind never muscle also grab gaze fluid echo predict describe turkey unaware dash phone urge crunch eyebrow abstract team"
+}
+```
+
+### KeyReg offline (account address should exist on device)
+```
+algorand://ANUR5SYMURBFD3ELITINYNTHVAKKBCWJ7LGHJRPMQM3KQG25ENMIHYEBNY?type=keyreg
+```
