@@ -84,5 +84,9 @@ val accountCoreModule =
         single<AccountCreationHdKeyTypeMapper> { DefaultAccountCreationHdKeyTypeMapperImpl() }
         single<AccountCreationFalcon24TypeMapper> { DefaultAccountCreationFalcon24TypeMapperImpl() }
         single<Algo25AccountTypeMapper> { Algo25AccountTypeMapperImpl() }
-        single { RecoverPassphraseUseCase() }
+        single { RecoverPassphraseUseCase(
+            get(),
+            get(),
+            get()
+        ) }
     }
