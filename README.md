@@ -66,13 +66,15 @@ timeline
 
     section In Progress 🔄
     2025Q4  : ✅ Transaction - Sign KeyReg online/offline flow with QR code flow
-            : ✅ Account Details - Add Copy Address Button
-            : ✅ Onboarding - Encrypt Android secret keys in DB
-            : 🔄 Onboarding - Encrypt iOS secret keys in DB
+            : ✅ Account Details - Add copy address button
+            : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
-            : Transaction - Send Algo using QR Code flow
+            : 🔄 Transaction - Send Algo flow (between accounts)
+            : 🔄 Account Details - Add testnet dispenser link
             : ✅ Settings - Localization (Italian)
-            : Testing - Add Unit Test Coverage
+            : Settings - Localization (Hindi)
+            : GitOps - Setup App / Play store for demo app releases
+            : Testing - Setup unit test coverage foundation
 
     section Future
     2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
@@ -80,11 +82,11 @@ timeline
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow
             : Onboarding - Ledger flow
-            : Onboarding - Fun App Splash Screen
+            : Onboarding - Fun app splash screen
             : Account Details - Add more items in Account Detail screen
             : Testing - Add Screenshot Testing Infrastructure
             : Android - Wallet SDK as a background service integration
-    2026Q2  : Research - React Native Sample App that can use wallet-sdk (through bridging)
+    2026Q2  : Research - React Native sample app that can use wallet-sdk (through bridging)
             : Research - Wallet-SDK supporting more platforms (e.g Desktop/Web)
             : Onboarding - Decentralized Identity
             : Account Details - Asset Inbox
