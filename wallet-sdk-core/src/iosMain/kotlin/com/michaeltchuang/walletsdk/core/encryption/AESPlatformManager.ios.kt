@@ -8,64 +8,72 @@ import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.create
 import platform.posix.memcpy
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(ExperimentalForeignApi::class)
 private val encryptionManager: IosEncryptionManager by lazy { IosEncryptionManager() }
 
-@OptIn(ExperimentalForeignApi::class)
+class EncryptionException(message: String, cause: Throwable? = null) : Exception(message, cause)
+
+@OptIn(ExperimentalForeignApi::class, ExperimentalEncodingApi::class)
 actual fun encryptByteArray(data: ByteArray): ByteArray {
-    val nsData = data.toNSData()
-    val encryptedNSData = encryptionManager.encryptByteArray(nsData)
-    return encryptedNSData.toByteArray()
+    val dataBase64 = Base64.encode(data)
+    val encryptedBase64 = encryptionManager.encryptString(dataBase64)
+
+    if (encryptedBase64.isEmpty()) {
+        throw EncryptionException("Encryption failed: returned empty string")
+    }
+
+    return try {
+        Base64.decode(encryptedBase64)
+    } catch (e: Exception) {
+        throw EncryptionException("Failed to decode encrypted data", e)
+    }
 }
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, ExperimentalEncodingApi::class)
 actual fun decryptByteArray(encryptedData: ByteArray): ByteArray {
-    val nsData = encryptedData.toNSData()
-    val decryptedNSData = encryptionManager.decryptByteArray(nsData)
-    return decryptedNSData.toByteArray()
+    val encryptedBase64 = Base64.encode(encryptedData)
+    val decryptedBase64 = encryptionManager.decryptString(encryptedBase64)
+
+    if (decryptedBase64.isEmpty()) {
+        throw EncryptionException("Decryption failed: returned empty string")
+    }
+    return try {
+        Base64.decode(decryptedBase64)
+    } catch (e: Exception) {
+        throw EncryptionException("Failed to decode decrypted data", e)
+    }
 }
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun encryptString(data: String): String {
-    return encryptionManager.encryptString(data)
+    val encrypted = encryptionManager.encryptString(data)
+
+    if (encrypted.isEmpty()) {
+        throw EncryptionException("String encryption failed: returned empty string")
+    }
+
+    return encrypted
 }
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun decryptString(encryptedData: String): String {
-    return encryptionManager.decryptString(encryptedData)
+    val decrypted = encryptionManager.decryptString(encryptedData)
+
+    if (decrypted.isEmpty() && encryptedData.isNotEmpty()) {
+        throw EncryptionException("String decryption failed: returned empty string for non-empty input")
+    }
+
+    return decrypted
 }
 
 @OptIn(ExperimentalForeignApi::class)
 actual suspend fun initializeEncryptionManager() {
-    encryptionManager.initializeEncryptionManager()
-}
-
-// Helper extensions to convert between ByteArray and NSData
-@OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
-private fun ByteArray.toNSData(): NSData {
-    if (this.isEmpty()) {
-        return NSData()
-    }
-
-    return this.usePinned { pinned ->
-        NSData.create(
-            bytes = pinned.addressOf(0),
-            length = this.size.toULong(),
-        )
-    }
-}
-
-@OptIn(ExperimentalForeignApi::class)
-private fun NSData.toByteArray(): ByteArray {
-    val length = this.length.toInt()
-    if (length == 0) {
-        return ByteArray(0)
-    }
-
-    return ByteArray(length).apply {
-        usePinned { pinned ->
-            memcpy(pinned.addressOf(0), this@toByteArray.bytes, this@toByteArray.length)
-        }
+    try {
+        encryptionManager.initializeEncryptionManager()
+    } catch (e: Exception) {
+        throw EncryptionException("Failed to initialize encryption manager", e)
     }
 }
