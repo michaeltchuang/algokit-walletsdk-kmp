@@ -12,12 +12,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +52,7 @@ private const val CONFETTI_DURATION = 5000L
 private val FAB_PADDING = 32.dp
 private const val TAG = "AccountListScreen"
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountListScreen(
     navController: NavController,
@@ -68,6 +71,9 @@ fun AccountListScreen(
     var address by rememberSaveable { mutableStateOf("") }
     // val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+
+    // Pull to refresh state
+    var isRefreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         ACTIONS.qrClickEvent.collect {
@@ -89,12 +95,6 @@ fun AccountListScreen(
         viewModel.fetchAccounts()
     }
 
-    /*  LaunchedEffect(events.value) {
-          events.value?.let { event ->
-              handleEvent(event, context)
-          }
-      }*/
-
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -115,18 +115,32 @@ fun AccountListScreen(
             )
         },
     ) { padding ->
-        AccountListContent(
-            state = state,
-            padding = padding,
-            onAccountItemClick = { it ->
+        PullToRefreshBox(
+            modifier = Modifier.fillMaxSize(),
+            isRefreshing = isRefreshing,
+            onRefresh = {
                 scope.launch {
-                    address = it
-                    onAccountItemClick = true
-                    showSheet = true
-                    // viewModel.deleteAccount(address)
+                    isRefreshing = true
+                    viewModel.fetchAccounts()
+                    // Add a small delay to ensure smooth animation
+                    delay(500)
+                    isRefreshing = false
                 }
             },
-        )
+        ) {
+            AccountListContent(
+                state = state,
+                padding = padding,
+                onAccountItemClick = { it ->
+                    scope.launch {
+                        address = it
+                        onAccountItemClick = true
+                        showSheet = true
+                        // viewModel.deleteAccount(address)
+                    }
+                },
+            )
+        }
     }
 
     OnBoardingBottomSheet(
@@ -143,7 +157,13 @@ fun AccountListScreen(
     ) { event ->
         handleBottomSheetEvent(
             event = event,
-            onCloseSheet = { showSheet = false },
+            onCloseSheet = {
+                showSheet = false
+                // Refresh accounts to get latest data whenever bottom sheet closes
+                scope.launch {
+                    viewModel.fetchAccounts()
+                }
+            },
             onAccountCreated = {
                 showConfetti = true
                 showSheet = false
@@ -262,21 +282,6 @@ private fun ConfettiEffect(onComplete: () -> Unit) {
         onComplete()
     }
 }
-
-/*private fun handleEvent(
-    event: AccountsEvent,
-    context: android.content.Context,
-) {
-    when (event) {
-        is AccountsEvent.ShowError -> {
-            Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
-        }
-
-        is AccountsEvent.ShowMessage -> {
-            Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
-        }
-    }
-}*/
 
 private fun handleBottomSheetEvent(
     event: AlgoKitEvent,
