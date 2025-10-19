@@ -21,9 +21,10 @@ private object LocalizationPreferenceRepositoryHolder {
     init {
         val defaults = NSUserDefaults.standardUserDefaults
         val saved = defaults.objectForKey(LOCALIZATION_KEY) as? String
-        val initialValue = saved?.let { name ->
-            LocalizationPreference.entries.find { it.name == name }
-        } ?: LocalizationPreference.ENGLISH
+        val initialValue =
+            saved?.let { name ->
+                LocalizationPreference.entries.find { it.name == name }
+            } ?: LocalizationPreference.ENGLISH
 
         stateFlow = MutableStateFlow(initialValue)
     }

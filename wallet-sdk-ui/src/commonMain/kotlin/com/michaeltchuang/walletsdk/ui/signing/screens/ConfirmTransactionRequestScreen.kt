@@ -118,7 +118,9 @@ fun Content(
             )
             val txnDetail = viewModel.getPendingTransactionRequest()
             txnDetail?.let {
-                viewModel.calculateMinimumFee(txnDetail)
+                LaunchedEffect(txnDetail) {
+                    viewModel.calculateMinimumFee(txnDetail)
+                }
                 ContentItems(
                     viewModel.getPendingTransactionRequest(),
                     minimumFee,
