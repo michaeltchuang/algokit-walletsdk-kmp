@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Portafoglio Demo AlgoKit</string>
-    <string name="open_github">Apri Github</string>
-
-    <string name="nav_discover">Scopri</string>
-    <string name="nav_home">Home</string>
-</resources>
