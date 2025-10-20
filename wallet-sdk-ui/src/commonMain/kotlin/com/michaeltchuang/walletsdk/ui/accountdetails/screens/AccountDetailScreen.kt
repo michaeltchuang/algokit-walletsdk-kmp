@@ -4,14 +4,15 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.address_copied_to_clipboard
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.copy_address
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_sign
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_key
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_unlink
-import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.next
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.remove_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_passphrase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,12 +24,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -39,31 +41,43 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.michaeltchuang.walletsdk.core.foundation.utils.Log
+import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.ui.accountdetails.components.AccountDetailItem
+import com.michaeltchuang.walletsdk.ui.accountdetails.components.AccountDetailWebviewItem
 import com.michaeltchuang.walletsdk.ui.accountdetails.viewmodels.AccountDetailViewModel
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitScreens
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
+private const val TAG = "AccountStatusScreen"
+
 @Composable
-fun AccountStatusScreen(
+fun AccountDetailScreen(
     navController: NavController,
     address: String,
     showSnackBar: (String) -> Unit,
     onAccountDeleted: () -> Unit,
 ) {
     val viewModel: AccountDetailViewModel = koinViewModel()
+    val viewState by viewModel.state.collectAsState()
+
+    // Handle ViewEvents
     LaunchedEffect(Unit) {
-        viewModel.viewEvent.collect {
-            when (it) {
-                is AccountDetailViewModel.AccountsEvent.AccountDeleted -> {
+        viewModel.viewEvent.collect { event ->
+            when (event) {
+                is AccountDetailViewModel.ViewEvent.AccountDeleted -> {
+                    Log.d(TAG, "Account deleted: ${event.message}")
                     onAccountDeleted()
                 }
 
-                is AccountDetailViewModel.AccountsEvent.ShowError -> {}
+                is AccountDetailViewModel.ViewEvent.Error -> {
+                    Log.e(TAG, "Error: ${event.message}")
+                    showSnackBar(event.message)
+                }
             }
         }
     }
@@ -73,7 +87,6 @@ fun AccountStatusScreen(
             Modifier
                 .fillMaxSize()
                 .background(color = AlgoKitTheme.colors.background)
-                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
     ) {
         Text(
@@ -86,29 +99,66 @@ fun AccountStatusScreen(
             fontWeight = FontWeight.SemiBold,
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        when (val state = viewState) {
+            is AccountDetailViewModel.ViewState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(
+                        color = AlgoKitTheme.colors.positive,
+                    )
+                }
+            }
 
-        CopyAddress(address, showSnackBar)
+            is AccountDetailViewModel.ViewState.Idle -> {
+                // Initial state - could show empty state or loading
+            }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            is AccountDetailViewModel.ViewState.Content -> {
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState()),
+                ) {
+                    Spacer(modifier = Modifier.height(16.dp))
 
-        AccountStatusItem(
-            icon = Res.drawable.ic_key,
-            title = stringResource(Res.string.view_passphrase),
-        ) {
-            navController.navigate(
-                AlgoKitScreens.PASS_PHRASE_ACKNOWLEDGE_SCREEN.name,
-            )
-        }
+                    CopyAddress(address, showSnackBar)
 
-        Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-        AccountStatusItem(
-            icon = Res.drawable.ic_unlink,
-            isRemoveAccount = true,
-            title = stringResource(Res.string.remove_account),
-        ) {
-            viewModel.deleteAccount(address)
+                    AccountDetailItem(
+                        icon = Res.drawable.ic_key,
+                        title = stringResource(Res.string.view_passphrase),
+                    ) {
+                        navController.navigate(
+                            AlgoKitScreens.PASS_PHRASE_ACKNOWLEDGE_SCREEN.name,
+                        )
+                    }
+
+                    // Only show dispenser on TestNet
+                    if (state.isTestNet) {
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        AccountDetailWebviewItem(
+                            icon = Res.drawable.ic_algo_sign,
+                            title = "Dispenser - Add funds to your account",
+                            url = "https://bank.testnet.algorand.network/?account=$address",
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    AccountDetailItem(
+                        icon = Res.drawable.ic_unlink,
+                        isRemoveAccount = true,
+                        title = stringResource(Res.string.remove_account),
+                    ) {
+                        viewModel.deleteAccount(address)
+                    }
+                }
+            }
         }
     }
 }
@@ -159,49 +209,13 @@ fun CopyAddress(
     }
 }
 
-@Composable
-fun AccountStatusItem(
-    icon: DrawableResource,
-    isRemoveAccount: Boolean = false,
-    title: String,
-    onClick: () -> Unit,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(vertical = 12.dp),
-    ) {
-        Icon(
-            painter = painterResource(icon),
-            contentDescription = title,
-            tint = if (isRemoveAccount) AlgoKitTheme.colors.negative else AlgoKitTheme.colors.textMain,
-            modifier = Modifier.size(24.dp),
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = title,
-            color = if (isRemoveAccount) AlgoKitTheme.colors.negative else AlgoKitTheme.colors.textMain,
-            modifier = Modifier.weight(1f),
-            style = AlgoKitTheme.typography.body.regular.sansMedium,
-        )
-        Icon(
-            Icons.Default.KeyboardArrowRight,
-            tint = AlgoKitTheme.colors.textMain,
-            contentDescription = stringResource(Res.string.next),
-        )
-    }
-}
-
 @Preview
 @Composable
 fun SettingsScreenPreview() {
     AlgoKitTheme {
-        AccountStatusScreen(
+        AccountDetailScreen(
             navController = rememberNavController(),
-            address = "ASDFGHJKL",
+            address = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS,
             showSnackBar = {},
             onAccountDeleted = {},
         )

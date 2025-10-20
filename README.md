@@ -72,8 +72,8 @@ timeline
             : ✅ Account Details - Add copy address button
             : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
+            : ✅ Account Details - Add testnet dispenser link
             : 🔄 Transaction - Send Algo flow (between accounts)
-            : 🔄 Account Details - Add testnet dispenser link
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
             : GitOps - Setup App / Play store for demo app releases
@@ -164,7 +164,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### View Passphrase Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/b6378ca8-8179-4d99-acc6-243b62fb2dac" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/156b604d-ad4c-447d-8b5f-91f877c7c251" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/9c50546c-20da-46ed-b4fb-4a77779de443" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/48f6bd29-2b92-460c-8ef8-146bb07e3508" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/3f85712f-7248-40f3-9c53-9458019a7d28" />

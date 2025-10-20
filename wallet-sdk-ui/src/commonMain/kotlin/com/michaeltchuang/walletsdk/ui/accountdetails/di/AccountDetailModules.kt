@@ -12,7 +12,12 @@ internal val accountDetailModules =
                 ViewPassphraseViewModel(get(), get(), get())
             }
             viewModel {
-                AccountDetailViewModel(get(), get())
+                AccountDetailViewModel(
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                )
             }
         },
     )

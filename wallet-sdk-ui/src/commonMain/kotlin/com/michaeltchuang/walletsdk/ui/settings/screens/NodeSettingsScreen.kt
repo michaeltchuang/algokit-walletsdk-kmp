@@ -21,11 +21,11 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,45 +33,55 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.michaeltchuang.walletsdk.core.network.domain.NodePreferenceRepository
-import com.michaeltchuang.walletsdk.core.network.domain.provideNodePreferenceRepository
+import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.core.network.model.AlgorandNetwork
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.ui.settings.viewmodels.NodeSettingsViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
+
+private const val TAG = "NodeSettingsScreen"
 
 val networkNodeSettings = MutableStateFlow<AlgorandNetwork?>(null)
 
 @Composable
-fun NodeSettingsScreen(
-    navController: NavController,
-    nodeRepository: NodePreferenceRepository = provideNodePreferenceRepository(),
-) {
-    val coroutineScope = rememberCoroutineScope()
-    val currentNetwork by nodeRepository
-        .getSavedNodePreferenceFlow()
-        .collectAsState(initial = null)
+fun NodeSettingsScreen(navController: NavController) {
+    val viewModel: NodeSettingsViewModel = koinViewModel()
+    val viewState by viewModel.state.collectAsState()
     var showMainnetWarningDialog by remember { mutableStateOf(false) }
+    var pendingNetwork by remember { mutableStateOf<AlgorandNetwork?>(null) }
 
-    fun onNetworkSelected(network: AlgorandNetwork) {
-        if (network != currentNetwork) {
-            if (network == AlgorandNetwork.MAINNET) {
-                showMainnetWarningDialog = true
-            } else {
-                coroutineScope.launch {
-                    nodeRepository.saveNodePreference(network)
-                    networkNodeSettings.value = network
+    // Handle ViewEvents
+    LaunchedEffect(Unit) {
+        viewModel.viewEvent.collect { event ->
+            when (event) {
+                is NodeSettingsViewModel.ViewEvent.NetworkChanged -> {
+                    Log.d(TAG, "Network changed to: ${event.network}")
+                    networkNodeSettings.value = event.network
+                }
+
+                is NodeSettingsViewModel.ViewEvent.ShowMainnetWarning -> {
+                    Log.d(TAG, "Showing mainnet warning for: ${event.network}")
+                    pendingNetwork = event.network
+                    showMainnetWarningDialog = true
+                }
+
+                is NodeSettingsViewModel.ViewEvent.Error -> {
+                    Log.e(TAG, "Error: ${event.message}")
                 }
             }
         }
     }
 
-    if (showMainnetWarningDialog) {
+    if (showMainnetWarningDialog && pendingNetwork != null) {
         AlertDialog(
-            onDismissRequest = { showMainnetWarningDialog = false },
+            onDismissRequest = {
+                showMainnetWarningDialog = false
+                pendingNetwork = null
+            },
             title = {
                 Text(
                     text = stringResource(Res.string.mainnet_warning),
@@ -89,11 +99,11 @@ fun NodeSettingsScreen(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        showMainnetWarningDialog = false
-                        coroutineScope.launch {
-                            nodeRepository.saveNodePreference(AlgorandNetwork.MAINNET)
-                            networkNodeSettings.value = AlgorandNetwork.MAINNET
+                        pendingNetwork?.let { network ->
+                            viewModel.confirmMainnetSelection(network)
                         }
+                        showMainnetWarningDialog = false
+                        pendingNetwork = null
                     },
                 ) {
                     Text(
@@ -104,7 +114,10 @@ fun NodeSettingsScreen(
             },
             dismissButton = {
                 TextButton(
-                    onClick = { showMainnetWarningDialog = false },
+                    onClick = {
+                        showMainnetWarningDialog = false
+                        pendingNetwork = null
+                    },
                 ) {
                     Text(
                         text = stringResource(Res.string.cancel),
@@ -133,30 +146,42 @@ fun NodeSettingsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        AlgorandNetwork.entries.forEach { network ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { onNetworkSelected(network) }
-                        .padding(vertical = 16.dp),
-            ) {
-                Text(
-                    text = network.displayName,
-                    color = AlgoKitTheme.colors.textMain,
-                    modifier = Modifier.weight(1f),
-                    style = AlgoKitTheme.typography.body.regular.sansMedium,
-                )
-                RadioButton(
-                    selected = network == currentNetwork,
-                    onClick = { onNetworkSelected(network) },
-                    colors =
-                        RadioButtonDefaults.colors(
-                            selectedColor = AlgoKitTheme.colors.positive,
-                            unselectedColor = Color.LightGray,
-                        ),
-                )
+        when (val state = viewState) {
+            is NodeSettingsViewModel.ViewState.Loading -> {
+                // Could add a loading indicator here if needed
+            }
+
+            is NodeSettingsViewModel.ViewState.Idle -> {
+                // Initial state
+            }
+
+            is NodeSettingsViewModel.ViewState.Content -> {
+                state.networkOptions.forEach { network ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { viewModel.onNetworkSelected(network) }
+                                .padding(vertical = 16.dp),
+                    ) {
+                        Text(
+                            text = network.displayName,
+                            color = AlgoKitTheme.colors.textMain,
+                            modifier = Modifier.weight(1f),
+                            style = AlgoKitTheme.typography.body.regular.sansMedium,
+                        )
+                        RadioButton(
+                            selected = network == state.currentNetwork,
+                            onClick = { viewModel.onNetworkSelected(network) },
+                            colors =
+                                RadioButtonDefaults.colors(
+                                    selectedColor = AlgoKitTheme.colors.positive,
+                                    unselectedColor = Color.LightGray,
+                                ),
+                        )
+                    }
+                }
             }
         }
     }

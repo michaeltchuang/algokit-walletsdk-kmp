@@ -3,6 +3,7 @@ package com.michaeltchuang.walletsdk.ui.settings.di
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.DeveloperSettingsViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.HDWalletSelectionViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.LanguageSelectorViewModel
+import com.michaeltchuang.walletsdk.ui.settings.viewmodels.NodeSettingsViewModel
 import com.michaeltchuang.walletsdk.ui.settings.viewmodels.ThemePickerViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
@@ -43,6 +44,15 @@ internal val settingsModules =
 
             viewModel {
                 LanguageSelectorViewModel(
+                    get(),
+                    get(),
+                    get(),
+                )
+            }
+
+            viewModel {
+                NodeSettingsViewModel(
+                    get(),
                     get(),
                     get(),
                     get(),
