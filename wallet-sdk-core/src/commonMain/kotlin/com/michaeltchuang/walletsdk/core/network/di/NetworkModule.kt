@@ -1,5 +1,9 @@
 package com.michaeltchuang.walletsdk.core.network.di
 
+import com.michaeltchuang.walletsdk.core.network.domain.NodePreferenceRepository
+import com.michaeltchuang.walletsdk.core.network.domain.provideNodePreferenceRepository
+import com.michaeltchuang.walletsdk.core.network.domain.usecase.GetCurrentNetworkUseCase
+import com.michaeltchuang.walletsdk.core.network.domain.usecase.SaveNetworkPreferenceUseCase
 import com.michaeltchuang.walletsdk.core.network.service.AccountInformationApiService
 import com.michaeltchuang.walletsdk.core.network.service.AccountInformationApiServiceImpl
 import io.ktor.client.HttpClient
@@ -9,12 +13,11 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
 val networkModule =
     module {
-
-        // Provide HttpClient with JSON serialization and logging
         single<HttpClient> {
             HttpClient {
                 install(ContentNegotiation) {
@@ -39,10 +42,16 @@ val networkModule =
             }
         }
 
-        // Provide AccountInformationApiService
         single<AccountInformationApiService> {
             AccountInformationApiServiceImpl(
                 httpClient = get(),
             )
         }
+
+        single<NodePreferenceRepository> {
+            provideNodePreferenceRepository()
+        }
+
+        factoryOf(::GetCurrentNetworkUseCase)
+        factoryOf(::SaveNetworkPreferenceUseCase)
     }
