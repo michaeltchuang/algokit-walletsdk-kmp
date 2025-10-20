@@ -72,8 +72,8 @@ timeline
             : ✅ Account Details - Add copy address button
             : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
+            : ✅ Account Details - Add testnet dispenser link
             : 🔄 Transaction - Send Algo flow (between accounts)
-            : 🔄 Account Details - Add testnet dispenser link
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
             : GitOps - Setup App / Play store for demo app releases
