@@ -167,7 +167,7 @@ val generateBuildInfo by tasks.registering {
             (buildTypeProp?.contains("debug") ?: false) ||
             (konanTargetProp?.contains("debug") ?: false)
 
-    outputs.file(outputFile)
+    outputs.dir(outputDir)
     outputs.upToDateWhen { false } // Always regenerate to get latest git hash
 
     doLast {
@@ -192,11 +192,19 @@ val generateBuildInfo by tasks.registering {
 }
 
 kotlin.sourceSets.commonMain {
-    kotlin.srcDir(layout.buildDirectory.dir("generated/kotlin"))
+    kotlin.srcDir(generateBuildInfo.map { it.outputs.files.singleFile })
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
     dependsOn(generateBuildInfo)
+}
+
+afterEvaluate {
+    tasks.withType<Jar>().configureEach {
+        if (name.contains("SourcesJar", ignoreCase = true)) {
+            dependsOn(generateBuildInfo)
+        }
+    }
 }
 
 mavenPublishing {
