@@ -51,7 +51,7 @@ graph TD
     SDK2 <--> GoSDK
 ```
 
-The sample apps (Android & iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
+The demo apps (Android & iOS) in this repo demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" sample wallet application. Current and planned features include:
 
 - Create and recover accounts (Algo25, Universal HD, Falcon24)
 - Theme customization
@@ -116,7 +116,7 @@ timeline
 
 ## Project structure
 
-The project has the following modules:
+This repo has the following modules:
 
 - **composeDemoApp**: A [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) sample wallet app that demonstrates `wallet-sdk` usage.
 - **iosDemoApp**: The iOS app for `composeSampleApp`. Open this module in Xcode if needed.
