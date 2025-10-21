@@ -17,6 +17,15 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
+apply(from = rootProject.file("gradle/version.gradle.kts"))
+
+// Helper functions to access the shared version calculations
+fun calculateVersionCode(): Int = (extra["calculateVersionCode"] as () -> Int).invoke()
+
+fun calculateVersionName(): String = (extra["calculateVersionName"] as () -> String).invoke()
+
+fun getGitHash(): String = (extra["getGitHash"] as () -> String).invoke()
+
 kotlin {
     androidTarget {
         compilations.all {
@@ -114,9 +123,9 @@ android {
                 .get()
                 .toInt()
 
-        applicationId = "com.michaeltchuang.walletsdk.demo.androidApp"
-        versionCode = 1
-        versionName = "1.0.0"
+        applicationId = "com.michaeltchuang.walletsdk.demo"
+        versionCode = calculateVersionCode()
+        versionName = calculateVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
