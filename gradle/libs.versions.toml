@@ -5,7 +5,7 @@ algoGoMobilesdk = "2025.4.0"
 algokit-version = "3"
 algokit-walletsdk-calendar-quarter = "202504"
 algokit-walletsdk-quarter-release-number = "0"
-algokit-walletsdk-maven = "2025.4.0"
+algokit-walletsdk-maven = "3.202504.0"
 android-compileSdk = "36"
 android-minSdk = "28"
 android-namespace = "com.michaelchuang.walletsdk"
@@ -192,8 +192,8 @@ pera-compact-decimal-format = { group = "io.github.perawallet", name = "peracomp
 xhdwalletapi = { module = "foundation.algorand.xhdwalletapi:xhdwalletapi-android", version.ref = "xhdwalletapi" }
 kotlin-bip39 = { module = "cash.z.ecc.android:kotlin-bip39", version.ref = "bip39" }
 tink-android = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
-walletsdk-ui = { group = "com.michaeltchuang.algokit", name = "wallet-sdk-ui" , version.ref = "algokit-walletsdk-maven"}
-walletsdk-core = { group = "com.michaeltchuang.algokit", name = "wallet-sdk-core", version.ref = "algokit-walletsdk-maven" }
+walletsdk-ui = { group = "com.michaeltchuang.algokit.walletsdk", name = "wallet-sdk-ui" , version.ref = "algokit-walletsdk-maven"}
+walletsdk-core = { group = "com.michaeltchuang.algokit.walletsdk", name = "wallet-sdk-core", version.ref = "algokit-walletsdk-maven" }
 
 # Wallet Connect
 pera-walletconnect-v1 = { group = "io.github.perawallet", name = "perawalletconnect", version.ref = "peraWalletConnect" }
