@@ -222,7 +222,7 @@ dependencies {
 
 mavenPublishing {
     coordinates(
-        "com.michaeltchuang.algokit",
+        "com.michaeltchuang.algokit.walletsdk",
         "wallet-sdk-core",
         System.getenv("VERSION_TAG") ?: "0.0.1",
     )

@@ -1,7 +1,7 @@
 # AlgoKit Wallet SDK
 
-[![Maven Central - wallet-sdk-ui](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit/wallet-sdk-ui.svg?label=wallet-sdk-ui)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-ui)
-[![Maven Central - wallet-sdk-core](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit/wallet-sdk-core.svg?label=wallet-sdk-core)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-core)
+[![Maven Central - wallet-sdk-ui](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit.walletsdk/wallet-sdk-ui.svg?label=wallet-sdk-ui)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-ui)
+[![Maven Central - wallet-sdk-core](https://img.shields.io/maven-central/v/com.michaeltchuang.algokit.walletsdk/wallet-sdk-core.svg?label=wallet-sdk-core)](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-core)
 
 This mobile utils library project provides common wallet UI components and screens out of the box, allowing native developers to skip building standard wallet functionality and focus more on unique, value-added features for their mobile applications.
 
@@ -76,7 +76,8 @@ timeline
             : 🔄 Transaction - Send Algo flow (between accounts)
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
-            : GitOps - Setup App / Play store for demo app releases
+            : 🔄 GitOps - Setup Play store for demo app releases
+            : GitOps - Setup App store for demo app releases
             : Testing - Setup unit test coverage foundation
 
     section Future
@@ -102,13 +103,13 @@ timeline
 Add the following to your build.gradle.kts:
 ```kotlin
 dependencies {
-    implementation("com.michaeltchuang.algokit:wallet-sdk-ui:2025.4.0")
-    implementation("com.michaeltchuang.algokit:wallet-sdk-core:2025.4.0")
+    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-ui:3.202504.0")
+    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-core:3.202504.0")
 }
 ```
 
 > **Note:** Check Maven Central for the latest
-> versions: [wallet-sdk-ui](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-ui) | [wallet-sdk-core](https://central.sonatype.com/artifact/com.michaeltchuang.algokit/wallet-sdk-core)
+> versions: [wallet-sdk-ui](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-ui) | [wallet-sdk-core](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-core)
 
 ## Project structure
 

@@ -35,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -42,13 +43,16 @@ import androidx.navigation.compose.rememberNavController
 import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
 import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants
+import com.michaeltchuang.walletsdk.ui.BuildInfo
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitScreens
+import com.michaeltchuang.walletsdk.ui.isDebugBuild
 import com.michaeltchuang.walletsdk.ui.settings.components.SettingsItem
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import qrgenerator.qrkitpainter.text
 
 @Composable
 fun SettingsScreen(navController: NavController) {
@@ -121,7 +125,37 @@ fun SettingsScreen(navController: NavController) {
         ) {
             navController.navigate(AlgoKitScreens.DEVELOPER_SETTINGS_SCREEN.name)
         }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        DisplayVersionInfo()
     }
+}
+
+@Composable
+fun DisplayVersionInfo() {
+    val debugLabel = if (isDebugBuild()) "Debug" else ""
+    val versionText =
+        buildString {
+            append("AlgoKit Wallet SDK")
+            append("\nv${BuildInfo.VERSION_NAME}")
+            if (BuildInfo.GIT_HASH.isNotEmpty()) {
+                append("\n(${BuildInfo.GIT_HASH})")
+            }
+            if (debugLabel.isNotEmpty()) {
+                append("\n$debugLabel Build")
+            }
+        }
+    Text(
+        text = versionText,
+        color = AlgoKitTheme.colors.textMain,
+        style = AlgoKitTheme.typography.footnote.sansMedium,
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+        textAlign = TextAlign.Center,
+    )
 }
 
 @Composable

@@ -599,7 +599,7 @@
     <string name="create_a_new_wallet_desc">Crea un nuovo wallet Algorand con un nuovo indirizzo e recovery passphrase</string>
     <string name="create_a_new_algorand_account_with">Crea un nuovo account Algorand con un nuovo wallet e recovery passphrase</string>
     <string name="recover_an_account">Recupera un account</string>
-    <string name="i_want_to_recover">Voglio recuperare un account Algorand usando la mia passphrase di 25 parole</string>
+    <string name="i_want_to_recover">Voglio recuperare un account Algorand usando la mia passphrase di 24 parole</string>
     <string name="pair_ledger_device">Abbina dispositivo Ledger</string>
     <string name="operation_completed">Operazione completata</string>
     <string name="asset_transfer_completed">Trasferimento asset completato</string>

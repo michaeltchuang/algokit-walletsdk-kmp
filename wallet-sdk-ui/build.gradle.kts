@@ -9,6 +9,16 @@ plugins {
     alias(libs.plugins.maven.publish)
 }
 
+// Apply shared version calculation script
+apply(from = rootProject.file("gradle/version.gradle.kts"))
+
+// Helper functions to access the shared version calculations
+fun calculateVersionCode(): Int = (extra["calculateVersionCode"] as () -> Int).invoke()
+
+fun calculateVersionName(): String = (extra["calculateVersionName"] as () -> String).invoke()
+
+fun getGitHash(): String = (extra["getGitHash"] as () -> String).invoke()
+
 kotlin {
     androidTarget {
         publishLibraryVariants(
@@ -131,9 +141,67 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 }
 
+val generateBuildInfo by tasks.registering {
+    val outputDir = layout.buildDirectory.dir("generated/kotlin")
+    val outputFile = outputDir.get().file("com/michaeltchuang/walletsdk/ui/BuildInfo.kt").asFile
+
+    // Heuristic to determine build variant (platform-agnostic).
+    // Checks for "debug" in Gradle task names or Konan target names (iOS, native).
+    val taskNames =
+        gradle.startParameter.taskNames
+            .joinToString(" ")
+            .lowercase()
+    val projectProperties = gradle.startParameter.projectProperties
+    val buildTypeProp = (project.findProperty("buildType") as? String)?.lowercase()
+    val konanTargetProp =
+        (project.findProperty("konanTarget") as? String)?.lowercase() // For iOS/native
+
+    // Find "debug" for Android/iOS/native multiplatform
+    val debug =
+        taskNames.contains("debug") ||
+            (
+                projectProperties["android.injected.build.variant"]?.lowercase()?.contains("debug")
+                    ?: false
+            ) ||
+            (projectProperties["buildType"]?.lowercase()?.contains("debug") ?: false) ||
+            (buildTypeProp?.contains("debug") ?: false) ||
+            (konanTargetProp?.contains("debug") ?: false)
+
+    outputs.file(outputFile)
+    outputs.upToDateWhen { false } // Always regenerate to get latest git hash
+
+    doLast {
+        outputFile.parentFile.mkdirs()
+        outputFile.writeText(
+            """
+            package com.michaeltchuang.walletsdk.ui
+
+            object BuildInfo {
+                const val VERSION_CODE = ${calculateVersionCode()}
+                const val VERSION_NAME = "${calculateVersionName()}"
+                const val GIT_HASH = "${getGitHash()}"
+                
+                // Note: For iOS, this reflects the Gradle build config.
+                // iOS debug status is determined by Xcode build configuration.
+                // Use isDebugBuild() function for runtime debug detection.
+                const val DEBUG = $debug
+            }
+            """.trimIndent(),
+        )
+    }
+}
+
+kotlin.sourceSets.commonMain {
+    kotlin.srcDir(layout.buildDirectory.dir("generated/kotlin"))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+    dependsOn(generateBuildInfo)
+}
+
 mavenPublishing {
     coordinates(
-        "com.michaeltchuang.algokit",
+        "com.michaeltchuang.algokit.walletsdk",
         "wallet-sdk-ui",
         System.getenv("VERSION_TAG") ?: "0.0.1",
     )
