@@ -5,7 +5,20 @@
 
 This mobile utils library project provides common wallet UI components and screens out of the box, allowing native developers to skip building standard wallet functionality and focus more on unique, value-added features for their mobile applications.
 
-AlgoKit Wallet SDK currently uses UI theming inspired by [Pera Android](https://github.com/perawallet/pera-android) as a placeholder until official Algorand Foundation branding guidelines are available.
+## How to Use
+
+Add the following to your `build.gradle.kts`:
+```kotlin
+dependencies {
+    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-ui:3.202504.0")
+    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-core:3.202504.0")
+}
+```
+
+> **Note:** Check Maven Central for the latest
+> versions: [wallet-sdk-ui](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-ui) | [wallet-sdk-core](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-core)
+
+## Overview
 
 ```mermaid
 ---
@@ -38,16 +51,18 @@ graph TD
     SDK2 <--> GoSDK
 ```
 
-The sample apps (Android/iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
+The sample apps (Android & iOS) demonstrate `wallet-sdk` library usage through a simplified "Pera-lite" demo wallet application. Current and planned features include:
 
 - Create and recover accounts (Algo25, Universal HD, Falcon24)
 - Theme customization
-- Network switching between Mainnet/Testnet (Code hasn't been audited, so use mainnet at your own risk)
+- Network switching between mainnet/testnet (code hasn't been audited, so use mainnet at your own risk)
 - QR code scanning for account imports and keyreg transactions
-- Algo-only experience for now (to swap memecoins...use Pera app, Haystack app, etc)
-- Account detail screens
+- Algo-only experience for now (to swap memecoins...please use Pera app, Haystack app, etc)
+- Account detail screen
 - Passphrase management
 - Localization
+
+AlgoKit Wallet SDK currently uses UI theming inspired by [Pera Android](https://github.com/perawallet/pera-android) as a placeholder until official Algorand Foundation branding guidelines are available.
 
 ```mermaid
 ---
@@ -97,19 +112,6 @@ timeline
             : Account Details - Swap
             : TBD
 ```
-
-##  How to Use
-
-Add the following to your build.gradle.kts:
-```kotlin
-dependencies {
-    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-ui:3.202504.0")
-    implementation("com.michaeltchuang.algokit.walletsdk:wallet-sdk-core:3.202504.0")
-}
-```
-
-> **Note:** Check Maven Central for the latest
-> versions: [wallet-sdk-ui](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-ui) | [wallet-sdk-core](https://central.sonatype.com/artifact/com.michaeltchuang.algokit.walletsdk/wallet-sdk-core)
 
 ## Project structure
 
