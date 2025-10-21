@@ -91,8 +91,8 @@ timeline
             : 🔄 Transaction - Send Algo flow (between accounts)
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
-            : 🔄 GitOps - Setup Play store for demo app releases
-            : GitOps - Setup App store for demo app releases
+            : 🔄 GitOps - Setup Play store for demo Android app releases
+            : GitOps - Setup App store for demo iOS app releases
             : Testing - Setup unit test coverage foundation
 
     section Future
@@ -100,7 +100,6 @@ timeline
             : Onboarding - Passkeys / Liquid Auth
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow
-            : Onboarding - Ledger flow
             : Onboarding - Fun app splash screen
             : Account Details - Add more items in Account Detail screen
             : Testing - Add Screenshot Testing Infrastructure
@@ -110,6 +109,8 @@ timeline
             : Onboarding - Decentralized Identity
             : Account Details - Asset Inbox
             : Account Details - Swap
+            : Onboarding - Ledger flow
+            : Account Details - Opt-In / Opt-Out Stablecoin QR flow
             : TBD
 ```
 
