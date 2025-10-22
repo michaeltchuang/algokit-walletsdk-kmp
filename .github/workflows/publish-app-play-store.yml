@@ -3,9 +3,11 @@
 name: Publish Android App To Play Store
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "play_store"
+#    tags: [ 'v*.*.*' ]
 
 jobs:
 
@@ -40,8 +42,8 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           echo "Building and publishing Android app to Play Store internal track..."
-          ./gradlew :composeApp:bundleRelease
-          ./gradlew :composeApp:publishBundle --track=internal
+          ./gradlew :composeDemoApp:bundleRelease
+          ./gradlew :composeDemoApp:publishBundle --track=internal
 
       - name: Cleanup
         if: always()
