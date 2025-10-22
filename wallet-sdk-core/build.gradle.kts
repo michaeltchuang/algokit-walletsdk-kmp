@@ -156,6 +156,21 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
+        val iosTest by creating {
+            dependsOn(commonTest.get())
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosArm64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosX64Test by getting {
+            dependsOn(iosTest)
+        }
+        val androidUnitTest by getting {
+            dependsOn(commonTest.get())
+        }
         androidUnitTest.dependencies {
             implementation(libs.junit)
             implementation(libs.mockk)
