@@ -5,11 +5,11 @@ extra["calculateVersionCode"] = fun(): Int {
     val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
     val calendarQuarter: Int = libs.versions.algokit.walletsdk.calendar.quarter.get().toInt()
     val githubRunNumber: Int = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: libs.versions.android.versionCode.get().toInt()
-    print("Version code: $githubRunNumber")
+    val offset: Int = libs.versions.android.versionCode.offset.get().toInt()
     return if (calendarQuarter > githubRunNumber)
-        githubRunNumber
+        githubRunNumber + offset
     else
-        libs.versions.android.versionCode.get().toInt()
+        offset
 }
 
 extra["calculateVersionName"] = fun(): String {
