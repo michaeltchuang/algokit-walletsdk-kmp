@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.core.foundation.webview
+package com.michaeltchuang.walletsdk.ui.base.webview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
