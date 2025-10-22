@@ -1,0 +1,50 @@
+# This workflow will build a KMP project and publish to Play Store
+
+name: Publish Android App To Play Store
+
+on:
+  push:
+    branches:
+      - "play_store"
+
+jobs:
+
+  publish-to-play-store:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+
+      - name: Decode Service Account JSON
+        run: |
+          echo "${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}" | base64 --decode > service-account.json
+
+      - name: Build and Publish to Play Store Internal Track
+        env:
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "Building and publishing Android app to Play Store internal track..."
+          ./gradlew :composeApp:bundleRelease
+          ./gradlew :composeApp:publishBundle --track=internal
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f keystore.jks
+          rm -f service-account.json
