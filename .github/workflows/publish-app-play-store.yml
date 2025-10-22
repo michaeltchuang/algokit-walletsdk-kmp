@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "Building and publishing Android app to Play Store internal track..."
           ./gradlew :composeDemoApp:bundleRelease
-          ./gradlew :composeDemoApp:publishBundle --track=internal
+          ./gradlew :composeDemoApp:publishReleaseBundle --track internal
 
       - name: Cleanup
         if: always()

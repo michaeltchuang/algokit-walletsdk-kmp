@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.gradle.play.publisher)
 }
 
 apply(from = rootProject.file("gradle/version.gradle.kts"))
@@ -214,4 +215,10 @@ android {
 buildConfig {
     // BuildConfig configuration here.
     // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+}
+
+play {
+    serviceAccountCredentials.set(file("../service-account.json"))
+    track.set("internal")
+    defaultToAppBundles.set(true)
 }
