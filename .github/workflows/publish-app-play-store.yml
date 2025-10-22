@@ -41,6 +41,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          echo "github_run_number is $GITHUB_RUN_NUMBER"
           echo "Building and publishing Android app to Play Store internal track..."
           ./gradlew :composeDemoApp:bundleRelease
           ./gradlew :composeDemoApp:publishReleaseBundle --track internal
