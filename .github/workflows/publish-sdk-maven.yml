@@ -1,7 +1,6 @@
 # This workflow will build a KMP project and publish to Maven Central
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Tag Release
+name: Publish SDK To Maven Central
 
 on:
   push:

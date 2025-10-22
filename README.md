@@ -91,7 +91,7 @@ timeline
             : 🔄 Transaction - Send Algo flow (between accounts)
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
-            : 🔄 GitOps - Setup Play store for demo Android app releases
+            : ✅ GitOps - Setup Play store for demo Android app releases
             : GitOps - Setup App store for demo iOS app releases
             : Testing - Setup unit test coverage foundation
 
