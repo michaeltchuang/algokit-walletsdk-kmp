@@ -4,6 +4,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import java.util.Properties
 
 plugins {
     // has to be first in plugins list
@@ -152,12 +153,33 @@ android {
     buildFeatures {
         compose = true
     }
+
+    // Load signing config from system environment first, then local.properties
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { stream -> localProperties.load(stream) }
+    }
+
+    val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
+        ?: localProperties.getProperty("keystore.password")
+    val keystoreKeyAlias = System.getenv("KEY_ALIAS")
+        ?: localProperties.getProperty("key.alias")
+    val keystoreKeyPassword = System.getenv("KEY_PASSWORD")
+        ?: localProperties.getProperty("key.password")
+
+    val keystoreFile = when {
+        file("../../keystore.jks").exists() -> file("../../keystore.jks")
+        rootProject.file("keystore.jks").exists() -> rootProject.file("keystore.jks")
+        else -> null
+    }
+
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore.jks")
-            storePassword = System.getenv("KEYSTORE_PASSWORD")
-            keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEY_PASSWORD")
+            storeFile = keystoreFile
+            storePassword = keystorePassword
+            keyAlias = keystoreKeyAlias
+            keyPassword = keystoreKeyPassword
         }
     }
     buildTypes {
@@ -166,7 +188,7 @@ android {
             isDebuggable = true
         }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isDebuggable = false
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
