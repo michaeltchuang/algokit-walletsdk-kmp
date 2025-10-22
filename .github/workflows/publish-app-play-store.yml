@@ -5,9 +5,7 @@ name: Publish Android App To Play Store
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "play_store"
-#    tags: [ 'v*.*.*' ]
+    tags: [ 'v*.*.*' ]
 
 jobs:
 
