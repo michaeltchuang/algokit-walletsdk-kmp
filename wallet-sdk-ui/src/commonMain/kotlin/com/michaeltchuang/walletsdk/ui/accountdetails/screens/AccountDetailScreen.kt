@@ -7,6 +7,7 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.copy_address
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_sign
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_key
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_send
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_unlink
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.remove_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_passphrase
@@ -152,7 +153,7 @@ fun AccountDetailScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     AccountDetailItem(
-                        icon = Res.drawable.ic_unlink,
+                        icon = Res.drawable.ic_send,
                         isRemoveAccount = false,
                         title = "Send funds to another account",
                     ) {
