@@ -40,38 +40,34 @@ fun String.urlSafeBase64ToStandard(): String =
             it + "=".repeat(padding)
         }
 
-actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray =
-    Sdk.signTransaction(secretKey, this)
+actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray = Sdk.signTransaction(secretKey, this)
 
-actual fun ByteArray.signTx(secretKey: ByteArray): ByteArray {
-    return Sdk.signTransaction(secretKey, this)
-}
+actual fun ByteArray.signTx(secretKey: ByteArray): ByteArray = Sdk.signTransaction(secretKey, this)
 
 actual fun TransactionParams.makeAlgoTx(
     senderAddress: String,
     receiverAddress: String,
     amount: BigInteger,
     isMax: Boolean,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return makePaymentTxn(
+    noteInByteArray: ByteArray?,
+): ByteArray =
+    makePaymentTxn(
         senderAddress = senderAddress,
         receiverAddress = receiverAddress,
         amount = amount.toString(),
         isMax = isMax,
         noteInByteArray = noteInByteArray,
-        toSuggestedParams()
+        toSuggestedParams(),
     )
-}
 
 actual fun TransactionParams.makeAssetTx(
     senderAddress: String,
     receiverAddress: String,
     amount: BigInteger,
     assetId: Long,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return makeAssetTransferTxn(
+    noteInByteArray: ByteArray?,
+): ByteArray =
+    makeAssetTransferTxn(
         senderAddress = senderAddress,
         receiverAddress = receiverAddress,
         amount = amount.toString(),
@@ -79,8 +75,6 @@ actual fun TransactionParams.makeAssetTx(
         noteInByteArray = noteInByteArray,
         toSuggestedParams(addGenesisId = false),
     )
-}
-
 
 actual fun TransactionParams.makeTx(
     senderAddress: String,
@@ -88,7 +82,7 @@ actual fun TransactionParams.makeTx(
     amount: BigInteger,
     assetId: Long,
     isMax: Boolean,
-    note: String?
+    note: String?,
 ): ByteArray {
     val noteInByteArray = note?.toByteArray(charset = Charsets.UTF_8)
 
@@ -99,53 +93,55 @@ actual fun TransactionParams.makeTx(
     }
 }
 
-actual fun TransactionParams.makeAddAssetTx(publicKey: String, assetId: Long): ByteArray  {
-    return Sdk.makeAssetAcceptanceTxn(
+actual fun TransactionParams.makeAddAssetTx(
+    publicKey: String,
+    assetId: Long,
+): ByteArray =
+    Sdk.makeAssetAcceptanceTxn(
         publicKey,
         null,
         toSuggestedParams(),
-        assetId)
-}
-
+        assetId,
+    )
 
 actual fun TransactionParams.makeRemoveAssetTx(
     senderAddress: String,
     creatorPublicKey: String,
-    assetId: Long
-): ByteArray {
-    return Sdk.makeAssetTransferTxn(
+    assetId: Long,
+): ByteArray =
+    Sdk.makeAssetTransferTxn(
         senderAddress,
         creatorPublicKey,
         creatorPublicKey,
         0L.toUint64(),
         null,
         toSuggestedParams(addGenesisId = false),
-        assetId
+        assetId,
     )
-}
 
 actual fun TransactionParams.makeSendAndRemoveAssetTx(
     senderAddress: String,
     receiverAddress: String,
     assetId: Long,
     amount: BigInteger,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return Sdk.makeAssetTransferTxn(
+    noteInByteArray: ByteArray?,
+): ByteArray =
+    Sdk.makeAssetTransferTxn(
         senderAddress,
         receiverAddress,
         receiverAddress,
         amount.toString().toBigInteger().toUint64(),
         noteInByteArray,
         toSuggestedParams(addGenesisId = false),
-        assetId
+        assetId,
     )
-}
 
-actual fun TransactionParams.makeRekeyTx(rekeyAddress: String, rekeyAdminAddress: String): ByteArray {
-    return Sdk.makeRekeyTxn(
+actual fun TransactionParams.makeRekeyTx(
+    rekeyAddress: String,
+    rekeyAdminAddress: String,
+): ByteArray =
+    Sdk.makeRekeyTxn(
         rekeyAddress,
         rekeyAdminAddress,
-        toSuggestedParams()
+        toSuggestedParams(),
     )
-}

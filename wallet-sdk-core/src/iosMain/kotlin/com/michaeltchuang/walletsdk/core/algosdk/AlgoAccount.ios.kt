@@ -112,8 +112,7 @@ actual fun createBip39Wallet(): Bip39Wallet =
         ),
     )
 
-actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? =
-    AlgoKitBip39.getSeedFromEntropy(entropy)
+actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? = AlgoKitBip39.getSeedFromEntropy(entropy)
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun signHdKeyTransaction(
@@ -396,9 +395,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
 actual fun getReceiverMinBalanceFee(
     receiverAlgoAmount: String,
     receiverMinBalanceAmount: String,
-): Long {
-    return Long.MAX_VALUE
-}
+): Long = Long.MAX_VALUE
 
 actual fun makeAssetTransferTxn(
     senderAddress: String,
@@ -406,10 +403,8 @@ actual fun makeAssetTransferTxn(
     amount: String,
     assetId: Long,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return ByteArray(0)
-}
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)
 
 actual fun makePaymentTxn(
     senderAddress: String,
@@ -417,15 +412,11 @@ actual fun makePaymentTxn(
     amount: String,
     isMax: Boolean,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return ByteArray(0)
-}
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)
 
 actual fun makeAssetAcceptanceTxn(
     publicKey: String,
     assetId: Long,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return ByteArray(0)
-}
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)

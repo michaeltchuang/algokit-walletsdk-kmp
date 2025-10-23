@@ -8,9 +8,11 @@ import com.michaeltchuang.walletsdk.core.network.service.getBasicAccountInformat
 internal class GetAccountMinimumBalanceUseCase(
     private val accountInformationApiService: AccountInformationApiService,
 ) : GetAccountMinimumBalance {
-    override suspend fun invoke(address: String): Long? {
-        return when (val result =
-            accountInformationApiService.getBasicAccountInformation(address)) {
+    override suspend fun invoke(address: String): Long? =
+        when (
+            val result =
+                accountInformationApiService.getBasicAccountInformation(address)
+        ) {
             is ApiResult.Success -> {
                 result.data.accountInformation?.minBalance
             }
@@ -18,5 +20,4 @@ internal class GetAccountMinimumBalanceUseCase(
             is ApiResult.Error -> null
             is ApiResult.NetworkError -> null
         }
-    }
 }

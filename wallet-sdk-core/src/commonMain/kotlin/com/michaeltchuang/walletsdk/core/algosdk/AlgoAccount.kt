@@ -52,7 +52,7 @@ expect fun makeAssetTransferTxn(
     amount: String,
     assetId: Long,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
+    suggestedParams: SuggestedParams,
 ): ByteArray
 
 expect fun makePaymentTxn(
@@ -61,11 +61,11 @@ expect fun makePaymentTxn(
     amount: String,
     isMax: Boolean,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
+    suggestedParams: SuggestedParams,
 ): ByteArray
 
 expect fun makeAssetAcceptanceTxn(
     publicKey: String,
     assetId: Long,
-    suggestedParams: SuggestedParams
+    suggestedParams: SuggestedParams,
 ): ByteArray

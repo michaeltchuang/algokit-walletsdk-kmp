@@ -21,8 +21,7 @@ import com.michaeltchuang.walletsdk.core.transaction.model.OnlineKeyRegTransacti
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 
-actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? =
-    AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
+actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
 
 actual fun createAlgo25Account(): Algo25Account? = AlgoAccountSdkImpl().createAlgo25Account()
 
@@ -31,8 +30,7 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? =
 
 actual fun createBip39Wallet(): Bip39Wallet = AlgorandBip39WalletProvider().createBip39Wallet()
 
-actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet =
-    AlgorandBip39WalletProvider().getBip39Wallet(entropy)
+actual fun getBip39Wallet(entropy: ByteArray): Bip39Wallet = AlgorandBip39WalletProvider().getBip39Wallet(entropy)
 
 actual fun getSeedFromEntropy(entropy: ByteArray): ByteArray? {
     val seed = AlgoKitBip39SdkImpl().getSeedFromEntropy(entropy)
@@ -138,12 +136,11 @@ actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray
 actual fun getReceiverMinBalanceFee(
     receiverAlgoAmount: String,
     receiverMinBalanceAmount: String,
-): Long {
-    return Sdk.getReceiverMinBalanceFee(
+): Long =
+    Sdk.getReceiverMinBalanceFee(
         receiverAlgoAmount.toBigInteger().toUint64(),
-        receiverMinBalanceAmount.toBigInteger().toUint64()
+        receiverMinBalanceAmount.toBigInteger().toUint64(),
     )
-}
 
 actual fun makeAssetTransferTxn(
     senderAddress: String,
@@ -151,18 +148,17 @@ actual fun makeAssetTransferTxn(
     amount: String,
     assetId: Long,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return Sdk.makeAssetTransferTxn(
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makeAssetTransferTxn(
         senderAddress,
         receiverAddress,
         "",
         amount.toBigInteger().toUint64(),
         noteInByteArray,
         suggestedParams,
-        assetId
+        assetId,
     )
-}
 
 actual fun makePaymentTxn(
     senderAddress: String,
@@ -170,27 +166,25 @@ actual fun makePaymentTxn(
     amount: String,
     isMax: Boolean,
     noteInByteArray: ByteArray?,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return Sdk.makePaymentTxn(
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makePaymentTxn(
         senderAddress,
         receiverAddress,
         amount.toBigInteger().toUint64(),
         noteInByteArray,
         if (isMax) receiverAddress else "",
-        suggestedParams
+        suggestedParams,
     )
-}
 
 actual fun makeAssetAcceptanceTxn(
     publicKey: String,
     assetId: Long,
-    suggestedParams: SuggestedParams
-): ByteArray {
-    return Sdk.makeAssetAcceptanceTxn(
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makeAssetAcceptanceTxn(
         publicKey,
         null,
         suggestedParams,
-        assetId
+        assetId,
     )
-}

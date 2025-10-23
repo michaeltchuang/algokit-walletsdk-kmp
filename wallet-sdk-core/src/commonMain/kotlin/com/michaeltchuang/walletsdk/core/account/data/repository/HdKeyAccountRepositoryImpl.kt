@@ -81,7 +81,7 @@ internal class HdKeyAccountRepositoryImpl(
     override suspend fun getPrivateKey(address: String): ByteArray? =
         withContext(coroutineDispatcher) {
             val encryptedSK = hdKeyDao.get(address)?.encryptedPrivateKey
-             encryptedSK?.let { decryptByteArray(it) }
+            encryptedSK?.let { decryptByteArray(it) }
         }
 
     override suspend fun getHdWalletSummaries(): List<HdWalletSummary> =

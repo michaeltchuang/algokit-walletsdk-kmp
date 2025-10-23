@@ -22,64 +22,63 @@ import org.koin.dsl.module
 
 const val SETTINGS = "algorand_settings"
 
-val encryptionModule = module {
+val encryptionModule =
+    module {
 
-    single<SharedPreferences> {
-        androidContext().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
-    }
+        single<SharedPreferences> {
+            androidContext().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE)
+        }
 
-    single<Gson> {
-        GsonBuilder().create()
-    }
+        single<Gson> {
+            GsonBuilder().create()
+        }
 
-    single {
-        PersistentCacheProviderImpl(
-            sharedPreferences = get(),
-            gson = get()
-        )
-    }
+        single {
+            PersistentCacheProviderImpl(
+                sharedPreferences = get(),
+                gson = get(),
+            )
+        }
 
-    single<PersistentCacheProvider> {
-        get<PersistentCacheProviderImpl>()
-    }
+        single<PersistentCacheProvider> {
+            get<PersistentCacheProviderImpl>()
+        }
 
-    // StrongBoxRepository with constructor param from PersistentCacheProvider
+        // StrongBoxRepository with constructor param from PersistentCacheProvider
 
-    single {
-        StrongBoxRepositoryImpl(
-            strongBoxUsedStorage = get<PersistentCacheProvider>()
-                .getPersistentCache(Boolean::class.java, key = "strongbox_used")
-        )
-    }
+        single {
+            StrongBoxRepositoryImpl(
+                strongBoxUsedStorage =
+                    get<PersistentCacheProvider>()
+                        .getPersistentCache(Boolean::class.java, key = "strongbox_used"),
+            )
+        }
 
-    single<StrongBoxRepository> {
-        get<StrongBoxRepositoryImpl>()
-    }
-
+        single<StrongBoxRepository> {
+            get<StrongBoxRepositoryImpl>()
+        }
 
     /* single { StrongBoxRepositoryImpl(get()) }
      single<StrongBoxRepository> { get<StrongBoxRepositoryImpl>() }*/
 
+        // Use cases and functional wrappers
+        factory {
+            GetStrongBoxUsedCheck(get<StrongBoxRepository>()::getStrongBoxUsed)
+        }
 
-    // Use cases and functional wrappers
-    factory {
-        GetStrongBoxUsedCheck(get<StrongBoxRepository>()::getStrongBoxUsed)
+        factory {
+            SaveStrongBoxUsedCheck(get<StrongBoxRepository>()::saveStrongBoxUsed)
+        }
+
+        single { AndroidEncryptionManagerImpl(get(), get()) }
+        // AndroidEncryptionManager binding
+        factory<AndroidEncryptionManager> { get<AndroidEncryptionManagerImpl>() }
+
+        single {
+            GetEncryptionSecretKey(get<AndroidEncryptionManager>()::getSecretKey)
+        }
+        single<Base64Manager> { Base64ManagerImpl() }
+
+        single { AESPlatformManagerImpl(get()) }
+        single<AESPlatformManager> { AESPlatformManagerImpl(get()) }
     }
-
-    factory {
-        SaveStrongBoxUsedCheck(get<StrongBoxRepository>()::saveStrongBoxUsed)
-    }
-
-    single { AndroidEncryptionManagerImpl(get(), get()) }
-    // AndroidEncryptionManager binding
-    factory<AndroidEncryptionManager> { get<AndroidEncryptionManagerImpl>() }
-
-    single {
-        GetEncryptionSecretKey(get<AndroidEncryptionManager>()::getSecretKey)
-    }
-    single<Base64Manager> { Base64ManagerImpl() }
-
-    single { AESPlatformManagerImpl(get()) }
-    single<AESPlatformManager> { AESPlatformManagerImpl(get()) }
-}
-

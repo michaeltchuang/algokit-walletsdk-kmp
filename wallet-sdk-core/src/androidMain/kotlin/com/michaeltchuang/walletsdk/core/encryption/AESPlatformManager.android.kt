@@ -4,21 +4,13 @@ import com.michaeltchuang.walletsdk.core.encryption.domain.manager.AESPlatformMa
 import com.michaeltchuang.walletsdk.core.encryption.domain.manager.AndroidEncryptionManager
 import org.koin.mp.KoinPlatform.getKoin
 
-actual fun encryptByteArray(data: ByteArray): ByteArray {
-    return getKoin().get<AESPlatformManager>().encryptByteArray(data)
-}
+actual fun encryptByteArray(data: ByteArray): ByteArray = getKoin().get<AESPlatformManager>().encryptByteArray(data)
 
-actual fun decryptByteArray(encryptedData: ByteArray): ByteArray {
-    return getKoin().get<AESPlatformManager>().decryptByteArray(encryptedData)
-}
+actual fun decryptByteArray(encryptedData: ByteArray): ByteArray = getKoin().get<AESPlatformManager>().decryptByteArray(encryptedData)
 
-actual fun encryptString(data: String): String {
-    return getKoin().get<AESPlatformManager>().encryptString(data)
-}
+actual fun encryptString(data: String): String = getKoin().get<AESPlatformManager>().encryptString(data)
 
-actual fun decryptString(encryptedData: String): String {
-    return getKoin().get<AESPlatformManager>().decryptString(encryptedData)
-}
+actual fun decryptString(encryptedData: String): String = getKoin().get<AESPlatformManager>().decryptString(encryptedData)
 
 actual suspend fun initializeEncryptionManager() {
     getKoin().get<AndroidEncryptionManager>().initializeEncryptionManager()

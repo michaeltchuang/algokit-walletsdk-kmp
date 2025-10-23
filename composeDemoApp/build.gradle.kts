@@ -161,18 +161,22 @@ android {
         localPropertiesFile.inputStream().use { stream -> localProperties.load(stream) }
     }
 
-    val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
-        ?: localProperties.getProperty("keystore.password")
-    val keystoreKeyAlias = System.getenv("KEY_ALIAS")
-        ?: localProperties.getProperty("key.alias")
-    val keystoreKeyPassword = System.getenv("KEY_PASSWORD")
-        ?: localProperties.getProperty("key.password")
+    val keystorePassword =
+        System.getenv("KEYSTORE_PASSWORD")
+            ?: localProperties.getProperty("keystore.password")
+    val keystoreKeyAlias =
+        System.getenv("KEY_ALIAS")
+            ?: localProperties.getProperty("key.alias")
+    val keystoreKeyPassword =
+        System.getenv("KEY_PASSWORD")
+            ?: localProperties.getProperty("key.password")
 
-    val keystoreFile = when {
-        file("../../keystore.jks").exists() -> file("../../keystore.jks")
-        rootProject.file("keystore.jks").exists() -> rootProject.file("keystore.jks")
-        else -> null
-    }
+    val keystoreFile =
+        when {
+            file("../../keystore.jks").exists() -> file("../../keystore.jks")
+            rootProject.file("keystore.jks").exists() -> rootProject.file("keystore.jks")
+            else -> null
+        }
 
     signingConfigs {
         create("release") {

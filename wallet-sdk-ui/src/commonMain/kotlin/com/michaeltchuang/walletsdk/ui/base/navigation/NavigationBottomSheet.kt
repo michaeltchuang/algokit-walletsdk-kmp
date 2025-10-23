@@ -31,11 +31,11 @@ import androidx.navigation.navArgument
 import com.michaeltchuang.walletsdk.core.account.domain.model.local.AccountMnemonic
 import com.michaeltchuang.walletsdk.core.deeplink.presentation.screens.QRCodeScannerScreen
 import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.REPO_URL
-import com.michaeltchuang.walletsdk.ui.base.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.AccountDetailScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.PassphraseAcknowledgeScreen
 import com.michaeltchuang.walletsdk.ui.accountdetails.screens.ViewPassphraseScreen
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.base.webview.AlgoKitWebViewPlatformScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.AccountRecoveryTypeSelectionScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.CreateAccountNameScreen
 import com.michaeltchuang.walletsdk.ui.onboarding.screens.Falcon24WalletSelectionScreen

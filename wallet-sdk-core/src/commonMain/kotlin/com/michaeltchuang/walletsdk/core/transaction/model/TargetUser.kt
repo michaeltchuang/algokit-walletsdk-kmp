@@ -2,7 +2,6 @@ package com.michaeltchuang.walletsdk.core.transaction.model
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
-
 // this user is targetted to be sent.
 data class TargetUser(
     val publicKey: String,

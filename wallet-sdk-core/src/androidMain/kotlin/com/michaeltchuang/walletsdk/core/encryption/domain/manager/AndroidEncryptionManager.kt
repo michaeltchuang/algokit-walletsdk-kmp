@@ -5,7 +5,10 @@ import javax.crypto.SecretKey
 
 interface AndroidEncryptionManager {
     fun getSecretKey(): SecretKey
+
     suspend fun initializeEncryptionManager()
+
     suspend fun shouldMigrateToStrongBox(): Boolean
+
     suspend fun migrateToStrongBox(): AlgoKitResult<Boolean>
 }

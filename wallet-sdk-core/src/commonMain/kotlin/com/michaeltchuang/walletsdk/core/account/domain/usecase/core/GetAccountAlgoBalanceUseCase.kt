@@ -10,9 +10,11 @@ import com.michaeltchuang.walletsdk.core.network.service.getBasicAccountInformat
 internal class GetAccountAlgoBalanceUseCase(
     private val accountInformationApiService: AccountInformationApiService,
 ) : GetAccountAlgoBalance {
-    override suspend fun invoke(address: String): BigInteger? {
-        return when (val result =
-            accountInformationApiService.getBasicAccountInformation(address)) {
+    override suspend fun invoke(address: String): BigInteger? =
+        when (
+            val result =
+                accountInformationApiService.getBasicAccountInformation(address)
+        ) {
             is ApiResult.Success -> {
                 result.data.accountInformation?.amount?.let { amountString ->
                     try {
@@ -26,5 +28,4 @@ internal class GetAccountAlgoBalanceUseCase(
             is ApiResult.Error -> null
             is ApiResult.NetworkError -> null
         }
-    }
 }

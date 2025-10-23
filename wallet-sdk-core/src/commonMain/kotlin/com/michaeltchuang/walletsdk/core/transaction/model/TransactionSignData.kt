@@ -5,7 +5,6 @@ import com.michaeltchuang.walletsdk.core.network.model.TransactionSigner
 import com.michaeltchuang.walletsdk.core.utils.MIN_FEE
 
 sealed class TransactionSignData {
-
     abstract val senderAccountAddress: String
     abstract val signer: TransactionSigner
     abstract val senderAuthAddress: String?
@@ -18,9 +17,7 @@ sealed class TransactionSignData {
 
     abstract fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail
 
-    fun isSenderRekeyed(): Boolean {
-        return senderAuthAddress != null && senderAuthAddress != senderAccountAddress
-    }
+    fun isSenderRekeyed(): Boolean = senderAuthAddress != null && senderAuthAddress != senderAccountAddress
 
     data class Send(
         override val senderAccountAddress: String,
@@ -37,10 +34,10 @@ sealed class TransactionSignData {
         val note: String? = null,
         val xnote: String? = null,
         var isMax: Boolean = false,
-        var projectedFee: Long = MIN_FEE
+        var projectedFee: Long = MIN_FEE,
     ) : TransactionSignData() {
-        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail {
-            return SignedTransactionDetail.Send(
+        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail =
+            SignedTransactionDetail.Send(
                 signedTransactionData = signedTransactionData,
                 amount = amount,
                 targetUser = targetUser,
@@ -50,9 +47,8 @@ sealed class TransactionSignData {
                 note = note,
                 xnote = xnote,
                 senderAccountAddress = senderAccountAddress,
-                senderAccountName = senderAccountName
+                senderAccountName = senderAccountName,
             )
-        }
     }
 
     data class AddAsset(
@@ -61,15 +57,14 @@ sealed class TransactionSignData {
         override val signer: TransactionSigner,
         override var transactionByteArray: ByteArray? = null,
         override var isArc59Transaction: Boolean = false,
-        val assetId: Long
+        val assetId: Long,
     ) : TransactionSignData() {
-        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail {
-            return SignedTransactionDetail.AssetOperation.AssetAddition(
+        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail =
+            SignedTransactionDetail.AssetOperation.AssetAddition(
                 signedTransactionData = signedTransactionData,
                 senderAccountAddress = senderAccountAddress,
-                assetId = assetId
+                assetId = assetId,
             )
-        }
     }
 
     data class RemoveAsset(
@@ -77,15 +72,14 @@ sealed class TransactionSignData {
         override val senderAuthAddress: String?,
         override val signer: TransactionSigner,
         val assetId: Long,
-        val creatorAddress: String
+        val creatorAddress: String,
     ) : TransactionSignData() {
-        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail {
-            return SignedTransactionDetail.AssetOperation.AssetRemoval(
+        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail =
+            SignedTransactionDetail.AssetOperation.AssetRemoval(
                 signedTransactionData = signedTransactionData,
                 senderAccountAddress = senderAccountAddress,
-                assetId = assetId
+                assetId = assetId,
             )
-        }
     }
 
     data class SendAndRemoveAsset(
@@ -98,8 +92,8 @@ sealed class TransactionSignData {
         val note: String? = null,
         override val targetUser: TargetUser,
     ) : TransactionSignData() {
-        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail {
-            return SignedTransactionDetail.Send(
+        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail =
+            SignedTransactionDetail.Send(
                 signedTransactionData = signedTransactionData,
                 amount = amount,
                 targetUser = targetUser,
@@ -108,9 +102,8 @@ sealed class TransactionSignData {
                 assetId = assetId,
                 note = note,
                 senderAccountAddress = senderAccountAddress,
-                senderAccountName = senderAccountName
+                senderAccountName = senderAccountName,
             )
-        }
     }
 
     data class Rekey(
@@ -118,15 +111,14 @@ sealed class TransactionSignData {
         override val senderAuthAddress: String?,
         override val signer: TransactionSigner,
         val senderAccountName: String,
-        val rekeyAdminAddress: String
+        val rekeyAdminAddress: String,
     ) : TransactionSignData() {
-        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail {
-            return SignedTransactionDetail.RekeyOperation(
+        override fun getSignedTransactionDetail(signedTransactionData: ByteArray): SignedTransactionDetail =
+            SignedTransactionDetail.RekeyOperation(
                 signedTransactionData = signedTransactionData,
                 accountAddress = senderAccountAddress,
                 rekeyAdminAddress = rekeyAdminAddress,
-                accountName = senderAccountName
+                accountName = senderAccountName,
             )
-        }
     }
 }

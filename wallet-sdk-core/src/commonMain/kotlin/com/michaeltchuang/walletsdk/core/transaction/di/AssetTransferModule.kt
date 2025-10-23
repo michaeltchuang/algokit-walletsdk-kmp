@@ -4,17 +4,17 @@ import com.michaeltchuang.walletsdk.core.transaction.signmanager.TransactionSign
 import com.michaeltchuang.walletsdk.core.utils.TransactionSignSigningHelper
 import org.koin.dsl.module
 
-val assetTransferModule = module {
-    single { TransactionSignSigningHelper() }
-    single {
-        TransactionSignManager(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
+val assetTransferModule =
+    module {
+        single { TransactionSignSigningHelper() }
+        single {
+            TransactionSignManager(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+            )
+        }
     }
-}
-

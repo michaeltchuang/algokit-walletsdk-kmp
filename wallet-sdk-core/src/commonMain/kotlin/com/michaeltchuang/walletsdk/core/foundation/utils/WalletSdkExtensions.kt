@@ -5,9 +5,7 @@ import androidx.navigation.NavController
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.RoundingMode
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import com.michaeltchuang.walletsdk.core.algosdk.makeAssetAcceptanceTxn
 import com.michaeltchuang.walletsdk.core.network.model.TransactionParams
-import fr.acinq.bitcoin.DeterministicWallet.publicKey
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 
@@ -76,6 +74,7 @@ fun String.formatAmount(): String =
     }
 
 expect class BytesArray
+
 expect class SuggestedParams
 
 expect class TransactionParams
@@ -91,7 +90,7 @@ expect fun TransactionParams.makeAlgoTx(
     receiverAddress: String,
     amount: BigInteger,
     isMax: Boolean,
-    noteInByteArray: ByteArray? = null
+    noteInByteArray: ByteArray? = null,
 ): ByteArray
 
 expect fun TransactionParams.makeAssetTx(
@@ -99,7 +98,7 @@ expect fun TransactionParams.makeAssetTx(
     receiverAddress: String,
     amount: BigInteger,
     assetId: Long,
-    noteInByteArray: ByteArray? = null
+    noteInByteArray: ByteArray? = null,
 ): ByteArray
 
 expect fun TransactionParams.makeTx(
@@ -108,15 +107,18 @@ expect fun TransactionParams.makeTx(
     amount: BigInteger,
     assetId: Long,
     isMax: Boolean,
-    note: String? = null
+    note: String? = null,
 ): ByteArray
 
-expect fun TransactionParams.makeAddAssetTx(publicKey: String, assetId: Long): ByteArray
+expect fun TransactionParams.makeAddAssetTx(
+    publicKey: String,
+    assetId: Long,
+): ByteArray
 
 expect fun TransactionParams.makeRemoveAssetTx(
     senderAddress: String,
     creatorPublicKey: String,
-    assetId: Long
+    assetId: Long,
 ): ByteArray
 
 expect fun TransactionParams.makeSendAndRemoveAssetTx(
@@ -124,7 +126,10 @@ expect fun TransactionParams.makeSendAndRemoveAssetTx(
     receiverAddress: String,
     assetId: Long,
     amount: BigInteger,
-    noteInByteArray: ByteArray? = null
+    noteInByteArray: ByteArray? = null,
 ): ByteArray
 
-expect fun TransactionParams.makeRekeyTx(rekeyAddress: String, rekeyAdminAddress: String): ByteArray
+expect fun TransactionParams.makeRekeyTx(
+    rekeyAddress: String,
+    rekeyAdminAddress: String,
+): ByteArray

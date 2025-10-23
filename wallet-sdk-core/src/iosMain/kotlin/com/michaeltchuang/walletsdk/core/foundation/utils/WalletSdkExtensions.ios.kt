@@ -13,6 +13,7 @@ actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray = ByteArra
 actual class SuggestedParams
 
 actual class TransactionParams
+
 actual class BytesArray
 
 actual fun TransactionParams.toSuggestedParams(addGenesisId: Boolean): SuggestedParams {
@@ -26,26 +27,25 @@ actual fun TransactionParams.makeAlgoTx(
     receiverAddress: String,
     amount: BigInteger,
     isMax: Boolean,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return makePaymentTxn(
+    noteInByteArray: ByteArray?,
+): ByteArray =
+    makePaymentTxn(
         senderAddress = senderAddress,
         receiverAddress = receiverAddress,
         amount = amount.toString(),
         isMax = isMax,
         noteInByteArray = noteInByteArray,
-        toSuggestedParams()
+        toSuggestedParams(),
     )
-}
 
 actual fun TransactionParams.makeAssetTx(
     senderAddress: String,
     receiverAddress: String,
     amount: BigInteger,
     assetId: Long,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return makeAssetTransferTxn(
+    noteInByteArray: ByteArray?,
+): ByteArray =
+    makeAssetTransferTxn(
         senderAddress = senderAddress,
         receiverAddress = receiverAddress,
         amount = amount.toString(),
@@ -53,8 +53,6 @@ actual fun TransactionParams.makeAssetTx(
         noteInByteArray = noteInByteArray,
         toSuggestedParams(addGenesisId = false),
     )
-}
-
 
 actual fun TransactionParams.makeTx(
     senderAddress: String,
@@ -62,7 +60,7 @@ actual fun TransactionParams.makeTx(
     amount: BigInteger,
     assetId: Long,
     isMax: Boolean,
-    note: String?
+    note: String?,
 ): ByteArray {
     val noteInByteArray = note?.toByteArray(charset = Charsets.UTF_8)
 
@@ -73,28 +71,26 @@ actual fun TransactionParams.makeTx(
     }
 }
 
-actual fun TransactionParams.makeAddAssetTx(publicKey: String, assetId: Long): ByteArray {
-    return ByteArray(0)
-}
+actual fun TransactionParams.makeAddAssetTx(
+    publicKey: String,
+    assetId: Long,
+): ByteArray = ByteArray(0)
 
 actual fun TransactionParams.makeRemoveAssetTx(
     senderAddress: String,
     creatorPublicKey: String,
-    assetId: Long
-): ByteArray {
-    return ByteArray(0)
-}
+    assetId: Long,
+): ByteArray = ByteArray(0)
 
 actual fun TransactionParams.makeSendAndRemoveAssetTx(
     senderAddress: String,
     receiverAddress: String,
     assetId: Long,
     amount: BigInteger,
-    noteInByteArray: ByteArray?
-): ByteArray {
-    return ByteArray(0)
-}
+    noteInByteArray: ByteArray?,
+): ByteArray = ByteArray(0)
 
-actual fun TransactionParams.makeRekeyTx(rekeyAddress: String, rekeyAdminAddress: String): ByteArray {
-    return ByteArray(0)
-}
+actual fun TransactionParams.makeRekeyTx(
+    rekeyAddress: String,
+    rekeyAdminAddress: String,
+): ByteArray = ByteArray(0)

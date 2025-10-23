@@ -21,10 +21,11 @@ class AccountAdditionUseCase(
                 createHdKeyAccount(createAccount, createAccount.type)
             }
 
-            is CreateAccount.Type.Falcon24 -> createFalcon24Account(
-                createAccount,
-                createAccount.type
-            )
+            is CreateAccount.Type.Falcon24 ->
+                createFalcon24Account(
+                    createAccount,
+                    createAccount.type,
+                )
 
             is CreateAccount.Type.Algo25 -> createAlgo25Account(createAccount, createAccount.type)
             is CreateAccount.Type.LedgerBle -> {}
@@ -58,7 +59,6 @@ class AccountAdditionUseCase(
                             createAccount.orderIndex,
                         )
                     }
-
                 }
             }
         }

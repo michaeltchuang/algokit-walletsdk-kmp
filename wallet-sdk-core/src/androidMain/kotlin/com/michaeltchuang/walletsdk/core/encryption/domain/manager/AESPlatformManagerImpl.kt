@@ -12,12 +12,12 @@ import javax.crypto.spec.GCMParameterSpec
 internal class AESPlatformManagerImpl(
     private val getEncryptionSecretKey: GetEncryptionSecretKey,
 ) : AESPlatformManager {
-
     init {
         CoroutineScope(Dispatchers.IO).launch {
             initializeEncryptionManager()
         }
     }
+
     companion object {
         private const val AES_MODE = "AES/GCM/NoPadding"
     }

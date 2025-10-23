@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.core.transaction.signmanager
 
-
 import androidx.lifecycle.Lifecycle
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.toBigInteger
@@ -41,14 +40,13 @@ import kotlinx.coroutines.launch
 open class TransactionSignManager(
     private val getTransactionParams: GetTransactionParams,
     private val signHelper: TransactionSignSigningHelper,
-    /*private val getAccountAlgoBalance: GetAccountAlgoBalance,*/
-    /*  private val getAccountMinBalance: GetAccountMinBalance,*/
+    // private val getAccountAlgoBalance: GetAccountAlgoBalance,
+    // private val getAccountMinBalance: GetAccountMinBalance,
     private val getFalcon24SecretKey: GetFalcon24SecretKey,
     private val getAlgo25SecretKey: GetAlgo25SecretKey,
     private val getHdSeed: GetHdSeed,
     private val getLocalAccount: GetLocalAccount,
 ) : LifecycleScopedCoroutineOwner() {
-
     val transactionManagerResultStateFlow = MutableStateFlow<TransactionManagerResult?>(null)
 
     private var transactionParams: TransactionParams? = null
@@ -59,7 +57,7 @@ open class TransactionSignManager(
             override fun onAllItemsDequeued(signedTransactions: List<ByteArray?>) {
                 if (signedTransactions.isEmpty() || signedTransactions.any { it == null }) {
                     setSignFailed(
-                        Defined()
+                        Defined(),
                     )
                     return
                 }
@@ -67,7 +65,7 @@ open class TransactionSignManager(
                     transactionDataList?.let {
                         postTxnSignResult(
                             signedTransactions.firstOrNull(),
-                            it.firstOrNull()
+                            it.firstOrNull(),
                         )
                     }
                 } else {
@@ -84,7 +82,7 @@ open class TransactionSignManager(
             override fun onNextItemToBeDequeued(
                 transaction: TransactionSignData,
                 currentItemIndex: Int,
-                totalItemCount: Int
+                totalItemCount: Int,
             ) {
                 // TODO: add [currentItemIndex] and [totalItemCount] after merging this core swap screens
                 currentScope.launch {
@@ -142,19 +140,21 @@ open class TransactionSignManager(
 
     fun initSigningTransactions(
         isGroupTransaction: Boolean,
-        vararg transactionData: TransactionSignData
+        vararg transactionData: TransactionSignData,
     ) {
         currentScope.launch {
             postResult(TransactionManagerResult.Loading)
-            transactionData.toList().ifEmpty {
-                setSignFailed(Defined())
-                return@launch
-            }.let { transactionList ->
-                processTransactionDataList(transactionList, isGroupTransaction)?.let {
-                    this@TransactionSignManager.transactionDataList = it
-                    signHelper.initItemsToBeEnqueued(it)
+            transactionData
+                .toList()
+                .ifEmpty {
+                    setSignFailed(Defined())
+                    return@launch
+                }.let { transactionList ->
+                    processTransactionDataList(transactionList, isGroupTransaction)?.let {
+                        this@TransactionSignManager.transactionDataList = it
+                        signHelper.initItemsToBeEnqueued(it)
+                    }
                 }
-            }
         }
     }
 
@@ -179,27 +179,34 @@ open class TransactionSignManager(
     private suspend fun TransactionSignData.signTxn() {
         when (signer) {
             is TransactionSigner.Algo25 -> {
-                val secretKey = getAlgo25SecretKey(signer.address) ?: run {
-                    setSignFailed(Defined())
-                    return
-                }
+                val secretKey =
+                    getAlgo25SecretKey(signer.address) ?: run {
+                        setSignFailed(Defined())
+                        return
+                    }
                 checkAndCacheSignedTransaction(transactionByteArray?.signTx(secretKey))
             }
 
             is TransactionSigner.HdKey -> {
                 val transactionBytes = transactionByteArray ?: return handleSignError()
-                val hdKey = getLocalAccount(signer.address) as? LocalAccount.HdKey
-                    ?: return handleSignError()
+                val hdKey =
+                    getLocalAccount(signer.address) as? LocalAccount.HdKey
+                        ?: return handleSignError()
                 val seed = getHdSeed(seedId = hdKey.seedId) ?: return handleSignError()
 
-                val transactionSignedByteArray = signHdKeyTransaction(
-                    transactionBytes, seed, hdKey.account, hdKey.change, hdKey.keyIndex
-                ) ?: return handleSignError()
+                val transactionSignedByteArray =
+                    signHdKeyTransaction(
+                        transactionBytes,
+                        seed,
+                        hdKey.account,
+                        hdKey.change,
+                        hdKey.keyIndex,
+                    ) ?: return handleSignError()
 
                 checkAndCacheSignedTransaction(transactionSignedByteArray)
             }
 
-            is TransactionSigner.LedgerBle -> {/*sendTransactionWithLedger(signer as TransactionSigner.LedgerBle)*/
+            is TransactionSigner.LedgerBle -> { // sendTransactionWithLedger(signer as TransactionSigner.LedgerBle)
             }
 
             is TransactionSigner.SignerNotFound -> {
@@ -262,9 +269,7 @@ open class TransactionSignManager(
         onTransactionSigned(transactionSignedByteArray)
     }
 
-    protected open fun onTransactionSigned(
-        signedTransaction: ByteArray?,
-    ) {
+    protected open fun onTransactionSigned(signedTransaction: ByteArray?) {
         signHelper.cacheDequeuedItem(signedTransaction)
     }
 
@@ -272,70 +277,71 @@ open class TransactionSignManager(
         val transactionParams = getTransactionParams(this) ?: return null
         this@TransactionSignManager.transactionParams = transactionParams
 
-        val createdTransactionByteArray = when (this) {
-            is TransactionSignData.Send -> {
-                projectedFee = calculatedFee ?: transactionParams.getTxFee()
-                // calculate isMax before calculating real amount because while isMax true fee will be deducted.
-                isMax = isTransactionMax(amount, senderAccountAddress, assetId)
-                // TODO: 10.08.2022 Get all those calculations from a single AmountTransactionValidationUseCase
-                amount = calculateAmount(
-                    projectedAmount = amount,
-                    isMax = isMax,
-                    isSenderRekeyedToAnotherAccount = isSenderRekeyed(),
-                    senderMinimumBalance = minimumBalance,
-                    assetId = assetId,
-                    fee = projectedFee
-                ) ?: return null
+        val createdTransactionByteArray =
+            when (this) {
+                is TransactionSignData.Send -> {
+                    projectedFee = calculatedFee ?: transactionParams.getTxFee()
+                    // calculate isMax before calculating real amount because while isMax true fee will be deducted.
+                    isMax = isTransactionMax(amount, senderAccountAddress, assetId)
+                    // TODO: 10.08.2022 Get all those calculations from a single AmountTransactionValidationUseCase
+                    amount = calculateAmount(
+                        projectedAmount = amount,
+                        isMax = isMax,
+                        isSenderRekeyedToAnotherAccount = isSenderRekeyed(),
+                        senderMinimumBalance = minimumBalance,
+                        assetId = assetId,
+                        fee = projectedFee,
+                    ) ?: return null
 
-                if (isSenderRekeyed()) {
-                    // if account is rekeyed to another account, min balance should be deducted from the amount.
-                    // after it'll be deducted, isMax will be false to not write closeToAddress.
-                    isMax = false
-                }
+                    if (isSenderRekeyed()) {
+                        // if account is rekeyed to another account, min balance should be deducted from the amount.
+                        // after it'll be deducted, isMax will be false to not write closeToAddress.
+                        isMax = false
+                    }
 
-                if (isCloseToSameAccount()) {
-                    return null
-                }
+                    if (isCloseToSameAccount()) {
+                        return null
+                    }
 
-                transactionParams.makeTx(
-                    senderAddress = senderAccountAddress,
-                    receiverAddress = targetUser.publicKey,
-                    amount = amount,
-                    assetId = assetId,
-                    isMax = isMax,
-                    note = if (xnote.isNullOrBlank()) note else xnote
-                )
-            }
-
-            is TransactionSignData.AddAsset -> {
-                transactionParams.makeAddAssetTx(senderAccountAddress, assetId)
-            }
-
-            is TransactionSignData.RemoveAsset -> {
-                if (shouldCreateAssetRemoveTransaction(senderAccountAddress, assetId)) {
-                    transactionParams.makeRemoveAssetTx(
+                    transactionParams.makeTx(
                         senderAddress = senderAccountAddress,
-                        creatorPublicKey = creatorAddress,
-                        assetId = assetId
+                        receiverAddress = targetUser.publicKey,
+                        amount = amount,
+                        assetId = assetId,
+                        isMax = isMax,
+                        note = if (xnote.isNullOrBlank()) note else xnote,
                     )
-                } else {
-                    null
+                }
+
+                is TransactionSignData.AddAsset -> {
+                    transactionParams.makeAddAssetTx(senderAccountAddress, assetId)
+                }
+
+                is TransactionSignData.RemoveAsset -> {
+                    if (shouldCreateAssetRemoveTransaction(senderAccountAddress, assetId)) {
+                        transactionParams.makeRemoveAssetTx(
+                            senderAddress = senderAccountAddress,
+                            creatorPublicKey = creatorAddress,
+                            assetId = assetId,
+                        )
+                    } else {
+                        null
+                    }
+                }
+
+                is TransactionSignData.SendAndRemoveAsset -> {
+                    transactionParams.makeSendAndRemoveAssetTx(
+                        senderAddress = senderAccountAddress,
+                        receiverAddress = targetUser.publicKey,
+                        assetId = assetId,
+                        amount = amount,
+                    )
+                }
+
+                is TransactionSignData.Rekey -> {
+                    transactionParams.makeRekeyTx(senderAccountAddress, rekeyAdminAddress)
                 }
             }
-
-            is TransactionSignData.SendAndRemoveAsset -> {
-                transactionParams.makeSendAndRemoveAssetTx(
-                    senderAddress = senderAccountAddress,
-                    receiverAddress = targetUser.publicKey,
-                    assetId = assetId,
-                    amount = amount
-                )
-            }
-
-            is TransactionSignData.Rekey -> {
-                transactionParams.makeRekeyTx(senderAccountAddress, rekeyAdminAddress)
-            }
-        }
 
         transactionByteArray = createdTransactionByteArray
 
@@ -358,7 +364,8 @@ open class TransactionSignManager(
                     is TransactionSignData.Rekey,
                     is TransactionSignData.Send,
                     is TransactionSignData.SendAndRemoveAsset,
-                    is TransactionSignData.RemoveAsset -> {
+                    is TransactionSignData.RemoveAsset,
+                    -> {
                         postResult(Api())
                     }
                 }
@@ -379,17 +386,18 @@ open class TransactionSignManager(
         isSenderRekeyedToAnotherAccount: Boolean,
         senderMinimumBalance: Long,
         assetId: Long,
-        fee: Long
+        fee: Long,
     ): BigInteger? {
-        val calculatedAmount = if (isMax && assetId == ALGO_ID) {
-            if (isSenderRekeyedToAnotherAccount) {
-                projectedAmount - fee.toBigInteger() - senderMinimumBalance.toBigInteger()
+        val calculatedAmount =
+            if (isMax && assetId == ALGO_ID) {
+                if (isSenderRekeyedToAnotherAccount) {
+                    projectedAmount - fee.toBigInteger() - senderMinimumBalance.toBigInteger()
+                } else {
+                    projectedAmount - fee.toBigInteger()
+                }
             } else {
-                projectedAmount - fee.toBigInteger()
+                projectedAmount
             }
-        } else {
-            projectedAmount
-        }
 
         if (calculatedAmount isLesserThan BigInteger.ZERO) {
             if (isSenderRekeyedToAnotherAccount) {
@@ -406,18 +414,17 @@ open class TransactionSignManager(
     private suspend fun isTransactionMax(
         amount: BigInteger,
         publicKey: String,
-        assetId: Long
-    ): Boolean {
-        return if (assetId != ALGO_ID) {
+        assetId: Long,
+    ): Boolean =
+        if (assetId != ALGO_ID) {
             false
         } else {
             getAccountAlgoBalance(publicKey) == amount
         }
-    }
 
     private suspend fun shouldCreateAssetRemoveTransaction(
         publicKey: String,
-        assetId: Long
+        assetId: Long,
     ): Boolean {
         /*  val assetHoldingAmount = getAccountAssetHoldingAmount(publicKey, assetId)
           return assetHoldingAmount != null && assetHoldingAmount == BigInteger.ZERO*/
@@ -426,7 +433,9 @@ open class TransactionSignManager(
 
     private fun TransactionSignData.isCloseToSameAccount(): Boolean {
         if (this is TransactionSignData.Send && isMax && senderAccountAddress == targetUser.publicKey) {
-            postResult(Defined("You cannot send your max balance to yourself. Please select a different amount or recipient and try again."))
+            postResult(
+                Defined("You cannot send your max balance to yourself. Please select a different amount or recipient and try again."),
+            )
             return true
         }
         return false
@@ -452,15 +461,17 @@ open class TransactionSignManager(
             }
         }
 
-        val balance = getAccountAlgoBalance(senderAccountAddress) ?: run {
-            setSignFailed(Defined("minimum_balance_required"))
-            return true
-        }
+        val balance =
+            getAccountAlgoBalance(senderAccountAddress) ?: run {
+                setSignFailed(Defined("minimum_balance_required"))
+                return true
+            }
 
-        val fee = calculatedFee?.toBigInteger() ?: run {
-            setSignFailed(Defined("minimum_balance_required"))
-            return true
-        }
+        val fee =
+            calculatedFee?.toBigInteger() ?: run {
+                setSignFailed(Defined("minimum_balance_required"))
+                return true
+            }
 
         // fee only drops from the algos.
         val balanceAfterTransaction =
@@ -496,7 +507,7 @@ open class TransactionSignManager(
                 searchForDevice(bluetoothAddress)
             }
         }
-    */
+     */
 
     /*    private fun searchForDevice(ledgerAddress: String) {
             ledgerBleSearchManager.scan(
@@ -521,11 +532,11 @@ open class TransactionSignManager(
 
     private suspend fun processTransactionDataList(
         transactionDataList: List<TransactionSignData>,
-        isGroupTransaction: Boolean
+        isGroupTransaction: Boolean,
     ): List<TransactionSignData>? {
         for (transactionData in transactionDataList) {
             transactionData.transactionByteArray ?: transactionData.createTransaction()
-            ?: return null
+                ?: return null
         }
 
         /* if (isGroupTransaction) {
@@ -540,7 +551,7 @@ open class TransactionSignManager(
 
     private fun postTxnSignResult(
         bytesArray: ByteArray?,
-        transactionData: TransactionSignData?
+        transactionData: TransactionSignData?,
     ) {
         if (bytesArray == null || transactionData == null) {
             postResult(Defined())
@@ -548,16 +559,16 @@ open class TransactionSignManager(
             postResult(
                 TransactionManagerResult.Success(
                     transactionData.getSignedTransactionDetail(
-                        bytesArray
-                    )
-                )
+                        bytesArray,
+                    ),
+                ),
             )
         }
     }
 
     private fun postGroupTxnSignResult(
         groupedBytesArrayList: List<ByteArray>,
-        transactionDataList: List<TransactionSignData>
+        transactionDataList: List<TransactionSignData>,
     ) {
         val signedGroupTxnDetailList =
             createSignedTransactionDetailList(transactionDataList, groupedBytesArrayList)
@@ -566,9 +577,9 @@ open class TransactionSignManager(
                 TransactionManagerResult.Success(
                     SignedTransactionDetail.Group(
                         groupedBytesArrayList.flatten(),
-                        signedGroupTxnDetailList
-                    )
-                )
+                        signedGroupTxnDetailList,
+                    ),
+                ),
             )
         } else {
             postResult(Defined())
@@ -577,15 +588,14 @@ open class TransactionSignManager(
 
     private fun createSignedTransactionDetailList(
         transactionDataList: List<TransactionSignData>,
-        signedBytesArrayList: List<ByteArray>
-    ): List<SignedTransactionDetail> {
-        return mutableListOf<SignedTransactionDetail>().apply {
+        signedBytesArrayList: List<ByteArray>,
+    ): List<SignedTransactionDetail> =
+        mutableListOf<SignedTransactionDetail>().apply {
             for (index in transactionDataList.indices) {
                 val signedTxn = signedBytesArrayList[index]
                 add(transactionDataList[index].getSignedTransactionDetail(signedTxn))
             }
         }
-    }
 
     /*    private fun createGroupedBytesArray(transactionDataList: List<TransactionSignData>): BytesArray? {
             return mutableListOf<ByteArray>().apply {
@@ -596,12 +606,7 @@ open class TransactionSignManager(
                 }
             }.toBytesArray().assignGroupId()
         }*/
-    fun getAccountAlgoBalance(string: String): BigInteger? {
-        return 8997000.toBigInteger()
-    }
+    fun getAccountAlgoBalance(string: String): BigInteger? = 8997000.toBigInteger()
 
-    fun getAccountMinBalance(string: String): BigInteger {
-        return 100000.toBigInteger()
-    }
-
+    fun getAccountMinBalance(string: String): BigInteger = 100000.toBigInteger()
 }

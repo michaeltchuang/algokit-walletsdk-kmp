@@ -12,13 +12,9 @@ inline fun FloatArray.partitionIndexed(predicate: (Int, Float) -> Boolean): Pair
  * @param [1, 12, 123]
  * @return 1,12,123
  */
-fun List<Number>.toQueryString(): String {
-    return toString().replace(Regex("([^0-9,])"), "")
-}
+fun List<Number>.toQueryString(): String = toString().replace(Regex("([^0-9,])"), "")
 
-fun List<*>.toCsvString(): String {
-    return joinToString(",")
-}
+fun List<*>.toCsvString(): String = joinToString(",")
 
 fun <T> MutableList<T>.popIfOrNull(predicate: (T) -> Boolean): T? {
     val element = firstOrNull { predicate(it) } ?: return null
