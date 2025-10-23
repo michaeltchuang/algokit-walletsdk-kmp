@@ -32,12 +32,16 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +49,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.michaeltchuang.walletsdk.core.deeplink.model.KeyRegTransactionDetail
+import com.michaeltchuang.walletsdk.core.foundation.utils.formatAmount
 import com.michaeltchuang.walletsdk.core.foundation.utils.toAlgoCurrency
 import com.michaeltchuang.walletsdk.core.foundation.utils.toShortenedAddress
 import com.michaeltchuang.walletsdk.core.transaction.signmanager.PendingTransactionRequestManger.txnDetail
@@ -54,24 +61,125 @@ import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typo
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.button.AlgoKitPrimaryButton
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.icon.AlgoKitIconRoundShape
-import com.michaeltchuang.walletsdk.ui.signing.viewmodels.AssetTransferViewModel
+import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitScreens
+import com.michaeltchuang.walletsdk.ui.signing.components.PendingTransactionLoaderWidget
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.AssetTransferConfirmViewModel
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun AssetTransferScreen() {
-    val viewModel: AssetTransferViewModel = koinViewModel()
+fun AssetTransferScreen(
+    navController: NavController,
+    senderAddress: String = "",
+    receiverAddress: String = "",
+    amount: String = "0", // in microalgos big integer
+) {
+    val viewModel: AssetTransferConfirmViewModel = koinViewModel()
     val lifecycleOwner = LocalLifecycleOwner.current
-    LaunchedEffect(Unit) {
-        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
+    val viewState by viewModel.state.collectAsState()
+    val events = viewModel.viewEvent.collectAsStateWithLifecycle(initialValue = null)
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(events.value) {
+        events.value?.let { event ->
+            when (event) {
+                is AssetTransferConfirmViewModel.ViewEvent.ShowError -> {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(event.message)
+                    }
+                }
+                is AssetTransferConfirmViewModel.ViewEvent.TransactionSuccess -> {
+                    navController.navigate(
+                        AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId=${event.transactionId}",
+                    ) {
+                        popUpTo(AlgoKitScreens.ASSET_TRANSFER_SCREEN.name) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+        }
     }
-    AssetTransferContent(viewModel)
+
+    LaunchedEffect(senderAddress, receiverAddress, amount) {
+        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
+
+        if (senderAddress.isNotEmpty()) {
+            viewModel.setSenderAddress(senderAddress)
+        }
+        if (receiverAddress.isNotEmpty()) {
+            viewModel.setReceiverAddress(receiverAddress)
+        }
+        if (amount.isNotEmpty()) {
+            viewModel.setAmount(amount)
+        }
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        when (val state = viewState) {
+            is AssetTransferConfirmViewModel.ViewState.Loading -> {
+                // Show loading state
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(color = AlgoKitTheme.colors.background),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("Loading...", color = AlgoKitTheme.colors.textMain)
+                }
+            }
+
+            is AssetTransferConfirmViewModel.ViewState.Confirming -> {
+                PendingTransactionLoaderWidget()
+            }
+
+            is AssetTransferConfirmViewModel.ViewState.Content -> {
+                AssetTransferContent(
+                    viewModel = viewModel,
+                    state = state,
+                    navController = navController,
+                    onTransactionClick = {
+                        viewModel.sendTransaction()
+                    },
+                )
+            }
+
+            is AssetTransferConfirmViewModel.ViewState.Error -> {
+                // Show error state
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(color = AlgoKitTheme.colors.background),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(state.message, color = AlgoKitTheme.colors.textMain)
+                }
+            }
+        }
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp),
+        )
+    }
 }
 
 @Composable
-fun AssetTransferContent(viewModel: AssetTransferViewModel) {
+fun AssetTransferContent(
+    viewModel: AssetTransferConfirmViewModel,
+    state: AssetTransferConfirmViewModel.ViewState.Content,
+    navController: NavController,
+    onTransactionClick: () -> Unit,
+) {
     Box(
         modifier =
             Modifier
@@ -82,15 +190,19 @@ fun AssetTransferContent(viewModel: AssetTransferViewModel) {
         Column {
             AlgoKitTopBar(
                 title = stringResource(Res.string.confirm_transaction),
-                onClick = { },
+                onClick = { navController.popBackStack() },
             )
-            AssetTransferContentItems()
+            AssetTransferContentItems(
+                senderAddress = state.senderAddress,
+                receiverAddress = state.receiverAddress,
+                amount = state.amount,
+                accountBalance = state.accountBalance,
+                fee = state.fee,
+            )
         }
 
         AlgoKitPrimaryButton(
-            onClick = {
-                viewModel.sendTransaction()
-            },
+            onClick = onTransactionClick,
             text = stringResource(Res.string.confirm_transfer),
             modifier =
                 Modifier
@@ -101,7 +213,13 @@ fun AssetTransferContent(viewModel: AssetTransferViewModel) {
 }
 
 @Composable
-fun AssetTransferContentItems() {
+fun AssetTransferContentItems(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    accountBalance: String?,
+    fee: String,
+) {
     Column(
         modifier =
             Modifier
@@ -111,28 +229,41 @@ fun AssetTransferContentItems() {
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        AssetTransferAmountLabeledText(label = stringResource(Res.string.amount), value = "8.88")
+        AssetTransferAmountLabeledText(
+            label = stringResource(Res.string.amount),
+            value = amount.formatAmount(),
+        )
 
         AssetTransferDivider()
 
         AssetTransferAccountLabeledText(
             label = stringResource(Res.string.account),
-            value = "HVTAJEVD6WWVPY53MUZ6PRJ446WWV5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ"
+            value = senderAddress,
         )
         AssetTransferAccountLabeledText(
             label = "To",
-            value = "HVTAJEVD6WWVPY53MUZ6PRJ446WWV5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ",
-            isReceiver = true
+            value = receiverAddress,
+            isReceiver = true,
         )
 
-        AssetTransferLabeledText(label = "Fee", value = "0.001".toAlgoCurrency())
+        AssetTransferLabeledText(label = "Fee", value = fee.toAlgoCurrency())
         Spacer(modifier = Modifier.height(8.dp))
         AssetTransferDivider()
 
-        AssetTransferLabeledText(label = "Current", value = "10.00".toAlgoCurrency())
+//        AssetTransferLabeledText(label = "Current", value = "10.00".toAlgoCurrency())
         AssetTransferLabeledText(
             label = "Balance",
-            value = "10 ALGO"
+            value =
+                accountBalance?.let {
+                    try {
+                        // Convert from microAlgos to Algos
+                        val balanceInMicroAlgos = it.toDoubleOrNull() ?: 0.0
+                        val balanceInAlgos = balanceInMicroAlgos / 1_000_000
+                        balanceInAlgos.toString().toAlgoCurrency()
+                    } catch (e: Exception) {
+                        "0.00".toAlgoCurrency()
+                    }
+                } ?: "Loading...",
         )
         AssetTransferDivider()
 
@@ -169,16 +300,14 @@ fun AssetTransferAmountLabeledText(
                 style = typography.body.regular.sansMedium,
             )
 
-            Text(
-                text = "\u00A6 $value",
-                color = AlgoKitTheme.colors.textGray,
-                style = typography.body.regular.sansMedium,
-            )
+//            Text(
+//                text = "\u00A6 $value",
+//                color = AlgoKitTheme.colors.textGray,
+//                style = typography.body.regular.sansMedium,
+//            )
         }
-
     }
 }
-
 
 @Composable
 fun AssetTransferAccountLabeledText(
@@ -197,7 +326,6 @@ fun AssetTransferAccountLabeledText(
             style = typography.body.regular.sansMedium,
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
-
             AlgoKitIconRoundShape(
                 imageVector = vectorResource(Res.drawable.ic_wallet),
                 contentDescription = "Wallet Icon",
@@ -219,11 +347,7 @@ fun AssetTransferAccountLabeledText(
                     style = typography.body.regular.sansMedium,
                 )
             }
-
-
         }
-
-
     }
 }
 
@@ -269,7 +393,12 @@ fun AssetTransferAddNote(txnDetail: KeyRegTransactionDetail?) {
                     }),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                LabeledText(stringResource(Res.string.note), "")
+                Text(
+                    modifier = Modifier.fillMaxWidth(.25f),
+                    text = stringResource(Res.string.note),
+                    color = AlgoKitTheme.colors.textGray,
+                    style = typography.body.regular.sansMedium,
+                )
                 if (noteText.isNotEmpty()) {
                     Text(
                         style = typography.body.regular.sansMedium,
@@ -358,6 +487,8 @@ fun AssetTransferAddNoteTextField(
 @Composable
 fun PreviewAssetTransferScreen() {
     AlgoKitTheme {
-        AssetTransferScreen()
+        AssetTransferScreen(
+            navController = androidx.navigation.compose.rememberNavController(),
+        )
     }
 }

@@ -366,8 +366,37 @@ fun NavigationBottomSheetNavHost(
                         ViewPassphraseScreen(navController, it1)
                     }
                 }
-                composable(route = AlgoKitScreens.ASSET_TRANSFER_SCREEN.name) {
-                    AssetTransferScreen()
+                composable(
+                    route = AlgoKitScreens.ASSET_TRANSFER_SCREEN.name + "?sender={sender}&receiver={receiver}&amount={amount}",
+                    arguments =
+                        listOf(
+                            navArgument("sender") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("receiver") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("amount") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = "0" // in microalgos big integer
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val sender = backStackEntry.arguments?.getString("sender") ?: ""
+                    val receiver = backStackEntry.arguments?.getString("receiver") ?: ""
+                    val amount = backStackEntry.arguments?.getString("amount") ?: "0.00"
+
+                    AssetTransferScreen(
+                        navController = navController,
+                        senderAddress = sender,
+                        receiverAddress = receiver,
+                        amount = amount,
+                    )
                 }
             }
         }

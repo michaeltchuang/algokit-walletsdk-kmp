@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.ui.accountdetails.components.AccountDetailItem
@@ -155,7 +156,11 @@ fun AccountDetailScreen(
                         isRemoveAccount = false,
                         title = "Send funds to another account",
                     ) {
-                        navController.navigate(AlgoKitScreens.ASSET_TRANSFER_SCREEN.name)
+                        val receiver = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS
+                        val amount = BigInteger.fromLong(5000000)
+                        navController.navigate(
+                            "${AlgoKitScreens.ASSET_TRANSFER_SCREEN.name}?sender=$address&receiver=$receiver&amount=$amount",
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))

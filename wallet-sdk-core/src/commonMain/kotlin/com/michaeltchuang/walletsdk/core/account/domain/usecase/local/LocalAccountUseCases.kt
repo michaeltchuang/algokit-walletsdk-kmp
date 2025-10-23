@@ -111,3 +111,7 @@ fun interface GetHdSeed {
 fun interface GetAccountAlgoBalance {
     suspend operator fun invoke(address: String): BigInteger?
 }
+
+fun interface GetAccountMinimumBalance {
+    suspend operator fun invoke(address: String): Long?
+}

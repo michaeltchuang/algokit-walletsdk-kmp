@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class ConfirmTransactionRequestViewModel(
+class KeyRegConfirmViewModel(
     private val sendSignedTransactionUseCase: SendSignedTransactionUseCase,
     private val createKeyRegTransaction: CreateKeyRegTransaction,
     private val keyRegTransactionSignManager: KeyRegTransactionSignManager,
@@ -33,8 +33,8 @@ class ConfirmTransactionRequestViewModel(
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
-    StateViewModel<ConfirmTransactionRequestViewModel.ViewState> by stateDelegate,
-    EventViewModel<ConfirmTransactionRequestViewModel.ViewEvent> by eventDelegate {
+    StateViewModel<KeyRegConfirmViewModel.ViewState> by stateDelegate,
+    EventViewModel<KeyRegConfirmViewModel.ViewEvent> by eventDelegate {
     private val _minimumFee = MutableStateFlow("0.001")
     val minimumFee: StateFlow<String> = _minimumFee.asStateFlow()
 
@@ -156,11 +156,9 @@ class ConfirmTransactionRequestViewModel(
     }
 
     sealed interface ViewState {
-        data object Loading :
-            ViewState
+        data object Loading : ViewState
 
-        data object Content :
-            ViewState
+        data object Content : ViewState
     }
 
     sealed interface ViewEvent {

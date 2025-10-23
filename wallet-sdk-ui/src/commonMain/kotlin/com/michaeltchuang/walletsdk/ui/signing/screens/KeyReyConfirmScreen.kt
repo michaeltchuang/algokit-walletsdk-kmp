@@ -53,7 +53,7 @@ import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.button.AlgoKitPrimaryButton
 import com.michaeltchuang.walletsdk.ui.base.navigation.AlgoKitScreens
 import com.michaeltchuang.walletsdk.ui.signing.components.PendingTransactionLoaderWidget
-import com.michaeltchuang.walletsdk.ui.signing.viewmodels.ConfirmTransactionRequestViewModel
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.KeyRegConfirmViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -61,7 +61,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ConfirmTransactionRequestScreen(
     navController: NavController,
-    viewModel: ConfirmTransactionRequestViewModel = koinViewModel(),
+    viewModel: KeyRegConfirmViewModel = koinViewModel(),
     showSnackBar: (message: String, isError: Boolean) -> Unit,
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
@@ -73,10 +73,10 @@ fun ConfirmTransactionRequestScreen(
     LaunchedEffect(Unit) {
         viewModel.viewEvent.collect { event ->
             when (event) {
-                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionFailed -> {
+                is KeyRegConfirmViewModel.ViewEvent.SendSignedTransactionFailed -> {
                     showSnackBar(event.error, true)
                 }
-                is ConfirmTransactionRequestViewModel.ViewEvent.SendSignedTransactionSuccess -> {
+                is KeyRegConfirmViewModel.ViewEvent.SendSignedTransactionSuccess -> {
                     navController.navigate(AlgoKitScreens.TRANSACTION_SUCCESS_SCREEN.name + "/?transactionId=${event.transactionId}") {
                         popUpTo(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name) {
                             inclusive = true
@@ -88,11 +88,11 @@ fun ConfirmTransactionRequestScreen(
     }
 
     when (viewState) {
-        is ConfirmTransactionRequestViewModel.ViewState.Content -> {
+        is KeyRegConfirmViewModel.ViewState.Content -> {
             Content(navController, viewModel, minimumFee)
         }
 
-        is ConfirmTransactionRequestViewModel.ViewState.Loading -> {
+        is KeyRegConfirmViewModel.ViewState.Loading -> {
             PendingTransactionLoaderWidget()
         }
     }
@@ -101,7 +101,7 @@ fun ConfirmTransactionRequestScreen(
 @Composable
 fun Content(
     navController: NavController,
-    viewModel: ConfirmTransactionRequestViewModel,
+    viewModel: KeyRegConfirmViewModel,
     minimumFee: String,
 ) {
     Box(

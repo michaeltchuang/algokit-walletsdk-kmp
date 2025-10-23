@@ -20,6 +20,10 @@ import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetLocalAcc
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.DeleteAlgo25Account
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.DeleteFalcon24Account
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountAlgoBalance
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetAccountAlgoBalanceUseCase
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMinimumBalance
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetAccountMinimumBalanceUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMnemonic
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMnemonicUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetLocalAccount
@@ -68,6 +72,10 @@ val accountCoreModule =
         single<GetLocalAccount> { get<GetLocalAccountUseCase>() }
         single { GetAccountMnemonicUseCase(get(), get(), get()) }
         single<GetAccountMnemonic> { get<GetAccountMnemonicUseCase>() }
+        single { GetAccountAlgoBalanceUseCase(get()) }
+        single<GetAccountAlgoBalance> { get<GetAccountAlgoBalanceUseCase>() }
+        single { GetAccountMinimumBalanceUseCase(get()) }
+        single<GetAccountMinimumBalance> { get<GetAccountMinimumBalanceUseCase>() }
         single { GetAccountRegistrationTypeUseCase(get()) }
 
         single {

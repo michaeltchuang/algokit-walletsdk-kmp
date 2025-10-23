@@ -1,4 +1,7 @@
-package com.michaeltchuang.walletsdk.core.account.domain.usecase.local
+package com.michaeltchuang.walletsdk.core.account.domain.usecase.core
+
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountRekeyAdminAddress
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.IsAccountRekeyedToAnotherAccount
 
 internal class IsAccountRekeyedToAnotherAccountUseCase(
     private val getAccountRekeyAdminAddress: GetAccountRekeyAdminAddress,
