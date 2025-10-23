@@ -2,6 +2,7 @@ package com.michaeltchuang.walletsdk.core.algosdk
 
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.core.algosdk.domain.model.Algo25Account
+import com.michaeltchuang.walletsdk.core.foundation.utils.SuggestedParams
 import com.michaeltchuang.walletsdk.core.transaction.model.OfflineKeyRegTransactionPayload
 import com.michaeltchuang.walletsdk.core.transaction.model.OnlineKeyRegTransactionPayload
 
@@ -36,6 +37,35 @@ expect fun signAlgo25Transaction(
     transactionByteArray: ByteArray,
 ): ByteArray
 
+expect fun getReceiverMinBalanceFee(
+    receiverAlgoAmount: String,
+    receiverMinBalanceAmount: String,
+): Long
+
 expect fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray
 
 expect fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray
+
+expect fun makeAssetTransferTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    assetId: Long,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams
+): ByteArray
+
+expect fun makePaymentTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    isMax: Boolean,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams
+): ByteArray
+
+expect fun makeAssetAcceptanceTxn(
+    publicKey: String,
+    assetId: Long,
+    suggestedParams: SuggestedParams
+): ByteArray

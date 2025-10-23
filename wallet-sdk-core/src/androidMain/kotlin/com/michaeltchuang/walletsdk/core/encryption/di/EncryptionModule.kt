@@ -1,6 +1,5 @@
 package com.michaeltchuang.walletsdk.core.encryption.di
 
-import android.accounts.Account
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson

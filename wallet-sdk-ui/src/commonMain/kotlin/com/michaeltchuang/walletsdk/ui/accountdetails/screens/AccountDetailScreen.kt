@@ -152,6 +152,16 @@ fun AccountDetailScreen(
 
                     AccountDetailItem(
                         icon = Res.drawable.ic_unlink,
+                        isRemoveAccount = false,
+                        title = "Send funds to another account",
+                    ) {
+                        navController.navigate(AlgoKitScreens.ASSET_TRANSFER_SCREEN.name)
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    AccountDetailItem(
+                        icon = Res.drawable.ic_unlink,
                         isRemoveAccount = true,
                         title = stringResource(Res.string.remove_account),
                     ) {

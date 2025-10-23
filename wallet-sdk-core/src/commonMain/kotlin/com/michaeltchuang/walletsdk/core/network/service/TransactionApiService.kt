@@ -3,7 +3,7 @@ package com.michaeltchuang.walletsdk.core.network.service
 import com.michaeltchuang.walletsdk.core.network.model.SendTransactionResponse
 import com.michaeltchuang.walletsdk.core.network.model.TrackTransactionRequest
 import com.michaeltchuang.walletsdk.core.network.model.TransactionParams
-import com.michaeltchuang.walletsdk.utils.Result
+import com.michaeltchuang.walletsdk.core.foundation.utils.Result
 
 interface TransactionApiService {
     suspend fun getTransactionParams(): Result<TransactionParams>

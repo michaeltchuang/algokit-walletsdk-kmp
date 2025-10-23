@@ -1,5 +1,6 @@
 package com.michaeltchuang.walletsdk.ui.signing.di
 
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.AssetTransferViewModel
 import com.michaeltchuang.walletsdk.ui.signing.viewmodels.ConfirmTransactionRequestViewModel
 import com.michaeltchuang.walletsdk.ui.signing.viewmodels.TransactionSuccessViewModel
 import org.koin.core.module.dsl.viewModel
@@ -22,6 +23,16 @@ internal val signingModules =
             viewModel {
                 TransactionSuccessViewModel(
                     get(),
+                )
+            }
+
+            viewModel {
+                AssetTransferViewModel(
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                    get()
                 )
             }
         },

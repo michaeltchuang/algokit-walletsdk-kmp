@@ -347,7 +347,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = W84AABU7XA;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;

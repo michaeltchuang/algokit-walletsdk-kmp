@@ -49,6 +49,7 @@ import com.michaeltchuang.walletsdk.ui.settings.screens.LanguageScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.ThemeScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.AssetTransferScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.ConfirmTransactionRequestScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
@@ -81,6 +82,7 @@ enum class AlgoKitScreens {
     VIEW_PASSPHRASE_SCREEN,
     NODE_SETTINGS_SCREEN,
     FALCON24_WALLET_SELECTION_SCREEN,
+    ASSET_TRANSFER_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -363,6 +365,9 @@ fun NavigationBottomSheetNavHost(
                     address?.let { it1 ->
                         ViewPassphraseScreen(navController, it1)
                     }
+                }
+                composable(route = AlgoKitScreens.ASSET_TRANSFER_SCREEN.name) {
+                    AssetTransferScreen()
                 }
             }
         }

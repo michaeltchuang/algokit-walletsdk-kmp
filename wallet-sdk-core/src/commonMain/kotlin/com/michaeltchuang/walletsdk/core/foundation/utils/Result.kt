@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.utils
+package com.michaeltchuang.walletsdk.core.foundation.utils
 
 import kotlinx.io.IOException
 

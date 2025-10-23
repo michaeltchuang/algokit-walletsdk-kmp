@@ -1,0 +1,363 @@
+package com.michaeltchuang.walletsdk.ui.signing.screens
+
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.account
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.add_note
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.amount
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.confirm_transaction
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.confirm_transfer
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.done
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.enter_your_note
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_wallet
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.note
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.michaeltchuang.walletsdk.core.deeplink.model.KeyRegTransactionDetail
+import com.michaeltchuang.walletsdk.core.foundation.utils.toAlgoCurrency
+import com.michaeltchuang.walletsdk.core.foundation.utils.toShortenedAddress
+import com.michaeltchuang.walletsdk.core.transaction.signmanager.PendingTransactionRequestManger.txnDetail
+import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typography
+import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
+import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.button.AlgoKitPrimaryButton
+import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.icon.AlgoKitIconRoundShape
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.AssetTransferViewModel
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
+
+@Composable
+fun AssetTransferScreen() {
+    val viewModel: AssetTransferViewModel = koinViewModel()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(Unit) {
+        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
+    }
+    AssetTransferContent(viewModel)
+}
+
+@Composable
+fun AssetTransferContent(viewModel: AssetTransferViewModel) {
+    Box(
+        modifier =
+            Modifier
+                .background(color = AlgoKitTheme.colors.background)
+                .fillMaxSize()
+                .padding(16.dp),
+    ) {
+        Column {
+            AlgoKitTopBar(
+                title = stringResource(Res.string.confirm_transaction),
+                onClick = { },
+            )
+            AssetTransferContentItems()
+        }
+
+        AlgoKitPrimaryButton(
+            onClick = {
+                viewModel.sendTransaction()
+            },
+            text = stringResource(Res.string.confirm_transfer),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth(),
+        )
+    }
+}
+
+@Composable
+fun AssetTransferContentItems() {
+    Column(
+        modifier =
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .padding(bottom = 72.dp),
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+
+        AssetTransferAmountLabeledText(label = stringResource(Res.string.amount), value = "8.88")
+
+        AssetTransferDivider()
+
+        AssetTransferAccountLabeledText(
+            label = stringResource(Res.string.account),
+            value = "HVTAJEVD6WWVPY53MUZ6PRJ446WWV5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ"
+        )
+        AssetTransferAccountLabeledText(
+            label = "To",
+            value = "HVTAJEVD6WWVPY53MUZ6PRJ446WWV5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ",
+            isReceiver = true
+        )
+
+        AssetTransferLabeledText(label = "Fee", value = "0.001".toAlgoCurrency())
+        Spacer(modifier = Modifier.height(8.dp))
+        AssetTransferDivider()
+
+        AssetTransferLabeledText(label = "Current", value = "10.00".toAlgoCurrency())
+        AssetTransferLabeledText(
+            label = "Balance",
+            value = "10 ALGO"
+        )
+        AssetTransferDivider()
+
+        AssetTransferAddNote(txnDetail)
+    }
+}
+
+@Composable
+fun AssetTransferDivider() {
+    HorizontalDivider(
+        modifier = Modifier.padding(vertical = 16.dp),
+        thickness = DividerDefaults.Thickness,
+        color = AlgoKitTheme.colors.layerGray,
+    )
+}
+
+@Composable
+fun AssetTransferAmountLabeledText(
+    label: String,
+    value: String,
+) {
+    Row(modifier = Modifier.padding(vertical = 16.dp)) {
+        Text(
+            modifier = Modifier.fillMaxWidth(.25f),
+            text = label,
+            color = AlgoKitTheme.colors.textGray,
+            style = typography.body.regular.sansMedium,
+        )
+        Column {
+            Text(
+                text = "$value ALGO",
+                fontSize = 18.sp,
+                color = AlgoKitTheme.colors.textMain,
+                style = typography.body.regular.sansMedium,
+            )
+
+            Text(
+                text = "\u00A6 $value",
+                color = AlgoKitTheme.colors.textGray,
+                style = typography.body.regular.sansMedium,
+            )
+        }
+
+    }
+}
+
+
+@Composable
+fun AssetTransferAccountLabeledText(
+    label: String,
+    value: String,
+    isReceiver: Boolean = false,
+) {
+    Row(
+        modifier = Modifier.padding(vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(.20f),
+            text = label,
+            color = AlgoKitTheme.colors.textGray,
+            style = typography.body.regular.sansMedium,
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+
+            AlgoKitIconRoundShape(
+                imageVector = vectorResource(Res.drawable.ic_wallet),
+                contentDescription = "Wallet Icon",
+                backgroundColor = if (isReceiver) AlgoKitTheme.colors.layerGrayLighter else AlgoKitTheme.colors.wallet4,
+            )
+
+            if (isReceiver) {
+                Text(
+                    modifier = Modifier.padding(start = 16.dp),
+                    text = value,
+                    color = AlgoKitTheme.colors.textMain,
+                    style = typography.body.regular.sansMedium,
+                )
+            } else {
+                Text(
+                    modifier = Modifier.padding(start = 16.dp),
+                    text = value.toShortenedAddress(),
+                    color = AlgoKitTheme.colors.textMain,
+                    style = typography.body.regular.sansMedium,
+                )
+            }
+
+
+        }
+
+
+    }
+}
+
+@Composable
+fun AssetTransferLabeledText(
+    label: String,
+    value: String,
+) {
+    Row(modifier = Modifier.padding(vertical = 16.dp)) {
+        Text(
+            modifier = Modifier.fillMaxWidth(.25f),
+            text = label,
+            color = AlgoKitTheme.colors.textGray,
+            style = typography.body.regular.sansMedium,
+        )
+        Text(
+            text = value,
+            color = AlgoKitTheme.colors.textMain,
+            style = typography.body.regular.sansMedium,
+        )
+    }
+}
+
+@Composable
+fun AssetTransferAddNote(txnDetail: KeyRegTransactionDetail?) {
+    var isAddNoteEnabled by remember { mutableStateOf(false) }
+    var noteText by remember { mutableStateOf("") }
+    Column {
+        if (isAddNoteEnabled) {
+            AssetTransferAddNoteTextField(noteText, {
+                noteText = it
+            }, {
+                noteText = ""
+            }, {
+                txnDetail?.copy(note = noteText)
+                isAddNoteEnabled = false
+            })
+        } else {
+            Row(
+                modifier =
+                    Modifier.clickable(onClick = {
+                        isAddNoteEnabled = true
+                    }),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                LabeledText(stringResource(Res.string.note), "")
+                if (noteText.isNotEmpty()) {
+                    Text(
+                        style = typography.body.regular.sansMedium,
+                        text = noteText,
+                        color = AlgoKitTheme.colors.textMain,
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(Res.string.add_note),
+                        tint = AlgoKitTheme.colors.textMain,
+                    )
+                    Text(
+                        style = typography.body.large.sansMedium,
+                        text = stringResource(Res.string.add_note),
+                        color = AlgoKitTheme.colors.textMain,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AssetTransferAddNoteTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onClearClick: () -> Unit,
+    onDoneClick: () -> Unit,
+) {
+    Column(
+        Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(
+                style = typography.body.regular.sansMedium,
+                color = AlgoKitTheme.colors.textMain,
+                text = stringResource(Res.string.enter_your_note),
+            )
+
+            Text(
+                modifier = Modifier.clickable(onClick = onDoneClick),
+                style = typography.body.regular.sansMedium,
+                color = AlgoKitTheme.colors.textMain,
+                text = stringResource(Res.string.done),
+            )
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(vertical = 8.dp),
+                singleLine = true,
+                textStyle =
+                    LocalTextStyle.current.copy(
+                        color = AlgoKitTheme.colors.textMain,
+                        fontSize = 16.sp,
+                    ),
+            )
+            IconButton(onClick = onClearClick) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Clear",
+                    tint = Color.Gray,
+                )
+            }
+        }
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = Color.Gray,
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewAssetTransferScreen() {
+    AlgoKitTheme {
+        AssetTransferScreen()
+    }
+}
