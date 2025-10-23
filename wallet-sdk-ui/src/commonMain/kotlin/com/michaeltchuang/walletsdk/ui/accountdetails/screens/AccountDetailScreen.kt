@@ -145,7 +145,7 @@ fun AccountDetailScreen(
                         AccountDetailWebviewItem(
                             icon = Res.drawable.ic_algo_sign,
                             title = "Dispenser - Add funds to your account",
-                            url = "https://bank.testnet.algorand.network/?account=$address",
+                            url = "https://dispenser.testnet.aws.algodev.network/?account=$address",
                         )
                     }
 

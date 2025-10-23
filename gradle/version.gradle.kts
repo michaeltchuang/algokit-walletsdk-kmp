@@ -4,11 +4,12 @@ import java.io.ByteArrayOutputStream
 extra["calculateVersionCode"] = fun(): Int {
     val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
     val calendarQuarter: Int = libs.versions.algokit.walletsdk.calendar.quarter.get().toInt()
-    val githubRunNumber: Int = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: 888
+    val offset: Int = libs.versions.android.versionCode.offset.get().toInt()
+    val githubRunNumber: Int = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: 0
     return if (calendarQuarter > githubRunNumber)
-        githubRunNumber
+        githubRunNumber + offset
     else
-        888
+        offset
 }
 
 extra["calculateVersionName"] = fun(): String {
