@@ -1,10 +1,10 @@
 package com.michaeltchuang.walletsdk.core.deeplink.parser.query
 
-import com.michaeltchuang.walletsdk.core.deeplink.model.PeraUri
+import com.michaeltchuang.walletsdk.core.deeplink.model.AlgorandUri
 
 internal class WalletConnectUrlQueryParser : DeepLinkQueryParser<String?> {
-    override fun parseQuery(peraUri: PeraUri): String? =
-        with(peraUri) {
+    override fun parseQuery(algorandUri: AlgorandUri): String? =
+        with(algorandUri) {
             val parsedUrl =
                 if (isAppLink()) getUriFromAppLink(rawUri) else getUriFromDeepLink(rawUri)
             parsedUrl.takeIf { it?.startsWith(WALLET_CONNECT_AUTH_KEY) == true }

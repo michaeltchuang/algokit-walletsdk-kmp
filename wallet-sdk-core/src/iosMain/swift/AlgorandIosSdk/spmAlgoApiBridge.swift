@@ -183,6 +183,14 @@ import AlgoSDK
         }
     }
 
+    public func isValidAlgorandAddress(address: String?) -> Bool {
+        if address != nil {
+            return AlgoSDK.AlgoSdkIsValidAddress(address)
+        } else {
+            return false
+        }
+    }
+
     public func getAlgo25MnemonicFromSecretKey(secretKey: Data) -> String {
         var error: NSError?
         let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)

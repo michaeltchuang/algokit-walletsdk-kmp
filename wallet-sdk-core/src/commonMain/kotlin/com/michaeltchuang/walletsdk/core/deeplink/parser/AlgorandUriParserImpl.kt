@@ -1,11 +1,11 @@
 package com.michaeltchuang.walletsdk.core.deeplink.parser
 
-import com.michaeltchuang.walletsdk.core.deeplink.model.PeraUri
+import com.michaeltchuang.walletsdk.core.deeplink.model.AlgorandUri
 
-internal class PeraUriParserImpl : PeraUriParser {
-    override fun parseUri(uri: String): PeraUri {
+internal class AlgorandUriParserImpl : AlgorandUriParser {
+    override fun parseUri(uri: String): AlgorandUri {
         val matchResult = URI_REGEX.matchEntire(uri) ?: return createUriOnly(uri)
-        return PeraUri(
+        return AlgorandUri(
             scheme = getScheme(matchResult),
             host = getHost(matchResult),
             path = getPath(matchResult),
@@ -15,8 +15,8 @@ internal class PeraUriParserImpl : PeraUriParser {
         )
     }
 
-    private fun createUriOnly(uri: String): PeraUri =
-        PeraUri(
+    private fun createUriOnly(uri: String): AlgorandUri =
+        AlgorandUri(
             scheme = null,
             host = null,
             path = null,

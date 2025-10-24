@@ -25,6 +25,7 @@ actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountS
 
 actual fun createAlgo25Account(): Algo25Account? = AlgoAccountSdkImpl().createAlgo25Account()
 
+actual fun isValidAlgorandAddress(accountAddress: String): Boolean = AlgoAccountSdkImpl().isValidAlgorandAddress(accountAddress)
 actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? =
     AlgoAccountSdkImpl().getMnemonicFromAlgo25SecretKey(secretKey = secretKey)
 

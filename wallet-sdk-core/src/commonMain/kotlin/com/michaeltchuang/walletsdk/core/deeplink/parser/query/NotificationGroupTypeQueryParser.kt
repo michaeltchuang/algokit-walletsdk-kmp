@@ -1,21 +1,21 @@
 package com.michaeltchuang.walletsdk.core.deeplink.parser.query
 
 import com.michaeltchuang.walletsdk.core.deeplink.model.NotificationGroupType
-import com.michaeltchuang.walletsdk.core.deeplink.model.PeraUri
+import com.michaeltchuang.walletsdk.core.deeplink.model.AlgorandUri
 
 internal class NotificationGroupTypeQueryParser : DeepLinkQueryParser<NotificationGroupType?> {
-    override fun parseQuery(peraUri: PeraUri): NotificationGroupType? =
-        when (getNotificationGroupQueryOrNull(peraUri)) {
+    override fun parseQuery(algorandUri: AlgorandUri): NotificationGroupType? =
+        when (getNotificationGroupQueryOrNull(algorandUri)) {
             NOTIFICATION_ACTION_ASSET_TRANSACTIONS -> NotificationGroupType.TRANSACTIONS
             NOTIFICATION_ACTION_ASSET_OPTIN -> NotificationGroupType.OPT_IN
             NOTIFICATION_ASSET_INBOX -> NotificationGroupType.ASSET_INBOX
             else -> null
         }
 
-    private fun getNotificationGroupQueryOrNull(peraUri: PeraUri): String {
-        val builder = StringBuilder(peraUri.host.orEmpty())
-        if (!peraUri.path.isNullOrBlank()) {
-            builder.append("/").append(peraUri.path)
+    private fun getNotificationGroupQueryOrNull(algorandUri: AlgorandUri): String {
+        val builder = StringBuilder(algorandUri.host.orEmpty())
+        if (!algorandUri.path.isNullOrBlank()) {
+            builder.append("/").append(algorandUri.path)
         }
         return builder.toString()
     }

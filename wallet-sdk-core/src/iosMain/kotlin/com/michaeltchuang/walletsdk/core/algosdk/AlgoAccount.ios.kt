@@ -92,6 +92,12 @@ actual fun createAlgo25Account(): Algo25Account? {
 }
 
 @OptIn(ExperimentalForeignApi::class)
+actual fun isValidAlgorandAddress(address: String): Boolean {
+//    return spmAlgoApiBridge().isValidAlgorandAddress(address)
+    return true
+}
+
+@OptIn(ExperimentalForeignApi::class)
 actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
     var mnemonic: String? = null
     try {
