@@ -17,6 +17,7 @@ import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.DeleteHdKey
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetAccountAlgoBalanceUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetAccountMinimumBalanceUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetAccountRegistrationTypeUseCase
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetBasicAccountInformationUseCaseImpl
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetLocalAccountUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.GetLocalAccountsUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
@@ -26,6 +27,7 @@ import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccount
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMinimumBalance
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMnemonic
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMnemonicUseCase
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetBasicAccountInformationUseCase
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetLocalAccounts
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.recoverypassphrase.RecoverPassphraseUseCase
@@ -76,6 +78,7 @@ val accountCoreModule =
         single<GetAccountAlgoBalance> { get<GetAccountAlgoBalanceUseCase>() }
         single { GetAccountMinimumBalanceUseCase(get()) }
         single<GetAccountMinimumBalance> { get<GetAccountMinimumBalanceUseCase>() }
+        single<GetBasicAccountInformationUseCase> { GetBasicAccountInformationUseCaseImpl(get()) }
         single { GetAccountRegistrationTypeUseCase(get()) }
 
         single {

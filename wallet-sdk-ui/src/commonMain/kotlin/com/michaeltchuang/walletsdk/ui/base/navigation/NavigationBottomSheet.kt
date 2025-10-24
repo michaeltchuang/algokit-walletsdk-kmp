@@ -51,13 +51,14 @@ import com.michaeltchuang.walletsdk.ui.settings.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.ThemeScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.AssetTransferScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.ConfirmTransactionRequestScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.SelectAccountScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 enum class AlgoKitEvent {
     ALGO25_ACCOUNT_CREATED,
-    ClOSE_BOTTOMSHEET,
+    CLOSE_BOTTOMSHEET,
     HD_ACCOUNT_CREATED,
 }
 
@@ -83,6 +84,7 @@ enum class AlgoKitScreens {
     NODE_SETTINGS_SCREEN,
     FALCON24_WALLET_SELECTION_SCREEN,
     ASSET_TRANSFER_SCREEN,
+    SELECT_ACCOUNT_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,7 +109,7 @@ fun OnBoardingBottomSheet(
                         .async {
                             sheetState.hide()
                         }.await()
-                    onAlgoKitEvent(AlgoKitEvent.ClOSE_BOTTOMSHEET)
+                    onAlgoKitEvent(AlgoKitEvent.CLOSE_BOTTOMSHEET)
                 }
             },
             sheetState = sheetState,
@@ -131,7 +133,7 @@ fun OnBoardingBottomSheet(
                             .async {
                                 sheetState.hide()
                             }.await()
-                        onAlgoKitEvent(AlgoKitEvent.ClOSE_BOTTOMSHEET)
+                        onAlgoKitEvent(AlgoKitEvent.CLOSE_BOTTOMSHEET)
                     }
                 },
             ) {
@@ -204,9 +206,9 @@ fun NavigationBottomSheetNavHost(
                     }
                 }
                 composable(AlgoKitScreens.ON_BOARDING_ACCOUNT_TYPE_SCREEN.name) {
-                    OnboardingAccountTypeScreen(navController) {
+                    OnboardingAccountTypeScreen(navController) { message ->
                         coroutineScope.launch {
-                            snackbarHostState.showSnackbar(it)
+                            snackbarHostState.showSnackbar(message)
                         }
                     }
                 }
@@ -394,6 +396,31 @@ fun NavigationBottomSheetNavHost(
                     AssetTransferScreen(
                         navController = navController,
                         senderAddress = sender,
+                        receiverAddress = receiver,
+                        amount = amount,
+                    )
+                }
+                composable(
+                    route = AlgoKitScreens.SELECT_ACCOUNT_SCREEN.name + "?receiver={receiver}&amount={amount}",
+                    arguments =
+                        listOf(
+                            navArgument("receiver") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("amount") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = "0" // in microalgos big integer
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val receiver = backStackEntry.arguments?.getString("receiver") ?: ""
+                    val amount = backStackEntry.arguments?.getString("amount") ?: "0.00"
+
+                    SelectAccountScreen(
+                        navController = navController,
                         receiverAddress = receiver,
                         amount = amount,
                     )

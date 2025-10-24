@@ -3,7 +3,7 @@ package com.michaeltchuang.walletsdk.core.deeplink.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class PeraUri(
+internal data class AlgorandUri(
     val scheme: String?,
     val host: String?,
     val path: String?,
@@ -15,7 +15,7 @@ internal data class PeraUri(
 
     fun getQueryParam(key: String): String? = queryParams[key]
 
-    private companion object {
+    private companion object Companion {
         const val PERAWALLET_APPLINK_AUTH_KEY = "perawallet.app"
     }
 }

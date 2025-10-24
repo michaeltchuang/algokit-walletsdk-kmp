@@ -43,6 +43,15 @@ fun QRCodeScannerScreen(
                     navController.navigate(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name)
                 }
 
+                is QRScannerViewModel.ViewEvent.NavigateToSelectAccountScreen -> {
+                    // Navigate to SelectAccountScreen with receiver address and amount
+                    navController.navigate(
+                        AlgoKitScreens.SELECT_ACCOUNT_SCREEN.name +
+                            "?receiver=${it.assetTransfer.receiverAccountAddress}" +
+                            "&amount=${it.assetTransfer.amount}",
+                    )
+                }
+
                 is QRScannerViewModel.ViewEvent.ShowUnrecognizedDeeplink -> {
                     onQrScanned("Unrecognized QR Code")
                 }

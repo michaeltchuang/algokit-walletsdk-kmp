@@ -69,3 +69,5 @@ expect fun makeAssetAcceptanceTxn(
     assetId: Long,
     suggestedParams: SuggestedParams,
 ): ByteArray
+
+expect fun isValidAlgorandAddress(accountAddress: String): Boolean

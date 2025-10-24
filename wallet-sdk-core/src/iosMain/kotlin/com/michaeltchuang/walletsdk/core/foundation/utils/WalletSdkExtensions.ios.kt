@@ -7,17 +7,67 @@ import com.michaeltchuang.walletsdk.core.deeplink.utils.AssetConstants.ALGO_ID
 import com.michaeltchuang.walletsdk.core.network.model.TransactionParams
 import io.ktor.utils.io.charsets.Charsets
 import io.ktor.utils.io.core.toByteArray
+import io.ktor.util.decodeBase64Bytes
+
+const val ROUND_THRESHOLD = 1000L
 
 actual fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray = ByteArray(0)
 
-actual class SuggestedParams
+actual data class SuggestedParams(
+    var fee: Long = 0,
+    var genesisID: String = "",
+    var firstRoundValid: Long = 0,
+    var lastRoundValid: Long = 0,
+    var genesisHash: ByteArray = ByteArray(0),
+    var flatFee: Boolean = false,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as SuggestedParams
+
+        if (fee != other.fee) return false
+        if (genesisID != other.genesisID) return false
+        if (firstRoundValid != other.firstRoundValid) return false
+        if (lastRoundValid != other.lastRoundValid) return false
+        if (!genesisHash.contentEquals(other.genesisHash)) return false
+        if (flatFee != other.flatFee) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = fee.hashCode()
+        result = 31 * result + genesisID.hashCode()
+        result = 31 * result + firstRoundValid.hashCode()
+        result = 31 * result + lastRoundValid.hashCode()
+        result = 31 * result + genesisHash.contentHashCode()
+        result = 31 * result + flatFee.hashCode()
+        return result
+    }
+}
 
 actual class TransactionParams
 
 actual class BytesArray
 
 actual fun TransactionParams.toSuggestedParams(addGenesisId: Boolean): SuggestedParams {
-    TODO("Not yet implemented")
+    // Cast to the actual TransactionParams type
+    val params = this as com.michaeltchuang.walletsdk.core.network.model.TransactionParams
+
+    return SuggestedParams(
+        fee = params.fee,
+        genesisID = if (addGenesisId) params.genesisId else "",
+        firstRoundValid = params.lastRound,
+        lastRoundValid = params.lastRound + ROUND_THRESHOLD,
+        genesisHash = try {
+            params.genesisHash.decodeBase64Bytes()
+        } catch (e: Exception) {
+            println("Error decoding genesis hash: ${e.message}")
+            ByteArray(0)
+        }
+    )
 }
 
 actual fun ByteArray.signTx(secretKey: ByteArray): ByteArray = ByteArray(0)

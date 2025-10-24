@@ -183,6 +183,14 @@ import AlgoSDK
         }
     }
 
+    public func isValidAlgorandAddress(address: String?) -> Bool {
+        if address != nil {
+            return AlgoSDK.AlgoSdkIsValidAddress(address)
+        } else {
+            return false
+        }
+    }
+
     public func getAlgo25MnemonicFromSecretKey(secretKey: Data) -> String {
         var error: NSError?
         let mnemonic = AlgoSDK.AlgoSdkMnemonicFromPrivateKey(secretKey, &error)
@@ -465,6 +473,178 @@ import AlgoSDK
                 print("Error creating Online KeyReg Tx (SDK failed): \(error.localizedDescription)")
             } else {
                 print("Failed to create Online KeyReg Tx: unknown SDK error.")
+            }
+            return Data()
+        }
+
+        return encodedTx
+    }
+
+    public func makePaymentTxn(
+        senderAddress: String,
+        receiverAddress: String,
+        amount: String,
+        isMax: Bool,
+        noteBase64: String?,
+        fee: Int64,
+        flatFee: Bool,
+        firstRound: Int64,
+        lastRound: Int64,
+        genesisHashBase64: String,
+        genesisID: String
+    ) -> Data {
+        guard let genesisHashData = Data(base64Encoded: genesisHashBase64) else {
+            print("Error creating Payment Tx: Failed to decode genesisHash.")
+            return Data()
+        }
+
+        let params = AlgoSdkSuggestedParams()
+        params.fee = fee
+        params.flatFee = flatFee
+        params.firstRoundValid = firstRound
+        params.lastRoundValid = lastRound
+        params.genesisHash = genesisHashData
+        params.genesisID = genesisID
+
+        let noteData = noteBase64.flatMap {
+            Data(base64Encoded: $0)
+        }
+
+        // Convert amount string to UInt64 wrapper
+        guard let amountValue = UInt64(amount) else {
+            print("Error: Failed to convert amount to UInt64")
+            return Data()
+        }
+
+        let amountWrapper = AlgoSdkUint64()
+        amountWrapper.upper = Int64(amountValue >> 32)
+        amountWrapper.lower = Int64(amountValue & 0xFFFFFFFF)
+
+        var error: NSError?
+        let closeRemainderTo = isMax ? receiverAddress : ""
+
+        guard let encodedTx = AlgoSDK.AlgoSdkMakePaymentTxn(
+            senderAddress,
+            receiverAddress,
+            amountWrapper,
+            noteData,
+            closeRemainderTo,
+            params,
+            &error
+        )
+        else {
+            if let error = error {
+                print("Error creating Payment Tx (SDK failed): \(error.localizedDescription)")
+            } else {
+                print("Failed to create Payment Tx: unknown SDK error.")
+            }
+            return Data()
+        }
+
+        return encodedTx
+    }
+
+    public func makeAssetTransferTxn(
+        senderAddress: String,
+        receiverAddress: String,
+        amount: String,
+        assetId: Int64,
+        noteBase64: String?,
+        fee: Int64,
+        flatFee: Bool,
+        firstRound: Int64,
+        lastRound: Int64,
+        genesisHashBase64: String,
+        genesisID: String
+    ) -> Data {
+        guard let genesisHashData = Data(base64Encoded: genesisHashBase64) else {
+            print("Error creating Asset Transfer Tx: Failed to decode genesisHash.")
+            return Data()
+        }
+
+        let params = AlgoSdkSuggestedParams()
+        params.fee = fee
+        params.flatFee = flatFee
+        params.firstRoundValid = firstRound
+        params.lastRoundValid = lastRound
+        params.genesisHash = genesisHashData
+        params.genesisID = genesisID
+
+        let noteData = noteBase64.flatMap {
+            Data(base64Encoded: $0)
+        }
+
+        // Convert amount string to UInt64 wrapper
+        guard let amountValue = UInt64(amount) else {
+            print("Error: Failed to convert amount to UInt64")
+            return Data()
+        }
+
+        let amountWrapper = AlgoSdkUint64()
+        amountWrapper.upper = Int64(amountValue >> 32)
+        amountWrapper.lower = Int64(amountValue & 0xFFFFFFFF)
+
+        var error: NSError?
+
+        guard let encodedTx = AlgoSDK.AlgoSdkMakeAssetTransferTxn(
+            senderAddress,
+            receiverAddress,
+            "", // closeRemainderTo
+            amountWrapper,
+            noteData,
+            params,
+            assetId,
+            &error
+        )
+        else {
+            if let error = error {
+                print("Error creating Asset Transfer Tx (SDK failed): \(error.localizedDescription)")
+            } else {
+                print("Failed to create Asset Transfer Tx: unknown SDK error.")
+            }
+            return Data()
+        }
+
+        return encodedTx
+    }
+
+    public func makeAssetAcceptanceTxn(
+        publicKey: String,
+        assetId: Int64,
+        fee: Int64,
+        flatFee: Bool,
+        firstRound: Int64,
+        lastRound: Int64,
+        genesisHashBase64: String,
+        genesisID: String
+    ) -> Data {
+        guard let genesisHashData = Data(base64Encoded: genesisHashBase64) else {
+            print("Error creating Asset Acceptance Tx: Failed to decode genesisHash.")
+            return Data()
+        }
+
+        let params = AlgoSdkSuggestedParams()
+        params.fee = fee
+        params.flatFee = flatFee
+        params.firstRoundValid = firstRound
+        params.lastRoundValid = lastRound
+        params.genesisHash = genesisHashData
+        params.genesisID = genesisID
+
+        var error: NSError?
+
+        guard let encodedTx = AlgoSDK.AlgoSdkMakeAssetAcceptanceTxn(
+            publicKey,
+            nil, // note
+            params,
+            assetId,
+            &error
+        )
+        else {
+            if let error = error {
+                print("Error creating Asset Acceptance Tx (SDK failed): \(error.localizedDescription)")
+            } else {
+                print("Failed to create Asset Acceptance Tx: unknown SDK error.")
             }
             return Data()
         }

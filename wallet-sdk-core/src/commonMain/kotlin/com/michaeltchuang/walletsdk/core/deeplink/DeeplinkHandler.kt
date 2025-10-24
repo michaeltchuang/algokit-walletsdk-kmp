@@ -26,6 +26,8 @@ class DeeplinkHandler(
         when (deepLink) {
             is DeepLink.Mnemonic -> handleMnemonicDeepLink(deepLink)
             is DeepLink.KeyReg -> handleKeyReg(deepLink)
+            is DeepLink.AssetTransfer -> handleAssetTransfer(deepLink)
+            is DeepLink.AccountAddress -> handleAccountAddress(deepLink)
             else -> {
                 handleUnrecognizedDeepLink()
             }
@@ -44,6 +46,18 @@ class DeeplinkHandler(
         }
     }
 
+    private fun handleAssetTransfer(deepLink: DeepLink.AssetTransfer) {
+        CoroutineScope(Dispatchers.Main).launch {
+            _deepLinkState.emit(DeepLinkState.AssetTransfer(deepLink))
+        }
+    }
+
+    private fun handleAccountAddress(deepLink: DeepLink.AccountAddress) {
+        CoroutineScope(Dispatchers.Main).launch {
+            _deepLinkState.emit(DeepLinkState.AccountAddress(deepLink))
+        }
+    }
+
     private fun handleUnrecognizedDeepLink() {
         CoroutineScope(Dispatchers.Main).launch {
             _deepLinkState.emit(DeepLinkState.OnUnrecognizedDeepLink)
@@ -57,6 +71,14 @@ class DeeplinkHandler(
 
         data class KeyReg(
             var keyReg: DeepLink.KeyReg,
+        ) : DeepLinkState()
+
+        data class AssetTransfer(
+            var assetTransfer: DeepLink.AssetTransfer,
+        ) : DeepLinkState()
+
+        data class AccountAddress(
+            var accountAddress: DeepLink.AccountAddress,
         ) : DeepLinkState()
 
         object OnUnrecognizedDeepLink : DeepLinkState()

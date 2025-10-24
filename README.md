@@ -88,15 +88,16 @@ timeline
             : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
             : ✅ Account Details - Add testnet dispenser link
-            : 🔄 Transaction - Send Algo flow (between accounts)
+            : ✅ Transaction - Send Algo using QR code flow (between accounts)
+            : 🔄 Transaction - Send Algo using account detail flow (between accounts)
             : ✅ Settings - Localization (Italian)
             : Settings - Localization (Hindi)
             : ✅ GitOps - Setup Play store for demo Android app releases
             : GitOps - Setup App store for demo iOS app releases
-            : Testing - Setup unit test coverage foundation
 
     section Future
     2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
+            : Testing - Setup unit test coverage foundation
             : Onboarding - Passkeys / Liquid Auth
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow
@@ -282,4 +283,9 @@ For QR code importing, you can use a tool like [Cyber Chef](https://gchq.github.
 ### KeyReg offline (account address should exist on device)
 ```
 algorand://ANUR5SYMURBFD3ELITINYNTHVAKKBCWJ7LGHJRPMQM3KQG25ENMIHYEBNY?type=keyreg
+```
+
+### Asset Transfer (receiver address & amount in microAlgos)
+```
+algorand://7N54HZSGBRQF7FW6YNC6F5H42AT5OXN3F5OQDAXF6H6PDFHNXIEBCJFHOY?amount=1000000&note=1_ALGO_Transfer
 ```

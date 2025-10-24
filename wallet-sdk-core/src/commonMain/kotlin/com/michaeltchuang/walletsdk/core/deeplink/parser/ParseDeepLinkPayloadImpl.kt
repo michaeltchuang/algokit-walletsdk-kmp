@@ -4,29 +4,31 @@ import com.michaeltchuang.walletsdk.core.deeplink.model.DeepLinkPayload
 import com.michaeltchuang.walletsdk.core.deeplink.parser.query.DeepLinkQueryParser
 
 internal class ParseDeepLinkPayloadImpl(
-    private val peraUriParser: PeraUriParser,
+    private val algorandUriParser: AlgorandUriParser,
+    private val accountAddressQueryParser: DeepLinkQueryParser<String?>,
     private val mnemonicQueryParser: DeepLinkQueryParser<String?>,
 ) : ParseDeepLinkPayload {
     override fun invoke(url: String): DeepLinkPayload {
-        val peraUri = peraUriParser.parseUri(url)
+        val algorandUri = algorandUriParser.parseUri(url)
         return DeepLinkPayload(
-            amount = peraUri.getQueryParam(AMOUNT_QUERY_KEY),
-            note = peraUri.getQueryParam(NOTE_QUERY_KEY),
-            xnote = peraUri.getQueryParam(XNOTE_QUERY_KEY),
-            label = peraUri.getQueryParam(LABEL_QUERY_KEY),
-            transactionId = peraUri.getQueryParam(TRANSACTION_ID_KEY),
-            transactionStatus = peraUri.getQueryParam(TRANSACTION_STATUS_KEY),
-            mnemonic = mnemonicQueryParser.parseQuery(peraUri),
-            fee = peraUri.getQueryParam(FEE_QUERY_KEY),
-            votekey = peraUri.getQueryParam(VOTEKEY_QUERY_KEY),
-            selkey = peraUri.getQueryParam(SELKEY_QUERY_KEY),
-            sprfkey = peraUri.getQueryParam(SPRFKEY_QUERY_KEY),
-            votefst = peraUri.getQueryParam(VOTEFST_QUERY_KEY),
-            votelst = peraUri.getQueryParam(VOTELST_QUERY_KEY),
-            votekd = peraUri.getQueryParam(VOTEKD_QUERY_KEY),
-            type = peraUri.getQueryParam(TYPE_QUERY_KEY),
-            path = peraUri.getQueryParam(PATH_KEY),
-            host = peraUri.host,
+            accountAddress = accountAddressQueryParser.parseQuery(algorandUri),
+            amount = algorandUri.getQueryParam(AMOUNT_QUERY_KEY),
+            note = algorandUri.getQueryParam(NOTE_QUERY_KEY),
+            xnote = algorandUri.getQueryParam(XNOTE_QUERY_KEY),
+            label = algorandUri.getQueryParam(LABEL_QUERY_KEY),
+            transactionId = algorandUri.getQueryParam(TRANSACTION_ID_KEY),
+            transactionStatus = algorandUri.getQueryParam(TRANSACTION_STATUS_KEY),
+            mnemonic = mnemonicQueryParser.parseQuery(algorandUri),
+            fee = algorandUri.getQueryParam(FEE_QUERY_KEY),
+            votekey = algorandUri.getQueryParam(VOTEKEY_QUERY_KEY),
+            selkey = algorandUri.getQueryParam(SELKEY_QUERY_KEY),
+            sprfkey = algorandUri.getQueryParam(SPRFKEY_QUERY_KEY),
+            votefst = algorandUri.getQueryParam(VOTEFST_QUERY_KEY),
+            votelst = algorandUri.getQueryParam(VOTELST_QUERY_KEY),
+            votekd = algorandUri.getQueryParam(VOTEKD_QUERY_KEY),
+            type = algorandUri.getQueryParam(TYPE_QUERY_KEY),
+            path = algorandUri.getQueryParam(PATH_KEY),
+            host = algorandUri.host,
             rawDeepLinkUri = url,
         )
     }

@@ -9,7 +9,7 @@ object AssetConstants {
     const val ALGORAND_DISCORD_URL = "https://discord.com/invite/84AActu3at"
     const val ALGORAND_TELEGRAM_URL = "https://t.me/algorand"
     const val ALGORAND_TWITTER_USERNAME = "Algorand"
-    const val ALGORAND_WEBSITE_URL = "https://algorand.com"
+    const val ALGORAND_WEBSITE_URL = "https://algorand.co"
     const val MINIMUM_CURRENCY_VALUE_TO_DISPLAY_EXACT_AMOUNT = "0.000001"
     // val ALGO_TOTAL_SUPPLY: BigDecimal = "10000000000".toBigDecimal()
 

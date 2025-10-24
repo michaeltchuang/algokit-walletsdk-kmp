@@ -7,5 +7,7 @@ interface AlgoAccountSdk {
 
     fun recoverAlgo25Account(mnemonic: String): Algo25Account?
 
+    fun isValidAlgorandAddress(address: String): Boolean
+
     fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String?
 }
