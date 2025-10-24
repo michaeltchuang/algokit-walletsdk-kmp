@@ -7,6 +7,7 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.copy_address
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_sign
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_key
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_send
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_unlink
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.remove_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_passphrase
@@ -41,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.michaeltchuang.walletsdk.core.foundation.utils.Log
 import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants
 import com.michaeltchuang.walletsdk.ui.accountdetails.components.AccountDetailItem
@@ -145,6 +147,20 @@ fun AccountDetailScreen(
                             icon = Res.drawable.ic_algo_sign,
                             title = "Dispenser - Add funds to your account",
                             url = "https://dispenser.testnet.aws.algodev.network/?account=$address",
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    AccountDetailItem(
+                        icon = Res.drawable.ic_send,
+                        isRemoveAccount = false,
+                        title = "Send funds to another account",
+                    ) {
+                        val receiver = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS
+                        val amount = BigInteger.fromLong(5000000)
+                        navController.navigate(
+                            "${AlgoKitScreens.ASSET_TRANSFER_SCREEN.name}?sender=$address&receiver=$receiver&amount=$amount",
                         )
                     }
 

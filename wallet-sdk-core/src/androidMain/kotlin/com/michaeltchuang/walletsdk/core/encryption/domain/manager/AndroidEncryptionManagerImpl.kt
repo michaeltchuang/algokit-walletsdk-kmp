@@ -15,7 +15,6 @@ internal class AndroidEncryptionManagerImpl(
     private val getStrongBoxUsedCheck: GetStrongBoxUsedCheck,
     private val saveStrongBoxUsedCheck: SaveStrongBoxUsedCheck,
 ) : AndroidEncryptionManager {
-
     override suspend fun initializeEncryptionManager() {
         generateKeyIfNeeded()
     }
@@ -47,8 +46,9 @@ internal class AndroidEncryptionManagerImpl(
 
     private fun initializeStrongBoxEncryption() {
         val keyGenerator = getKeyGenerator()
-        val testBuilder = getKeyGenParameterSpecBuilder(STRONG_BOX_TEST_ALIAS)
-            .setIsStrongBoxBacked(true)
+        val testBuilder =
+            getKeyGenParameterSpecBuilder(STRONG_BOX_TEST_ALIAS)
+                .setIsStrongBoxBacked(true)
         keyGenerator.init(testBuilder.build())
     }
 
@@ -91,15 +91,12 @@ internal class AndroidEncryptionManagerImpl(
         }
     }
 
-    private fun getKeyStore(): KeyStore {
-        return KeyStore.getInstance(ANDROID_KEYSTORE).apply {
+    private fun getKeyStore(): KeyStore =
+        KeyStore.getInstance(ANDROID_KEYSTORE).apply {
             load(null)
         }
-    }
 
-    private fun getKeyGenerator(): KeyGenerator {
-        return KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
-    }
+    private fun getKeyGenerator(): KeyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
 
     private suspend fun generateKeyIfNeeded() {
         val keyStore = getKeyStore()
@@ -122,17 +119,20 @@ internal class AndroidEncryptionManagerImpl(
         }
     }
 
-    private fun getKeyGenParameterSpecBuilder(alias: String): KeyGenParameterSpec.Builder {
-        return KeyGenParameterSpec.Builder(
-            alias,
-            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-        )
-            .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    private fun getKeyGenParameterSpecBuilder(alias: String): KeyGenParameterSpec.Builder =
+        KeyGenParameterSpec
+            .Builder(
+                alias,
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT,
+            ).setBlockModes(KeyProperties.BLOCK_MODE_GCM)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
             .setKeySize(ENCRYPTION_KEY_SIZE_IN_BITS)
-    }
 
-    private fun createKey(keyGenerator: KeyGenerator, alias: String, useStrongBox: Boolean) {
+    private fun createKey(
+        keyGenerator: KeyGenerator,
+        alias: String,
+        useStrongBox: Boolean,
+    ) {
         val builder = getKeyGenParameterSpecBuilder(alias)
 
         if (useStrongBox) {

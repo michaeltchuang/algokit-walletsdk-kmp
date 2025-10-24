@@ -24,28 +24,30 @@ fun NetworkStatusBar(modifier: Modifier = Modifier) {
 
     currentNetwork?.let { network ->
         Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(
-                    when (network) {
-                        AlgorandNetwork.TESTNET -> ColorPalette.Purple100
-                        AlgorandNetwork.MAINNET -> ColorPalette.Purple100
-                    }
-                )
-                .padding(vertical = 4.dp),
-            contentAlignment = Alignment.Center
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .background(
+                        when (network) {
+                            AlgorandNetwork.TESTNET -> ColorPalette.Purple100
+                            AlgorandNetwork.MAINNET -> ColorPalette.Purple100
+                        },
+                    ).padding(vertical = 4.dp),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = when (network) {
-                    AlgorandNetwork.TESTNET -> "Testnet"
-                    AlgorandNetwork.MAINNET -> "Mainnet"
-                },
-                color = when (network) {
-                    AlgorandNetwork.TESTNET -> AlgoKitTheme.colors.testnetText
-                    AlgorandNetwork.MAINNET -> AlgoKitTheme.colors.testnetText
-                },
+                text =
+                    when (network) {
+                        AlgorandNetwork.TESTNET -> "Testnet"
+                        AlgorandNetwork.MAINNET -> "Mainnet"
+                    },
+                color =
+                    when (network) {
+                        AlgorandNetwork.TESTNET -> AlgoKitTheme.colors.testnetText
+                        AlgorandNetwork.MAINNET -> AlgoKitTheme.colors.testnetText
+                    },
                 style = AlgoKitTheme.typography.footnote.sansMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }

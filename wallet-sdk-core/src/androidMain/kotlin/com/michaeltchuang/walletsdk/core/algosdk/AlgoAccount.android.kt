@@ -13,13 +13,13 @@ import com.michaeltchuang.walletsdk.core.algosdk.transaction.sdk.AlgoKitBip39Sdk
 import com.michaeltchuang.walletsdk.core.algosdk.transaction.sdk.AlgoSdkNumberExtensions.toUint64
 import com.michaeltchuang.walletsdk.core.algosdk.transaction.sdk.SignFalcon24TransactionImpl
 import com.michaeltchuang.walletsdk.core.algosdk.transaction.sdk.SignHdKeyTransactionImpl
+import com.michaeltchuang.walletsdk.core.foundation.utils.SuggestedParams
 import com.michaeltchuang.walletsdk.core.foundation.utils.toSuggestedParams
 import com.michaeltchuang.walletsdk.core.foundation.utils.urlSafeBase64ToStandard
 import com.michaeltchuang.walletsdk.core.transaction.model.OfflineKeyRegTransactionPayload
 import com.michaeltchuang.walletsdk.core.transaction.model.OnlineKeyRegTransactionPayload
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
-import kotlin.jvm.java
 
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? = AlgoAccountSdkImpl().recoverAlgo25Account(mnemonic = mnemonic)
 
@@ -132,3 +132,59 @@ actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray
             false,
         )
     }
+
+actual fun getReceiverMinBalanceFee(
+    receiverAlgoAmount: String,
+    receiverMinBalanceAmount: String,
+): Long =
+    Sdk.getReceiverMinBalanceFee(
+        receiverAlgoAmount.toBigInteger().toUint64(),
+        receiverMinBalanceAmount.toBigInteger().toUint64(),
+    )
+
+actual fun makeAssetTransferTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    assetId: Long,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makeAssetTransferTxn(
+        senderAddress,
+        receiverAddress,
+        "",
+        amount.toBigInteger().toUint64(),
+        noteInByteArray,
+        suggestedParams,
+        assetId,
+    )
+
+actual fun makePaymentTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    isMax: Boolean,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makePaymentTxn(
+        senderAddress,
+        receiverAddress,
+        amount.toBigInteger().toUint64(),
+        noteInByteArray,
+        if (isMax) receiverAddress else "",
+        suggestedParams,
+    )
+
+actual fun makeAssetAcceptanceTxn(
+    publicKey: String,
+    assetId: Long,
+    suggestedParams: SuggestedParams,
+): ByteArray =
+    Sdk.makeAssetAcceptanceTxn(
+        publicKey,
+        null,
+        suggestedParams,
+        assetId,
+    )

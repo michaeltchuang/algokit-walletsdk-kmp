@@ -4,7 +4,5 @@ import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreati
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
 class Algo25AccountTypeMapperImpl : Algo25AccountTypeMapper {
-    override fun invoke(secretKey: ByteArray): AccountCreation.Type.Algo25 {
-        return AccountCreation.Type.Algo25(encryptByteArray(secretKey))
-    }
+    override fun invoke(secretKey: ByteArray): AccountCreation.Type.Algo25 = AccountCreation.Type.Algo25(encryptByteArray(secretKey))
 }

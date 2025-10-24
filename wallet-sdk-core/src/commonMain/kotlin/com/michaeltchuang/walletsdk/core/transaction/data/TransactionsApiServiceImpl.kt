@@ -1,11 +1,11 @@
 package com.michaeltchuang.walletsdk.core.transaction.data
 
+import com.michaeltchuang.walletsdk.core.foundation.utils.Result
 import com.michaeltchuang.walletsdk.core.network.model.SendTransactionResponse
 import com.michaeltchuang.walletsdk.core.network.model.TrackTransactionRequest
 import com.michaeltchuang.walletsdk.core.network.model.TransactionParams
 import com.michaeltchuang.walletsdk.core.network.service.TransactionApiService
 import com.michaeltchuang.walletsdk.core.network.utils.getNodeBaseUrl
-import com.michaeltchuang.walletsdk.utils.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

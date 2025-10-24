@@ -11,6 +11,7 @@ import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.core.algosdk.domain.model.Algo25Account
+import com.michaeltchuang.walletsdk.core.foundation.utils.SuggestedParams
 import com.michaeltchuang.walletsdk.core.transaction.model.OfflineKeyRegTransactionPayload
 import com.michaeltchuang.walletsdk.core.transaction.model.OnlineKeyRegTransactionPayload
 import io.ktor.util.decodeBase64Bytes
@@ -390,3 +391,32 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
                     publicKey = publicKey,
                 )
     }
+
+actual fun getReceiverMinBalanceFee(
+    receiverAlgoAmount: String,
+    receiverMinBalanceAmount: String,
+): Long = Long.MAX_VALUE
+
+actual fun makeAssetTransferTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    assetId: Long,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)
+
+actual fun makePaymentTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    isMax: Boolean,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)
+
+actual fun makeAssetAcceptanceTxn(
+    publicKey: String,
+    assetId: Long,
+    suggestedParams: SuggestedParams,
+): ByteArray = ByteArray(0)

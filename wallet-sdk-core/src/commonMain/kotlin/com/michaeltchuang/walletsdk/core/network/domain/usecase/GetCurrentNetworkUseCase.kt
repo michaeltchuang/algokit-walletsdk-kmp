@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class GetCurrentNetworkUseCase(
     private val nodePreferenceRepository: NodePreferenceRepository,
 ) {
-    operator fun invoke(): Flow<AlgorandNetwork> =
-        nodePreferenceRepository.getSavedNodePreferenceFlow()
+    operator fun invoke(): Flow<AlgorandNetwork> = nodePreferenceRepository.getSavedNodePreferenceFlow()
 }
