@@ -1,4 +1,4 @@
-package com.michaeltchuang.walletsdk.demo.ui.viewmodel
+package com.michaeltchuang.walletsdk.ui.signing.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,37 +9,38 @@ import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
-import com.michaeltchuang.walletsdk.core.network.model.AlgorandNetwork
-import com.michaeltchuang.walletsdk.ui.settings.screens.networkNodeSettings
 import kotlinx.coroutines.launch
 
-class AccountListViewModel(
+class SelectAccountViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
     private val getBasicAccountInformationUseCase: GetBasicAccountInformationUseCase,
     private val stateDelegate: StateDelegate<AccountsState>,
-    private val eventDelegate: EventDelegate<AccountsEvent>,
+    private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
-    StateViewModel<AccountListViewModel.AccountsState> by stateDelegate,
-    EventViewModel<AccountListViewModel.AccountsEvent> by eventDelegate {
-    var accountLite = emptyList<AccountLite>()
-    private var currentNetwork: AlgorandNetwork? = null
+    StateViewModel<SelectAccountViewModel.AccountsState> by stateDelegate,
+    EventViewModel<SelectAccountViewModel.ViewEvent> by eventDelegate {
+    private var receiverAddress: String = ""
+    private var amount: String = ""
 
     init {
-        stateDelegate.setDefaultState(AccountsState.Idle)
+        stateDelegate.setDefaultState(AccountsState.Loading)
+    }
 
-        // Listen for network changes and refetch accounts when network changes
-        viewModelScope.launch {
-            networkNodeSettings.collect { network ->
-                fetchAccounts()
-            }
-        }
+    fun setup(
+        receiverAddress: String,
+        amount: String,
+    ) {
+        this.receiverAddress = receiverAddress
+        this.amount = amount
+        fetchAccounts()
     }
 
     fun fetchAccounts() {
         stateDelegate.updateState { AccountsState.Loading }
         viewModelScope.launch {
             try {
-                accountLite = nameRegistrationUseCase.getAccountLite()
+                var accountLite =
+                    nameRegistrationUseCase.getAccountLite()
 
                 // Fetch account details for all accounts to get their amounts
                 val accountsWithAmounts =
@@ -55,7 +56,7 @@ class AccountListViewModel(
             } catch (e: Exception) {
                 stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
                 eventDelegate.sendEvent(
-                    AccountsEvent.ShowError(
+                    ViewEvent.ShowError(
                         e.message ?: "Failed to fetch accounts.",
                     ),
                 )
@@ -63,27 +64,19 @@ class AccountListViewModel(
         }
     }
 
-    fun deleteAccount(address: String) {
-        stateDelegate.updateState { AccountsState.Loading }
+    fun onAccountSelected(senderAddress: String) {
         viewModelScope.launch {
-            try {
-                nameRegistrationUseCase.deleteAccount(address)
-                eventDelegate.sendEvent(AccountsEvent.ShowMessage("Account deleted successfully."))
-                fetchAccounts() // Refresh the list after deletion
-            } catch (e: Exception) {
-                stateDelegate.updateState { AccountsState.Error(e.message ?: "Unknown error") }
-                eventDelegate.sendEvent(
-                    AccountsEvent.ShowError(
-                        e.message ?: "Failed to delete account.",
-                    ),
-                )
-            }
+            eventDelegate.sendEvent(
+                ViewEvent.NavigateToAssetTransfer(
+                    senderAddress = senderAddress,
+                    receiverAddress = receiverAddress,
+                    amount = amount,
+                ),
+            )
         }
     }
 
     sealed interface AccountsState {
-        data object Idle : AccountsState
-
         data object Loading : AccountsState
 
         data class Content(
@@ -95,13 +88,15 @@ class AccountListViewModel(
         ) : AccountsState
     }
 
-    sealed interface AccountsEvent {
+    sealed interface ViewEvent {
         data class ShowError(
             val message: String,
-        ) : AccountsEvent
+        ) : ViewEvent
 
-        data class ShowMessage(
-            val message: String,
-        ) : AccountsEvent
+        data class NavigateToAssetTransfer(
+            val senderAddress: String,
+            val receiverAddress: String,
+            val amount: String,
+        ) : ViewEvent
     }
 }

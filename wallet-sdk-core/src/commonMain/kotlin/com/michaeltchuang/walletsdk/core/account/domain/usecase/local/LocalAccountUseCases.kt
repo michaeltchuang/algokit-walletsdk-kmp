@@ -7,6 +7,7 @@ import com.michaeltchuang.walletsdk.core.account.domain.model.local.HdWalletSumm
 import com.michaeltchuang.walletsdk.core.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.core.foundation.AlgoKitResult
 import com.michaeltchuang.walletsdk.core.network.model.TransactionSigner
+import com.michaeltchuang.walletsdk.core.network.model.AccountInformation
 
 internal fun interface SaveAlgo25Account {
     suspend operator fun invoke(
@@ -114,4 +115,8 @@ fun interface GetAccountAlgoBalance {
 
 fun interface GetAccountMinimumBalance {
     suspend operator fun invoke(address: String): Long?
+}
+
+fun interface GetBasicAccountInformationUseCase {
+    suspend operator fun invoke(address: String): AccountInformation?
 }

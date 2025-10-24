@@ -44,9 +44,12 @@ fun QRCodeScannerScreen(
                 }
 
                 is QRScannerViewModel.ViewEvent.NavigateToSelectAccountScreen -> {
-                    // (it.assetTransfer)
-                    onQrScanned("send to ${it.assetTransfer.receiverAccountAddress} - ${it.assetTransfer.amount} algos")
-                    //navController.navigate(AlgoKitScreens.TRANSACTION_SIGNATURE_SCREEN.name)
+                    // Navigate to SelectAccountScreen with receiver address and amount
+                    navController.navigate(
+                        AlgoKitScreens.SELECT_ACCOUNT_SCREEN.name +
+                            "?receiver=${it.assetTransfer.receiverAccountAddress}" +
+                            "&amount=${it.assetTransfer.amount}",
+                    )
                 }
 
                 is QRScannerViewModel.ViewEvent.ShowUnrecognizedDeeplink -> {

@@ -29,6 +29,9 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 const val ROUND_THRESHOLD = 1000L
 
 @OptIn(ExperimentalForeignApi::class)
+private val bridge = spmAlgoApiBridge()
+
+@OptIn(ExperimentalForeignApi::class)
 fun ByteArray.toNSData(): NSData {
     if (this.isEmpty()) {
         return NSData()
@@ -68,11 +71,11 @@ private fun String.fromBase64ToByteArray(): ByteArray =
 @OptIn(ExperimentalForeignApi::class)
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
     val secretKey =
-        spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
+        bridge.getAlgo25SecretKeyWithMnemonic(
             mnemonic = mnemonic,
         )
     val address =
-        spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
+        bridge.generateAddressFromSKWithSecretKey(
             secretKey = secretKey,
         )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
@@ -81,20 +84,19 @@ actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
 @OptIn(ExperimentalForeignApi::class)
 actual fun createAlgo25Account(): Algo25Account? {
     val secretKey =
-        spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
+        bridge.getAlgo25SecretKeyWithMnemonic(
             mnemonic = null,
         )
     val address =
-        spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
+        bridge.generateAddressFromSKWithSecretKey(
             secretKey = secretKey,
         )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
 }
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun isValidAlgorandAddress(address: String): Boolean {
-//    return spmAlgoApiBridge().isValidAlgorandAddress(address)
-    return true
+actual fun isValidAlgorandAddress(accountAddress: String): Boolean {
+    return bridge.isValidAlgorandAddressWithAddress(accountAddress)
 }
 
 @OptIn(ExperimentalForeignApi::class)
@@ -102,7 +104,7 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
     var mnemonic: String? = null
     try {
         mnemonic =
-            spmAlgoApiBridge().getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
+            bridge.getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
     } catch (e: Exception) {
         println("ERROR: ${e.message}")
     }
@@ -139,7 +141,6 @@ actual fun signHdKeyTransaction(
 
         // NEW: Verify the derived address BEFORE signing
         println("Step 1a: Verifying address matches transaction sender...")
-        val bridge = spmAlgoApiBridge()
         val derivedPublicKey =
             bridge.getHdPublicKeyFromSeedWithSeedBase64(
                 seedBase64 = seedBase64,
@@ -197,7 +198,7 @@ actual fun signFalcon24Transaction(
         val privateKeyBase64 = privateKey.toNSData().base64EncodedStringWithOptions(0u)
 
         val signedData =
-            spmAlgoApiBridge().signFalconTransactionWithTransactionBytes(
+            bridge.signFalconTransactionWithTransactionBytes(
                 transactionBytes = transactionData,
                 publicKeyBase64 = publicKeyBase64,
                 privateKeyBase64 = privateKeyBase64,
@@ -218,7 +219,7 @@ actual fun signAlgo25Transaction(
         val secretKeyBase64 = Base64.encode(secretKey)
         val transactionBase64 = Base64.encode(transactionByteArray)
         val signedDataBase64 =
-            spmAlgoApiBridge().signAlgo25TransactionWithBase64WithSkBase64(
+            bridge.signAlgo25TransactionWithBase64WithSkBase64(
                 skBase64 = secretKeyBase64,
                 encodedTxBase64 = transactionBase64,
             )
@@ -232,8 +233,6 @@ actual fun signAlgo25Transaction(
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray {
-    val bridge = spmAlgoApiBridge()
-
     val firstRound = payload.txnParams.lastRound
     val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
 
@@ -268,8 +267,6 @@ actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArra
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray {
-    val bridge = spmAlgoApiBridge()
-
     val firstRound = payload.txnParams.lastRound
     val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
 
@@ -325,7 +322,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
             val seedBase64 = seedBytes.toNSData().base64EncodedStringWithOptions(0.toULong())
 
             val publicKey =
-                spmAlgoApiBridge().getHdPublicKeyFromSeedWithSeedBase64(
+                bridge.getHdPublicKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -333,7 +330,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
                 )
 
             val privateKey =
-                spmAlgoApiBridge().getHdPrivateKeyFromSeedWithSeedBase64(
+                bridge.getHdPrivateKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -350,11 +347,11 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
         }
 
         override fun generateFalcon24Address(mnemonic: String): Falcon24 {
-            val address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic)
+            val address = bridge.getFalconAddressFromMnemonicWithPassphrase(mnemonic)
             val publicKeyBase64 =
-                spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic)
+                bridge.getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic)
             val privateKeyBase64 =
-                spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic)
+                bridge.getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic)
 
             return Falcon24(
                 address = address,
@@ -382,7 +379,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
             val seedBase64 = seed.toNSData().base64EncodedStringWithOptions(0.toULong())
 
             val publicKey =
-                spmAlgoApiBridge().getHdPublicKeyFromSeedWithSeedBase64(
+                bridge.getHdPublicKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -392,10 +389,9 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
         }
 
         fun getAddressFromPublicKey(publicKey: String): String =
-            spmAlgoApiBridge()
-                .generateAddressFromPublicKeyWithPublicKey(
-                    publicKey = publicKey,
-                )
+            bridge.generateAddressFromPublicKeyWithPublicKey(
+                publicKey = publicKey,
+            )
     }
 
 actual fun getReceiverMinBalanceFee(
@@ -403,6 +399,7 @@ actual fun getReceiverMinBalanceFee(
     receiverMinBalanceAmount: String,
 ): Long = Long.MAX_VALUE
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun makeAssetTransferTxn(
     senderAddress: String,
     receiverAddress: String,
@@ -410,8 +407,33 @@ actual fun makeAssetTransferTxn(
     assetId: Long,
     noteInByteArray: ByteArray?,
     suggestedParams: SuggestedParams,
-): ByteArray = ByteArray(0)
+): ByteArray {
+    val noteBase64 = noteInByteArray?.toNSData()?.base64EncodedStringWithOptions(0.toULong())
 
+    val encodedTx = bridge.makeAssetTransferTxnWithSenderAddress(
+        senderAddress = senderAddress,
+        receiverAddress = receiverAddress,
+        amount = amount,
+        assetId = assetId,
+        noteBase64 = noteBase64,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("ERROR: makeAssetTransferTxn returned empty data")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
+
+@OptIn(ExperimentalForeignApi::class)
 actual fun makePaymentTxn(
     senderAddress: String,
     receiverAddress: String,
@@ -419,10 +441,54 @@ actual fun makePaymentTxn(
     isMax: Boolean,
     noteInByteArray: ByteArray?,
     suggestedParams: SuggestedParams,
-): ByteArray = ByteArray(0)
+): ByteArray {
+    val noteBase64 = noteInByteArray?.toNSData()?.base64EncodedStringWithOptions(0.toULong())
 
+    val encodedTx = bridge.makePaymentTxnWithSenderAddress(
+        senderAddress = senderAddress,
+        receiverAddress = receiverAddress,
+        amount = amount,
+        isMax = isMax,
+        noteBase64 = noteBase64,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("ERROR: makePaymentTxn returned empty data")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
+
+@OptIn(ExperimentalForeignApi::class)
 actual fun makeAssetAcceptanceTxn(
     publicKey: String,
     assetId: Long,
     suggestedParams: SuggestedParams,
-): ByteArray = ByteArray(0)
+): ByteArray {
+    val encodedTx = bridge.makeAssetAcceptanceTxnWithPublicKey(
+        publicKey = publicKey,
+        assetId = assetId,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("ERROR: makeAssetAcceptanceTxn returned empty data")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
