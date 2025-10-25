@@ -64,7 +64,6 @@ private fun String.fromBase64ToByteArray(): ByteArray =
     try {
         this.decodeBase64Bytes()
     } catch (e: Exception) {
-        println("Ktor Base64 decode error: ${e.message}")
         ByteArray(0)
     }
 
@@ -106,7 +105,7 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
         mnemonic =
             bridge.getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
     } catch (e: Exception) {
-        println("ERROR: ${e.message}")
+        println("Failed to generate mnemonic: ${e.message}")
     }
     return mnemonic
 }
@@ -130,17 +129,9 @@ actual fun signHdKeyTransaction(
     change: Int,
     key: Int,
 ): ByteArray? {
-    println("=== signHdKeyTransaction (Kotlin) START ===")
-    println("Transaction bytes length: ${transactionByteArray.size}")
-    println("Seed length: ${seed.size}")
-    println("Account: $account, Change: $change, Key: $key")
-
     return try {
-        println("Step 1: Converting seed to Base64...")
         val seedBase64 = seed.toNSData().base64EncodedStringWithOptions(0.toULong())
 
-        // NEW: Verify the derived address BEFORE signing
-        println("Step 1a: Verifying address matches transaction sender...")
         val derivedPublicKey =
             bridge.getHdPublicKeyFromSeedWithSeedBase64(
                 seedBase64 = seedBase64,
@@ -150,16 +141,9 @@ actual fun signHdKeyTransaction(
             )
 
         val derivedAddress = bridge.generateAddressFromPublicKeyWithPublicKey(derivedPublicKey)
-        println("✓ Derived address: $derivedAddress")
 
-        // TODO: Parse transaction to get sender and compare
-        // For now, just print it so you can manually verify
-
-        println("Step 2: Converting transaction to NSData...")
         val transactionData = transactionByteArray.toNSData()
-        println("✓ Transaction NSData length: ${transactionData.length}")
 
-        println("Step 3: Calling Swift signHdKeyTransaction...")
         val signedData =
             bridge.signHdKeyTransactionWithTransactionBytes(
                 transactionBytes = transactionData,
@@ -170,18 +154,13 @@ actual fun signHdKeyTransaction(
             )
 
         if (signedData == null) {
-            println("❌ ERROR: Swift returned null")
+            println("ERROR: Transaction signing failed")
             return null
         }
 
-        println("✓ Transaction signed successfully!")
-        val result = signedData.toByteArray()
-        println("=== signHdKeyTransaction (Kotlin) END (SUCCESS) ===")
-
-        result
+        signedData.toByteArray()
     } catch (e: Exception) {
-        println("❌ EXCEPTION: ${e.message}")
-        e.printStackTrace()
+        println("ERROR: Transaction signing failed: ${e.message}")
         null
     }
 }
@@ -206,7 +185,7 @@ actual fun signFalcon24Transaction(
 
         signedData?.toByteArray()
     } catch (e: Exception) {
-        println("ERROR signing Falcon transaction: ${e.message}")
+        println("Falcon transaction signing failed: ${e.message}")
         null
     }
 
@@ -227,7 +206,7 @@ actual fun signAlgo25Transaction(
 
         result
     } catch (e: Exception) {
-        println("ERROR signing Algo25 transaction: ${e.message}")
+        println("Algo25 transaction signing failed: ${e.message}")
         ByteArray(0)
     }
 
@@ -258,7 +237,7 @@ actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArra
         )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: createOfflineKeyRegTransaction returned empty data")
+        println("Failed to create offline key registration transaction")
         return ByteArray(0)
     }
 
@@ -296,7 +275,7 @@ actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray
         )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: createOnlineKeyRegTransaction returned empty data")
+        println("Failed to create online key registration transaction")
         return ByteArray(0)
     }
 
@@ -426,7 +405,7 @@ actual fun makeAssetTransferTxn(
     )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: makeAssetTransferTxn returned empty data")
+        println("Failed to create asset transfer transaction")
         return ByteArray(0)
     }
 
@@ -460,7 +439,7 @@ actual fun makePaymentTxn(
     )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: makePaymentTxn returned empty data")
+        println("Failed to create payment transaction")
         return ByteArray(0)
     }
 
@@ -486,7 +465,7 @@ actual fun makeAssetAcceptanceTxn(
     )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: makeAssetAcceptanceTxn returned empty data")
+        println("Failed to create asset acceptance transaction")
         return ByteArray(0)
     }
 

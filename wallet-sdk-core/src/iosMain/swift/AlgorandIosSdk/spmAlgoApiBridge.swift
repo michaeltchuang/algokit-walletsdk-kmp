@@ -23,9 +23,9 @@ import AlgoSDK
                 context: .Address,
                 account: UInt32(account),
                 change: UInt32(change),
-                keyIndex: UInt32(keyIndex)
+                keyIndex: UInt32(keyIndex),
+                derivationType: .Peikert
             )
-            print("Public Key: \(publicKey.base64EncodedString())")
             return publicKey.base64EncodedString()
 
         } catch {
@@ -57,7 +57,6 @@ import AlgoSDK
 
             let rootKey = wallet.fromSeed(seedData)
 
-            // Get the full 96-byte extended private key (matches Android's isPrivate=true)
             let extendedPrivateKey = try wallet.deriveKey(
                 rootKey: rootKey,
                 bip44Path: bip44Path,
@@ -65,9 +64,6 @@ import AlgoSDK
                 derivationType: BIP32DerivationType.Peikert
             )
 
-            print("Extended Private Key (96 bytes): \(extendedPrivateKey.base64EncodedString())")
-
-            // Return the full 96 bytes to match Android
             return extendedPrivateKey.base64EncodedString()
 
         } catch {
@@ -83,38 +79,22 @@ import AlgoSDK
         change: Int,
         keyIndex: Int
     ) -> Data? {
-        print("=== signHdKeyTransaction START ===")
-        print("Transaction bytes length: \(transactionBytes.count)")
-        print("Seed Base64 length: \(seedBase64.count)")
-        print("Account: \(account), Change: \(change), KeyIndex: \(keyIndex)")
-
         do {
-            print("Step 1: Decoding seed from Base64...")
             guard let seedData = Data(base64Encoded: seedBase64) else {
-                print("❌ ERROR: Failed to decode seed from Base64")
+                print("Failed to decode seed from Base64")
                 return nil
             }
-            print("✓ Seed decoded, length: \(seedData.count) bytes")
 
-            print("Step 2: Converting seed to hex for XHDWalletAPI...")
             let seedHex = seedData.map { String(format: "%02x", $0) }.joined()
-            print("✓ Seed hex length: \(seedHex.count) characters")
 
-            print("Step 3: Creating XHDWalletAPI...")
             guard let wallet = XHDWalletAPI(seed: seedHex) else {
-                print("❌ ERROR: Failed to create wallet")
+                print("Failed to create wallet")
                 return nil
             }
-            print("✓ Wallet created")
 
-            print("Step 4: Preparing transaction with TX prefix...")
-            // Add "TX" prefix like Android does in rawTransactionBytesToSign
             let txPrefix = "TX".data(using: .utf8)!
             let prefixedTransaction = txPrefix + transactionBytes
-            print("✓ Prefixed transaction length: \(prefixedTransaction.count) bytes")
 
-            print("Step 5: Signing using wallet.sign()...")
-            // Use the sign method that matches Android's signAlgoTransaction
             let signature = try wallet.sign(
                 context: .Address,
                 account: UInt32(account),
@@ -123,9 +103,7 @@ import AlgoSDK
                 message: prefixedTransaction,
                 derivationType: .Peikert
             )
-            print("✓ Signature created, length: \(signature.count) bytes")
 
-            print("Step 6: Getting public key...")
             let publicKey = try wallet.keyGen(
                 context: .Address,
                 account: UInt32(account),
@@ -133,11 +111,7 @@ import AlgoSDK
                 keyIndex: UInt32(keyIndex),
                 derivationType: .Peikert
             )
-            let pkAddress = AlgoSDK.AlgoSdkGenerateAddressFromPublicKey(publicKey, nil)
-            print("✓ Public key address: \(pkAddress)")
 
-            print("Step 7: Attaching signature to transaction...")
-            // Now attach the signature to the transaction like Android does with Sdk.attachSignature
             var error: NSError?
             guard let signedTx = AlgoSDK.AlgoSdkAttachSignature(
                 signature,
@@ -145,28 +119,23 @@ import AlgoSDK
                 &error
             ) else {
                 if let error = error {
-                    print("❌ ERROR: AlgoSdkAttachSignature failed: \(error.localizedDescription)")
+                    print("AlgoSdkAttachSignature failed: \(error.localizedDescription)")
                 } else {
-                    print("❌ ERROR: AlgoSdkAttachSignature returned nil")
+                    print("AlgoSdkAttachSignature returned nil")
                 }
                 return nil
             }
 
-            print("✓ Transaction signed successfully!")
-            print("Signed transaction length: \(signedTx.count) bytes")
-            print("=== signHdKeyTransaction END (SUCCESS) ===")
             return signedTx
 
         } catch {
-            print("❌ EXCEPTION: \(error.localizedDescription)")
-            print("=== signHdKeyTransaction END (FAILURE) ===")
+            print("Transaction signing failed: \(error.localizedDescription)")
             return nil
         }
     }
 
     public func getAlgo25SecretKey(mnemonic: String?) -> String {
         if mnemonic != nil {
-            // Mnemonic is not null, so convert it to a secret key
             var error: NSError?
             guard let secretKeyData = AlgoSDK.AlgoSdkMnemonicToPrivateKey(mnemonic, &error) else {
                 print("Failed to convert mnemonic to secret key.")
@@ -174,7 +143,6 @@ import AlgoSDK
             }
             return secretKeyData.base64EncodedString()
         } else {
-            // Mnemonic is null, so generate a new secret key
             guard let newSecretKey = AlgoSDK.AlgoSdkGenerateSK() else {
                 print("Failed to generate new secret key.")
                 return ""
@@ -510,7 +478,6 @@ import AlgoSDK
             Data(base64Encoded: $0)
         }
 
-        // Convert amount string to UInt64 wrapper
         guard let amountValue = UInt64(amount) else {
             print("Error: Failed to convert amount to UInt64")
             return Data()
@@ -574,7 +541,6 @@ import AlgoSDK
             Data(base64Encoded: $0)
         }
 
-        // Convert amount string to UInt64 wrapper
         guard let amountValue = UInt64(amount) else {
             print("Error: Failed to convert amount to UInt64")
             return Data()
@@ -632,7 +598,6 @@ import AlgoSDK
         params.genesisID = genesisID
 
         var error: NSError?
-
         guard let encodedTx = AlgoSDK.AlgoSdkMakeAssetAcceptanceTxn(
             publicKey,
             nil, // note
