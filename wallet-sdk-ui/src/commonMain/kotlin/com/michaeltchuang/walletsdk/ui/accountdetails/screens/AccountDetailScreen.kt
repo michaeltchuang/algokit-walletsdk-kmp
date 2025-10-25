@@ -158,7 +158,7 @@ fun AccountDetailScreen(
                         title = "Send funds to another account",
                     ) {
                         val receiver = WalletSdkConstants.SAMPLE_FALCON24_ADDRESS
-                        val amount = BigInteger.fromLong(5000000)
+                        val amount = BigInteger.fromLong(3000000)
                         navController.navigate(
                             "${AlgoKitScreens.ASSET_TRANSFER_SCREEN.name}?sender=$address&receiver=$receiver&amount=$amount",
                         )

@@ -23,7 +23,8 @@ import AlgoSDK
                 context: .Address,
                 account: UInt32(account),
                 change: UInt32(change),
-                keyIndex: UInt32(keyIndex)
+                keyIndex: UInt32(keyIndex),
+                derivationType: .Peikert
             )
             print("Public Key: \(publicKey.base64EncodedString())")
             return publicKey.base64EncodedString()
