@@ -116,7 +116,7 @@ fun AssetTransferConfirmScreen(
         if (amount.isNotEmpty()) {
             viewModel.setAmount(amount)
         }
-        if (note.isNotEmpty()){
+        if (note.isNotEmpty()) {
             viewModel.setNote(note)
         }
     }
@@ -201,7 +201,7 @@ fun AssetTransferContent(
                 accountBalance = state.accountBalance,
                 fee = state.fee,
                 note = state.note,
-                viewModel = viewModel
+                viewModel = viewModel,
             )
         }
 
@@ -273,7 +273,7 @@ fun AssetTransferContentItems(
         )
         AssetTransferDivider()
 
-        AssetTransferAddNote(note,viewModel)
+        AssetTransferAddNote(note, viewModel)
     }
 }
 
@@ -378,7 +378,10 @@ fun AssetTransferLabeledText(
 }
 
 @Composable
-fun AssetTransferAddNote(note: String,viewModel: AssetTransferConfirmViewModel) {
+fun AssetTransferAddNote(
+    note: String,
+    viewModel: AssetTransferConfirmViewModel,
+) {
     var isAddNoteEnabled by remember { mutableStateOf(false) }
     var noteText by remember { mutableStateOf(note) }
     Column {
@@ -388,7 +391,7 @@ fun AssetTransferAddNote(note: String,viewModel: AssetTransferConfirmViewModel) 
             }, {
                 noteText = ""
             }, {
-               viewModel.setNote(noteText)
+                viewModel.setNote(noteText)
                 isAddNoteEnabled = false
             })
         } else {

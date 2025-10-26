@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.toBigInteger
+import com.michaeltchuang.walletsdk.core.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountAlgoBalance
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetAccountMinimumBalance
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetLocalAccount
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetTransactionSigner
 import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
@@ -30,6 +32,7 @@ class AssetTransferConfirmViewModel(
     private val getTransactionSigner: GetTransactionSigner,
     private val getAccountAlgoBalance: GetAccountAlgoBalance,
     private val getAccountMinimumBalance: GetAccountMinimumBalance,
+    private val getLocalAccount: GetLocalAccount,
     private val stateDelegate: StateDelegate<ViewState>,
     private val eventDelegate: EventDelegate<ViewEvent>,
 ) : ViewModel(),
@@ -39,6 +42,7 @@ class AssetTransferConfirmViewModel(
     private var receiverAddress: String = ""
     private var transferAmount: String = ""
     private var transferNote: String = ""
+    private var currentFee: String = "0.001"
 
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
@@ -95,6 +99,7 @@ class AssetTransferConfirmViewModel(
         senderAddress = address
         updateContentState()
         fetchAccountBalance(address)
+        calculateMinimumFee(address)
     }
 
     fun setReceiverAddress(address: String) {
@@ -128,6 +133,7 @@ class AssetTransferConfirmViewModel(
                 amount = transferAmount,
                 accountBalance = currentBalance,
                 note = transferNote,
+                fee = currentFee,
             )
         }
     }
@@ -162,6 +168,7 @@ class AssetTransferConfirmViewModel(
                 receiverAddress = receiverAddress,
                 amount = transferAmount,
                 accountBalance = (it as? ViewState.Content)?.accountBalance,
+                fee = currentFee,
             )
         }
     }
@@ -207,8 +214,11 @@ class AssetTransferConfirmViewModel(
 
         val amountInMicroAlgos = amountBigInteger
 
+        // Calculate fee based on account type (minimum 0.001 ALGO, 0.004 for Falcon24)
+        val feeInAlgos = BigDecimal.parseString(currentFee)
+        val fee = (feeInAlgos * BigDecimal.fromInt(1000000)).toBigInteger()
+
         // Validate that sender has enough balance
-        val fee = 1000.toBigInteger() // 0.001 ALGO in microAlgos
         val totalRequired = amountInMicroAlgos + fee + minimumBalance.toBigInteger()
         if (senderAlgoAmount < totalRequired) {
             val availableInMicroAlgos = (senderAlgoAmount - minimumBalance.toBigInteger() - fee)
@@ -280,6 +290,20 @@ class AssetTransferConfirmViewModel(
         }
     }
 
+    fun calculateMinimumFee(address: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val account = getLocalAccount.invoke(address)
+            val fee =
+                when (account) {
+                    is LocalAccount.Falcon24 -> "0.004"
+                    else -> "0.001"
+                }
+            currentFee = fee
+            // Update the content state with the new fee
+            updateContentState()
+        }
+    }
+
     sealed interface ViewState {
         data object Loading : ViewState
 
@@ -290,8 +314,8 @@ class AssetTransferConfirmViewModel(
             val receiverAddress: String,
             val amount: String,
             val accountBalance: String?,
+            val note: String = "",
             val fee: String = "0.001",
-            val note: String = ""
         ) : ViewState
 
         data class Error(

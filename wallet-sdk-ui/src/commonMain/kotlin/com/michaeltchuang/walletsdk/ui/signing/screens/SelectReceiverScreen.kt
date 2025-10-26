@@ -98,7 +98,7 @@ fun SelectReceiverScreen(
             when (event) {
                 is SelectReceiverViewModel.ViewEvent.NavigateToAssetTransfer -> {
                     navController.navigate(
-                        "${AlgoKitScreens.ASSET_TRANSFER_SCREEN.name}?sender=${event.senderAddress}&receiver=${event.receiverAddress}&amount=${amount}&note=${note}"
+                        "${AlgoKitScreens.ASSET_TRANSFER_SCREEN.name}?sender=${event.senderAddress}&receiver=${event.receiverAddress}&amount=$amount&note=$note",
                     )
                 }
             }
@@ -106,14 +106,16 @@ fun SelectReceiverScreen(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AlgoKitTheme.colors.background)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(AlgoKitTheme.colors.background),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
         ) {
             // Top Bar
             AlgoKitTopBar(
@@ -127,7 +129,7 @@ fun SelectReceiverScreen(
                 is SelectReceiverViewModel.ViewState.Loading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         CircularProgressIndicator(color = AlgoKitTheme.colors.textMain)
                     }
@@ -139,19 +141,19 @@ fun SelectReceiverScreen(
                         onSearchTextChange = { viewModel.setSearchText(it) },
                         onAccountSelected = { viewModel.onAccountSelected(it) },
                         onClipboardTapped = { viewModel.onClipboardAddressTapped(it) },
-                        onNextPressed = { viewModel.onNextPressed() }
+                        onNextPressed = { viewModel.onNextPressed() },
                     )
                 }
 
                 is SelectReceiverViewModel.ViewState.Error -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(
                             text = state.message,
                             color = AlgoKitTheme.colors.negative,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
                         )
                     }
                 }
@@ -160,20 +162,19 @@ fun SelectReceiverScreen(
     }
 }
 
-
 @Composable
 private fun SelectReceiverContent(
     state: SelectReceiverViewModel.ViewState.Content,
     onSearchTextChange: (String) -> Unit,
     onAccountSelected: (String) -> Unit,
     onClipboardTapped: (String) -> Unit,
-    onNextPressed: () -> Unit
+    onNextPressed: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         // Search Field
         SearchField(
             searchText = state.searchText,
-            onSearchTextChange = onSearchTextChange
+            onSearchTextChange = onSearchTextChange,
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -182,7 +183,7 @@ private fun SelectReceiverContent(
         if (state.clipboardText.isNotEmpty()) {
             ClipboardSection(
                 clipboardText = state.clipboardText,
-                onClipboardTapped = onClipboardTapped
+                onClipboardTapped = onClipboardTapped,
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -192,32 +193,32 @@ private fun SelectReceiverContent(
         if (state.accounts.isNotEmpty()) {
             AccountSection(
                 accounts = state.accounts,
-                onAccountSelected = onAccountSelected
+                onAccountSelected = onAccountSelected,
             )
         } else if (state.searchText.isNotEmpty()) {
             // Show "No accounts found" message when searching
             Box(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = "No accounts found matching \"${state.searchText}\"",
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textGray,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         } else {
             // Show empty state when no accounts available
             Box(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = "No other accounts available",
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textGray,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -228,11 +229,12 @@ private fun SelectReceiverContent(
             onClick = onNextPressed,
             text = stringResource(Res.string.next),
             modifier = Modifier.fillMaxWidth(),
-            state = if (state.searchText.isNotEmpty() && isValidAlgorandAddress(state.searchText)) {
-                AlgoKitButtonState.ENABLED
-            } else {
-                AlgoKitButtonState.DISABLED
-            }
+            state =
+                if (state.searchText.isNotEmpty() && isValidAlgorandAddress(state.searchText)) {
+                    AlgoKitButtonState.ENABLED
+                } else {
+                    AlgoKitButtonState.DISABLED
+                },
         )
     }
 }
@@ -240,62 +242,67 @@ private fun SelectReceiverContent(
 @Composable
 private fun SearchField(
     searchText: String,
-    onSearchTextChange: (String) -> Unit
+    onSearchTextChange: (String) -> Unit,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = AlgoKitTheme.colors.layerGray
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = AlgoKitTheme.colors.layerGray,
+            ),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 tint = AlgoKitTheme.colors.textGray,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(20.dp),
             )
 
             BasicTextField(
                 value = searchText,
                 onValueChange = onSearchTextChange,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 12.dp),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(horizontal = 12.dp),
                 singleLine = true,
-                textStyle = LocalTextStyle.current.copy(
-                    color = AlgoKitTheme.colors.textMain,
-                    fontSize = 16.sp
-                ),
+                textStyle =
+                    LocalTextStyle.current.copy(
+                        color = AlgoKitTheme.colors.textMain,
+                        fontSize = 16.sp,
+                    ),
                 decorationBox = { innerTextField ->
                     if (searchText.isEmpty()) {
                         Text(
                             text = stringResource(Res.string.search_or_enter_address),
-                            style = LocalTextStyle.current.copy(
-                                color = AlgoKitTheme.colors.textGray,
-                                fontSize = 12.sp
-                            )
+                            style =
+                                LocalTextStyle.current.copy(
+                                    color = AlgoKitTheme.colors.textGray,
+                                    fontSize = 12.sp,
+                                ),
                         )
                     }
                     innerTextField()
-                }
+                },
             )
 
             if (searchText.isNotEmpty()) {
                 IconButton(
                     onClick = { onSearchTextChange("") },
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 ) {
                     Icon(
                         imageVector = Icons.Default.Clear,
                         contentDescription = "Clear",
-                        tint = AlgoKitTheme.colors.textGray
+                        tint = AlgoKitTheme.colors.textGray,
                     )
                 }
             }
@@ -306,33 +313,35 @@ private fun SearchField(
 @Composable
 private fun ClipboardSection(
     clipboardText: String,
-    onClipboardTapped: (String) -> Unit
+    onClipboardTapped: (String) -> Unit,
 ) {
     Column {
         Text(
             text = stringResource(Res.string.paste_from_clipboard),
             style = typography.body.regular.sansMedium,
             color = AlgoKitTheme.colors.textGray,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
         )
 
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onClipboardTapped(clipboardText) },
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { onClipboardTapped(clipboardText) },
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = clipboardText,
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textMain,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
 
                 AlgoKitIcon(
@@ -348,23 +357,23 @@ private fun ClipboardSection(
 @Composable
 private fun AccountSection(
     accounts: List<AccountLite>,
-    onAccountSelected: (String) -> Unit
+    onAccountSelected: (String) -> Unit,
 ) {
     Column {
         Text(
             text = stringResource(Res.string.my_accounts),
             style = typography.body.regular.sansMedium,
             color = AlgoKitTheme.colors.textGray,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
         )
 
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(accounts) { account ->
                 AccountItem(
                     account = account,
-                    onAccountSelected = onAccountSelected
+                    onAccountSelected = onAccountSelected,
                 )
             }
         }
@@ -374,18 +383,20 @@ private fun AccountSection(
 @Composable
 private fun AccountItem(
     account: AccountLite,
-    onAccountSelected: (String) -> Unit
+    onAccountSelected: (String) -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onAccountSelected(account.address) }
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onAccountSelected(account.address) },
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             AlgoKitIconRoundShape(
                 imageVector = vectorResource(getWalletIcon(account.registrationType)),
@@ -394,19 +405,20 @@ private fun AccountItem(
             )
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp)
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(horizontal = 16.dp),
             ) {
                 Text(
                     text = account.customName.ifEmpty { account.address.toShortenedAddress() },
                     style = typography.body.large.sansMedium,
-                    color = AlgoKitTheme.colors.textMain
+                    color = AlgoKitTheme.colors.textMain,
                 )
                 Text(
                     text = stringResource(getAccountTypeResource(account.registrationType)),
                     style = typography.caption.mono,
-                    color = AlgoKitTheme.colors.textGray
+                    color = AlgoKitTheme.colors.textGray,
                 )
             }
         }
@@ -436,7 +448,7 @@ fun PreviewSelectReceiverScreen() {
             navController = rememberNavController(),
             amount = "1.000 ALGO",
             note = "",
-            senderAddress = "HVTAJEVD6WVPY53MUZGPRJ446WW5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ"
+            senderAddress = "HVTAJEVD6WVPY53MUZGPRJ446WW5C3SUSKNSQ3UCZH2R4XWQZPXE72MQ",
         )
     }
 }

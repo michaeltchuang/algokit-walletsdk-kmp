@@ -82,7 +82,7 @@ fun SendAlgoScreen(
             when (event) {
                 is SendAlgoViewModel.ViewEvent.NavigateNext -> {
                     navController.navigate(
-                        "${AlgoKitScreens.SELECT_RECEIVER_SCREEN.name}?sender=$senderAddress&amount=${event.amount}&note=${noteText.value}"
+                        "${AlgoKitScreens.SELECT_RECEIVER_SCREEN.name}?sender=$senderAddress&amount=${event.amount}&note=${noteText.value}",
                     )
                 }
             }
@@ -96,16 +96,17 @@ fun SendAlgoScreen(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AlgoKitTheme.colors.background)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(AlgoKitTheme.colors.background),
     ) {
         Column {
             // Top Bar
             SendAlgoTopBar(
                 senderAddress = senderAddress,
                 onBackClick = { navController.popBackStack() },
-                onInfoClick = { /* Handle info click */ }
+                onInfoClick = { /* Handle info click */ },
             )
 
             // Content
@@ -113,7 +114,7 @@ fun SendAlgoScreen(
                 is SendAlgoViewModel.ViewState.Loading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text("Loading...", color = AlgoKitTheme.colors.textMain)
                     }
@@ -126,14 +127,14 @@ fun SendAlgoScreen(
                         onAmountChange = { digit -> viewModel.onDigitPressed(digit) },
                         onDeletePressed = { viewModel.onDeletePressed() },
                         onMaxPressed = { viewModel.onMaxPressed() },
-                        onNextPressed = { viewModel.onNextPressed() }
+                        onNextPressed = { viewModel.onNextPressed() },
                     )
                 }
 
                 is SendAlgoViewModel.ViewState.Error -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Text(state.message, color = AlgoKitTheme.colors.negative)
                     }
@@ -147,34 +148,35 @@ fun SendAlgoScreen(
 private fun SendAlgoTopBar(
     senderAddress: String,
     onBackClick: () -> Unit,
-    onInfoClick: () -> Unit
+    onInfoClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
     ) {
         IconButton(onClick = onBackClick) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
-                tint = AlgoKitTheme.colors.textMain
+                tint = AlgoKitTheme.colors.textMain,
             )
         }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "Send ALGO",
                 style = typography.body.regular.sansMedium,
-                color = AlgoKitTheme.colors.textMain
+                color = AlgoKitTheme.colors.textMain,
             )
             if (senderAddress.isNotEmpty()) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
                 ) {
                     AlgoKitIconRoundShapeSmall(
                         imageVector = vectorResource(Res.drawable.ic_wallet),
@@ -185,7 +187,7 @@ private fun SendAlgoTopBar(
                         text = senderAddress.toShortenedAddress(),
                         style = typography.caption.sansMedium,
                         color = AlgoKitTheme.colors.textGray,
-                        modifier = Modifier.padding(start = 8.dp)
+                        modifier = Modifier.padding(start = 8.dp),
                     )
                 }
             }
@@ -208,13 +210,14 @@ private fun SendAlgoContent(
     onAmountChange: (String) -> Unit,
     onDeletePressed: () -> Unit,
     onMaxPressed: () -> Unit,
-    onNextPressed: () -> Unit
+    onNextPressed: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState())
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState()),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -232,7 +235,7 @@ private fun SendAlgoContent(
         // Number Keypad
         NumberKeypad(
             onDigitPressed = onAmountChange,
-            onDeletePressed = onDeletePressed
+            onDeletePressed = onDeletePressed,
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -243,7 +246,7 @@ private fun SendAlgoContent(
             assetSymbol = "ALGO",
             balance = state.balance,
             usdValue = state.usdValue,
-            showUSDAmount = state.showUSDAmount
+            showUSDAmount = state.showUSDAmount,
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -253,11 +256,12 @@ private fun SendAlgoContent(
             onClick = onNextPressed,
             text = "Next",
             modifier = Modifier.fillMaxWidth(),
-            state = if (state.amount.isNotEmpty() && state.amount != "0") {
-                AlgoKitButtonState.ENABLED
-            } else {
-                AlgoKitButtonState.DISABLED
-            }
+            state =
+                if (state.amount.isNotEmpty() && state.amount != "0") {
+                    AlgoKitButtonState.ENABLED
+                } else {
+                    AlgoKitButtonState.DISABLED
+                },
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -275,16 +279,17 @@ private fun AmountDisplaySection(
     var isAddNoteEnabled by remember { mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         // Main amount
         Text(
             text = amount.toAlgoAmount().ifEmpty { "0" },
-            style = typography.title.large.sansMedium.copy(
-                fontSize = 48.sp
-            ),
+            style =
+                typography.title.large.sansMedium.copy(
+                    fontSize = 48.sp,
+                ),
             color = AlgoKitTheme.colors.textMain,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -295,7 +300,7 @@ private fun AmountDisplaySection(
                 text = usdValue,
                 style = typography.body.large.sansMedium,
                 color = AlgoKitTheme.colors.textGray,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
 
@@ -304,16 +309,17 @@ private fun AmountDisplaySection(
         // Action buttons row
         Row(
             horizontalArrangement = Arrangement.spacedBy(32.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             if (isAddNoteEnabled.not()) {
                 Text(
                     text = if (noteText.value.isBlank()) "+ Add Note" else "Edit Note",
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textGray,
-                    modifier = Modifier.clickable {
-                        isAddNoteEnabled = true
-                    }
+                    modifier =
+                        Modifier.clickable {
+                            isAddNoteEnabled = true
+                        },
                 )
             }
 
@@ -321,7 +327,7 @@ private fun AmountDisplaySection(
                 text = "MAX",
                 style = typography.body.regular.sansMedium,
                 color = AlgoKitTheme.colors.textGray,
-                modifier = Modifier.clickable { onMaxPressed() }
+                modifier = Modifier.clickable { onMaxPressed() },
             )
         }
 
@@ -331,47 +337,54 @@ private fun AmountDisplaySection(
                 noteText.value,
                 onValueChange = {
                     noteText.value = it
-                }, onClearClick = {
+                },
+                onClearClick = {
                     noteText.value = ""
-                }, onDoneClick = {
+                },
+                onDoneClick = {
                     isAddNoteEnabled = false
-                })
+                },
+            )
         }
-
     }
 }
 
 @Composable
 private fun NumberKeypad(
     onDigitPressed: (String) -> Unit,
-    onDeletePressed: () -> Unit
+    onDeletePressed: () -> Unit,
 ) {
-    val keys = listOf(
-        listOf("1", "2", "3"),
-        listOf("4", "5", "6"),
-        listOf("7", "8", "9"),
-        listOf(".", "0", "10")
-    )
+    val keys =
+        listOf(
+            listOf("1", "2", "3"),
+            listOf("4", "5", "6"),
+            listOf("7", "8", "9"),
+            listOf(".", "0", "10"),
+        )
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         keys.forEach { row ->
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 row.forEach { key ->
                     KeypadButton(
                         text = key,
-                        icon = if (key == "10")
-                            painterResource(Res.drawable.ic_delete) else null,
+                        icon =
+                            if (key == "10") {
+                                painterResource(Res.drawable.ic_delete)
+                            } else {
+                                null
+                            },
                         onClick = {
                             when (key) {
                                 "10" -> onDeletePressed()
                                 else -> onDigitPressed(key)
                             }
-                        }
+                        },
                     )
                 }
             }
@@ -383,33 +396,34 @@ private fun NumberKeypad(
 private fun KeypadButton(
     text: String,
     icon: Painter? = null,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Surface(
-        modifier = Modifier
-            .size(75.dp)
-            .clickable { onClick() },
-        color = Color.Transparent
+        modifier =
+            Modifier
+                .size(75.dp)
+                .clickable { onClick() },
+        color = Color.Transparent,
     ) {
         Box(
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (icon != null) {
                 Icon(
                     painter = icon,
                     contentDescription = text,
-                    tint = AlgoKitTheme.colors.textMain
+                    tint = AlgoKitTheme.colors.textMain,
                 )
             } else {
                 Text(
                     text = text,
-                    style = typography.body.regular.sansMedium.copy(
-                        fontSize = 20.sp
-                    ),
-                    color = AlgoKitTheme.colors.textMain
+                    style =
+                        typography.body.regular.sansMedium.copy(
+                            fontSize = 20.sp,
+                        ),
+                    color = AlgoKitTheme.colors.textMain,
                 )
             }
-
         }
     }
 }
@@ -420,23 +434,25 @@ private fun AssetSelectionCard(
     assetSymbol: String,
     balance: String?,
     usdValue: String?,
-    showUSDAmount: Boolean
+    showUSDAmount: Boolean,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             // Asset icon - using a simple circle with "A" for Algorand
             Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(AlgoKitTheme.colors.algoIconBg),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(AlgoKitTheme.colors.algoIconBg),
+                contentAlignment = Alignment.Center,
             ) {
                 AlgoKitIcon(
                     painter = painterResource(Res.drawable.ic_algo_round),
@@ -452,7 +468,7 @@ private fun AssetSelectionCard(
                     Text(
                         text = assetName,
                         style = typography.body.regular.sansMedium,
-                        color = AlgoKitTheme.colors.textMain
+                        color = AlgoKitTheme.colors.textMain,
                     )
                     Spacer(modifier = Modifier.width(4.dp))
 
@@ -465,7 +481,7 @@ private fun AssetSelectionCard(
                 Text(
                     text = assetSymbol,
                     style = typography.caption.sansMedium,
-                    color = AlgoKitTheme.colors.textGray
+                    color = AlgoKitTheme.colors.textGray,
                 )
             }
         }
@@ -474,21 +490,18 @@ private fun AssetSelectionCard(
             Text(
                 text = balance ?: "Loading...",
                 style = typography.body.regular.sansMedium,
-                color = AlgoKitTheme.colors.textMain
+                color = AlgoKitTheme.colors.textMain,
             )
             if (showUSDAmount) {
                 Text(
                     text = usdValue ?: "Loading...",
                     style = typography.caption.sansMedium,
-                    color = AlgoKitTheme.colors.textGray
+                    color = AlgoKitTheme.colors.textGray,
                 )
             }
-
         }
     }
-
 }
-
 
 @Composable
 fun SendAlgoAddNoteTextField(
@@ -551,22 +564,22 @@ fun SendAlgoAddNoteTextField(
     }
 }
 
-
 @Preview
 @Composable
 fun PreviewSendAlgoScreen() {
     AlgoKitTheme {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AlgoKitTheme.colors.background)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(AlgoKitTheme.colors.background),
         ) {
             Column {
                 // Top Bar Preview
                 SendAlgoTopBar(
                     senderAddress = "QQVR...ZIXU",
                     onBackClick = { },
-                    onInfoClick = { }
+                    onInfoClick = { },
                 )
 
                 // Content Preview with mock state
@@ -576,7 +589,7 @@ fun PreviewSendAlgoScreen() {
                     onAmountChange = { },
                     onDeletePressed = { },
                     onMaxPressed = { },
-                    onNextPressed = { }
+                    onNextPressed = { },
                 )
             }
         }
@@ -584,11 +597,10 @@ fun PreviewSendAlgoScreen() {
 }
 
 @Composable
-private fun MockSendAlgoViewState(): SendAlgoViewModel.ViewState.Content {
-    return SendAlgoViewModel.ViewState.Content(
+private fun MockSendAlgoViewState(): SendAlgoViewModel.ViewState.Content =
+    SendAlgoViewModel.ViewState.Content(
         amount = "176238.12345678",
         usdValue = "$1.76",
         balance = "10.00",
-        assetUsdValue = "$1.99"
+        assetUsdValue = "$1.99",
     )
-}

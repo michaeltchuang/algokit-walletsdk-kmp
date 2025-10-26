@@ -17,7 +17,6 @@ class SendAlgoViewModel(
 ) : ViewModel(),
     StateViewModel<SendAlgoViewModel.ViewState> by stateDelegate,
     EventViewModel<SendAlgoViewModel.ViewEvent> by eventDelegate {
-
     private var accountBalance: BigInteger = BigInteger.ZERO
     private val algoUsdPrice: Double = 0.199 // Mock price, should come from a price service
 
@@ -25,7 +24,6 @@ class SendAlgoViewModel(
         stateDelegate.setDefaultState(ViewState.Loading)
         updateContentState()
     }
-
 
     fun fetchAccountBalance(senderAddress: String) {
         viewModelScope.launch {
@@ -48,20 +46,20 @@ class SendAlgoViewModel(
             if (currentState is ViewState.Content) balanceInAlgos.toString().take(6) else null
         val balanceUsdValue = "$${(balanceInAlgos * algoUsdPrice).toString().take(6)}"
 
-        val amountUsdValue = if (currentAmount.isNotEmpty() && currentAmount != "0") {
-            val amountDouble = currentAmount.toDoubleOrNull() ?: 0.0
-            "$${(amountDouble * algoUsdPrice).toString().take(6)}"
-        } else {
-            "$0.00"
-        }
-
+        val amountUsdValue =
+            if (currentAmount.isNotEmpty() && currentAmount != "0") {
+                val amountDouble = currentAmount.toDoubleOrNull() ?: 0.0
+                "$${(amountDouble * algoUsdPrice).toString().take(6)}"
+            } else {
+                "$0.00"
+            }
 
         stateDelegate.updateState {
             ViewState.Content(
                 amount = currentAmount,
                 usdValue = amountUsdValue,
                 balance = balanceFormatted,
-                assetUsdValue = balanceUsdValue
+                assetUsdValue = balanceUsdValue,
             )
         }
     }
@@ -70,23 +68,24 @@ class SendAlgoViewModel(
         val currentState = stateDelegate.state.value
         if (currentState is ViewState.Content) {
             val currentAmount = currentState.amount
-            val newAmount = when (digit) {
-                "." -> {
-                    if (!currentAmount.contains(".")) {
-                        if (currentAmount.isEmpty()) "0." else "$currentAmount."
-                    } else {
-                        currentAmount
+            val newAmount =
+                when (digit) {
+                    "." -> {
+                        if (!currentAmount.contains(".")) {
+                            if (currentAmount.isEmpty()) "0." else "$currentAmount."
+                        } else {
+                            currentAmount
+                        }
                     }
-                }
 
-                else -> {
-                    if (currentAmount == "0") {
-                        digit
-                    } else {
-                        "$currentAmount$digit"
+                    else -> {
+                        if (currentAmount == "0") {
+                            digit
+                        } else {
+                            "$currentAmount$digit"
+                        }
                     }
                 }
-            }
 
             // Validate decimal places (max 6 for microAlgos precision)
             if (newAmount.contains(".")) {
@@ -104,11 +103,12 @@ class SendAlgoViewModel(
         val currentState = stateDelegate.state.value
         if (currentState is ViewState.Content) {
             val currentAmount = currentState.amount
-            val newAmount = if (currentAmount.isNotEmpty()) {
-                currentAmount.dropLast(1)
-            } else {
-                ""
-            }
+            val newAmount =
+                if (currentAmount.isNotEmpty()) {
+                    currentAmount.dropLast(1)
+                } else {
+                    ""
+                }
             updateAmountAndRefresh(newAmount)
         }
     }
@@ -117,13 +117,17 @@ class SendAlgoViewModel(
         val maxSendable = accountBalance
         if (maxSendable > BigInteger.ZERO) {
             val maxInAlgos = maxSendable.toString().toDouble() / 1_000_000.0
-            val maxFormatted = maxInAlgos.toString().take(8).trimEnd('0').trimEnd('.')
+            val maxFormatted =
+                maxInAlgos
+                    .toString()
+                    .take(8)
+                    .trimEnd('0')
+                    .trimEnd('.')
             updateAmountAndRefresh(maxFormatted)
         } else {
             updateAmountAndRefresh("0")
         }
     }
-
 
     fun onNextPressed() {
         val currentState = stateDelegate.state.value
@@ -143,17 +147,18 @@ class SendAlgoViewModel(
     private fun updateAmountAndRefresh(newAmount: String) {
         val currentState = stateDelegate.state.value
         if (currentState is ViewState.Content) {
-            val amountUsdValue = if (newAmount.isNotEmpty() && newAmount != "0") {
-                val amountDouble = newAmount.toDoubleOrNull() ?: 0.0
-                "$${(amountDouble * algoUsdPrice).toString().take(6)}"
-            } else {
-                "$0.00"
-            }
+            val amountUsdValue =
+                if (newAmount.isNotEmpty() && newAmount != "0") {
+                    val amountDouble = newAmount.toDoubleOrNull() ?: 0.0
+                    "$${(amountDouble * algoUsdPrice).toString().take(6)}"
+                } else {
+                    "$0.00"
+                }
 
             stateDelegate.updateState {
                 currentState.copy(
                     amount = newAmount,
-                    usdValue = amountUsdValue
+                    usdValue = amountUsdValue,
                 )
             }
         }
@@ -167,17 +172,17 @@ class SendAlgoViewModel(
             val usdValue: String,
             val balance: String?,
             val assetUsdValue: String?,
-            val showUSDAmount: Boolean = false
+            val showUSDAmount: Boolean = false,
         ) : ViewState
 
         data class Error(
-            val message: String
+            val message: String,
         ) : ViewState
     }
 
     sealed interface ViewEvent {
         data class NavigateNext(
-            val amount: String // Amount in microAlgos
+            val amount: String, // Amount in microAlgos
         ) : ViewEvent
     }
 }

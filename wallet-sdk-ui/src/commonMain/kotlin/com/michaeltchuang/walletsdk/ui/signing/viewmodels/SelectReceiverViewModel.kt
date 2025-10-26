@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
-import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetBasicAccountInformationUseCase
 import com.michaeltchuang.walletsdk.core.algosdk.isValidAlgorandAddress
 import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
@@ -19,7 +18,6 @@ class SelectReceiverViewModel(
 ) : ViewModel(),
     StateViewModel<SelectReceiverViewModel.ViewState> by stateDelegate,
     EventViewModel<SelectReceiverViewModel.ViewEvent> by eventDelegate {
-
     private var senderAddress: String = ""
     private var clipboardText: String = ""
     private var allAccounts: List<AccountLite> = emptyList()
@@ -37,18 +35,19 @@ class SelectReceiverViewModel(
         val currentState = stateDelegate.state.value
         if (currentState is ViewState.Content) {
             // Filter accounts based on search text
-            val filteredAccounts = if (text.isEmpty()) {
-                allAccounts
-            } else {
-                allAccounts.filter { account ->
-                    account.customName.contains(text, ignoreCase = true) || account.address.contains(text, ignoreCase = true)
+            val filteredAccounts =
+                if (text.isEmpty()) {
+                    allAccounts
+                } else {
+                    allAccounts.filter { account ->
+                        account.customName.contains(text, ignoreCase = true) || account.address.contains(text, ignoreCase = true)
+                    }
                 }
-            }
 
             stateDelegate.updateState {
                 currentState.copy(
                     searchText = text,
-                    accounts = filteredAccounts
+                    accounts = filteredAccounts,
                 )
             }
         }
@@ -81,8 +80,8 @@ class SelectReceiverViewModel(
                 eventDelegate.sendEvent(
                     ViewEvent.NavigateToAssetTransfer(
                         senderAddress,
-                        receiverAddress
-                    )
+                        receiverAddress,
+                    ),
                 )
             }
         }
@@ -95,8 +94,8 @@ class SelectReceiverViewModel(
                 eventDelegate.sendEvent(
                     ViewEvent.NavigateToAssetTransfer(
                         senderAddress,
-                        currentState.searchText
-                    )
+                        currentState.searchText,
+                    ),
                 )
             }
         }
@@ -117,7 +116,7 @@ class SelectReceiverViewModel(
                     ViewState.Content(
                         accounts = filteredAccounts,
                         searchText = "",
-                        clipboardText = clipboardText
+                        clipboardText = clipboardText,
                     )
                 }
             } catch (e: Exception) {
@@ -134,18 +133,18 @@ class SelectReceiverViewModel(
         data class Content(
             val accounts: List<AccountLite>,
             val searchText: String,
-            val clipboardText: String = ""
+            val clipboardText: String = "",
         ) : ViewState
 
         data class Error(
-            val message: String
+            val message: String,
         ) : ViewState
     }
 
     sealed interface ViewEvent {
         data class NavigateToAssetTransfer(
             val senderAddress: String,
-            val receiverAddress: String
+            val receiverAddress: String,
         ) : ViewEvent
     }
 }
