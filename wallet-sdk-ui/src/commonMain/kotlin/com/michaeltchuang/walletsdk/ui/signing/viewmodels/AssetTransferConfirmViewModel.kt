@@ -256,6 +256,15 @@ class AssetTransferConfirmViewModel(
         transactionSignManager.setup(lifecycle)
     }
 
+    fun reset() {
+        senderAddress = ""
+        receiverAddress = ""
+        transferAmount = ""
+        transferNote = ""
+        currentFee = "0.001"
+        stateDelegate.updateState { ViewState.Loading }
+    }
+
     fun sendTransaction() {
         viewModelScope.launch {
             val transactionData = createSendTransactionData() ?: return@launch
@@ -304,6 +313,11 @@ class AssetTransferConfirmViewModel(
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        reset()
+    }
+
     sealed interface ViewState {
         data object Loading : ViewState
 
@@ -315,7 +329,7 @@ class AssetTransferConfirmViewModel(
             val amount: String,
             val accountBalance: String?,
             val note: String = "",
-            val fee: String = "0.001",
+            val fee: String = "",
         ) : ViewState
 
         data class Error(

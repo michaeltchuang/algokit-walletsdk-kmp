@@ -83,6 +83,12 @@ fun AssetTransferConfirmScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    // Reset ViewModel state when entering the screen
+    LaunchedEffect(Unit) {
+        viewModel.reset()
+        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
+    }
+
     LaunchedEffect(events.value) {
         events.value?.let { event ->
             when (event) {
@@ -104,9 +110,7 @@ fun AssetTransferConfirmScreen(
         }
     }
 
-    LaunchedEffect(senderAddress, receiverAddress, amount) {
-        viewModel.setup(lifecycle = lifecycleOwner.lifecycle)
-
+    LaunchedEffect(senderAddress, receiverAddress, amount, note) {
         if (senderAddress.isNotEmpty()) {
             viewModel.setSenderAddress(senderAddress)
         }
