@@ -21,7 +21,7 @@
 
     <!-- Messages -->
     <string name="account_deleted">Account eliminato con successo.</string>
-    <string name="failed_to_delete">Impossibile eliminare l\'account.</string>
+    <string name="failed_to_delete">Impossibile eliminare l\u2019account.</string>
     <string name="failed_to_fetch">Impossibile recuperare gli account.</string>
     <string name="unknown_error">Errore sconosciuto</string>
     <string name="loading_accounts">Pronto per caricare gli account...</string>
