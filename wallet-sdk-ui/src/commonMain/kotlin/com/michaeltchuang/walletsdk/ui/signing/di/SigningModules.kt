@@ -1,5 +1,7 @@
 package com.michaeltchuang.walletsdk.ui.signing.di
 
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.SelectReceiverViewModel
+import com.michaeltchuang.walletsdk.ui.signing.viewmodels.SendAlgoViewModel
 import com.michaeltchuang.walletsdk.ui.signing.viewmodels.AssetTransferConfirmViewModel
 import com.michaeltchuang.walletsdk.ui.signing.viewmodels.KeyRegConfirmViewModel
 import com.michaeltchuang.walletsdk.ui.signing.viewmodels.SelectAccountViewModel
@@ -41,6 +43,22 @@ internal val signingModules =
 
             viewModel {
                 SelectAccountViewModel(
+                    get(),
+                    get(),
+                    get(),
+                    get(),
+                )
+            }
+
+            viewModel {
+                SendAlgoViewModel(
+                    get(),
+                    get(),
+                    get(),
+                )
+            }
+            viewModel {
+                SelectReceiverViewModel(
                     get(),
                     get(),
                     get(),

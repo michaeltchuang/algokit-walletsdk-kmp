@@ -38,6 +38,7 @@ class AssetTransferConfirmViewModel(
     private var senderAddress: String = ""
     private var receiverAddress: String = ""
     private var transferAmount: String = ""
+    private var transferNote: String = ""
 
     init {
         stateDelegate.setDefaultState(ViewState.Loading)
@@ -72,10 +73,12 @@ class AssetTransferConfirmViewModel(
                         eventDelegate.sendEvent(ViewEvent.ShowError("Ledger scan failed"))
                         restoreContentState()
                     }
+
                     is TransactionManagerResult.LedgerWaitingForApproval -> {}
                     is TransactionManagerResult.Loading -> {
                         stateDelegate.updateState { ViewState.Confirming }
                     }
+
                     is TransactionManagerResult.Success -> {
                         println(it.signedTransactionDetail.toString())
                         sendSignedTransaction(it.signedTransactionDetail)
@@ -104,6 +107,11 @@ class AssetTransferConfirmViewModel(
         updateContentState()
     }
 
+    fun setNote(note: String) {
+        transferNote = note
+        updateContentState()
+    }
+
     private fun updateContentState() {
         val currentState = stateDelegate.state.value
         val currentBalance =
@@ -119,6 +127,7 @@ class AssetTransferConfirmViewModel(
                 receiverAddress = receiverAddress,
                 amount = transferAmount,
                 accountBalance = currentBalance,
+                note = transferNote,
             )
         }
     }
@@ -223,7 +232,7 @@ class AssetTransferConfirmViewModel(
             minimumBalance = minimumBalance,
             amount = amountInMicroAlgos,
             assetId = assetId,
-            note = null,
+            note = transferNote,
             targetUser =
                 TargetUser(
                     publicKey = receiverAddress,
@@ -282,6 +291,7 @@ class AssetTransferConfirmViewModel(
             val amount: String,
             val accountBalance: String?,
             val fee: String = "0.001",
+            val note: String = ""
         ) : ViewState
 
         data class Error(

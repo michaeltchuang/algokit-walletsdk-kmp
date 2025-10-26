@@ -51,11 +51,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.michaeltchuang.walletsdk.core.deeplink.model.KeyRegTransactionDetail
 import com.michaeltchuang.walletsdk.core.foundation.utils.formatAmount
 import com.michaeltchuang.walletsdk.core.foundation.utils.toAlgoCurrency
 import com.michaeltchuang.walletsdk.core.foundation.utils.toShortenedAddress
-import com.michaeltchuang.walletsdk.core.transaction.signmanager.PendingTransactionRequestManger.txnDetail
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.AlgoKitTopBar
@@ -71,11 +69,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun AssetTransferScreen(
+fun AssetTransferConfirmScreen(
     navController: NavController,
     senderAddress: String = "",
     receiverAddress: String = "",
-    amount: String = "0", // in microalgos big integer
+    note: String = "",
+    amount: String = "0",
 ) {
     val viewModel: AssetTransferConfirmViewModel = koinViewModel()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -116,6 +115,9 @@ fun AssetTransferScreen(
         }
         if (amount.isNotEmpty()) {
             viewModel.setAmount(amount)
+        }
+        if (note.isNotEmpty()){
+            viewModel.setNote(note)
         }
     }
 
@@ -198,6 +200,8 @@ fun AssetTransferContent(
                 amount = state.amount,
                 accountBalance = state.accountBalance,
                 fee = state.fee,
+                note = state.note,
+                viewModel = viewModel
             )
         }
 
@@ -219,6 +223,8 @@ fun AssetTransferContentItems(
     amount: String,
     accountBalance: String?,
     fee: String,
+    note: String,
+    viewModel: AssetTransferConfirmViewModel,
 ) {
     Column(
         modifier =
@@ -267,7 +273,7 @@ fun AssetTransferContentItems(
         )
         AssetTransferDivider()
 
-        AssetTransferAddNote(txnDetail)
+        AssetTransferAddNote(note,viewModel)
     }
 }
 
@@ -372,9 +378,9 @@ fun AssetTransferLabeledText(
 }
 
 @Composable
-fun AssetTransferAddNote(txnDetail: KeyRegTransactionDetail?) {
+fun AssetTransferAddNote(note: String,viewModel: AssetTransferConfirmViewModel) {
     var isAddNoteEnabled by remember { mutableStateOf(false) }
-    var noteText by remember { mutableStateOf("") }
+    var noteText by remember { mutableStateOf(note) }
     Column {
         if (isAddNoteEnabled) {
             AssetTransferAddNoteTextField(noteText, {
@@ -382,7 +388,7 @@ fun AssetTransferAddNote(txnDetail: KeyRegTransactionDetail?) {
             }, {
                 noteText = ""
             }, {
-                txnDetail?.copy(note = noteText)
+               viewModel.setNote(noteText)
                 isAddNoteEnabled = false
             })
         } else {
@@ -487,7 +493,7 @@ fun AssetTransferAddNoteTextField(
 @Composable
 fun PreviewAssetTransferScreen() {
     AlgoKitTheme {
-        AssetTransferScreen(
+        AssetTransferConfirmScreen(
             navController = androidx.navigation.compose.rememberNavController(),
         )
     }
