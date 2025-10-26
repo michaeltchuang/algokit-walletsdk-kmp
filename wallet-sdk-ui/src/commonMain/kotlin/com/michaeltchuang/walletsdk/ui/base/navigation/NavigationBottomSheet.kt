@@ -49,9 +49,11 @@ import com.michaeltchuang.walletsdk.ui.settings.screens.LanguageScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.NodeSettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.SettingsScreen
 import com.michaeltchuang.walletsdk.ui.settings.screens.ThemeScreen
-import com.michaeltchuang.walletsdk.ui.signing.screens.AssetTransferScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.AssetTransferConfirmScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.ConfirmTransactionRequestScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.SelectAccountScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.SelectReceiverScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.SendAlgoScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -85,6 +87,8 @@ enum class AlgoKitScreens {
     FALCON24_WALLET_SELECTION_SCREEN,
     ASSET_TRANSFER_SCREEN,
     SELECT_ACCOUNT_SCREEN,
+    SEND_ALGO_SCREEN,
+    SELECT_RECEIVER_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -369,7 +373,7 @@ fun NavigationBottomSheetNavHost(
                     }
                 }
                 composable(
-                    route = AlgoKitScreens.ASSET_TRANSFER_SCREEN.name + "?sender={sender}&receiver={receiver}&amount={amount}",
+                    route = AlgoKitScreens.ASSET_TRANSFER_SCREEN.name + "?sender={sender}&receiver={receiver}&amount={amount}&note={note}",
                     arguments =
                         listOf(
                             navArgument("sender") {
@@ -378,6 +382,11 @@ fun NavigationBottomSheetNavHost(
                                 defaultValue = ""
                             },
                             navArgument("receiver") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("note") {
                                 type = NavType.StringType
                                 nullable = false
                                 defaultValue = ""
@@ -392,11 +401,12 @@ fun NavigationBottomSheetNavHost(
                     val sender = backStackEntry.arguments?.getString("sender") ?: ""
                     val receiver = backStackEntry.arguments?.getString("receiver") ?: ""
                     val amount = backStackEntry.arguments?.getString("amount") ?: "0.00"
-
-                    AssetTransferScreen(
+                    val note = backStackEntry.arguments?.getString("note") ?: ""
+                    AssetTransferConfirmScreen(
                         navController = navController,
                         senderAddress = sender,
                         receiverAddress = receiver,
+                        note = note,
                         amount = amount,
                     )
                 }
@@ -423,6 +433,60 @@ fun NavigationBottomSheetNavHost(
                         navController = navController,
                         receiverAddress = receiver,
                         amount = amount,
+                    )
+                }
+                composable(
+                    route = AlgoKitScreens.SEND_ALGO_SCREEN.name + "?sender={sender}",
+                    arguments =
+                        listOf(
+                            navArgument("sender") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("receiver") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val sender = backStackEntry.arguments?.getString("sender") ?: ""
+
+                    SendAlgoScreen(
+                        navController = navController,
+                        senderAddress = sender,
+                    )
+                }
+                composable(
+                    route = AlgoKitScreens.SELECT_RECEIVER_SCREEN.name + "?sender={sender}&amount={amount}&note={note}",
+                    arguments =
+                        listOf(
+                            navArgument("sender") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                            navArgument("amount") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = "0" // in microalgos big integer
+                            },
+                            navArgument("note") {
+                                type = NavType.StringType
+                                nullable = false
+                                defaultValue = ""
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val sender = backStackEntry.arguments?.getString("sender") ?: ""
+                    val amount = backStackEntry.arguments?.getString("amount") ?: "0.00"
+                    val note = backStackEntry.arguments?.getString("note") ?: ""
+                    SelectReceiverScreen(
+                        navController = navController,
+                        amount = amount,
+                        note = note,
+                        senderAddress = sender,
                     )
                 }
             }

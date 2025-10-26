@@ -88,11 +88,10 @@ timeline
             : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
             : ✅ Account Details - Add testnet dispenser link
-            : ✅ Transaction - Send Algo using QR code flow (between accounts)
-            : 🔄 Transaction - Send Algo using account detail flow (between accounts)
-            : ✅ Settings - Localization (Italian)
-            : Settings - Localization (Hindi)
+            : ✅ Transaction - Send Algo using account detail or QR code flows (between accounts)
             : ✅ GitOps - Setup Play store for demo Android app releases
+            : ✅ Settings - Localization (Italian)
+            : 🔄 Settings - Localization (Hindi)
             : GitOps - Setup App store for demo iOS app releases
 
     section Future
@@ -169,7 +168,7 @@ This project is developed using [Android Studio](https://developer.android.com/s
 
 #### View Passphrase Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/156b604d-ad4c-447d-8b5f-91f877c7c251" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/c5caea94-560f-4144-99db-af72f016e5ee" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/9c50546c-20da-46ed-b4fb-4a77779de443" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/48f6bd29-2b92-460c-8ef8-146bb07e3508" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/3f85712f-7248-40f3-9c53-9458019a7d28" />
@@ -197,14 +196,28 @@ This project is developed using [Android Studio](https://developer.android.com/s
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/0872fc82-5abb-4806-a2db-61c90441dfbd" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/25b215b6-e502-436e-9110-a02e278e0d06" />
 
-### Wallet-SDK Screens - Transactions
+### Wallet-SDK Screens - Signing
 
 #### KeyReg Flow
 
-<img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" />   
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/37d406cc-b584-44ae-9c95-94fed9c6baae" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/a20d571d-ea2f-461b-a75f-0ddfc19bbd19" /> 
 <img width="200" alt="Image" src="https://github.com/user-attachments/assets/e8db4235-3e1f-45c0-825c-29ad929a716d" />
+
+#### Asset Transfer Flow using QR Code
+
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/8d386947-3a7a-4f08-be63-929982956fb4" />   
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/5dd48afb-549e-449f-b6b6-ecc146c527e0" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/d8b142ae-9a45-46cb-adf8-cd7a45fcf221" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/a20d571d-ea2f-461b-a75f-0ddfc19bbd19" />
+
+#### Asset Transfer Flow
+
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/c5caea94-560f-4144-99db-af72f016e5ee" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/f2b3570c-3886-4628-8d9b-a706345239ea" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/bf0212fc-d9fd-4082-8b51-f33c78f8a31d" /> 
+<img width="200" alt="Image" src="https://github.com/user-attachments/assets/59fcb9ee-e5a1-4dca-9ab2-b3b1368b96c0" />
 
 ## Architecture
 

@@ -82,6 +82,31 @@ fun AlgoKitIconRoundShape(
 }
 
 @Composable
+fun AlgoKitIconRoundShapeSmall(
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector,
+    contentDescription: String,
+    backgroundColor: Color = AlgoKitTheme.colors.wallet4,
+    tintColor: Color = AlgoKitTheme.colors.wallet4Icon,
+) {
+    Box(
+        modifier =
+            modifier
+                .padding(start = 10.dp)
+                .size(24.dp)
+                .clip(shape = CircleShape)
+                .background(color = backgroundColor),
+    ) {
+        Icon(
+            modifier = Modifier.align(Alignment.Center).size(16.dp),
+            imageVector = imageVector,
+            tint = tintColor,
+            contentDescription = contentDescription,
+        )
+    }
+}
+
+@Composable
 fun AlgoKitIconRoundShapeBig(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
