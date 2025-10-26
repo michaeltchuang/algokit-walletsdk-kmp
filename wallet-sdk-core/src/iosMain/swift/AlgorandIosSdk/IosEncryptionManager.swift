@@ -98,6 +98,13 @@ public enum EncryptionError: Error {
 
     /// Creates a symmetric key protected by Secure Enclave
     private static func createSecureEnclaveProtectedKey() throws -> SymmetricKey {
+        // First, check if a key already exists and is retrievable
+        if let existingKey = try? retrieveSecureEnclaveProtectedKey() {
+            // Key already exists, don't recreate it
+            return existingKey
+        }
+
+        // No existing key found, create a new one
         // Step 1: Create an ECC key pair in Secure Enclave for wrapping
         let seKeyTag = secureEnclaveKeyAlias.data(using: .utf8)!
 
@@ -159,7 +166,7 @@ public enum EncryptionError: Error {
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
 
-        // Delete any existing wrapped key
+        // Delete any existing wrapped key (should not exist since we checked above, but just in case)
         SecItemDelete(wrappedKeyQuery as CFDictionary)
 
         let status = SecItemAdd(wrappedKeyQuery as CFDictionary, nil)
@@ -175,6 +182,13 @@ public enum EncryptionError: Error {
 
     /// Creates a regular symmetric key stored in Keychain
     private static func createRegularKey() throws -> SymmetricKey {
+        // First, check if a key already exists and is retrievable
+        if let existingKey = try? retrieveRegularKey() {
+            // Key already exists, don't recreate it
+            return existingKey
+        }
+
+        // No existing key found, create a new one
         let symmetricKey = SymmetricKey(size: .bits256)
 
         let keyData = symmetricKey.withUnsafeBytes { Data($0) }
@@ -186,7 +200,7 @@ public enum EncryptionError: Error {
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
 
-        // Delete any existing key
+        // Delete any existing key (should not exist since we checked above, but just in case)
         SecItemDelete(query as CFDictionary)
 
         let status = SecItemAdd(query as CFDictionary, nil)
@@ -419,7 +433,19 @@ public enum EncryptionError: Error {
     /// Re-initializes the encryption manager (Swift version)
     public func reinitialize() throws {
         try queue.sync(flags: .barrier) {
-            symmetricKey = try Self.getOrCreateKey()
+            // Only reinitialize if we don't have a key, or if retrieval actually fails
+            // This prevents accidentally recreating the key and making old data undecryptable
+            if self.symmetricKey == nil {
+                self.symmetricKey = try Self.getOrCreateKey()
+            } else {
+                // If we already have a key in memory, verify it still works by attempting
+                // to retrieve it from keychain. Only recreate if truly missing.
+                if let retrievedKey = try? Self.retrieveKey() {
+                    self.symmetricKey = retrievedKey
+                }
+                // If retrieval fails but we have a key in memory, keep using the memory key
+                // This prevents data loss from transient keychain errors
+            }
         }
     }
 
