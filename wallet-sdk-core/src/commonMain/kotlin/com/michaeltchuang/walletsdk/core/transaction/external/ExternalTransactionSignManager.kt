@@ -80,7 +80,7 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
                     externalTransactionQueuingHelper.cacheDequeuedItem(null)
                 }
                 is TransactionSigner.Algo25 -> {
-                    signLegacyAlgo25Transaction(this@signTransaction, getAlgo25SecretKey(transactionSigner.address)!!)
+                    signLegacyAlgo25Transaction(this@signTransaction, transactionSigner.address)
                 }
                 is TransactionSigner.HdKey -> {
                     signHdTransaction(this@signTransaction, transactionSigner.address)
@@ -95,11 +95,12 @@ open class ExternalTransactionSignManager<TRANSACTION : ExternalTransaction>(
         }
     }
 
-    private fun signLegacyAlgo25Transaction(
+    private suspend fun signLegacyAlgo25Transaction(
         transaction: ExternalTransaction,
-        secretKey: ByteArray,
+        accountAddress: String,
     ) {
         val transactionBytes = transaction.transactionByteArray ?: return handleSignError(transaction)
+        val secretKey = getAlgo25SecretKey(accountAddress) ?: return handleSignError(transaction)
         val transactionSignedByteArray = signAlgo25Transaction(secretKey, transactionBytes)
         onTransactionSigned(transaction, transactionSignedByteArray)
     }
