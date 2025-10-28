@@ -90,9 +90,10 @@ timeline
             : ✅ Account Details - Add testnet dispenser link
             : ✅ Transaction - Send Algo using account detail or QR code flows (between accounts)
             : ✅ GitOps - Setup Play store for demo Android app releases
-            : ✅ Settings - Localization (Italian)
-            : 🔄 Settings - Localization (Hindi)
-            : GitOps - Setup App store for demo iOS app releases
+            : ✅ Settings - Localization (Italian, Hindi)
+            : 🔄 Account Details - Add Transaction History
+            : 🔄 GitOps - Setup App store for demo iOS app releases
+
 
     section Future
     2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
