@@ -17,7 +17,12 @@ actual class LocalizationManager actual constructor(
             when (localizationPreference) {
                 LocalizationPreference.ENGLISH -> Locale.ENGLISH
                 LocalizationPreference.ITALIAN -> Locale.ITALIAN
-                LocalizationPreference.HINDI -> Locale.Builder().setLanguage("hi").setRegion("IN").build()
+                LocalizationPreference.HINDI ->
+                    Locale
+                        .Builder()
+                        .setLanguage("hi")
+                        .setRegion("IN")
+                        .build()
             }
         setDefaultLocale(localizationPreference)
         config.setLocale(locale)
@@ -38,7 +43,12 @@ actual fun setDefaultLocale(localizationPreference: LocalizationPreference) {
         when (localizationPreference) {
             LocalizationPreference.ENGLISH -> Locale.ENGLISH
             LocalizationPreference.ITALIAN -> Locale.ITALIAN
-            LocalizationPreference.HINDI -> Locale.Builder().setLanguage("hi").setRegion("IN").build()
+            LocalizationPreference.HINDI ->
+                Locale
+                    .Builder()
+                    .setLanguage("hi")
+                    .setRegion("IN")
+                    .build()
         }
     Locale.setDefault(locale)
 }

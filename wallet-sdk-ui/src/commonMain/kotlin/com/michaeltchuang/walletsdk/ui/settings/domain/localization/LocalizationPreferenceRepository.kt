@@ -17,5 +17,5 @@ expect fun provideLocalizationPreferenceRepository(): LocalizationPreferenceRepo
 enum class LocalizationPreference {
     ENGLISH,
     ITALIAN,
-    HINDI
+    HINDI,
 }

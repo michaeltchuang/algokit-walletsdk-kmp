@@ -63,7 +63,7 @@ fun LanguageScreen(navController: NavController) {
         when (this) {
             LocalizationPreference.ITALIAN -> localizedStringResource(Res.string.italian)
             LocalizationPreference.ENGLISH -> localizedStringResource(Res.string.english)
-            LocalizationPreference.HINDI ->  localizedStringResource(Res.string.hindi)
+            LocalizationPreference.HINDI -> localizedStringResource(Res.string.hindi)
         }
 
     Column(

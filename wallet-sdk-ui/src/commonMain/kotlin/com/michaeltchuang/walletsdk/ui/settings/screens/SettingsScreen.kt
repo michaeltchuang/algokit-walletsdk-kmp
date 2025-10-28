@@ -90,12 +90,12 @@ fun SettingsScreen(navController: NavController) {
         ) {
             navController.navigate(AlgoKitScreens.THEME_SCREEN.name)
         }
-        SettingsItem(
-            icon = Res.drawable.ic_localization,
-            title = stringResource(Res.string.localization_settings),
-        ) {
-            navController.navigate(AlgoKitScreens.LANGUAGE_SCREEN.name)
-        }
+//        SettingsItem(
+//            icon = Res.drawable.ic_localization,
+//            title = stringResource(Res.string.localization_settings),
+//        ) {
+//            navController.navigate(AlgoKitScreens.LANGUAGE_SCREEN.name)
+//        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Section: Support
