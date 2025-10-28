@@ -2,6 +2,7 @@ package com.michaeltchuang.walletsdk.ui.settings.screens
 
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.english
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.hindi
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.italian
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.localization_screen_title
 import androidx.compose.foundation.background
@@ -62,6 +63,7 @@ fun LanguageScreen(navController: NavController) {
         when (this) {
             LocalizationPreference.ITALIAN -> localizedStringResource(Res.string.italian)
             LocalizationPreference.ENGLISH -> localizedStringResource(Res.string.english)
+            LocalizationPreference.HINDI ->  localizedStringResource(Res.string.hindi)
         }
 
     Column(

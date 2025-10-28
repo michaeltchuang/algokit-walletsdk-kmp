@@ -1458,6 +1458,7 @@
     <string name="localization_screen_title">Lingua</string>
     <string name="italian">Italiano</string>
     <string name="english">Inglese</string>
+    <string name="hindi">हिन्दी</string>
 
     <!-- Account Types -->
     <string name="account_type_hd">Account HD</string>
@@ -1465,4 +1466,8 @@
     <string name="account_type_falcon24">Account Falcon24</string>
     <string name="account_type_watch">Account Osservato</string>
     <string name="account_type_ledger">Account Ledger</string>
+
+    <string name="send_funds_to_another_account">Invia fondi a un altro account</string>
+    <string name="dispenser_add_funds_to_your_account">Dispenser - Aggiungi fondi al tuo account</string>
+    <string name="send_algo">Invia ALGO</string>
 </resources>
