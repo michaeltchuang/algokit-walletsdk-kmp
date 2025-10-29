@@ -4,12 +4,15 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.add_note
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.amount
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.balance
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.confirm_transaction
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.confirm_transfer
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.done
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.enter_your_note
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.fee
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_wallet
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.note
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.to
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -251,18 +254,18 @@ fun AssetTransferContentItems(
             value = senderAddress,
         )
         AssetTransferAccountLabeledText(
-            label = "To",
+            label = stringResource(Res.string.to),
             value = receiverAddress,
             isReceiver = true,
         )
 
-        AssetTransferLabeledText(label = "Fee", value = fee.toAlgoCurrency())
+        AssetTransferLabeledText(label = stringResource(Res.string.fee), value = fee.toAlgoCurrency())
         Spacer(modifier = Modifier.height(8.dp))
         AssetTransferDivider()
 
 //        AssetTransferLabeledText(label = "Current", value = "10.00".toAlgoCurrency())
         AssetTransferLabeledText(
-            label = "Balance",
+            label = stringResource(Res.string.balance),
             value =
                 accountBalance?.let {
                     try {

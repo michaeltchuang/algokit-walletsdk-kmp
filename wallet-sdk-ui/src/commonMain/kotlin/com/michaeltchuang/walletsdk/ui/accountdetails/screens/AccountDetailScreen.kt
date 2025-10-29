@@ -4,12 +4,14 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.address_copied_to_clipboard
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.copy_address
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.dispenser_add_funds_to_your_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_sign
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_key
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_send
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_unlink
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.remove_account
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.send_funds_to_another_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_passphrase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -144,7 +146,7 @@ fun AccountDetailScreen(
 
                         AccountDetailWebviewItem(
                             icon = Res.drawable.ic_algo_sign,
-                            title = "Dispenser - Add funds to your account",
+                            title = stringResource(Res.string.dispenser_add_funds_to_your_account),
                             url = "https://dispenser.testnet.aws.algodev.network/?account=$address",
                         )
                     }
@@ -154,7 +156,7 @@ fun AccountDetailScreen(
                     AccountDetailItem(
                         icon = Res.drawable.ic_send,
                         isRemoveAccount = false,
-                        title = "Send funds to another account",
+                        title = stringResource(Res.string.send_funds_to_another_account),
                     ) {
                         navController.navigate(
                             "${AlgoKitScreens.SEND_ALGO_SCREEN.name}?sender=$address",

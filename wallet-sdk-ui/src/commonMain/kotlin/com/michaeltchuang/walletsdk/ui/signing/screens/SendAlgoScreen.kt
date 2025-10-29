@@ -1,12 +1,17 @@
 package com.michaeltchuang.walletsdk.ui.signing.screens
 
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.add_note
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.done
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.edit_note
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.enter_your_note
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_round
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_asa_trusted
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_delete
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_wallet
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.max
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.next
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.send_algo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -169,7 +174,7 @@ private fun SendAlgoTopBar(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Send ALGO",
+                text = stringResource(Res.string.send_algo),
                 style = typography.body.regular.sansMedium,
                 color = AlgoKitTheme.colors.textMain,
             )
@@ -254,7 +259,7 @@ private fun SendAlgoContent(
         // Next Button
         AlgoKitPrimaryButton(
             onClick = onNextPressed,
-            text = "Next",
+            text = stringResource(Res.string.next),
             modifier = Modifier.fillMaxWidth(),
             state =
                 if (state.amount.isNotEmpty() && state.amount != "0") {
@@ -313,7 +318,7 @@ private fun AmountDisplaySection(
         ) {
             if (isAddNoteEnabled.not()) {
                 Text(
-                    text = if (noteText.value.isBlank()) "+ Add Note" else "Edit Note",
+                    text = if (noteText.value.isBlank()) stringResource(Res.string.add_note) else stringResource(Res.string.edit_note),
                     style = typography.body.regular.sansMedium,
                     color = AlgoKitTheme.colors.textGray,
                     modifier =
@@ -324,7 +329,7 @@ private fun AmountDisplaySection(
             }
 
             Text(
-                text = "MAX",
+                text = stringResource(Res.string.max),
                 style = typography.body.regular.sansMedium,
                 color = AlgoKitTheme.colors.textGray,
                 modifier = Modifier.clickable { onMaxPressed() },
