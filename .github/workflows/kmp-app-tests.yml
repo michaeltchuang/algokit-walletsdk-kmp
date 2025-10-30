@@ -1,4 +1,4 @@
-name: "Android App Tests"
+name: "Kotlin Multiplatform App Tests"
 
 on:
   # no timezone support so cron runs in UTC time for now
