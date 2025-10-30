@@ -55,6 +55,7 @@ import com.michaeltchuang.walletsdk.ui.signing.screens.SelectAccountScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.SelectReceiverScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.SendAlgoScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.TransactingTipsScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -89,6 +90,7 @@ enum class AlgoKitScreens {
     SELECT_ACCOUNT_SCREEN,
     SEND_ALGO_SCREEN,
     SELECT_RECEIVER_SCREEN,
+    TRANSACTING_TIPS_SCREEN,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -487,6 +489,13 @@ fun NavigationBottomSheetNavHost(
                         amount = amount,
                         note = note,
                         senderAddress = sender,
+                    )
+                }
+                composable(route = AlgoKitScreens.TRANSACTING_TIPS_SCREEN.name) {
+                    TransactingTipsScreen(
+                        onUnderstandClick = {
+                            navController.popBackStack()
+                        }
                     )
                 }
             }

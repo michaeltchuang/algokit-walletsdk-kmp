@@ -32,6 +32,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -111,7 +112,9 @@ fun SendAlgoScreen(
             SendAlgoTopBar(
                 senderAddress = senderAddress,
                 onBackClick = { navController.popBackStack() },
-                onInfoClick = { /* Handle info click */ },
+                onInfoClick = {
+                    navController.navigate(AlgoKitScreens.TRANSACTING_TIPS_SCREEN.name)
+                },
             )
 
             // Content
@@ -198,13 +201,13 @@ private fun SendAlgoTopBar(
             }
         }
 
-        /*  IconButton(onClick = onInfoClick) {
+          IconButton(onClick = onInfoClick, modifier = Modifier.align(Alignment.CenterEnd)) {
               Icon(
                   imageVector = Icons.Default.Info,
                   contentDescription = "Info",
                   tint = AlgoKitTheme.colors.textMain
               )
-          }*/
+          }
     }
 }
 
