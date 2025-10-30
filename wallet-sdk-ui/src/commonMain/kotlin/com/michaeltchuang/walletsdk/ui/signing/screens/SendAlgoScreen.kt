@@ -201,13 +201,13 @@ private fun SendAlgoTopBar(
             }
         }
 
-          IconButton(onClick = onInfoClick, modifier = Modifier.align(Alignment.CenterEnd)) {
-              Icon(
-                  imageVector = Icons.Default.Info,
-                  contentDescription = "Info",
-                  tint = AlgoKitTheme.colors.textMain
-              )
-          }
+        IconButton(onClick = onInfoClick, modifier = Modifier.align(Alignment.CenterEnd)) {
+            Icon(
+                imageVector = Icons.Default.Info,
+                contentDescription = "Info",
+                tint = AlgoKitTheme.colors.textMain,
+            )
+        }
     }
 }
 

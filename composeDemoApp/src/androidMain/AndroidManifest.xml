@@ -14,7 +14,7 @@
         android:name=".AndroidApp"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="AlgoKit Wallet"
+        android:label="@string/app_name"
         android:theme="@android:style/Theme.Material.NoActionBar">
         <activity
             android:name=".AppActivity"

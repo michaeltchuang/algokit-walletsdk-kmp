@@ -45,7 +45,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.final_class.webview_multiplatform_mobile.webview.WebViewPlatform
 import com.final_class.webview_multiplatform_mobile.webview.controller.rememberWebViewController
-import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.TERMS_AND_SERVICES_URL
+import com.michaeltchuang.walletsdk.core.foundation.utils.WalletSdkConstants.TRANSACTIONS_LEARN_MORE
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme.typography
 import com.michaeltchuang.walletsdk.ui.base.designsystem.widget.button.AlgoKitPrimaryButton
@@ -55,9 +55,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun TransactingTipsScreen(
-    onUnderstandClick: () -> Unit,
-) {
+fun TransactingTipsScreen(onUnderstandClick: () -> Unit) {
     Box(
         modifier =
             Modifier
@@ -69,7 +67,8 @@ fun TransactingTipsScreen(
                 Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
-                    .padding(bottom = 75.dp).verticalScroll(rememberScrollState()),
+                    .padding(bottom = 75.dp)
+                    .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(24.dp))
@@ -113,17 +112,21 @@ fun TransactingTipsScreen(
 
             // Second tip with checkmark
             TipItem(
-                text = buildAnnotatedString {
-                    append("Exchanges change their deposit addresses frequently, and saved exchange addresses may no longer be in use. ")
-                    withStyle(
-                        style = SpanStyle(
-                            color = Color(0xFFFF6D5F), // Salmon color for emphasis
-                            fontWeight = FontWeight.Medium,
-                        ),
-                    ) {
-                        append("Ensure you're sending to the correct address.")
-                    }
-                },
+                text =
+                    buildAnnotatedString {
+                        append(
+                            "Exchanges change their deposit addresses frequently, and saved exchange addresses may no longer be in use. ",
+                        )
+                        withStyle(
+                            style =
+                                SpanStyle(
+                                    color = Color(0xFFFF6D5F), // Salmon color for emphasis
+                                    fontWeight = FontWeight.Medium,
+                                ),
+                        ) {
+                            append("Ensure you're sending to the correct address.")
+                        }
+                    },
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -146,9 +149,7 @@ fun TransactingTipsScreen(
 }
 
 @Composable
-private fun TipItem(
-    text: AnnotatedString,
-) {
+private fun TipItem(text: AnnotatedString) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top,
@@ -162,7 +163,7 @@ private fun TipItem(
                     .border(
                         2.dp,
                         AlgoKitTheme.colors.layerGrayLighter,
-                        CircleShape
+                        CircleShape,
                     ), // Darker cyan border
             contentAlignment = Alignment.Center,
         ) {
@@ -209,12 +210,12 @@ fun MoreInfoClick(modifier: Modifier = Modifier) {
                             val offset = layoutResult.getOffsetForPosition(adjustedPos)
                             annotatedString
                                 .getStringAnnotations(
-                                    tag = "TERMS_AND_CONDITIONS",
+                                    tag = "TRANSACTIONS_LEARN_MORE",
                                     start = offset,
                                     end = offset + 1,
                                 ).firstOrNull()
                                 ?.let {
-                                    webViewController.open(TERMS_AND_SERVICES_URL)
+                                    webViewController.open(TRANSACTIONS_LEARN_MORE)
                                 }
                         }
                     }
@@ -249,8 +250,8 @@ private fun createAnnotatedString() =
             end = tapHereEndIndex,
         )
         addStringAnnotation(
-            tag = "TERMS_AND_CONDITIONS",
-            annotation = TERMS_AND_SERVICES_URL,
+            tag = "TRANSACTIONS_LEARN_MORE",
+            annotation = TRANSACTIONS_LEARN_MORE,
             start = tapHereStartIndex,
             end = tapHereEndIndex,
         )

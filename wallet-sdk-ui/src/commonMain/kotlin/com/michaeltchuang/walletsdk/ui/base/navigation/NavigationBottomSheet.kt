@@ -54,8 +54,8 @@ import com.michaeltchuang.walletsdk.ui.signing.screens.ConfirmTransactionRequest
 import com.michaeltchuang.walletsdk.ui.signing.screens.SelectAccountScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.SelectReceiverScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.SendAlgoScreen
-import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
 import com.michaeltchuang.walletsdk.ui.signing.screens.TransactingTipsScreen
+import com.michaeltchuang.walletsdk.ui.signing.screens.TransactionSuccessScreen
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -495,7 +495,7 @@ fun NavigationBottomSheetNavHost(
                     TransactingTipsScreen(
                         onUnderstandClick = {
                             navController.popBackStack()
-                        }
+                        },
                     )
                 }
             }

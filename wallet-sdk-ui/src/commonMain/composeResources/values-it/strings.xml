@@ -18,7 +18,7 @@
     <string name="validator_detail_label_fee">Commissione</string>
     <string name="validator_detail_confirm_stake">Conferma</string>
     <string name="validator_detail_button_wait_message">Ci vorranno alcuni secondi affinché il nuovo stato venga riconosciuto sulla blockchain</string>
-    <string name="app_name">AlgoKit Wallet Test App</string>
+    <string name="app_name">demo WalletSDK</string>
     <string name="please_scan_your_fingerprint_or">Per favore, scansiona la tua impronta digitale o il tuo volto per procedere.</string>
     <string name="cancel">Annulla</string>
     <string name="share_via">Condividi tramite</string>
