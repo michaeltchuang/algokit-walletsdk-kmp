@@ -15,9 +15,6 @@ concurrency:
 
 jobs:
   browserstack:
-    if: >
-      github.event_name != 'pull_request_target' ||
-      (github.event_name == 'pull_request_target' && contains(github.event.pull_request.labels.*.name, 'external contribution'))
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Code"
