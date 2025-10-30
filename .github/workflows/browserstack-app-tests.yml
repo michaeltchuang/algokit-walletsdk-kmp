@@ -1,4 +1,4 @@
-name: "Android BrowserStack Tests"
+name: "BrowserStack Tests"
 
 on:
   workflow_dispatch:
@@ -41,7 +41,7 @@ jobs:
         with:
           browserstackUsername: ${{ secrets.BROWSERSTACK_USERNAME }}
           browserstackAccessKey: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-          project: Pera-Android
+          project: AlgoKit-WalletSDK-KMP
           buildTag: ${{ github.sha }}
           appFilePath: ${{ github.workspace }}/composeDemoApp/build/outputs/apk/debug/composeDemoApp-debug.apk
           testFilePath: ${{ github.workspace }}/composeDemoApp/build/outputs/apk/androidTest/debug/composeDemoApp-debug-androidTest.apk
