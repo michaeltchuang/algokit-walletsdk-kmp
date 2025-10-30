@@ -1,0 +1,37 @@
+# This workflow will build a KMP project and publish to Maven Central
+
+name: Publish SDK To Maven Central
+
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+
+jobs:
+
+  build-kmp-walletsdk-libraries:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Build and Publish to Maven Central
+        env:
+          GITHUB_TAG: ${{ github.ref_name }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.RSA_GPG_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.RSA_GPG_PASSPHRASE }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PASSWORD }}
+        run: |
+          export VERSION_TAG=${GITHUB_TAG#v}  # Remove the leading 'v'
+          echo "Publishing version: $VERSION_TAG"
+          echo "Publishing to Maven Central (USER_MANAGED - requires manual release)..."
+          ./gradlew publishToMavenCentral

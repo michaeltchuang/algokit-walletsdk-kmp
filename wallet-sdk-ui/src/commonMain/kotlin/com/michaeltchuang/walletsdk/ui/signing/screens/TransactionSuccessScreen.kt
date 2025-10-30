@@ -2,7 +2,9 @@ package com.michaeltchuang.walletsdk.ui.signing.screens
 
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.done
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.operation_completed
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_transaction_detail_in_pera_explorer
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.your_transaction_was
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -75,7 +77,7 @@ fun TransactionSuccessScreen(
 
             // Success Message
             Text(
-                text = "Operation completed",
+                text = stringResource(Res.string.operation_completed),
                 color = AlgoKitTheme.colors.textMain,
                 style = typography.body.regular.sansMedium,
             )
@@ -84,7 +86,7 @@ fun TransactionSuccessScreen(
 
             // Subtext
             Text(
-                text = "Your transaction was successfully\nreceived by the Algorand network.",
+                text = stringResource(Res.string.your_transaction_was),
                 color = AlgoKitTheme.colors.textGrayLighter,
                 style = typography.body.regular.sansMedium,
             )

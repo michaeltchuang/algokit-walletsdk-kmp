@@ -20,6 +20,7 @@ actual fun setDefaultLocale(localizationPreference: LocalizationPreference) {
         when (localizationPreference) {
             LocalizationPreference.ENGLISH -> "en"
             LocalizationPreference.ITALIAN -> "it"
+            LocalizationPreference.HINDI -> "hi"
         }
 
     NSUserDefaults.standardUserDefaults.setObject(

@@ -1,20 +1,17 @@
 package com.michaeltchuang.walletsdk.core.encryption
 
 import AlgorandIosSdk.IosEncryptionManager
-import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.usePinned
-import platform.Foundation.NSData
-import platform.Foundation.create
-import platform.posix.memcpy
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(ExperimentalForeignApi::class)
 private val encryptionManager: IosEncryptionManager by lazy { IosEncryptionManager() }
 
-class EncryptionException(message: String, cause: Throwable? = null) : Exception(message, cause)
+class EncryptionException(
+    message: String,
+    cause: Throwable? = null,
+) : Exception(message, cause)
 
 @OptIn(ExperimentalForeignApi::class, ExperimentalEncodingApi::class)
 actual fun encryptByteArray(data: ByteArray): ByteArray {

@@ -4,11 +4,16 @@ import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.Res
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.address_copied_to_clipboard
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.copy_address
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.dispenser_add_funds_to_your_account
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_algo_sign
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_copy
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_key
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_receipt
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_send
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.ic_unlink
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.remove_account
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.send_funds_to_another_account
+import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.transaction_history
 import algokit_walletsdk_kmp.wallet_sdk_ui.generated.resources.view_passphrase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -128,6 +133,14 @@ fun AccountDetailScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    AccountDetailWebviewItem(
+                        icon = Res.drawable.ic_receipt,
+                        title = stringResource(Res.string.transaction_history),
+                        url = "${state.explorerBaseUrl}/transactions/?transaction_list_address=$address",
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     AccountDetailItem(
                         icon = Res.drawable.ic_key,
                         title = stringResource(Res.string.view_passphrase),
@@ -143,8 +156,20 @@ fun AccountDetailScreen(
 
                         AccountDetailWebviewItem(
                             icon = Res.drawable.ic_algo_sign,
-                            title = "Dispenser - Add funds to your account",
-                            url = "https://dispenser.testnet.aws.algodev.network/?account=$address",
+                            title = stringResource(Res.string.dispenser_add_funds_to_your_account),
+                            url = "https://bank.testnet.algorand.network/?account=$address",
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    AccountDetailItem(
+                        icon = Res.drawable.ic_send,
+                        isRemoveAccount = false,
+                        title = stringResource(Res.string.send_funds_to_another_account),
+                    ) {
+                        navController.navigate(
+                            "${AlgoKitScreens.SEND_ALGO_SCREEN.name}?sender=$address",
                         )
                     }
 

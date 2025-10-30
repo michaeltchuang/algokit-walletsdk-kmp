@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.michaeltchuang.walletsdk.core.foundation.webview.AlgoKitWebViewScreen
 import com.michaeltchuang.walletsdk.demo.ui.widgets.snackbar.SnackbarViewModel
 import com.michaeltchuang.walletsdk.demo.utils.DemoAppConstants.REPO_URL
 import com.michaeltchuang.walletsdk.ui.base.designsystem.theme.AlgoKitTheme
+import com.michaeltchuang.walletsdk.ui.base.webview.AlgoKitWebViewScreen
 
 @Composable
 fun DiscoverScreen(

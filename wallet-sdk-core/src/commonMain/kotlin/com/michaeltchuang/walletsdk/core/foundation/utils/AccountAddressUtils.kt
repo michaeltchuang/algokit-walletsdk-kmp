@@ -8,3 +8,5 @@ fun String?.toShortenedAddress(): String =
     } else {
         ""
     }
+
+fun String.toAlgoCurrency(): String = ("\u00A6 $this")

@@ -81,7 +81,7 @@ internal class Falcon24AccountRepositoryImpl(
     override suspend fun getSecretKey(address: String): ByteArray? =
         withContext(coroutineDispatcher) {
             val encryptedSK = falcon24Dao.get(address)?.encryptedSecretKey
-             encryptedSK?.let { decryptByteArray(it) }
+            encryptedSK?.let { decryptByteArray(it) }
         }
 
     override suspend fun getHdWalletSummaries(): List<HdWalletSummary> =

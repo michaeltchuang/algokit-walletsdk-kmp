@@ -10,6 +10,7 @@ import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
+import kotlin.String
 
 class QRScannerViewModel(
     private val deeplinkHandler: DeeplinkHandler,
@@ -28,12 +29,50 @@ class QRScannerViewModel(
                         handleKeyRegDeepLink(it.keyReg)
                     }
 
+                    is DeeplinkHandler.DeepLinkState.AssetTransfer -> {
+                        handleAssetTransferLink(it.assetTransfer)
+                    }
+
+                    is DeeplinkHandler.DeepLinkState.AccountAddress -> {
+                        handleAccountAddressDeepLink(it.accountAddress)
+                    }
+
                     is DeeplinkHandler.DeepLinkState.OnUnrecognizedDeepLink -> {
                         eventDelegate.sendEvent(ViewEvent.ShowUnrecognizedDeeplink)
                     }
                 }
             }
         }
+    }
+
+    fun handleAssetTransferLink(deepLink: DeepLink.AssetTransfer) {
+        val assetTransfer =
+            DeepLink.AssetTransfer(
+                assetId = deepLink.assetId,
+                receiverAccountAddress = deepLink.receiverAccountAddress,
+                amount = deepLink.amount,
+                note = deepLink.note,
+                xnote = deepLink.xnote,
+                label = deepLink.label,
+            )
+
+        eventDelegate.sendEvent(
+            scope = viewModelScope,
+            newEvent = ViewEvent.NavigateToSelectAccountScreen(assetTransfer),
+        )
+    }
+
+    fun handleAccountAddressDeepLink(deepLink: DeepLink.AccountAddress) {
+        val accountAddress =
+            DeepLink.AccountAddress(
+                address = deepLink.address,
+                label = deepLink.label,
+            )
+
+        eventDelegate.sendEvent(
+            scope = viewModelScope,
+            newEvent = ViewEvent.NavigateToAddressScreen(accountAddress),
+        )
     }
 
     fun handleKeyRegDeepLink(deepLink: DeepLink.KeyReg) {
@@ -71,6 +110,14 @@ class QRScannerViewModel(
 
         data class NavigateToTransactionSignatureRequestScreen(
             val txnDetail: KeyRegTransactionDetail,
+        ) : ViewEvent
+
+        data class NavigateToSelectAccountScreen(
+            val assetTransfer: DeepLink.AssetTransfer,
+        ) : ViewEvent
+
+        data class NavigateToAddressScreen(
+            val accountAddress: DeepLink.AccountAddress,
         ) : ViewEvent
 
         object ShowUnrecognizedDeeplink : ViewEvent

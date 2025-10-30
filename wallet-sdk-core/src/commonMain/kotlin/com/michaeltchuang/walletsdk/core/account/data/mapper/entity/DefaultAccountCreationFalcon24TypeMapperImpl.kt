@@ -4,7 +4,7 @@ import com.michaeltchuang.walletsdk.core.account.domain.model.core.AccountCreati
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.Falcon24
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
-internal class DefaultAccountCreationFalcon24TypeMapperImpl() : AccountCreationFalcon24TypeMapper {
+internal class DefaultAccountCreationFalcon24TypeMapperImpl : AccountCreationFalcon24TypeMapper {
     override fun invoke(
         entropy: ByteArray,
         falcon24: Falcon24,

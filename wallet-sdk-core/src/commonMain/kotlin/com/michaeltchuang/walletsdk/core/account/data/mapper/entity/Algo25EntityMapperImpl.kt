@@ -4,8 +4,7 @@ import com.michaeltchuang.walletsdk.core.account.data.database.model.Algo25Entit
 import com.michaeltchuang.walletsdk.core.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
-internal class Algo25EntityMapperImpl(
-) : Algo25EntityMapper {
+internal class Algo25EntityMapperImpl : Algo25EntityMapper {
     override fun invoke(
         localAccount: LocalAccount.Algo25,
         privateKey: ByteArray,

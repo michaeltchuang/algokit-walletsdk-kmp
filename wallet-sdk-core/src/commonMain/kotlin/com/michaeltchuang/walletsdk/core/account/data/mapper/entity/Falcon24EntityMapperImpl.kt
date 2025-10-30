@@ -4,7 +4,7 @@ import com.michaeltchuang.walletsdk.core.account.data.database.model.Falcon24Ent
 import com.michaeltchuang.walletsdk.core.account.domain.model.local.LocalAccount
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
-internal class Falcon24EntityMapperImpl() : Falcon24EntityMapper {
+internal class Falcon24EntityMapperImpl : Falcon24EntityMapper {
     override fun invoke(
         localAccount: LocalAccount.Falcon24,
         seedId: Int,

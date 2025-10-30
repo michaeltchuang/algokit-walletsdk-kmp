@@ -5,7 +5,7 @@ import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddress
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddressDerivationType
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
-internal class DefaultAccountCreationHdKeyTypeMapperImpl() : AccountCreationHdKeyTypeMapper {
+internal class DefaultAccountCreationHdKeyTypeMapperImpl : AccountCreationHdKeyTypeMapper {
     override fun invoke(
         entropy: ByteArray,
         hdKeyAddress: HdKeyAddress,
@@ -14,7 +14,7 @@ internal class DefaultAccountCreationHdKeyTypeMapperImpl() : AccountCreationHdKe
         with(hdKeyAddress) {
             AccountCreation.Type.HdKey(
                 publicKey,
-                encryptByteArray(privateKey) ,
+                encryptByteArray(privateKey),
                 encryptByteArray(entropy),
                 index.accountIndex,
                 index.changeIndex,

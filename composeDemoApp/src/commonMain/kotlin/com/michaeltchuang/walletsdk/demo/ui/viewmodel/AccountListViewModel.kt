@@ -4,20 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.michaeltchuang.walletsdk.core.account.domain.model.custom.AccountLite
 import com.michaeltchuang.walletsdk.core.account.domain.usecase.core.NameRegistrationUseCase
+import com.michaeltchuang.walletsdk.core.account.domain.usecase.local.GetBasicAccountInformationUseCase
 import com.michaeltchuang.walletsdk.core.foundation.EventDelegate
 import com.michaeltchuang.walletsdk.core.foundation.EventViewModel
 import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.core.network.model.AlgorandNetwork
-import com.michaeltchuang.walletsdk.core.network.model.ApiResult
-import com.michaeltchuang.walletsdk.core.network.service.AccountInformationApiService
-import com.michaeltchuang.walletsdk.core.network.service.getBasicAccountInformation
 import com.michaeltchuang.walletsdk.ui.settings.screens.networkNodeSettings
 import kotlinx.coroutines.launch
 
 class AccountListViewModel(
     private val nameRegistrationUseCase: NameRegistrationUseCase,
-    private val accountApiService: AccountInformationApiService,
+    private val getBasicAccountInformationUseCase: GetBasicAccountInformationUseCase,
     private val stateDelegate: StateDelegate<AccountsState>,
     private val eventDelegate: EventDelegate<AccountsEvent>,
 ) : ViewModel(),
@@ -46,7 +44,7 @@ class AccountListViewModel(
                 // Fetch account details for all accounts to get their amounts
                 val accountsWithAmounts =
                     accountLite.map { account ->
-                        val accountInfo = getAccountDetails(account.address)
+                        val accountInfo = getBasicAccountInformationUseCase(account.address)
                         account.copy(balance = accountInfo?.amount ?: "0")
                     }
 
@@ -79,26 +77,6 @@ class AccountListViewModel(
                         e.message ?: "Failed to delete account.",
                     ),
                 )
-            }
-        }
-    }
-
-    private suspend fun getAccountDetails(address: String): com.michaeltchuang.walletsdk.core.network.model.AccountInformation? {
-        val result = accountApiService.getBasicAccountInformation(address)
-        return when (result) {
-            is ApiResult.Success -> {
-                println("Account information: ${result.data.accountInformation?.amount}")
-                result.data.accountInformation
-            }
-
-            is ApiResult.Error -> {
-                println("Account information error: ${result.message}")
-                null
-            }
-
-            is ApiResult.NetworkError -> {
-                println("Account information network error: ${result.exception.message}")
-                null
             }
         }
     }

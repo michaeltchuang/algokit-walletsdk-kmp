@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import com.ionspin.kotlin.bignum.decimal.RoundingMode
+import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.michaeltchuang.walletsdk.core.network.model.TransactionParams
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
@@ -72,6 +73,8 @@ fun String.formatAmount(): String =
         this
     }
 
+expect class BytesArray
+
 expect class SuggestedParams
 
 expect class TransactionParams
@@ -79,3 +82,54 @@ expect class TransactionParams
 expect fun TransactionParams.toSuggestedParams(addGenesisId: Boolean = true): SuggestedParams
 
 expect fun ByteArray.signTransaction(secretKey: ByteArray): ByteArray
+
+expect fun ByteArray.signTx(secretKey: ByteArray): ByteArray
+
+expect fun TransactionParams.makeAlgoTx(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: BigInteger,
+    isMax: Boolean,
+    noteInByteArray: ByteArray? = null,
+): ByteArray
+
+expect fun TransactionParams.makeAssetTx(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: BigInteger,
+    assetId: Long,
+    noteInByteArray: ByteArray? = null,
+): ByteArray
+
+expect fun TransactionParams.makeTx(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: BigInteger,
+    assetId: Long,
+    isMax: Boolean,
+    note: String? = null,
+): ByteArray
+
+expect fun TransactionParams.makeAddAssetTx(
+    publicKey: String,
+    assetId: Long,
+): ByteArray
+
+expect fun TransactionParams.makeRemoveAssetTx(
+    senderAddress: String,
+    creatorPublicKey: String,
+    assetId: Long,
+): ByteArray
+
+expect fun TransactionParams.makeSendAndRemoveAssetTx(
+    senderAddress: String,
+    receiverAddress: String,
+    assetId: Long,
+    amount: BigInteger,
+    noteInByteArray: ByteArray? = null,
+): ByteArray
+
+expect fun TransactionParams.makeRekeyTx(
+    rekeyAddress: String,
+    rekeyAdminAddress: String,
+): ByteArray

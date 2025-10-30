@@ -3,7 +3,7 @@ package com.michaeltchuang.walletsdk.core.account.data.mapper.entity
 import com.michaeltchuang.walletsdk.core.account.data.database.model.HdSeedEntity
 import com.michaeltchuang.walletsdk.core.encryption.encryptByteArray
 
-internal class HdSeedEntityMapperImpl() : HdSeedEntityMapper {
+internal class HdSeedEntityMapperImpl : HdSeedEntityMapper {
     override fun invoke(
         seedId: Int,
         entropy: ByteArray,

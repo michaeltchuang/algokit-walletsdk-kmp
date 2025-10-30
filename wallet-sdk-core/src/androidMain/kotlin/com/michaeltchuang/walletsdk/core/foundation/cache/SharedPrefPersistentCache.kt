@@ -8,9 +8,8 @@ class SharedPrefPersistentCache<T : Any>(
     private val type: Type,
     private val key: String,
     private val sharedPreferences: SharedPreferences,
-    private val gson: Gson
+    private val gson: Gson,
 ) : PersistentCache<T> {
-
     override fun put(data: T) {
         sharedPreferences.edit().apply {
             putString(key, gson.toJson(data))

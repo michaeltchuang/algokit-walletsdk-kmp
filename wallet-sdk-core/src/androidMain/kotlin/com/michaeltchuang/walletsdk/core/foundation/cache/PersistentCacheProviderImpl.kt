@@ -6,21 +6,20 @@ import java.lang.reflect.Type
 
 internal class PersistentCacheProviderImpl(
     private val sharedPreferences: SharedPreferences,
-    private val gson: Gson
+    private val gson: Gson,
 ) : PersistentCacheProvider {
-
-    override fun <T : Any> getPersistentCache(type: Type, key: String): PersistentCache<T> {
-        return SharedPrefPersistentCache(type, key, sharedPreferences, gson)
-    }
+    override fun <T : Any> getPersistentCache(
+        type: Type,
+        key: String,
+    ): PersistentCache<T> = SharedPrefPersistentCache(type, key, sharedPreferences, gson)
 
     override fun <T : Any> getFlowPersistentCache(
         type: Type,
         key: String,
-        defaultValue: T
-    ): FlowPersistentCache<T> {
-        return DefaultFlowPersistentCache(
+        defaultValue: T,
+    ): FlowPersistentCache<T> =
+        DefaultFlowPersistentCache(
             SharedPrefPersistentCache(type, key, sharedPreferences, gson),
-            defaultValue
+            defaultValue,
         )
-    }
 }

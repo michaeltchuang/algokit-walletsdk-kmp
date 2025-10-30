@@ -52,7 +52,6 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import qrgenerator.qrkitpainter.text
 
 @Composable
 fun SettingsScreen(navController: NavController) {

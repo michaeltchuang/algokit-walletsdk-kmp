@@ -11,6 +11,7 @@ import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddressIndex
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.model.HdKeyAddressLite
 import com.michaeltchuang.walletsdk.core.algosdk.bip39.sdk.Bip39Wallet
 import com.michaeltchuang.walletsdk.core.algosdk.domain.model.Algo25Account
+import com.michaeltchuang.walletsdk.core.foundation.utils.SuggestedParams
 import com.michaeltchuang.walletsdk.core.transaction.model.OfflineKeyRegTransactionPayload
 import com.michaeltchuang.walletsdk.core.transaction.model.OnlineKeyRegTransactionPayload
 import io.ktor.util.decodeBase64Bytes
@@ -26,6 +27,9 @@ import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 const val ROUND_THRESHOLD = 1000L
+
+@OptIn(ExperimentalForeignApi::class)
+private val bridge = spmAlgoApiBridge()
 
 @OptIn(ExperimentalForeignApi::class)
 fun ByteArray.toNSData(): NSData {
@@ -60,18 +64,17 @@ private fun String.fromBase64ToByteArray(): ByteArray =
     try {
         this.decodeBase64Bytes()
     } catch (e: Exception) {
-        println("Ktor Base64 decode error: ${e.message}")
         ByteArray(0)
     }
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
     val secretKey =
-        spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
+        bridge.getAlgo25SecretKeyWithMnemonic(
             mnemonic = mnemonic,
         )
     val address =
-        spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
+        bridge.generateAddressFromSKWithSecretKey(
             secretKey = secretKey,
         )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
@@ -80,14 +83,19 @@ actual fun recoverAlgo25Account(mnemonic: String): Algo25Account? {
 @OptIn(ExperimentalForeignApi::class)
 actual fun createAlgo25Account(): Algo25Account? {
     val secretKey =
-        spmAlgoApiBridge().getAlgo25SecretKeyWithMnemonic(
+        bridge.getAlgo25SecretKeyWithMnemonic(
             mnemonic = null,
         )
     val address =
-        spmAlgoApiBridge().generateAddressFromSKWithSecretKey(
+        bridge.generateAddressFromSKWithSecretKey(
             secretKey = secretKey,
         )
     return Algo25Account(address, secretKey.fromBase64ToByteArray())
+}
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun isValidAlgorandAddress(accountAddress: String): Boolean {
+    return bridge.isValidAlgorandAddressWithAddress(accountAddress)
 }
 
 @OptIn(ExperimentalForeignApi::class)
@@ -95,9 +103,9 @@ actual fun getMnemonicFromAlgo25SecretKey(secretKey: ByteArray): String? {
     var mnemonic: String? = null
     try {
         mnemonic =
-            spmAlgoApiBridge().getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
+            bridge.getAlgo25MnemonicFromSecretKeyWithSecretKey(secretKey.toNSData())
     } catch (e: Exception) {
-        println("ERROR: ${e.message}")
+        println("Failed to generate mnemonic: ${e.message}")
     }
     return mnemonic
 }
@@ -121,18 +129,9 @@ actual fun signHdKeyTransaction(
     change: Int,
     key: Int,
 ): ByteArray? {
-    println("=== signHdKeyTransaction (Kotlin) START ===")
-    println("Transaction bytes length: ${transactionByteArray.size}")
-    println("Seed length: ${seed.size}")
-    println("Account: $account, Change: $change, Key: $key")
-
     return try {
-        println("Step 1: Converting seed to Base64...")
         val seedBase64 = seed.toNSData().base64EncodedStringWithOptions(0.toULong())
 
-        // NEW: Verify the derived address BEFORE signing
-        println("Step 1a: Verifying address matches transaction sender...")
-        val bridge = spmAlgoApiBridge()
         val derivedPublicKey =
             bridge.getHdPublicKeyFromSeedWithSeedBase64(
                 seedBase64 = seedBase64,
@@ -142,16 +141,9 @@ actual fun signHdKeyTransaction(
             )
 
         val derivedAddress = bridge.generateAddressFromPublicKeyWithPublicKey(derivedPublicKey)
-        println("✓ Derived address: $derivedAddress")
 
-        // TODO: Parse transaction to get sender and compare
-        // For now, just print it so you can manually verify
-
-        println("Step 2: Converting transaction to NSData...")
         val transactionData = transactionByteArray.toNSData()
-        println("✓ Transaction NSData length: ${transactionData.length}")
 
-        println("Step 3: Calling Swift signHdKeyTransaction...")
         val signedData =
             bridge.signHdKeyTransactionWithTransactionBytes(
                 transactionBytes = transactionData,
@@ -162,18 +154,13 @@ actual fun signHdKeyTransaction(
             )
 
         if (signedData == null) {
-            println("❌ ERROR: Swift returned null")
+            println("ERROR: Transaction signing failed")
             return null
         }
 
-        println("✓ Transaction signed successfully!")
-        val result = signedData.toByteArray()
-        println("=== signHdKeyTransaction (Kotlin) END (SUCCESS) ===")
-
-        result
+        signedData.toByteArray()
     } catch (e: Exception) {
-        println("❌ EXCEPTION: ${e.message}")
-        e.printStackTrace()
+        println("ERROR: Transaction signing failed: ${e.message}")
         null
     }
 }
@@ -190,7 +177,7 @@ actual fun signFalcon24Transaction(
         val privateKeyBase64 = privateKey.toNSData().base64EncodedStringWithOptions(0u)
 
         val signedData =
-            spmAlgoApiBridge().signFalconTransactionWithTransactionBytes(
+            bridge.signFalconTransactionWithTransactionBytes(
                 transactionBytes = transactionData,
                 publicKeyBase64 = publicKeyBase64,
                 privateKeyBase64 = privateKeyBase64,
@@ -198,7 +185,7 @@ actual fun signFalcon24Transaction(
 
         signedData?.toByteArray()
     } catch (e: Exception) {
-        println("ERROR signing Falcon transaction: ${e.message}")
+        println("Falcon transaction signing failed: ${e.message}")
         null
     }
 
@@ -211,7 +198,7 @@ actual fun signAlgo25Transaction(
         val secretKeyBase64 = Base64.encode(secretKey)
         val transactionBase64 = Base64.encode(transactionByteArray)
         val signedDataBase64 =
-            spmAlgoApiBridge().signAlgo25TransactionWithBase64WithSkBase64(
+            bridge.signAlgo25TransactionWithBase64WithSkBase64(
                 skBase64 = secretKeyBase64,
                 encodedTxBase64 = transactionBase64,
             )
@@ -219,14 +206,12 @@ actual fun signAlgo25Transaction(
 
         result
     } catch (e: Exception) {
-        println("ERROR signing Algo25 transaction: ${e.message}")
+        println("Algo25 transaction signing failed: ${e.message}")
         ByteArray(0)
     }
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArray {
-    val bridge = spmAlgoApiBridge()
-
     val firstRound = payload.txnParams.lastRound
     val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
 
@@ -252,7 +237,7 @@ actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArra
         )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: createOfflineKeyRegTransaction returned empty data")
+        println("Failed to create offline key registration transaction")
         return ByteArray(0)
     }
 
@@ -261,8 +246,6 @@ actual fun createTransaction(payload: OfflineKeyRegTransactionPayload): ByteArra
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray {
-    val bridge = spmAlgoApiBridge()
-
     val firstRound = payload.txnParams.lastRound
     val lastRound = payload.txnParams.lastRound + ROUND_THRESHOLD
 
@@ -292,7 +275,7 @@ actual fun createTransaction(payload: OnlineKeyRegTransactionPayload): ByteArray
         )
 
     if (encodedTx.length == 0UL) {
-        println("ERROR: createOnlineKeyRegTransaction returned empty data")
+        println("Failed to create online key registration transaction")
         return ByteArray(0)
     }
 
@@ -318,7 +301,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
             val seedBase64 = seedBytes.toNSData().base64EncodedStringWithOptions(0.toULong())
 
             val publicKey =
-                spmAlgoApiBridge().getHdPublicKeyFromSeedWithSeedBase64(
+                bridge.getHdPublicKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -326,7 +309,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
                 )
 
             val privateKey =
-                spmAlgoApiBridge().getHdPrivateKeyFromSeedWithSeedBase64(
+                bridge.getHdPrivateKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -343,11 +326,11 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
         }
 
         override fun generateFalcon24Address(mnemonic: String): Falcon24 {
-            val address = spmAlgoApiBridge().getFalconAddressFromMnemonicWithPassphrase(mnemonic)
+            val address = bridge.getFalconAddressFromMnemonicWithPassphrase(mnemonic)
             val publicKeyBase64 =
-                spmAlgoApiBridge().getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic)
+                bridge.getFalconPublicKeyFromMnemonicWithPassphrase(mnemonic)
             val privateKeyBase64 =
-                spmAlgoApiBridge().getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic)
+                bridge.getFalconPrivateKeyFromMnemonicWithPassphrase(mnemonic)
 
             return Falcon24(
                 address = address,
@@ -375,7 +358,7 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
             val seedBase64 = seed.toNSData().base64EncodedStringWithOptions(0.toULong())
 
             val publicKey =
-                spmAlgoApiBridge().getHdPublicKeyFromSeedWithSeedBase64(
+                bridge.getHdPublicKeyFromSeedWithSeedBase64(
                     seedBase64 = seedBase64,
                     account = index.accountIndex.toLong(),
                     change = index.changeIndex.toLong(),
@@ -385,8 +368,106 @@ private fun getBit39Wallet(entropy: ByteArray): Bip39Wallet =
         }
 
         fun getAddressFromPublicKey(publicKey: String): String =
-            spmAlgoApiBridge()
-                .generateAddressFromPublicKeyWithPublicKey(
-                    publicKey = publicKey,
-                )
+            bridge.generateAddressFromPublicKeyWithPublicKey(
+                publicKey = publicKey,
+            )
     }
+
+actual fun getReceiverMinBalanceFee(
+    receiverAlgoAmount: String,
+    receiverMinBalanceAmount: String,
+): Long = Long.MAX_VALUE
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun makeAssetTransferTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    assetId: Long,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray {
+    val noteBase64 = noteInByteArray?.toNSData()?.base64EncodedStringWithOptions(0.toULong())
+
+    val encodedTx = bridge.makeAssetTransferTxnWithSenderAddress(
+        senderAddress = senderAddress,
+        receiverAddress = receiverAddress,
+        amount = amount,
+        assetId = assetId,
+        noteBase64 = noteBase64,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("Failed to create asset transfer transaction")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun makePaymentTxn(
+    senderAddress: String,
+    receiverAddress: String,
+    amount: String,
+    isMax: Boolean,
+    noteInByteArray: ByteArray?,
+    suggestedParams: SuggestedParams,
+): ByteArray {
+    val noteBase64 = noteInByteArray?.toNSData()?.base64EncodedStringWithOptions(0.toULong())
+
+    val encodedTx = bridge.makePaymentTxnWithSenderAddress(
+        senderAddress = senderAddress,
+        receiverAddress = receiverAddress,
+        amount = amount,
+        isMax = isMax,
+        noteBase64 = noteBase64,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("Failed to create payment transaction")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun makeAssetAcceptanceTxn(
+    publicKey: String,
+    assetId: Long,
+    suggestedParams: SuggestedParams,
+): ByteArray {
+    val encodedTx = bridge.makeAssetAcceptanceTxnWithPublicKey(
+        publicKey = publicKey,
+        assetId = assetId,
+        fee = suggestedParams.fee,
+        flatFee = suggestedParams.flatFee,
+        firstRound = suggestedParams.firstRoundValid,
+        lastRound = suggestedParams.lastRoundValid,
+        genesisHashBase64 = suggestedParams.genesisHash.toNSData()
+            .base64EncodedStringWithOptions(0.toULong()),
+        genesisID = suggestedParams.genesisID,
+    )
+
+    if (encodedTx.length == 0UL) {
+        println("Failed to create asset acceptance transaction")
+        return ByteArray(0)
+    }
+
+    return encodedTx.toByteArray()
+}

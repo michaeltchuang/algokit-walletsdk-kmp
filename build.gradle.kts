@@ -35,6 +35,7 @@ plugins {
     alias(libs.plugins.ktlint).apply(false)
     alias(libs.plugins.maven.publish).apply(false)
     id("org.jetbrains.kotlinx.kover") version "0.8.3"
+    alias(libs.plugins.gradle.play.publisher).apply(false)
 }
 
 allprojects {

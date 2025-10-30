@@ -1,4 +1,5 @@
 package com.michaeltchuang.walletsdk.core.transaction.model
+
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
 sealed class SignedTransactionDetail {
@@ -11,7 +12,7 @@ sealed class SignedTransactionDetail {
         val amount: BigInteger,
         val senderAccountName: String,
         val senderAccountAddress: String,
-        // val targetUser: TargetUser,
+        val targetUser: TargetUser,
         val isMax: Boolean,
         var fee: Long,
         val assetId: Long,

@@ -1,0 +1,1610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="account_header">खाता जानकारी</string>
+    <string name="account_passphrase">म्नेमोनिक / पासफ्रेज़</string>
+    <string name="account_button_lock">वॉलेट लॉक करें</string>
+
+    <string name="error_account">पासफ्रेज़ से वॉलेट नहीं बनाया या पुनर्प्राप्त किया जा सका</string>
+    <string name="error_account_flipcoin">चेन पर सबमिट नहीं किया जा सका। कृपया लॉग जांचें</string>
+    <string name="error_account_settle">चेन पर दांव निपटारा नहीं हो सका। कृपया समस्या के लिए लॉग जांचें</string>
+
+    <string name="validator_icon_content_description">वैलिडेटर आइकन</string>
+    <string name="validator_label">वैलिडेटर</string>
+    <string name="validator_label_desc">अपने ALGO को वैलिडेटर पर स्टेक करके, आप Algorand नेटवर्क के प्रदर्शन और सुरक्षा में योगदान देते हैं, साथ ही बदले में ALGO कमाते हैं।</string>
+    <string name="validator_est_apy">अनुमानित APY</string>
+    <string name="validator_est_apy_long">अनुमानित वार्षिक प्रतिशत उपज</string>
+    <string name="validator_est_apy_desc">यह वह प्रतिफल दर है जो आप वैलिडेटर पर अपने ALGO को स्टेक करने के लिए अर्जित करते हैं।</string>
+    <string name="validator_no_results">कोई परिणाम नहीं</string>
+
+    <string name="validator_detail_label_account">खाता</string>
+    <string name="validator_detail_label_validator">वैलिडेटर</string>
+    <string name="validator_detail_label_apy">APY</string>
+    <string name="validator_detail_label_fee">कमीशन शुल्क</string>
+    <string name="validator_detail_confirm_stake">पुष्टि करें</string>
+    <string name="validator_detail_button_wait_message">ब्लॉकचेन पर नई स्थिति को मान्यता प्राप्त करने में कुछ सेकंड लगेंगे</string>
+
+    <string name="app_name">WalletSDK Demo</string>
+    <string name="please_scan_your_fingerprint_or">कृपया आगे बढ़ने के लिए अपनी उंगली या चेहरे को स्कैन करें।</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="share_via">के माध्यम से साझा करें</string>
+    <string name="ok">ठीक है</string>
+    <string name="next">अगला</string>
+    <string name="account_name">खाते का नाम</string>
+    <string name="name">नाम</string>
+    <string name="back">पीछे</string>
+    <string name="close">बंद करें</string>
+    <string name="right_arrow">दायां तीर</string>
+    <string name="key">कुंजी</string>
+    <string name="pen">पेन</string>
+    <string name="eye">आंख</string>
+    <string name="face_id">फेस आईडी</string>
+    <string name="check">जांचें</string>
+    <string name="shield">ढाल</string>
+    <string name="account_verified">खाता सत्यापित</string>
+    <string name="accounts">खाते</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="history">इतिहास</string>
+    <string name="contacts">संपर्क</string>
+    <string name="send">भेजें</string>
+    <string name="from">से</string>
+    <string name="to">को</string>
+    <string name="fee">शुल्क</string>
+    <string name="amount">राशि</string>
+    <string name="transaction_id">लेन-देन आईडी</string>
+    <string name="add_contact">संपर्क जोड़ें</string>
+    <string name="contact_name">संपर्क नाम</string>
+    <string name="edit_contact">संपर्क संपादित करें</string>
+    <string name="view_passphrase">रूट वॉलेट पासफ्रेज़ देखें</string>
+    <string name="remove_account">खाता हटाएं</string>
+    <string name="copied_to_clipboard">क्लिपबोर्ड में कॉपी किया गया</string>
+    <string name="remove">हटाएं</string>
+    <string name="enter_your_pin">अपना पिन दर्ज करें</string>
+    <string name="wrong_password">गलत पासवर्ड</string>
+    <string name="node_settings">नोड सेटिंग्स</string>
+    <string name="enable_face_id_touch_id">फेस आईडी / टच आईडी सक्षम करें</string>
+    <string name="an_error_occured">एक त्रुटि हुई</string>
+    <string name="warning">चेतावनी</string>
+    <string name="error">त्रुटि</string>
+    <string name="transaction_detail">लेन-देन विवरण</string>
+    <string name="this_account_already_exists">यह खाता पहले से मौजूद है।</string>
+    <string name="account">खाता</string>
+    <string name="delete_contact">संपर्क हटाएं</string>
+    <string name="are_you_sure_you_want_to_delete">क्या आप वाकई इस संपर्क को हटाना चाहते हैं?</string>
+    <string name="too_many_accounts">बहुत सारे खाते!</string>
+    <string name="looks_like_already_have_accounts">लगता है कि आपके वॉलेट में पहले से ही %1$d या अधिक खाते हैं। ऐप प्रदर्शन को सुचारू रखने के लिए, हम वर्तमान में %1$d से अधिक खातों का समर्थन नहीं करते हैं। एक और जोड़ने के लिए, कृपया पहले किसी मौजूदा खाते को हटाएं।</string>
+    <string name="pending">लंबित</string>
+    <string name="you_should_enter_your_correct_password">अपना पासफ्रेज़ दिखाने के लिए आपको सही पासवर्ड दर्ज करना चाहिए।</string>
+    <string name="there_s_no_biometric_registration">डिवाइस पर कोई बायोमेट्रिक पंजीकरण या बायोमेट्रिक हार्डवेयर नहीं मिला।</string>
+    <string name="you_re_trying_to_send">आप ऐसे खाते में लेन-देन भेजने की कोशिश कर रहे हैं जिसका बैलेंस न्यूनतम बैलेंस से कम है। राशि कम से कम <annotation replacement="amount">amountPlaceholder</annotation> ALGO होनी चाहिए।</string>
+    <string name="transaction_amount">लेन-देन की राशि <annotation replacement="min_balance">minBalancePlaceHolder</annotation> ALGO के न्यूनतम खाता शेष से नीचे का बैलेंस उत्पन्न करती है।</string>
+    <string name="transaction_amount_cannot">लेन-देन की राशि आपकी उपलब्ध राशि से अधिक नहीं हो सकती।</string>
+    <string name="transaction_amount_results">लेन-देन की राशि नकारात्मक शेष उत्पन्न करती है।</string>
+    <string name="note">नोट</string>
+    <string name="rewards">पुरस्कार</string>
+    <string name="show_rewards">पुरस्कार दिखाएं</string>
+    <string name="max">अधिकतम</string>
+    <string name="max_all_caps">अधिकतम</string>
+    <string name="you_earn_rewards_just">आप केवल ALGO रखने से ही पुरस्कार अर्जित करते हैं! यहां आपके अंतिम लेन-देन के बाद से आपके पुरस्कार गतिविधि का सारांश दिया गया है। ये पुरस्कार हमेशा आपके बैलेंस में शामिल होते हैं।</string>
+    <string name="for_more_information">Algorand पुरस्कारों पर अधिक जानकारी के लिए,\nहमारे <annotation custom="faq_color"><annotation type="bold">FAQ</annotation></annotation> देखें।</string>
+    <string name="reward">पुरस्कार</string>
+    <string name="notifications">सूचनाएं</string>
+    <string name="the_internet_connection">इंटरनेट कनेक्शन ऑफ़लाइन प्रतीत हो रहा है।</string>
+    <string name="status">स्थिति</string>
+    <string name="in_order_to_delete">किसी खाते को हटाने के लिए, आपको किसी भी परिसंपत्ति खाते का बैलेंस खाली करना होगा और आपके द्वारा बनाई गई किसी भी परिसंपत्ति को नष्ट करना होगा, यदि कोई हो।</string>
+    <string name="remove_assets">परिसंपत्तियाँ हटाएं</string>
+    <string name="asset">परिसंपत्ति</string>
+    <string name="assets">परिसंपत्तियाँ</string>
+    <string name="send_format">%1$s भेजें</string>
+    <string name="add_asset_fee">परिसंपत्ति शुल्क जोड़ें</string>
+    <string name="unnamed">नामहीन</string>
+    <string name="entered_address_is_not_valid">दर्ज किया गया पता मान्य नहीं है।</string>
+    <string name="search_assets_id">परिसंपत्ति आईडी या नाम खोजें</string>
+    <string name="no_asset_found">कोई परिसंपत्ति नहीं मिली</string>
+    <string name="you_already_have">आपके पास यह परिसंपत्ति पहले से है।</string>
+    <string name="adding_asset">परिसंपत्ति जोड़ रहा है</string>
+    <string name="removing_asset">परिसंपत्ति हटा रहा है</string>
+    <string name="unfortunately_this_account">दुर्भाग्यवश, यह खाता %1$s परिसंपत्ति में ऑप्ट-इन नहीं है। कृपया खाते %1$s को इस परिसंपत्ति में ऑप्ट-इन करने के लिए निर्देश दें और फिर से प्रयास करें।</string>
+    <string name="transfer_balance">शेष राशि स्थानांतरित करें</string>
+    <string name="approve">स्वीकृत करें</string>
+    <string name="account_does_not_accept">खाता इस परिसंपत्ति को स्वीकार नहीं करता</string>
+    <string name="min_transaction_error">न्यूनतम लेन-देन त्रुटि!</string>
+    <string name="you_need_at_least">इस परिसंपत्ति में ऑप्ट-इन करने के लिए आपको कम से कम %1$s ALGO की आवश्यकता है</string>
+    <string name="please_add_this">कृपया इस परिसंपत्ति को जोड़ें और पुनः प्रयास करें।</string>
+    <string name="key_not_valid">कुंजी मान्य नहीं है, कृपया सुनिश्चित करें कि आपके पास सही कुंजी है।</string>
+    <string name="scanned_qr_is_not_valid">स्कैन किया गया QR कोड मान्य नहीं है।</string>
+    <string name="connect">कनेक्ट करें</string>
+    <string name="error_default_title">त्रुटि</string>
+    <string name="make_sure_your_ledger">सुनिश्चित करें कि आपका लेजर डिवाइस चालू है और ब्लूटूथ सक्षम है।</string>
+    <string name="open_the_algorand_app">अपने लेजर पर Algorand ऐप खोलें।</string>
+    <string name="make_sure_bluetooth">सुनिश्चित करें कि आपके स्मार्टफोन पर ब्लूटूथ सक्षम है।</string>
+    <string name="bluetooth_is_enabled">ब्लूटूथ सक्षम है।</string>
+    <string name="all">सभी</string>
+    <string name="verified_assets">सत्यापित परिसंपत्तियाँ</string>
+
+    <string name="what_does_asset">परिसंपत्ति सत्यापन का क्या अर्थ है? <annotation type="verified-icon"> </annotation></string>
+    <string name="verified_assets_first_paragraph">वे परिसंपत्तियाँ जो हमारे सत्यापन प्रक्रिया से गुज़रती हैं, ऐसे ज्ञात प्रोजेक्ट हैं जिनकी वेबसाइट और सार्वजनिक जानकारी को इस विशेष ASA से सत्यापित किया गया है। सत्यापन स्थिति परिसंपत्ति की अनुशंसा नहीं है।</string>
+    <string name="verified_assets_second_paragraph">AlgoKit वॉलेट का सत्यापित ASA मालिकों से कोई संबंध नहीं है। यह बैज केवल सूचना उद्देश्यों के लिए है।</string>
+    <string name="verified_assets_third_paragraph">फिर भी, आपको <annotation type="color">हमेशा दोबारा जांच</annotation> करनी चाहिए कि परिसंपत्ति की आईडी वही है जिसे आप लेन-देन के लिए चुनना चाहते थे।</string>
+    <string name="verified_assets_fourth_paragraph">यदि आपके पास सत्यापन प्रक्रिया के बारे में प्रश्न हैं या ऐप पर सामान्य प्रतिक्रिया है, तो हम आपको देखने के लिए प्रोत्साहित करते हैं;</string>
+    <string name="advanced_troubleshooting">उन्नत समस्या निवारण</string>
+    <string name="connecting_to_ledger">लेजर से कनेक्ट हो रहा है…</string>
+    <string name="ledger_approval">लेजर स्वीकृति</string>
+    <string name="ledger_info_power_first_paragraph">
+        <annotation url="https://support.ledger.com/hc/en-us/articles/360019138694-Set-up-Bluetooth-connection">अपने लेजर की ब्लूटूथ सुविधा के सामान्य उपयोग के लिए, कृपया लेजर के आधिकारिक <annotation type="bold"><annotation type="color">ब्लूटूथ कनेक्शन गाइड</annotation></annotation> देखें।</annotation>
+    </string>
+    <string name="ledger_info_power_second_paragraph">
+        <annotation url="https://support.ledger.com/hc/en-us/articles/360025864773">अधिक उन्नत समस्या निवारण के लिए, कृपया लेजर के आधिकारिक <annotation type="bold"><annotation type="color">ब्लूटूथ ट्रबलशूटिंग गाइड</annotation></annotation> देखें।</annotation>
+    </string>
+    <string name="ledger_info_ledger_first_paragraph">
+        <annotation url="https://www.ledger.com/start">लेजर के व्यापक <annotation type="bold"><annotation type="color">शुरू करें</annotation></annotation> ट्यूटोरियल का पालन करके प्रारंभ करें।</annotation>
+    </string>
+    <string name="ledger_info_ledger_second_paragraph">जब ट्यूटोरियल उस बिंदु पर पहुँचता है जहाँ यह आपको निर्देश देता है “अपनी डिवाइस पर इंस्टॉल करने के लिए एप्लिकेशन चुनें,” खोज बार में Algorand टाइप करें और इंस्टॉल करें।</string>
+    <string name="ledger_info_algorand_first_paragraph"><annotation url="https://www.ledger.com/start">लेजर के <annotation type="bold"><annotation type="color">शुरू करें</annotation></annotation> ट्यूटोरियल के साथ जारी रखें, जो आपको आपके लेजर डिवाइस पर ऐप्स इंस्टॉल और खोलने का तरीका बताएगा।</annotation></string>
+    <string name="ledger_info_algorand_second_paragraph">यदि आपने अभी तक अपने लेजर डिवाइस पर <annotation type="bold">Algorand</annotation> ऐप इंस्टॉल नहीं किया है, तो जब ट्यूटोरियल उस बिंदु पर पहुँचे जहाँ यह निर्देश देता है “अपनी डिवाइस पर इंस्टॉल करने के लिए एप्लिकेशन चुनें,” खोज बार में Algorand टाइप करें और इंस्टॉल करें।</string>
+    <string name="error_connection_title">कनेक्शन त्रुटि</string>
+    <string name="error_connection_message">लेजर डिवाइस से कनेक्ट नहीं हो सका। सुनिश्चित करें कि डिवाइस अनलॉक है, पास में है और ब्लूटूथ सक्षम है।</string>
+    <string name="error_app_closed_title">लेजर कनेक्शन त्रुटि</string>
+    <string name="error_app_closed_message">कृपया अपने लेजर डिवाइस पर Algorand ऐप खोलें।</string>
+    <string name="error_bluetooth_title">ब्लूटूथ त्रुटि</string>
+    <string name="error_bluetooth_message">निकटवर्ती लेजर डिवाइस खोजने के लिए आपके डिवाइस पर ब्लूटूथ सक्षम होना आवश्यक है।</string>
+    <string name="error_permission_title">अनुमति अस्वीकृत</string>
+    <string name="error_location_message">निकटवर्ती लेजर खोजने के लिए स्थान अनुमति प्रदान की जानी चाहिए।</string>
+    <string name="error_bluetooth_permission_message">निकटवर्ती लेजर खोजने के लिए ब्लूटूथ स्कैन अनुमति प्रदान की जानी चाहिए।</string>
+    <string name="error_transmission_title">प्रेषण त्रुटि</string>
+    <string name="error_sending_message">हम लेजर डिवाइस पर लेन-देन भेजने में असमर्थ थे। कृपया पुनः प्रयास करें।</string>
+    <string name="error_receiving_message">हम आपके लेजर डिवाइस की सार्वजनिक कुंजी प्राप्त करने में असमर्थ थे। कृपया पुनः प्रयास करें।</string>
+    <string name="error_cancelled_title">लेन-देन रद्द किया गया</string>
+    <string name="error_cancelled_message">युग्मित लेजर डिवाइस ने लेन-देन अनुरोध रद्द कर दिया है।</string>
+    <string name="error_unsupported_title">असमर्थित डिवाइस</string>
+    <string name="error_unsupported_message">जिस डिवाइस से आप कनेक्ट करने की कोशिश कर रहे हैं, वह AlgoKit वॉलेट के साथ समर्थित नहीं है।</string>
+    <string name="bluetooth_location_services">ब्लूटूथ स्थान सेवा त्रुटि</string>
+    <string name="please_ensure">कृपया सुनिश्चित करें कि स्थान सेवाएँ सक्षम हैं।</string>
+    <string name="terms_and_services">नियम और सेवाएँ</string>
+    <string name="unknown_error">अज्ञात त्रुटि</string>
+    <string name="passphrase">पासफ्रेज़</string>
+    <string name="scan_qr_code">QR कोड स्कैन करें</string>
+    <string name="go_to_home">होम पर जाएं</string>
+    <string name="accept">स्वीकार करें</string>
+    <string name="add_new_asset">नई परिसंपत्ति जोड़ें</string>
+    <string name="try_different">अलग परिसंपत्ति नाम या आईडी आज़माएं</string>
+    <string name="copy_address">पता कॉपी करें</string>
+    <string name="account_address">खाता पता</string>
+    <string name="keep_it">इसे रखें</string>
+    <string name="done">पूरा हुआ</string>
+    <string name="you_havent">आपने अभी तक कोई संपर्क नहीं जोड़ा है</string>
+    <string name="contact_name_must">संपर्क का नाम खाली नहीं होना चाहिए।</string>
+    <string name="no_transaction_yet">अभी तक कोई लेन-देन नहीं</string>
+    <string name="cancel_approval">स्वीकृति रद्द करें</string>
+    <string name="delete_all_data">सभी डेटा हटाएं</string>
+    <string name="remove_all_accounts_and_logout">सभी खाते हटाएं और लॉगआउट करें</string>
+    <string name="yes_remove_all_accounts">हाँ, सभी खाते हटाएं और लॉगआउट करें</string>
+    <string name="close_amount">राशि बंद करें</string>
+    <string name="close_to">बंद करने का पता</string>
+    <string name="all_time">संपूर्ण समय</string>
+    <string name="today">आज</string>
+    <string name="yesterday">कल</string>
+    <string name="last_week">पिछले सप्ताह</string>
+    <string name="last_month">पिछले महीने</string>
+    <string name="custom_range">कस्टम सीमा</string>
+    <string name="press_and_hold">पता कॉपी करने के लिए दबाकर रखें</string>
+    <string name="something_went_wrong">कुछ गलत हो गया</string>
+    <string name="sorry_something_went">क्षमा करें, वहाँ कुछ गलत हो गया।</string>
+    <string name="try_again">पुनः प्रयास करें</string>
+    <string name="no_current_notifications">कोई वर्तमान सूचनाएँ नहीं</string>
+    <string name="your_recent_transactions">आपके हाल के लेन-देन, परिसंपत्ति अनुरोध और अन्य सूचनाएँ यहाँ दिखाई देंगी</string>
+    <string name="to_opt_out_from_an_asset">किसी परिसंपत्ति से ऑप्ट-आउट करने के लिए, आपको पहले किसी अन्य खाते में शेष शेष राशि स्थानांतरित करनी होगी।</string>
+    <string name="connect_to_internet">इंटरनेट से कनेक्ट करें</string>
+    <string name="we_couldn_t_reach">हम सर्वर तक नहीं पहुँच सके, सुनिश्चित करें कि आप इंटरनेट से जुड़े हैं।</string>
+    <string name="add_note">नोट जोड़ें</string>
+    <string name="try_again_in">फिर से प्रयास करें</string>
+    <string name="rekey_account">रिकी खाता</string>
+    <string name="replace_your_account">अपने खाते के लेजर को नए लेजर डिवाइस से बदलें</string>
+    <string name="replace_your_accounts">अपने खाते का पासफ्रेज़ लेजर डिवाइस से बदलें।</string>
+    <string name="what_to_expect">क्या अपेक्षा करें</string>
+    <string name="future_transactions_will_be">भविष्य के लेन-देन आपके नए लेजर डिवाइस द्वारा साइन किए जाएंगे।</string>
+    <string name="this_account">इस खाते का पासफ्रेज़ अब इस खाते के लिए कार्य नहीं करेगा।</string>
+    <string name="your_old_ledger">आपका पुराना लेजर डिवाइस अब इस खाते के लिए कार्य नहीं करेगा।</string>
+    <string name="your_account_s_public">आपके खाते की सार्वजनिक कुंजी, शेष राशि और कॉन्फ़िगरेशन नहीं बदलेगा।</string>
+    <string name="add_account">खाता जोड़ें</string>
+    <string name="confirm_rekeying">रिकी की पुष्टि करें</string>
+    <string name="total_rekeying_fee">%1$s ALGO का कुल रिकी शुल्क</string>
+    <string name="finalize_rekeying">रिकी को अंतिम रूप दें</string>
+    <string name="new_ledger">नया लेजर</string>
+    <string name="old_ledger">पुराना लेजर</string>
+    <string name="the_account_name">खाता <annotation font="dmsans_bold">"<annotation replacement="account_name">accountNamePlaceHolder</annotation>"</annotation> सफलतापूर्वक रिकी किया गया है।</string>
+    <string name="just_now">अभी</string>
+    <string name="asset_support_success"><annotation font="dmsans_medium"><annotation replacement="sender">addressPlaceholder</annotation></annotation> ने अपनी खाता में <annotation replacement="asset">assetPlaceholder</annotation> को ऑप्ट-इन किया है। अब आप उन्हें <annotation replacement="asset">assetPlaceholder</annotation> भेज सकते हैं।</string>
+    <string name="asset_support_request"><annotation font="dmsans_medium"><annotation replacement="sender">addressPlaceholder</annotation></annotation> आपको <annotation replacement="asset">assetPlaceholder</annotation> भेजने की कोशिश कर रहा है, लेकिन आपके पास यह नहीं है। हम आपके खाते में इस परिसंपत्ति को ऑप्ट-इन कर सकते हैं।</string>
+    <string name="transaction_send_successful">आपका <annotation font="dmsans_medium"><annotation replacement="amount">amountPlaceholder</annotation></annotation> <annotation replacement="asset">assetPlaceholder</annotation> का लेन-देन <annotation font="dmsans_medium"><annotation replacement="sender">addressPlaceholder</annotation></annotation> से <annotation font="dmsans_medium"><annotation replacement="receiver">addressPlaceholder</annotation></annotation> को सफलतापूर्वक पूरा हुआ।</string>
+    <string name="transaction_send_failed">आपका <annotation font="dmsans_medium"><annotation replacement="amount">amountPlaceholder</annotation></annotation> <annotation replacement="asset">assetPlaceholder</annotation> का लेन-देन <annotation font="dmsans_medium"><annotation replacement="sender">addressPlaceholder</annotation></annotation> से <annotation font="dmsans_medium"><annotation replacement="receiver">addressPlaceholder</annotation></annotation> को विफल हो गया।</string>
+    <string name="notification_algo_received_message"><annotation font="dmsans_medium"><annotation replacement="amount">amountPlaceholder</annotation></annotation> <annotation replacement="asset">assetPlaceholder</annotation> को <annotation font="dmsans_medium"><annotation replacement="sender">addressPlaceholder</annotation></annotation> द्वारा <annotation font="dmsans_medium"><annotation replacement="receiver">addressPlaceholder</annotation></annotation> को भेजा गया।</string>
+    <string name="pera_app_is_locked">AlgoKit वॉलेट ऐप लॉक है</string>
+    <string name="too_many_pin_attempts">बहुत अधिक पिन प्रयास</string>
+    <string name="this_ledger_device">यह लेजर डिवाइस निम्नलिखित खातों के लिए लेन-देन साइन कर सकता है। अपने AlgoKit वॉलेट में जोड़ने के लिए खाते चुनें।</string>
+    <string name="auth_account_address">प्रमाणित खाता पता</string>
+    <string name="rekeying_account">रिकी खाता हो रहा है…</string>
+    <string name="date">तारीख</string>
+    <string name="copy">कॉपी करें</string>
+    <string name="developer_settings">डेवलपर सेटिंग्स</string>
+    <string name="localization_settings">भाषा</string>
+    <string name="currency">मुद्रा</string>
+    <string name="algorand_dispenser">Algorand डिस्पेंसर</string>
+    <string name="terms_and_conditions">नियम और शर्तें</string>
+    <string name="privacy_click">गोपनीयता नीति</string>
+    <string name="by_creating_account">खाता बनाकर, आप AlgoKit वॉलेट की <annotation font="dmsans_medium"><annotation custom="terms_click">नियम और शर्तें</annotation></annotation> और <annotation font="dmsans_medium"><annotation custom="privacy_click">गोपनीयता नीति</annotation></annotation> से सहमत होते हैं।</string>
+    <string name="by_adding_a_wallet">वॉलेट जोड़कर, आप AlgoKit वॉलेट की <annotation font="dmsans_medium"><annotation custom="terms_click">नियम और शर्तें</annotation></annotation> और <annotation font="dmsans_medium"><annotation custom="privacy_click">गोपनीयता नीति</annotation></annotation> से सहमत होते हैं।</string>
+    <string name="by_creating_a_wallet">वॉलेट बनाकर, आप AlgoKit वॉलेट की <annotation font="dmsans_medium"><annotation custom="terms_click">नियम और शर्तें</annotation></annotation> और <annotation font="dmsans_medium"><annotation custom="privacy_click">गोपनीयता नीति</annotation></annotation> से सहमत होते हैं।</string>
+    <string name="create_new_account">नया खाता बनाएँ</string>
+    <string name="watch_account">वॉच खाता</string>
+    <string name="wallet_address">वॉलेट पता</string>
+    <string name="universal_wallet">सार्वभौमिक वॉलेट</string>
+    <string name="hd_account">HD खाता</string>
+    <string name="receive">प्राप्त करें</string>
+    <string name="system_default">सिस्टम डिफ़ॉल्ट</string>
+    <string name="light">हल्का</string>
+    <string name="dark">गहरा</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+
+    <plurals name="min_ago">
+        <item quantity="one">%1$s मिनट पहले</item>
+        <item quantity="other">%1$s मिनट पहले</item>
+    </plurals>
+    <plurals name="hours_ago">
+        <item quantity="one">%1$s घंटा पहले</item>
+        <item quantity="other">%1$s घंटे पहले</item>
+    </plurals>
+    <plurals name="days_ago">
+        <item quantity="one">%1$s दिन पहले</item>
+        <item quantity="other">%1$s दिन पहले</item>
+    </plurals>
+    <plurals name="account_found">
+        <item quantity="one">%1$d खाता मिला</item>
+        <item quantity="other">%1$d खाते मिले</item>
+    </plurals>
+
+    <string name="push_notifications">पुश सूचनाएँ</string>
+    <string name="mute_notifications">सूचनाएँ बंद करें</string>
+    <string name="unmute_notifications">सूचनाएँ चालू करें</string>
+    <string name="show_notification_for">सूचनाएँ दिखाएँ</string>
+    <string name="rate_pera_wallet">AlgoKit वॉलेट को रेट करें</string>
+    <string name="ledger_position">लेजर #<annotation replacement="account_index">accountIndexPlaceholder</annotation></string>
+    <string name="can_be_signed_by">द्वारा साइन किया जा सकता है</string>
+    <string name="can_sign_for_these">इन खातों के लिए साइन कर सकता है</string>
+    <string name="select_account">खाता चुनें</string>
+    <string name="select_the_receiver_account">प्राप्तकर्ता खाता चुनें</string>
+    <string name="a_network_error">खाता विवरण प्राप्त करते समय नेटवर्क त्रुटि हुई। कृपया प्रक्रिया को पुनः प्रारंभ करें।</string>
+    <string name="it_appears_this">ऐसा प्रतीत होता है कि यह लेजर डिवाइस रीसेट किया गया है और डिवाइस पर खाता अब इस खाते से मेल नहीं खाता। कृपया होमपेज से लेजर को फिर से पेयर करें।</string>
+
+    <plurals name="asset_count">
+        <item quantity="one">+%1$d परिसंपत्ति</item>
+        <item quantity="other">+%1$d परिसंपत्तियाँ</item>
+    </plurals>
+
+    <string name="continue_text">जारी रखें</string>
+    <string name="when_sending_to_an_address">किसी पते पर पहली बार भेजते समय, बड़ी राशि भेजने से पहले एक छोटा परीक्षण लेन-देन भेजना उपयोगी होता है।</string>
+    <string name="exchanges_change_their">एक्सचेंज अपने जमा पतों को अक्सर बदलते हैं, और सहेजे गए पते अब उपयोग में नहीं हो सकते। <annotation custom="highlight_color">सुनिश्चित करें कि आप सही पते पर भेज रहे हैं।</annotation></string>
+    <string name="for_more_information_on">लेन-देन पर अधिक जानकारी के लिए, <annotation font="dmsans_medium"><annotation custom="tap_here_color">यहाँ टैप करें</annotation></annotation></string>
+    <string name="i_understand">मैं समझ गया</string>
+    <string name="the_transaction_cannot_be">लेन-देन पूरा नहीं किया जा सकता क्योंकि राशि आपके खाते को <annotation replacement="min_balance">min_balance_placeholder</annotation> ALGO के न्यूनतम आवश्यक बैलेंस से नीचे ले जाएगी।</string>
+    <string name="recovery_passphrase">रिकवरी पासफ्रेज़</string>
+    <string name="select_word">शब्द चुनें #<annotation replacement="word_number">wordNumberPlaceholder</annotation></string>
+    <string name="create_a_passphrase_backup">अपने खाते के लिए पासफ्रेज़ बैकअप बनाएँ</string>
+    <string name="creating_a_passphrase_backup">पासफ्रेज़ बैकअप बनाने से आप अपने खाते को पुनर्प्राप्त कर सकते हैं। पासफ्रेज़ के बिना, यदि आप डिवाइस खो देते हैं, खाता हटाते हैं या ऐप हटाते हैं, तो आप स्थायी रूप से अपने Algorand खाते तक पहुँच खो सकते हैं!</string>
+    <string name="prepare_to_write">अपना रिकवरी पासफ्रेज़ लिखने की तैयारी करें</string>
+    <string name="the_only_way_to">Algorand खाता पुनर्प्राप्त करने का एकमात्र तरीका यह रिकवरी पासफ्रेज़ है।</string>
+    <string name="im_ready_to_begin">मैं शुरू करने के लिए तैयार हूँ</string>
+    <string name="create_a_watch">वॉच खाता बनाएँ</string>
+    <string name="recover_an_algorand_account">एक Algorand खाता पुनर्प्राप्त करें</string>
+    <string name="recover_an_algorand_wallet">एक Algorand वॉलेट पुनर्प्राप्त करें</string>
+    <string name="in_the_following_account">आगामी चरणों में, आप अपने रिकवरी पासफ्रेज़ दर्ज करेंगे ताकि Algorand खाता पुनर्प्राप्त कर सकें। शुरू करने से पहले अपना रिकवरी वाक्यांश तैयार रखें।</string>
+    <string name="in_the_following_wallet">आगामी चरणों में, आप अपने रिकवरी पासफ्रेज़ दर्ज करेंगे ताकि Algorand वॉलेट पुनर्प्राप्त कर सकें। शुरू करने से पहले अपना रिकवरी वाक्यांश तैयार रखें।</string>
+    <string name="finish_account_creation">खाता निर्माण पूरा करें</string>
+    <string name="welcome_to_pera">AlgoKit वॉलेट में आपका स्वागत है</string>
+    <string name="i_want_to_monitor">मैं उस खाते की निगरानी करना चाहता हूँ जो कोल्ड स्टोरेज में रखा गया है।</string>
+    <string name="recover">पुनर्प्राप्त करें</string>
+    <string name="the_last_copied_text">अंतिम कॉपी किया गया पाठ मान्य पासफ्रेज़ नहीं है। कृपया एक मान्य पासफ्रेज़ कॉपी करें और पुनः प्रयास करें।</string>
+    <string name="make_sure_to_record">सुनिश्चित करें कि इन शब्दों को सही क्रम में, संबंधित संख्याओं के साथ रिकॉर्ड करें।</string>
+    <string name="this_6_digit_pin">यह 6-अंकीय पिन AlgoKit वॉलेट का उपयोग करने के लिए आवश्यक होगा। हम अनुशंसा करते हैं कि यदि आपका फोन चोरी हो जाता है तो सुरक्षा बढ़ाने के लिए एक पिन बनाएं।</string>
+    <string name="increase_your_security">पिन के साथ अपनी सुरक्षा बढ़ाएँ</string>
+    <string name="name_your_account">अपने खाते का नाम रखें</string>
+    <plurals name="account_asset_count">
+        <item quantity="zero">0 संपत्ति</item>
+        <item quantity="one">%1$d संपत्ति</item>
+        <item quantity="other">%1$d संपत्तियाँ</item>
+    </plurals>
+    <string name="account_asset_count_zero">0 संपत्ति</string>
+
+    <plurals name="account_nft_count">
+        <item quantity="one">%1$d एनएफटी</item>
+        <item quantity="other">%1$d एनएफटीज़</item>
+    </plurals>
+
+    <string name="please_use_biometric">आगे बढ़ने के लिए कृपया बायोमेट्रिक का उपयोग करें।</string>
+    <string name="not_now">अभी नहीं</string>
+    <string name="pair_with_ledger">लेजर के साथ पेयर करें</string>
+    <string name="enable_biometric_authentication">बायोमेट्रिक प्रमाणीकरण सक्षम करें</string>
+    <string name="you_need_to_create">आपको अपने संपत्तियों का लेनदेन शुरू करने के लिए एक खाता बनाना होगा।</string>
+    <string name="skip">छोड़ें</string>
+    <string name="do_not_ask_again">फिर से न पूछें</string>
+    <string name="selected_words_are">चुने गए शब्द गलत हैं। कृपया पुनः प्रयास करें।</string>
+    <string name="paste_full_passphrase">पूरा पासफ्रेज़ पेस्ट करें</string>
+    <string name="verify_recovery_passphrase">रिकवरी पासफ्रेज़ बैकअप सत्यापित करें</string>
+    <string name="transacting_tips">लेनदेन सुझाव</string>
+    <string name="monitor_activity_of">रिकवरी पासफ्रेज़ की आवश्यकता के बिना खाते की गतिविधि की निगरानी करें। यह कोल्ड स्टोरेज में रखी गई संपत्तियों की निगरानी के लिए उपयोगी है।</string>
+    <string name="name_your_account_to">अपने खाते को नाम दें ताकि आप AlgoKit वॉलेट का उपयोग करते समय उसे आसानी से पहचान सकें। ये नाम स्थानीय रूप से संग्रहीत होते हैं और केवल आप इन्हें देख सकते हैं।</string>
+    <string name="learn_more">और जानें</string>
+    <string name="no_contact_found">कोई संपर्क नहीं मिला</string>
+    <string name="you_can_make_the">आप नए संपर्क जोड़कर संपत्ति भेजने की प्रक्रिया को तेज़ बना सकते हैं।</string>
+    <string name="verify_account_addresses">लेजर के माध्यम से खाता पतों की पुष्टि करें</string>
+    <string name="the_following_account">निम्नलिखित खाता पते आपके लेजर डिवाइस पर प्रदर्शित होंगे। कृपया प्रत्येक पते को ध्यान से तुलना करें और पुष्टि करें ताकि डिवाइस पेयरिंग को अंतिम रूप दिया जा सके।</string>
+    <string name="add_verified_accounts">सत्यापित खाते जोड़ें</string>
+    <string name="awaiting_verification">सत्यापन की प्रतीक्षा में</string>
+    <string name="not_verified">सत्यापित नहीं</string>
+    <string name="verify_selected_account">चयनित खाता सत्यापित करें</string>
+
+    <plurals name="verify_selected_count">
+        <item quantity="one">%1$d चयनित खाता सत्यापित करें</item>
+        <item quantity="other">चयनित खातों को सत्यापित करें</item>
+    </plurals>
+
+    <string name="overwrite_existing_contract">मौजूदा संपर्क को अधिलेखित करें</string>
+    <string name="this_address_is_already_in_your_contract">यह पता पहले से ही आपके संपर्कों में %1$s के रूप में मौजूद है। क्या आप उस संपर्क को बदलना चाहते हैं?</string>
+    <string name="one_day_abbr">1D</string>
+    <string name="one_week_abbr">1W</string>
+    <string name="one_month_abbr">1M</string>
+    <string name="one_year_abbr">1Y</string>
+    <string name="all_time_abbr">सभी</string>
+    <string name="no_chart_data_available">मूल्य एपीआई वर्तमान में अनुपलब्ध है, कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="balance">शेष राशि</string>
+    <string name="last_one_day">पिछले 1 दिन</string>
+    <string name="last_one_week">पिछले 1 सप्ताह</string>
+    <string name="last_one_month">पिछले 1 महीने</string>
+    <string name="last_one_year">पिछले 1 वर्ष</string>
+    <string name="minimum_balance_required">न्यूनतम शेष राशि आवश्यक</string>
+    <string name="you_have_not_connected">आपने अभी तक कोई ऐप कनेक्ट नहीं किया है।</string>
+    <string name="wallet_connect_sessions">WalletConnect सत्र</string>
+    <string name="wallet_wants_to_connect"><annotation type="bold"><annotation replacement="app_name">app_name_placeholder</annotation></annotation> आपके वॉलेट से कनेक्ट होना चाहता है</string>
+    <string name="you_do_not_have_any">आपके पास ऐसा कोई खाता नहीं है जिससे WalletConnect कनेक्ट हो सके।</string>
+    <string name="disconnect">डिस्कनेक्ट करें</string>
+    <string name="show_asset_url">संपत्ति URL दिखाएँ</string>
+    <string name="show_asset_metadata">संपत्ति मेटाडेटा दिखाएँ</string>
+    <string name="rekey_to">रिकी करें</string>
+    <string name="transaction_request">लेनदेन अनुरोध</string>
+    <string name="raw_transaction">कच्चा लेनदेन</string>
+    <string name="the_requested_operation_and">अनुरोधित ऑपरेशन और/या खाता उपयोगकर्ता द्वारा अधिकृत नहीं किया गया है।</string>
+    <string name="the_wallet_does_not_support">वॉलेट अनुरोधित ऑपरेशन का समर्थन नहीं करता।</string>
+    <string name="transaction_succesfully_confirmed">लेनदेन सफलतापूर्वक पुष्टि किया गया</string>
+    <string name="sender">प्रेषक</string>
+    <string name="multiple_transaction_request">एकाधिक लेनदेन अनुरोध</string>
+    <string name="multiple_transactions_formatted">%1$d लेनदेन</string>
+    <string name="unsigned_transactions">अहस्ताक्षरित लेनदेन</string>
+    <string name="application_id">एप्लिकेशन आईडी</string>
+    <string name="this_transaction_will_transfer">यह लेनदेन इस खाते के स्वामित्व को स्थानांतरित करेगा। आपका वर्तमान रिकवरी पासफ्रेज़ अब इन संपत्तियों तक पहुंच नहीं देगा।</string>
+    <string name="this_transaction_is_sending">यह लेनदेन आपकी पूरी Algo शेष राशि भेज रहा है।</string>
+    <string name="this_transaction_is_sending_your">यह लेनदेन आपकी पूरी %1$s शेष राशि भेज रहा है। यह आपके खाते "%2$s" से %1$s संपत्ति को हटा देगा।</string>
+    <string name="this_transaction_fee_is_higher">यह लेनदेन शुल्क सामान्य शुल्क 0.001 Algo से अधिक है।</string>
+    <string name="wallet_connect_is_not_reachable">WalletConnect इस समय उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="connected_with_formatted">%1$s से जुड़ा हुआ</string>
+    <string name="this_transaction_will_be">यह लेनदेन भविष्य में प्रस्तुत किया जाएगा। एक बार पुष्टि हो जाने के बाद, जुड़ा हुआ एप्लिकेशन अपनी विवेकानुसार इन लेनदेन को भेज सकता है। कृपया सुनिश्चित करें कि आपने लेनदेन को सावधानीपूर्वक समीक्षा किया है क्योंकि यह प्रक्रिया अपरिवर्तनीय है।</string>
+
+    <plurals name="confirm_transactions">
+        <item quantity="one">%1$d पुष्टि करें</item>
+        <item quantity="other">सभी की पुष्टि करें</item>
+    </plurals>
+
+    <string name="asset_reconfiguration_request">संपत्ति पुन: कॉन्फ़िगरेशन अनुरोध</string>
+    <string name="off">बंद</string>
+    <string name="on">चालू</string>
+    <string name="asset_creation_request">संपत्ति निर्माण अनुरोध</string>
+    <string name="asset_deletion_request">संपत्ति हटाने का अनुरोध</string>
+    <string name="unit_name">इकाई का नाम</string>
+    <string name="asset_deletion_warning_message">यह संपत्ति हटा दी जाएगी।</string>
+    <string name="governance_banner_button_text">शुरू करें</string>
+    <string name="could_not_create_wallet_connect">WalletConnect पर सत्र नहीं बनाया जा सका। कृपया एक मान्य URL के साथ पुनः प्रयास करें।</string>
+    <string name="you_can_not_send_your">आप अपनी अधिकतम शेष राशि स्वयं को नहीं भेज सकते। कृपया एक अलग राशि या प्राप्तकर्ता चुनें और पुनः प्रयास करें।</string>
+    <string name="you_are_creating_a_read_only">आप एक केवल-पढ़ने योग्य Algorand खाते का दृश्य बना रहे हैं।</string>
+    <string name="enter_your_recovery_passphrase">अपना रिकवरी पासफ्रेज़ दर्ज करें</string>
+
+    <string name="create_a_watch_account">वॉच खाता बनाएँ</string>
+    <string name="paste_with_account">पेस्ट करें (<annotation custom="account_text_size"><annotation custom="account_color"><annotation font="dmmono_regular"><annotation replacement="account">accountPlaceholder</annotation></annotation></annotation></annotation>)</string>
+    <string name="transfer_from_another_phone">किसी अन्य फ़ोन से स्थानांतरित करें</string>
+    <string name="i_already_have_an">मेरे पास पहले से एक AlgoKit वॉलेट है लेकिन यह किसी अन्य फ़ोन पर है।</string>
+
+    <string name="set_pin_code">पिन कोड सेट करें</string>
+    <string name="your_faceid_or_fingerprintid">ऐप का उपयोग करने के लिए आपका FaceID या FingerprintID आवश्यक होगा। यदि आपका फ़ोन चोरी हो जाता है तो वॉलेट सुरक्षा बढ़ाने के लिए बायोमेट्रिक प्रमाणीकरण सक्षम करने की अनुशंसा की जाती है।</string>
+
+    <string name="do_not_use">उपयोग न करें</string>
+    <string name="biometric_authentication_enabled">बायोमेट्रिक प्रमाणीकरण सक्षम किया गया</string>
+    <string name="your_passcode_has_been_verified">आपका पासकोड सत्यापित किया गया है। अब आपका Algorand खाता अधिक सुरक्षित है।</string>
+    <string name="go_to_accounts">खातों पर जाएँ</string>
+    <string name="choose_your_six_digit_pin">अपना 6-अंकीय पिन चुनें</string>
+    <string name="re_enter_your_six_digit_pin">अपना 6-अंकीय पिन पुनः दर्ज करें</string>
+    <string name="enter_your_new_six_digit_pin">अपना नया 6-अंकीय पिन दर्ज करें</string>
+    <string name="re_enter_your_new_six_digit_pin">अपना नया 6-अंकीय पिन पुनः दर्ज करें</string>
+    <string name="wrong_passphrase">गलत पासफ्रेज़</string>
+    <string name="account_not_found_please_try">खाता नहीं मिला। कृपया सही पासफ्रेज़ दर्ज कर पुनः प्रयास करें।</string>
+
+    <string name="account_has_been_added">खाता जोड़ा गया है!</string>
+    <string name="congratulations_your_account">बधाई हो, आपका खाता उपयोग के लिए तैयार है।</string>
+    <string name="welcome_to_pera_your_account">AlgoKit वॉलेट में आपका स्वागत है! आपका खाता उपयोग के लिए तैयार है।</string>
+    <string name="start_using_pera">AlgoKit वॉलेट का उपयोग प्रारंभ करें</string>
+
+    <string name="verified">सत्यापित</string>
+    <string name="copy_id">आईडी कॉपी करें</string>
+    <string name="enter_a_passcode">पासकोड दर्ज करें</string>
+    <string name="share_address">पता साझा करें</string>
+    <string name="show_qr_code">QR कोड दिखाएँ</string>
+    <string name="qr_code">QR कोड</string>
+    <string name="you_are_about_to">आप <annotation replacement="asset_name">assetNamePlaceholder</annotation> को "<annotation replacement="account_name">accountNamePlaceholder</annotation>" खाते से हटाने और ऑप्ट-आउट करने वाले हैं। आप इस परिसंपत्ति के साथ लेन-देन नहीं कर पाएंगे जब तक आप इसे फिर से ऑप्ट-इन नहीं करते।</string>
+    <string name="to_opt_out_and_remove"><annotation replacement="asset_name">assetNamePlaceholder</annotation> से ऑप्ट-आउट और हटाने के लिए शेष राशि 0 होनी चाहिए। कृपया शेष राशि किसी अन्य खाते में स्थानांतरित करें और पुनः प्रयास करें।</string>
+    <string name="rename_account">खाते का नाम बदलें</string>
+    <string name="completed">पूर्ण हुआ</string>
+    <string name="search_contacts_or_name">संपर्क या नाम खोजें</string>
+    <string name="try_different_contact_name">कोई अन्य संपर्क नाम आज़माएँ</string>
+    <string name="add_photo">फ़ोटो जोड़ें</string>
+    <string name="delete_this_contact">यह संपर्क हटाएँ</string>
+    <string name="yes_delete_contact">हाँ, संपर्क हटाएँ</string>
+    <string name="available_balance_with_currency">%1$s उपलब्ध शेष राशि</string>
+    <string name="security">सुरक्षा</string>
+    <string name="app_preferences">ऐप प्राथमिकताएँ</string>
+    <string name="theme">थीम</string>
+    <string name="support">सहायता</string>
+    <string name="rate_your_experience">अपने अनुभव को रेट करें</string>
+    <string name="tell_us_how_was_your_experience">हमें बताएं आपका अनुभव कैसा रहा?</string>
+
+    <string name="transaction_count_group_id_formatted"><annotation replacement="transaction_count">transaction_count_placeholder</annotation> लेन-देन · समूह आईडी: <annotation replacement="group_id">group_id_placeholder</annotation></string>
+    <string name="transaction_request_rejected_user_rejected">लेन-देन अनुरोध अस्वीकार किया गया: उपयोगकर्ता ने अनुरोध को अस्वीकार कर दिया।</string>
+    <string name="transaction_request_rejected_transaction_group">लेन-देन अनुरोध अस्वीकार किया गया: Algorand SDK द्वारा लेन-देन समूह मान्यकरण में विफल रहा।</string>
+    <string name="transaction_request_rejected_user_currently">लेन-देन अनुरोध अस्वीकार किया गया: उपयोगकर्ता के पास वर्तमान में एक अन्य लेन-देन अनुरोध प्रगति पर है।</string>
+    <string name="signing_error_network_mismatch">साइनिंग त्रुटि: dApp और वॉलेट के बीच नेटवर्क मेल नहीं खा रहा है। उदाहरण के लिए, वॉलेट TestNet से जुड़ा है और dApp MainNet से (या इसके विपरीत)।</string>
+    <string name="signing_error_transaction_in_request">साइनिंग त्रुटि: अनुरोधित लेन-देन को उस निजी कुंजी की आवश्यकता है जो वॉलेट में मौजूद नहीं है।</string>
+    <string name="transaction_request_contains_unsupported">लेन-देन अनुरोध में असमर्थित लेन-देन प्रकार शामिल है</string>
+    <string name="transaction_request_contains_unsupported_multisig">लेन-देन अनुरोध में असमर्थित प्रकार शामिल है: मल्टी-सिग</string>
+    <string name="invalid_input_transaction_request">अमान्य इनपुट: लेन-देन अनुरोध में %1$d से अधिक लेन-देन शामिल हैं</string>
+    <string name="invalid_input_unable_to_parse">अमान्य इनपुट: लेन-देन पार्स नहीं किया जा सका</string>
+    <string name="invalid_input_invalid_public_key">अमान्य इनपुट: अमान्य सार्वजनिक कुंजी</string>
+    <string name="invalid_input_invalid_asset">अमान्य इनपुट: अमान्य परिसंपत्ति</string>
+    <string name="invalid_input_unable_to_be">अमान्य इनपुट: साइन नहीं किया जा सका</string>
+    <string name="invalid_input_group_transaction">अमान्य इनपुट: समूह लेन-देन को वॉलेट उपयोगकर्ता द्वारा साइन करने की आवश्यकता नहीं है।</string>
+    <string name="invalid_input_requested_signer">अमान्य इनपुट: अनुरोधित साइनर वॉलेट में नहीं है</string>
+
+    <string name="pairing_ledger_with_your">अपने डिवाइस के साथ लेजर पेयर किया जा रहा है</string>
+    <string name="open_your_ledger">अपना लेजर डिवाइस खोलें।</string>
+    <string name="close_the_algorand_app">लेजर डिवाइस पर Algorand ऐप बंद करें।</string>
+    <string name="on_the_ledger_home_screen">लेजर होम स्क्रीन पर पेयरिंग की पुष्टि करें।</string>
+    <string name="pairing_failed">पेयरिंग विफल!</string>
+    <string name="having_ledger_nano_x">लेजर कनेक्शन समस्याएँ?</string>
+    <string name="make_sure_the_device_is">सुनिश्चित करें कि डिवाइस अनलॉक है, पास में है और ब्लूटूथ सक्षम है। यदि समस्या बनी रहती है, तो अपने फ़ोन की ब्लूटूथ सेटिंग से डिवाइस हटाएँ, लेजर खाता हटाएँ, और फिर AlgoKit वॉलेट निर्देशों का पालन करते हुए पुनः पेयर करें।</string>
+
+    <string name="become_a_governor">गवर्नर बनें।\nAlgorand के भविष्य पर वोट करें।\nपुरस्कार अर्जित करें।</string>
+    <string name="the_registration_window_for">शासन अवधि #2 के लिए पंजीकरण विंडो 25 दिसंबर से 7 जनवरी, 16:00 UTC तक है।</string>
+
+    <string name="connection_failed">कनेक्शन विफल</string>
+    <string name="we_are_sorry_but_the">क्षमा करें, लेकिन dApp प्रतिक्रिया नहीं दे रहा है। कृपया पेज को रिफ्रेश करें और एक नया QR कोड स्कैन करने का प्रयास करें। यदि त्रुटि बनी रहती है, तो कृपया dApp से संपर्क करें।</string>
+    <string name="malicious_website_blocked">खतरनाक वेबसाइट अवरुद्ध की गई</string>
+    <string name="you_attempted_to_connect_malicious_website">आपने एक खतरनाक वेबसाइट से कनेक्ट करने का प्रयास किया। आपकी सुरक्षा के लिए AlgoKit ने इस कनेक्शन को अवरुद्ध किया।</string>
+    <string name="your_transaction_is_being_processed">आपका लेन-देन संसाधित किया जा रहा है</string>
+    <string name="your_transaction_is_processed_algorand">आपका लेन-देन Algorand नेटवर्क द्वारा संसाधित किया जा रहा है</string>
+    <string name="the_transaction_has_been_signed">लेन-देन साइन कर भेजा गया है <annotation replacement="peer_name">peer_name_placeholder</annotation> को। कृपया आगे की प्रक्रिया के लिए <annotation replacement="peer_name">peer_name_placeholder</annotation> पर जाएँ।</string>
+    <string name="select_the_asset_to_send">भेजने के लिए परिसंपत्ति चुनें</string>
+    <string name="paste_from_clipboard">क्लिपबोर्ड से पेस्ट करें</string>
+    <string name="search_or_enter_address">पता खोजें या दर्ज करें</string>
+    <string name="my_accounts">मेरे खाते</string>
+    <string name="no_account_found">कोई खाता नहीं मिला</string>
+    <string name="try_different_account_name">कोई अन्य खाता नाम आज़माएँ</string>
+    <string name="add_note_with_plus">+ नोट जोड़ें</string>
+    <string name="enter_your_note">अपना नोट दर्ज करें</string>
+
+    <string name="do_not_share">इस पासफ्रेज़ को किसी के साथ साझा न करें, क्योंकि यह आपके खाते तक पूर्ण पहुँच देता है।</string>
+    <string name="if_you_do_not">यदि आपके पास संबंधित रिकवरी पासफ्रेज़ नहीं है, तो इस खाते में परिसंपत्तियाँ न भेजें।</string>
+    <string name="statistics">सांख्यिकी</string>
+    <string name="_24h_volume">24 घंटे का वॉल्यूम</string>
+    <string name="all_time_high">सर्वोच्च स्तर</string>
+    <string name="market_cap">मार्केट कैप</string>
+    <string name="please_make_sure_your_ledger_is">कृपया सुनिश्चित करें कि आपका लेजर अनलॉक है और ब्लूटूथ सक्षम है</string>
+    <string name="how_does_it_work">यह कैसे काम करता है?</string>
+    <string name="install_the_algorand_app_onto_your_ledger">अपने लेजर पर Algorand ऐप इंस्टॉल करें</string>
+    <string name="step_one">चरण 1</string>
+    <string name="step_two">चरण 2</string>
+    <string name="step_three">चरण 3</string>
+    <string name="looking_for_devices">डिवाइस खोजे जा रहे हैं</string>
+    <string name="ledger_account">लेजर खाता</string>
+    <string name="asset_id">आईडी <annotation replacement="asset_id">assetIdPlaceholder</annotation></string>
+    <string name="asset_id_formatted">आईडी %1$s</string>
+    <string name="find_a_code_to_scan">स्कैन करने के लिए कोड खोजें</string>
+    <string name="connected">कनेक्टेड</string>
+    <plurals name="app_connected">
+        <item quantity="one">%1$d 1 ऐप कनेक्टेड</item>
+        <item quantity="other">%1$d ऐप्स कनेक्टेड</item>
+    </plurals>
+
+    <string name="read_more">और पढ़ें</string>
+    <string name="show_transaction_details">लेन-देन विवरण दिखाएँ</string>
+    <string name="network_fee">नेटवर्क शुल्क</string>
+
+    <plurals name="warning_with_count">
+        <item quantity="one">%1$d चेतावनी</item>
+        <item quantity="other">%1$d चेतावनियाँ</item>
+    </plurals>
+
+    <string name="application_call">एप्लिकेशन कॉल</string>
+    <string name="application_opt_in">एप्लिकेशन ऑप्ट-इन</string>
+    <string name="application_close_to">एप्लिकेशन क्लोज़ टू</string>
+    <string name="application_update">एप्लिकेशन अपडेट</string>
+    <string name="application_delete">एप्लिकेशन हटाएँ</string>
+
+    <string name="possible_opt_in_request">संभावित परिसंपत्ति ऑप्ट-इन अनुरोध</string>
+    <string name="on_completion">समाप्ति पर</string>
+
+    <string name="asset_creation_request_with_asset_name">परिसंपत्ति निर्माण अनुरोध <annotation replacement="asset_name">assetNamePlaceholder</annotation></string>
+    <string name="asset_reconfiguration_request_with_asset_name">परिसंपत्ति पुनः कॉन्फ़िगरेशन अनुरोध <annotation replacement="asset_name">assetNamePlaceholder</annotation></string>
+    <string name="asset_deletion_request_with_asset_name">परिसंपत्ति हटाने का अनुरोध <annotation replacement="asset_name">assetNamePlaceholder</annotation></string>
+
+    <string name="application_call_with_id">एप्लिकेशन कॉल <annotation replacement="app_id">appIdPlaceholder</annotation></string>
+    <string name="application_opt_in_with_id">एप्लिकेशन ऑप्ट-इन <annotation replacement="app_id">appIdPlaceholder</annotation></string>
+    <string name="application_close_to_with_id">एप्लिकेशन क्लोज़ टू <annotation replacement="app_id">appIdPlaceholder</annotation></string>
+    <string name="application_update_with_id">एप्लिकेशन अपडेट <annotation replacement="app_id">appIdPlaceholder</annotation></string>
+    <string name="application_delete_with_id">एप्लिकेशन हटाएँ <annotation replacement="app_id">appIdPlaceholder</annotation></string>
+    <string name="show_all_details">सभी विवरण दिखाएँ</string>
+
+    <string name="possible_opt_in_request_with_asset_id">संभावित परिसंपत्ति ऑप्ट-इन अनुरोध <annotation replacement="asset_id">assetIdPlaceholder</annotation></string>
+    <string name="group_id_formatted">आईडी: <annotation replacement="group_id">groupIdPlaceholder</annotation></string>
+    <string name="app_id">ऐप आईडी</string>
+
+    <string name="app_global_schema">ऐप ग्लोबल\nस्कीमा</string>
+    <string name="app_local_schema">ऐप लोकल\nस्कीमा</string>
+    <string name="app_extra_pages">ऐप एक्स्ट्रा\nपेज</string>
+    <string name="approval_hash">अनुमोदन\nहैश</string>
+    <string name="clear_state_hash">क्लियर स्टेट\nहैश</string>
+    <string name="close_asset_to">क्लोज़\nएसेट टू</string>
+    <string name="asset_metadata">एसेट\nमेटाडेटा</string>
+
+    <string name="manager_account">प्रबंधक\nखाता</string>
+    <string name="reserve_account">आरक्षित\nखाता</string>
+    <string name="clawback_account">क्लॉबैक\nखाता</string>
+    <string name="freeze_account">फ्रीज़\nखाता</string>
+    <string name="decimal_places">दशमलव\nस्थान</string>
+    <string name="default_frozen">डिफ़ॉल्ट\nफ्रोज़न</string>
+
+    <string name="transaction_details">लेन-देन विवरण</string>
+    <string name="show_pera_explorer">AlgoKit एक्सप्लोरर दिखाएँ</string>
+    <string name="remainder_close_to">शेष राशि\nक्लोज़ टू</string>
+
+    <string name="portfolio_value">पोर्टफोलियो मूल्य</string>
+    <string name="algo_holdings">Algo होल्डिंग्स</string>
+    <string name="asset_holdings">एसेट होल्डिंग्स</string>
+    <string name="arrange_list">सूची व्यवस्थित करें</string>
+
+    <string name="pending_transactions">लंबित लेन-देन</string>
+    <string name="your_transactions_will_be_appeared_here">आपके लेन-देन यहाँ दिखाई देंगे।</string>
+    <string name="account_value">खाते का मूल्य</string>
+    <string name="search_my_assets">मेरी परिसंपत्तियाँ खोजें</string>
+    <string name="transaction_history">लेन-देन इतिहास</string>
+
+    <string name="account_successfully_rekeyed">खाता सफलतापूर्वक रिकी किया गया</string>
+    <string name="rekey_fee">रिकी शुल्क</string>
+    <string name="remove_asset_fee">एसेट हटाने का शुल्क</string>
+    <string name="edit_note">नोट संपादित करें</string>
+    <string name="well_this_is_unexpected">अरे, यह अप्रत्याशित है</string>
+    <string name="not_available_shortened">N/A</string>
+    <string name="how_we_calculate_portfolio">हम पोर्टफोलियो मूल्य की गणना कैसे करते हैं</string>
+    <string name="the_total_portfolio_value">कुल पोर्टफोलियो मूल्य सभी परिसंपत्तियों और Algo की राशि जोड़कर निकाला जाता है, जिसमें वॉच खाते शामिल नहीं होते।\n\nएसेट मूल्यों की गणना दैनिक मूल्यों के आधार पर की जाती है। कुछ एसेट मूल्यों की अनुपलब्धता के कारण कुल पोर्टफोलियो मूल्य अनुमानित होता है।</string>
+    <string name="undefined">अपरिभाषित</string>
+    <string name="we_notice_that_this">हमने देखा कि यह आपका पहला लेन-देन है। अंतिम रूप देने से पहले कुछ सुझाव ध्यान में रखें:</string>
+    <string name="is_your_ledger_paired">क्या आपका लेजर इस डिवाइस से पेयर है?\nयदि नहीं, तो कृपया ये चरण अपनाएँ:</string>
+    <string name="you_are_about_to_delete">आप वॉलेट में संग्रहीत सभी डेटा, जिसमें आपके खाते भी शामिल हैं, हटाने वाले हैं। पुष्टि करने से पहले अपने पासफ्रेज़ कहीं और सहेजें, अन्यथा आप अपने खाते पुनर्प्राप्त नहीं कर पाएँगे।\n\nक्या आप वाकई आगे बढ़ना चाहते हैं?</string>
+    <string name="your_data_has_been">आपका डेटा सफलतापूर्वक हटा दिया गया है</string>
+    <string name="create_an_account">खाता बनाएँ</string>
+    <string name="once_pairing_is_confirmed">एक बार जब पेयरिंग दोनों डिवाइसों पर पुष्टि हो जाए, तो Algorand लेजर ऐप खोलें।</string>
+
+    <string name="scan_an_algorand">Algorand पता QR कोड स्कैन करें</string>
+    <string name="current_balance">वर्तमान शेष राशि</string>
+    <string name="based_on_your_account">आपके खाते की कॉन्फ़िगरेशन के अनुसार, आपका न्यूनतम शेष %1$s है। आगे बढ़ने पर, आपका लेन-देन Algorand ब्लॉकचेन के न्यूनतम शेष की आवश्यकता को पूरा करने के लिए समायोजित किया जाएगा।</string>
+    <string name="rekeyed_maximum_error_message">इस रिकी खाते से अपनी अधिकतम शेष राशि भेजने के लिए <annotation replacement="min_balance">min_balance_placeholder</annotation> Algo का न्यूनतम शेष आवश्यक है।\n\nआपकी लेन-देन राशि स्वचालित रूप से अपडेट की जाएगी, जिसे आप अगले चरण में देख सकते हैं।</string>
+    <string name="show_note">नोट दिखाएँ</string>
+    <string name="loading">लोड हो रहा है</string>
+    <string name="we_are_very_excited">हमें यह घोषणा करते हुए बहुत खुशी हो रही है कि Algorand वॉलेट अब AlgoKit वॉलेट कहलाएगा। यह केवल नया नाम और लोगो नहीं है — हम अपने रोडमैप, भागीदार एकीकरण और समुदाय पर नए सिरे से ध्यान केंद्रित करते हुए Algorand इकोसिस्टम का सबसे लोकप्रिय वॉलेट पुनः लॉन्च कर रहे हैं।\n\nचिंता न करें, AlgoKit वॉलेट वही टीम बना और बनाए रख रही है, और आपके सभी पसंदीदा फीचर्स पहले की तरह मौजूद हैं — आने वाले महीनों में और भी कई नई सुविधाएँ जोड़ने की योजना है।\n\nपुनः लॉन्च और हमारे रोडमैप के बारे में अधिक पढ़ने के लिए, <annotation type="color"><annotation url="peraBlogUrl">AlgoKit वॉलेट ब्लॉग</annotation></annotation> पर जाएँ।</string>
+    <string name="sorry_we_cant_show_account">क्षमा करें, हम इस खाते का विवरण नहीं दिखा सकते। ऐसा लगता है कि गणना में कोई समस्या आ रही है।\n\nकृपया ध्यान दें कि कुछ परिसंपत्ति मूल्यों की जानकारी उपलब्ध नहीं हो सकती है, इसलिए कुल पोर्टफोलियो मूल्य को एक अनुमान माना जाना चाहिए।</string>
+    <string name="sorry_we_cant_show_portfolio">क्षमा करें, हम इस पोर्टफोलियो का विवरण नहीं दिखा सकते। ऐसा लगता है कि गणना में कोई समस्या आ रही है।\n\nकृपया ध्यान दें कि कुछ परिसंपत्ति मूल्यों की जानकारी उपलब्ध नहीं हो सकती है, इसलिए कुल पोर्टफोलियो मूल्य को एक अनुमान माना जाना चाहिए।</string>
+
+    <string name="transaction_request_faq">लेन-देन अनुरोध FAQ</string>
+    <string name="external_applications_also">बाहरी एप्लिकेशन, जिन्हें dApps भी कहा जाता है, AlgoKit वॉलेट से स्वतंत्र रूप से लेन-देन अनुरोध आरंभ कर सकते हैं। कृपया उन्हें स्वीकृत और साइन करने से पहले ध्यानपूर्वक समीक्षा करें।\n\nसभी लेन-देन अपरिवर्तनीय होते हैं। क्योंकि ये अनुरोध AlgoKit वॉलेट के नियंत्रण से बाहर होते हैं, किसी अज्ञात dApp से कभी भी लेन-देन को स्वीकृत न करें।</string>
+    <string name="minimum_amount_required">न्यूनतम राशि आवश्यक</string>
+    <string name="this_is_the_first_transaction">यह चयनित खाते के लिए पहला लेन-देन है। पहले लेन-देन के लिए कम से कम 0.1 Algo की न्यूनतम राशि आवश्यक है। कृपया एक मान्य राशि दर्ज करें और पुनः प्रयास करें।</string>
+    <string name="i_want_to_create">मैं एक खाता बनाना चाहता हूँ</string>
+    <string name="i_want_to_create_an_algorand_account">मैं एक Algorand खाता बनाना चाहता हूँ</string>
+    <string name="create_a_new_account">नया खाता बनाएँ</string>
+    <string name="add_a_new_account">नया खाता जोड़ें</string>
+    <string name="add_a_new_account_desc">मौजूदा Falcon24 वॉलेट के लिए नया खाता बनाएँ</string>
+    <string name="create_a_new_wallet">नया वॉलेट बनाएँ</string>
+    <string name="add_a_wallet_or_account">वॉलेट या खाता जोड़ें</string>
+    <string name="create_a_new_wallet_desc">नया Algorand वॉलेट नया पता और रिकवरी पासफ्रेज़ के साथ बनाएँ</string>
+    <string name="create_a_new_algorand_account_with">नए वॉलेट और रिकवरी पासफ्रेज़ के साथ नया Algorand खाता बनाएँ</string>
+    <string name="recover_an_account">खाता पुनर्प्राप्त करें</string>
+    <string name="i_want_to_recover">मैं अपने 24-शब्दों के पासफ्रेज़ का उपयोग करके एक Algorand खाता पुनर्प्राप्त करना चाहता हूँ</string>
+    <string name="pair_ledger_device">लेजर डिवाइस पेयर करें</string>
+    <string name="operation_completed">प्रक्रिया पूर्ण हुई</string>
+    <string name="asset_transfer_completed">परिसंपत्ति स्थानांतरण पूर्ण हुआ</string>
+    <string name="your_transaction_was">आपका लेन-देन सफलतापूर्वक Algorand नेटवर्क द्वारा प्राप्त किया गया।</string>
+    <string name="confirm_transaction">लेन-देन की पुष्टि करें</string>
+
+    <!--Meld-->
+    <string name="buy_algo">ALGO खरीदें</string>
+    <string name="secured_by">द्वारा सुरक्षित</string>
+    <string name="your_algos_are">आपके Algo रास्ते में हैं!</string>
+    <string name="your_payment_is">आपका भुगतान संसाधित किया जा रहा है। इसे पूरा होने में कुछ मिनट लग सकते हैं।</string>
+    <string name="success_algo_received">सफलता!\nAlgo प्राप्त हुआ।</string>
+    <string name="congratulations_your_account_has">बधाई हो! आपके खाते में राशि जमा कर दी गई है।</string>
+    <string name="almost_there">लगभग पूरा!</string>
+    <string name="your_purchase_request_is_pending">आपका खरीद अनुरोध भुगतान की प्रतीक्षा में है। भुगतान पूर्ण होने पर आपको सूचना प्राप्त होगी।</string>
+    <string name="your_purchase_request_is_wating">आपकी खरीद प्राधिकरण की प्रतीक्षा कर रही है। भुगतान पूर्ण होने पर आपको सूचना प्राप्त होगी।</string>
+    <string name="uh_oh_something">ओह, कुछ गलत हो गया।</string>
+    <string name="looks_like_your">ऐसा लगता है कि आपकी खरीद विफल रही। कृपया पुनः प्रयास करें।</string>
+
+    <string name="email_address">ईमेल पता</string>
+    <string name="enter_your_email">अपना ईमेल दर्ज करें</string>
+    <string name="i_agree_to_share">मैं Pera के साथ अपना ईमेल पता साझा करने और वॉलेट सुविधाओं के बारे में अपडेट प्राप्त करने के लिए सहमत हूँ।</string>
+    <string name="not_available">उपलब्ध नहीं</string>
+    <string name="your_walletconnect_request_failed">आपका WalletConnect अनुरोध निम्न त्रुटि के साथ विफल हुआ:\n\n<annotation replacement="error_message">errorMessagePlaceholder</annotation>\n\nकृपया उस dApp पर वापस जाकर पुनः प्रयास करें जहाँ से आपने अनुरोध आरंभ किया था।</string>
+    <string name="add_an_account">एक खाता जोड़ें</string>
+    <string name="manage_assets">परिसंपत्तियों का प्रबंधन करें</string>
+    <string name="send_asset">परिसंपत्ति भेजें</string>
+    <string name="enable_pin_code">पिन कोड सक्षम करें</string>
+    <string name="security_preferences">सुरक्षा प्राथमिकताएँ</string>
+    <string name="change_pin_code">पिन कोड बदलें</string>
+
+    <string name="watch_account_added">वॉच खाता सफलतापूर्वक जोड़ा गया</string>
+    <string name="the_watch_account_has_been">वॉच खाता सफलतापूर्वक जोड़ा गया है।</string>
+
+    <string name="nfts">NFTs</string>
+    <string name="welcome_to_your_nft">आपके NFT गैलरी में आपका स्वागत है! आपके पास अभी कोई NFT नहीं है। आपके वॉलेट में उपलब्ध सभी NFTs यहाँ प्रदर्शित होंगे।</string>
+    <string name="share">साझा करें</string>
+    <string name="description">विवरण</string>
+    <string name="owner">मालिक</string>
+    <string name="asset_id_">परिसंपत्ति आईडी</string>
+    <string name="creator_wallet_address">निर्माता वॉलेट पता</string>
+    <string name="collection_name">संग्रह नाम</string>
+    <string name="properties">गुण</string>
+    <string name="view_transaction">लेन-देन देखें</string>
+    <string name="show_on_nftexplorer">NFTExplorer पर दिखाएँ</string>
+    <string name="we_don_t_support">हम अभी इस NFT मीडिया प्रकार का समर्थन नहीं करते हैं।</string>
+    <string name="we_can_t_display">हम फिलहाल दृश्य प्रदर्शित नहीं कर सकते।</string>
+    <string name="transfer">स्थानांतरण करें</string>
+    <string name="ask_recipient_to">प्राप्तकर्ता से %1$s के लिए ऑप्ट-इन करने को कहें</string>
+    <string name="you_cant_send">आप <annotation replacement="nft_name">NFTNamePlaceHolder</annotation> को <annotation replacement="wallet_address">walletAddressPlaceholder</annotation> पर नहीं भेज सकते क्योंकि इस वॉलेट ने अभी तक इस परिसंपत्ति के लिए ऑप्ट-इन नहीं किया है। <annotation font="dmsans_medium"><annotation custom="learn_more">ऑप्ट-इन के बारे में अधिक जानें</annotation></annotation></string>
+    <string name="request_receiver_to">प्राप्तकर्ता से ऑप्ट-इन का अनुरोध करें</string>
+    <string name="information_about_opt">ऑप्ट-इन के बारे में जानकारी</string>
+    <string name="to_avoid_spammy">स्पैम लेन-देन से बचने के लिए, Algorand ब्लॉकचेन केवल उन परिसंपत्तियों के लिए लेन-देन की अनुमति देता है जिनके लिए पहले ऑप्ट-इन किया गया है।</string>
+    <string name="search_or_enter_wallet_address">वॉलेट पता खोजें या दर्ज करें</string>
+    <string name="got_it">समझ गया!</string>
+    <string name="approve_transaction">लेन-देन स्वीकृत करें</string>
+    <string name="are_you_sure">क्या आप वाकई आगे बढ़ना चाहते हैं?</string>
+    <string name="sender_account">प्रेषक खाता</string>
+    <string name="transacting_fee">लेन-देन शुल्क</string>
+    <string name="confirm_transfer">स्थानांतरण की पुष्टि करें</string>
+    <string name="search_asset_id_or_nft">परिसंपत्ति आईडी या NFT नाम खोजें</string>
+    <string name="selected_account">चयनित खाता</string>
+    <string name="your_nft_transfer_has_failed">आपका NFT स्थानांतरण विफल हो गया!</string>
+    <string name="please_try_again">कृपया पुनः प्रयास करें।</string>
+    <string name="opt_out">ऑप्ट-आउट</string>
+    <string name="receive_opt_out">प्राप्त करें (ऑप्ट-आउट)</string>
+    <string name="nft_successfully_opted_out">%1$s NFT सफलतापूर्वक ऑप्ट-आउट किया गया</string>
+    <string name="opted_in_to">ऑप्ट-इन किया गया</string>
+    <string name="show_on">यहाँ दिखाएँ</string>
+    <string name="no_nft_found">कोई NFT नहीं मिला</string>
+    <string name="you_are_about_to_remove_watch_account">आप एक वॉच खाता हटाने वाले हैं। क्या आप वाकई आगे बढ़ना चाहते हैं?</string>
+    <string name="you_are_about_to_remove_account">आप अपना खाता हटाने वाले हैं। क्या आप वाकई आगे बढ़ना चाहते हैं?</string>
+    <string name="this_watch_account_has_opted">इस वॉच खाते ने इस NFT के लिए ऑप्ट-इन किया है, लेकिन इसके पास स्वामित्व नहीं है।</string>
+    <string name="you_are_not_the_owner">आप अभी इस NFT के स्वामी नहीं हैं, लेकिन आपने इसके लिए ऑप्ट-इन किया है। अब आप इसे अपने खाते में स्थानांतरित कर सकते हैं।</string>
+    <string name="display_opted_in_nfts">ऑप्ट-इन किए गए NFTs दिखाएँ</string>
+    <string name="filter">फ़िल्टर</string>
+    <plurals name="nft_count">
+        <item quantity="one">%1$d NFT</item>
+        <item quantity="other">%1$d NFTs</item>
+    </plurals>
+    <string name="show_filtered_nfts_formatted">फ़िल्टर किए गए NFTs दिखाएँ (%1$d)</string>
+    <string name="enter_your_old">अपना पुराना\n6-अंकों का पिन दर्ज करें</string>
+    <string name="welcome_to_pera_wallet_your_watch">AlgoKit Wallet में आपका स्वागत है! आपका वॉच खाता सफलतापूर्वक जोड़ा गया है।</string>
+    <string name="congratulations_your_watch_account_has">बधाई हो, आपका वॉच खाता सफलतापूर्वक जोड़ा गया है।</string>
+    <string name="passphrase_verified">पासफ्रेज़ सत्यापित</string>
+    <string name="keep_this_recovery">इस रिकवरी पासफ्रेज़ को किसी सुरक्षित स्थान पर रखें जो केवल आपके लिए सुलभ हो। इस पासफ्रेज़ को खोएँ नहीं।</string>
+    <string name="search_assets">परिसंपत्तियाँ खोजें</string>
+    <string name="search">खोजें</string>
+    <string name="pin_code_did_not_match">पिन कोड मेल नहीं खाया। पुनः प्रयास करें।</string>
+    <string name="no_transactions">कोई लेन-देन नहीं</string>
+    <string name="there_are_no">चयनित अवधि के लिए दिखाने हेतु कोई लेन-देन नहीं है</string>
+    <string name="filter_by_date">तारीख के अनुसार फ़िल्टर करें</string>
+    <string name="asset_history_not_available">परिसंपत्ति का इतिहास उपलब्ध नहीं है</string>
+    <string name="the_history_for_this_spesific">इस विशिष्ट परिसंपत्ति का इतिहास उपलब्ध नहीं है।</string>
+    <string name="select_the_wallet_account">वह वॉलेट खाता चुनें जिसमें आप प्राप्त करना चाहते हैं:</string>
+    <string name="enter_your_six_digit_pin">अपना\n6-अंकों का पिन दर्ज करें</string>
+    <string name="refused_ledger_transaction">लेजर लेन-देन अस्वीकार किया गया</string>
+    <string name="the_opt_out_request_has">लेजर डिवाइस पर ऑप्ट-आउट अनुरोध अस्वीकार कर दिया गया है। कृपया पुनः प्रयास करें।</string>
+    <string name="home">होम</string>
+    <string name="price">मूल्य</string>
+    <string name="alphabetically_a_to_z">वर्णानुक्रम में A से Z</string>
+    <string name="alphabetically_z_to_a">वर्णानुक्रम में Z से A</string>
+    <string name="highest_value_to_lowest">उच्चतम मूल्य से न्यूनतम तक</string>
+    <string name="lowest_value_to_highest">न्यूनतम मूल्य से उच्चतम तक</string>
+    <string name="sort">क्रमबद्ध करें</string>
+    <string name="address">पता</string>
+    <string name="more">अधिक</string>
+    <string name="manage">प्रबंधित करें</string>
+    <string name="algo_wallet">Algo वॉलेट</string>
+    <string name="address_copied_to_clipboard">पता क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="main_currency">मुख्य मुद्रा</string>
+    <string name="your_main_currency_is_placeholder">आपकी मुख्य मुद्रा है <annotation font="dmsans_regular"><annotation custom="primaryCurrencyColor"><annotation replacement="primaryCurrencyId">primaryCurrencyPlaceholder</annotation></annotation></annotation>, और द्वितीयक मुद्रा है <annotation font="dmsans_regular"><annotation custom="secondaryCurrencyColor"><annotation replacement="secondaryCurrencyId">secondaryCurrencyPlaceholder</annotation></annotation></annotation></string>
+    <string name="the_scanned_qr_is_not">स्कैन किया गया QR एक मान्य Algorand सार्वजनिक पता नहीं है। अन्य प्रकार के QR (जैसे WalletConnect सत्र) के लिए, कृपया होमपेज पर स्कैन QR बटन का उपयोग करें।</string>
+    <string name="buy_crypto_with_credit">क्रेडिट कार्ड या बैंक ट्रांसफर से क्रिप्टो खरीदें</string>
+    <string name="algo_or_any_asa">Algo या कोई भी ASA दूसरे खाते में भेजें</string>
+    <string name="view_or_copy">अपना खाता पता देखें या कॉपी करें</string>
+    <string name="use_wallet_connect">WalletConnect का उपयोग करें या खाता पता स्कैन करें</string>
+    <string name="browse_dapps">dApps ब्राउज़ करें</string>
+    <string name="use_browser_to_interract_with">dApps के साथ इंटरैक्ट करने के लिए ब्राउज़र का उपयोग करें</string>
+    <string name="opt_out_from_the">NFT से ऑप्ट-आउट करें</string>
+    <string name="asset_configuration">परिसंपत्ति कॉन्फ़िगरेशन</string>
+    <string name="scan_qr">QR स्कैन करें</string>
+    <string name="algorand_blockchain">Algorand ब्लॉकचेन को किसी खाते से ASA प्राप्त करने से पहले उस खाते को ऑप्ट-इन करना आवश्यक होता है। अब जब आपने इस NFT को किसी अन्य खाते में स्थानांतरित कर दिया है, तो आप इससे ऑप्ट-आउट कर सकते हैं।</string>
+    <string name="scanned_account_address">स्कैन किया गया खाता पता</string>
+    <string name="send_transaction">लेन-देन भेजें</string>
+    <string name="add_new_contact">नया संपर्क जोड़ें</string>
+    <string name="address_scanned">पता स्कैन किया गया!</string>
+
+    <string name="rekeyed_auth_account">रीकीड ऑथ खाता</string>
+    <string name="rekeyed_account">रीकीड खाता</string>
+    <string name="press_and_hold_to">दबाएँ और पकड़े रहें\n"पता कॉपी करें"</string>
+    <string name="you_can_quickly_copy">आप खाता बॉक्स पर दबाकर और पकड़े रहकर जल्दी से पता कॉपी कर सकते हैं</string>
+    <string name="matched_accounts">मेल खाते खाते</string>
+    <string name="manage_nfts">NFTs प्रबंधित करें</string>
+    <string name="manually">मैन्युअल रूप से</string>
+    <string name="recently_received">हाल ही में प्राप्त</string>
+    <string name="reorganize_accounts_manually">खातों को मैन्युअल रूप से पुनर्गठित करें</string>
+    <string name="app_call">ऐप कॉल</string>
+
+    <string name="opt_in_to">इस खाते से किसी ASA या NFT में ऑप्ट-इन करें</string>
+    <string name="add_new_asa">नया ASA जोड़ें</string>
+    <string name="show_more_actions">अधिक क्रियाएँ दिखाएँ</string>
+
+    <string name="asa_verification">ASA सत्यापन</string>
+    <string name="pera_wallet_s_algorand">AlgoKit Wallet का Algorand Standard Asset (ASA) सत्यापन प्रोग्राम ASA निर्माताओं को यह सत्यापित करने की अनुमति देता है कि वे परिसंपत्ति के स्वामी हैं और स्वचालित रूप से <annotation type="bold">प्रमाणित</annotation> हो जाते हैं।</string>
+    <string name="the_main_purpose">ASA सत्यापन का मुख्य उद्देश्य यह है कि <annotation type="bold">कोई ASA किसी परियोजना से संबंधित होने का झूठा दावा न करे या उसके टोकन की तरह कार्य न करे।</annotation></string>
+    <string name="asa_verification_is"><annotation type="bold">ASA सत्यापन किसी परियोजना का समर्थन नहीं है।</annotation> न तो Algorand और न ही Pera कभी सत्यापन प्रक्रिया का उपयोग किसी परियोजना का समर्थन करने के लिए करेंगे।</string>
+
+    <plurals name="count_inner_txns">
+        <item quantity="one">%1$d आंतरिक लेन-देन</item>
+        <item quantity="other">%1$d आंतरिक लेन-देन</item>
+    </plurals>
+
+    <plurals name="show_count_inner_txns">
+        <item quantity="one">%1$d TXN दिखाएँ</item>
+        <item quantity="other">%1$d TXNs दिखाएँ</item>
+    </plurals>
+
+    <plurals name="count_inner_transactions">
+        <item quantity="one">%1$d आंतरिक लेन-देन</item>
+        <item quantity="other">%1$d आंतरिक लेन-देन</item>
+    </plurals>
+
+    <string name="inner_n_transactions">आंतरिक\nलेन-देन</string>
+    <string name="inner_transactions">आंतरिक लेन-देन</string>
+    <string name="your_accounts_don_t_contain_this">आपके खातों में यह परिसंपत्ति नहीं है, कृपया इसमें ऑप्ट-इन करें और पुनः प्रयास करें।</string>
+    <plurals name="show_count_more_assets">
+        <item quantity="one">+%1$d और परिसंपत्ति दिखाएँ</item>
+        <item quantity="other">+%1$d और परिसंपत्तियाँ दिखाएँ</item>
+    </plurals>
+
+    <plurals name="assets">
+        <item quantity="one">%1$d परिसंपत्ति</item>
+        <item quantity="other">परिसंपत्तियाँ</item>
+    </plurals>
+
+    <string name="invalid_asset_id">अमान्य परिसंपत्ति ID।</string>
+    <string name="asset_not_found_please_make">परिसंपत्ति नहीं मिली। कृपया सुनिश्चित करें कि आप सही नेटवर्क का उपयोग कर रहे हैं।</string>
+    <string name="asset_successfully_opted_in">%1$s सफलतापूर्वक ऑप्ट-इन की गई और आपके खाते में जोड़ दी गई।</string>
+    <string name="parent_transaction_id">पैरेंट\nलेन-देन ID</string>
+    <string name="it_looks_like">ऐसा लगता है कि इस लेन-देन समूह में एक या अधिक गायब लेन-देन शामिल हैं। आपकी सुरक्षा के लिए, AlgoKit Wallet ऐसे समूहों पर हस्ताक्षर करने की अनुमति नहीं देगा जिनके विवरण अस्पष्ट हैं। कृपया उस dApp से संपर्क करें जिसने यह लेन-देन भेजा ताकि वे इस समस्या को ठीक कर सकें।</string>
+    <string name="self_transfer">स्वयं स्थानांतरण</string>
+    <string name="opt_in_self_transfer">ऑप्ट-इन / स्वयं स्थानांतरण</string>
+
+    <string name="overview">सारांश</string>
+    <string name="activity">गतिविधि</string>
+    <string name="about">जानकारी</string>
+
+    <string name="csv">CSV</string>
+    <string name="transactions">लेन-देन</string>
+
+    <string name="this_asa_was_automatically_verified">यह ASA <annotation type="bold">स्वचालित रूप से सत्यापित</annotation> किया गया था Pera ASA सत्यापन कार्यक्रम के माध्यम से।</string>
+    <string name="this_is_a_well_known">यह Algorand पारिस्थितिकी तंत्र में एक <annotation type="bold">प्रसिद्ध</annotation> और स्थापित परियोजना है।</string>
+    <string name="we_ve_received_reports_that">हमें रिपोर्ट मिली हैं कि यह ASA एक <annotation type="bold">धोखाधड़ी प्रयास</annotation> में शामिल था। इसके साथ इंटरैक्ट करते समय सावधानी बरतें।</string>
+
+    <string name="verified_asa">सत्यापित ASA</string>
+    <string name="trusted_asa">विश्वसनीय ASA</string>
+    <string name="suspicious">संदिग्ध</string>
+    <string name="total_supply">कुल आपूर्ति</string>
+    <string name="asa_id">ASA ID</string>
+    <string name="creator">निर्माता</string>
+    <string name="asa_url">ASA URL</string>
+    <string name="project_website">परियोजना वेबसाइट</string>
+    <string name="open_with_browser">ब्राउज़र से खोलें</string>
+    <string name="show_more">और दिखाएँ</string>
+    <string name="show_less">कम दिखाएँ</string>
+    <string name="learn_more_about_asa_verification">ASA सत्यापन के बारे में अधिक जानें</string>
+    <string name="social_media">सोशल मीडिया</string>
+    <string name="report_asset_name">%1$s की रिपोर्ट करें</string>
+    <string name="about_asset_name">%1$s के बारे में</string>
+    <string name="total_supply_info">किसी परिसंपत्ति की कुल आपूर्ति निर्माण के समय निर्धारित की जाती है और यह उसके कुल बनाए गए यूनिट्स के अनुरूप होती है।</string>
+    <string name="asa_report_asset_id">ASA रिपोर्ट: %1$d</string>
+    <string name="report_an_asa">ASA की रिपोर्ट करें</string>
+    <string name="you_can_send_us_an">आप हमें इस ASA की रिपोर्ट करने के लिए ई-मेल भेज सकते हैं <annotation custom="verification_mail_click"><annotation font="dmsans_medium"><annotation replacement="verification_mail">verificationMailPlaceholder</annotation></annotation></annotation> पर</string>
+    <string name="you_can_add_this_asset">आप इस परिसंपत्ति को जोड़ सकते हैं</string>
+    <string name="add_asset">परिसंपत्ति जोड़ें</string>
+    <string name="disconnect_all_sessions">सभी सत्र डिस्कनेक्ट करें</string>
+    <string name="would_disconnect_all_sessions">क्या आप सभी सत्र डिस्कनेक्ट करना चाहेंगे?</string>
+    <string name="missing_asset">गायब परिसंपत्ति</string>
+
+    <string name="you_are_already">आप पहले से ही इस खाते से <annotation replacement="asset_name">assetNamePlaceholder</annotation> में ऑप्ट-इन हैं।</string>
+
+    <string name="thousand">हज़ार</string>
+    <string name="thousand_abbreviation">K</string>
+    <string name="million">मिलियन</string>
+    <string name="million_abbreviation">M</string>
+    <string name="billion">बिलियन</string>
+    <string name="billion_abbreviation">B</string>
+    <string name="trillion">ट्रिलियन</string>
+    <string name="trillion_abbreviation">T</string>
+    <string name="quadrillion">क्वाड्रिलियन</string>
+    <string name="quadrillion_abbreviation">Qa</string>
+    <string name="quintillion">क्विंटिलियन</string>
+    <string name="quintillion_abbreviation">Qi</string>
+
+    <string name="this_account_doesn_t_have_the">इस खाते में इस लेन-देन का समर्थन करने के लिए न्यूनतम आवश्यक Algo शेष नहीं है। कृपया जारी रखने से पहले खाते में और Algo जोड़ें।\n\nन्यूनतम आवश्यक Algo शेष प्रत्येक परिसंपत्ति, NFT, और स्मार्ट कॉन्ट्रैक्ट पर ऑप्ट-इन करने पर %1$s Algo से बढ़ता है। आप परिसंपत्तियों और स्मार्ट कॉन्ट्रैक्ट से ऑप्ट-आउट करके इसे घटा सकते हैं।</string>
+    <string name="insufficient_algo_balance">पर्याप्त Algo बैलेंस नहीं है</string>
+
+    <string name="you_can_opt_in_to_this">आप इस परिसंपत्ति में अपने किसी खाते से ऑप्ट-इन कर सकते हैं।</string>
+    <string name="please_select_an_account_to">कृपया %1$s जोड़ने के लिए एक खाता चुनें</string>
+    <string name="asset_successfully_opted_out_from_your">%1$s सफलतापूर्वक आपके खाते से ऑप्ट-आउट कर दी गई।</string>
+    <string name="filter_nfts">NFTs फ़िल्टर करें</string>
+    <string name="newest_to_oldest">नवीनतम से पुराना</string>
+    <string name="oldest_to_newest">पुराना से नवीनतम</string>
+    <string name="you_can_opt_in_to_this_nft">आप इस NFT में ऑप्ट-इन कर सकते हैं</string>
+    <string name="opt_dash_in">ऑप्ट-इन</string>
+    <string name="sorry_there_was">क्षमा करें, आपके कुछ खातों को प्राप्त करने में त्रुटि हुई। पोर्टफोलियो मूल्य केवल सफलतापूर्वक प्राप्त खातों पर आधारित है।</string>
+    <string name="we_couldn_t_find_any_assets">हम हटाने के लिए कोई परिसंपत्ति नहीं ढूँढ सके।</string>
+
+    <string name="staking">स्टेक</string>
+    <string name="staking_menu_desc">स्टेकिंग रिवॉर्ड्स के लिए इकोसिस्टम का अन्वेषण करें</string>
+
+    <string name="the_algo_is_the_official_cryptocurrency">Algo, Algorand ब्लॉकचेन की आधिकारिक क्रिप्टोकरेंसी है। Algorand ब्लॉकचेन एक खुली, सीमाहीन अर्थव्यवस्था बनाने के लिए बनाया गया है जिसमें हर कोई भाग ले सके। यह नया डिजिटल अर्थतंत्र केवल एक सच्ची डिजिटल मुद्रा पर चल सकता है जो सभी के लिए तुरंत कार्य करती है — यही Algo है।</string>
+    <string name="asset_successfully_removed_to_your">%1$s सफलतापूर्वक आपके खाते से हटा दी गई।</string>
+    <string name="swap">स्वैप</string>
+    <string name="convert_between_popular_asa_pairs">लोकप्रिय ASA जोड़ों के बीच परिवर्तित करें</string>
+
+    <string name="swap_to">स्वैप टू</string>
+    <string name="swap_from">स्वैप फ्रॉम</string>
+    <string name="we_can_not_show_assets">हम इस समय परिसंपत्तियाँ नहीं दिखा सकते। कृपया पुनः प्रयास करें।</string>
+    <string name="choose_an_asset">कोई परिसंपत्ति चुनें</string>
+    <string name="balance_formatted">बैलेंस: %1$s</string>
+
+    <string name="select_an_account_to_make">स्वैप करने के लिए खाता चुनें</string>
+    <string name="price_impact_is_the_influence">मूल्य प्रभाव वह है जो आपके ट्रेड का परिसंपत्ति जोड़े के बाजार मूल्य पर प्रभाव डालता है। यह सीधे पूल में तरलता की मात्रा से संबंधित है।</string>
+    <string name="slippage_tolerance">स्लिपेज सहनशीलता</string>
+    <string name="slippage_is_the_price_difference">स्लिपेज वह मूल्य अंतर है जो लेन-देन सबमिट करने और ब्लॉकचेन पर पुष्टि होने के बीच होता है। यदि स्लिपेज दर आपकी निर्धारित सहनशीलता प्रतिशत से अधिक हो जाती है, तो लेन-देन स्वतः रद्द हो जाएगा ताकि मूल्य हानि से सुरक्षा हो सके।</string>
+    <string name="swap_in_pera">Pera में स्वैप करें</string>
+    <string name="pera_wallet_now_provides_an">AlgoKit Wallet अब परिसंपत्तियों को स्वैप करने का एक आसान और तेज़ तरीका प्रदान करता है।</string>
+    <string name="try_swap">स्वैप आज़माएँ</string>
+    <string name="later">बाद में</string>
+
+    <string name="set_custom_slippage">कस्टम स्लिपेज सेट करें</string>
+    <string name="auto">स्वतः</string>
+    <string name="balance_percentage_must_be_between">बैलेंस प्रतिशत %1$d%% और %2$d%% के बीच होना चाहिए</string>
+    <string name="set_custom_percentage">कस्टम प्रतिशत सेट करें</string>
+    <string name="balance_percentage">बैलेंस प्रतिशत</string>
+    <string name="pera_wallet_provides_an_easy">AlgoKit Wallet परिसंपत्तियों को स्वैप करने का एक आसान और तेज़ तरीका प्रदान करता है। स्वैपिंग से एक ASA को दूसरे से एक स्मार्ट कॉन्ट्रैक्ट के माध्यम से बदला जा सकता है, बाजार शुल्क पर।</string>
+    <string name="by_continuing_you_agree_to">जारी रखते हुए, आप हमारे\nस्वैप पार्टनर की <annotation url="vestigeTermsOfServiceUrl"><annotation type="bold"><annotation type="color">सेवा की शर्तों</annotation></annotation></annotation> से सहमत होते हैं।</string>
+    <string name="start_swapping">स्वैपिंग शुरू करें</string>
+    <string name="powered_by">द्वारा संचालित</string>
+    <string name="new_text">नया</string>
+    <string name="legacy_text">पुराना</string>
+
+    <string name="this_account_doesn_t_have">इस खाते में स्वैप ऑपरेशन के लिए आवश्यक न्यूनतम बैलेंस <annotation replacement="minimum_balance">minimumBalancePlaceholder</annotation> नहीं है।</string>
+    <string name="minimum_balance">न्यूनतम बैलेंस</string>
+    <string name="account_does_not_have">खाते में इस लेन-देन के लिए पर्याप्त बैलेंस नहीं है।</string>
+    <string name="account_does_not_have_algo">खाते में लेन-देन शुल्क कवर करने के लिए पर्याप्त Algo बैलेंस नहीं है।</string>
+    <string name="asa_balance_is_not_sufficient_formatted"><annotation replacement="asa_short_name">asaShortNamePlaceholder</annotation> बैलेंस पर्याप्त नहीं है।</string>
+    <string name="asa_balance_is_not_sufficient">बैलेंस पर्याप्त नहीं है।</string>
+    <string name="confirm_swap">स्वैप की पुष्टि करें</string>
+    <string name="price_impact">मूल्य प्रभाव</string>
+    <string name="minimum_received">न्यूनतम प्राप्त राशि</string>
+    <string name="total_swap_fee">कुल स्वैप शुल्क</string>
+    <string name="view_swap_summary">स्वैप सारांश देखें</string>
+    <string name="from_to_to_asset_ratio"><annotation replacement="ratio">ratio</annotation> <annotation replacement="firstAssetShortName">assetShortName</annotation> प्रति <annotation replacement="secondAssetShortName">secondAssetShortName</annotation></string>
+    <string name="slippage_tolerance_value_updated">स्लिपेज सहनशीलता मान अपडेट किया गया!</string>
+    <string name="sign_with_ledger">Ledger के साथ साइन करें</string>
+    <string name="we_ve_detected_that_you">हमने पाया कि आप इस खाते के साथ एक Ledger डिवाइस का उपयोग कर रहे हैं। <annotation font="dmsans_medium">आपको अपने हार्डवेयर टोकन का उपयोग करके <annotation replacement="transaction_count">transactionCountPlaceholder</annotation> लेन-देन एक-एक करके साइन करने की आवश्यकता होगी।</annotation></string>
+    <plurals name="sign_transaction">
+        <item quantity="one">%1$d लेन-देन साइन करें</item>
+        <item quantity="other">लेन-देन साइन करें</item>
+    </plurals>
+    <string name="signing_index_out_of_count">%2$d में से %1$d साइन हो रहा है…</string>
+    <string name="view_transaction_detail_in_pera_explorer">Pera Explorer में लेन-देन विवरण देखें</string>
+    <string name="go_to_homepage">मुख्य पृष्ठ पर जाएँ</string>
+
+    <string name="sending_the_transaction">लेन-देन भेजा जा रहा है</string>
+    <string name="you_will_receive_at_least">आपको कम से कम <annotation replacement="amount_and_asset_name">amountAndAssetNamePlaceholder</annotation> प्राप्त होगा, अन्यथा लेन-देन वापस हो जाएगा।</string>
+
+    <string name="asset_pair_swap_completed"><annotation replacement="to_asset_name">toAssetNamePlaceholder</annotation> / <annotation replacement="from_asset_name">fromAssetNamePlaceholder</annotation> स्वैप पूरा हुआ</string>
+    <string name="you_received_amount_asset_name_in">आपको <annotation custom="received_asset_color"><annotation replacement="to_amount_and_asset_name">toAmountAndAssetNamePlaceholder</annotation></annotation> प्राप्त हुआ, बदले में <annotation custom="paid_asset_color"><annotation replacement="from_amount_and_asset_name">fromAmountAndAssetNamePlaceholder</annotation></annotation> के लिए।</string>
+
+    <string name="asset_pair_swap_has_failed"><annotation replacement="to_asset_name">toAssetNamePlaceholder</annotation> / <annotation replacement="from_asset_name">fromAssetNamePlaceholder</annotation> स्वैप विफल हुआ</string>
+    <string name="because_of_error_message"><annotation replacement="error_message">errorMessagePlaceholder</annotation> के कारण।\nकृपया पुनः प्रयास करें।</string>
+    <string name="exchange_fee">विनिमय शुल्क</string>
+    <string name="pera_fee">Pera शुल्क</string>
+    <string name="total_swap_fee_asterisk">कुल स्वैप शुल्क&#42;</string>
+    <string name="amount_displayed_in_the">कुल स्वैप शुल्क में दिखाया गया राशि स्वैप में शामिल होगी। Algorand नेटवर्क शुल्क अतिरिक्त रूप से जोड़े जाएंगे।</string>
+    <string name="swap_summary">स्वैप सारांश</string>
+    <string name="received">प्राप्त</string>
+    <string name="paid">भुगतान किया</string>
+    <string name="algorand_fees">Algorand शुल्क</string>
+    <string name="opt_in_fees">ऑप्ट-इन शुल्क</string>
+    <string name="exchange_fees">विनिमय शुल्क</string>
+    <string name="pera_fees">Pera शुल्क</string>
+    <string name="an_unexpected_error_mismatched_txn">एक अप्रत्याशित त्रुटि हुई: त्रुटि कोड: mismatched-transactions।</string>
+    <string name="custom">कस्टम</string>
+    <string name="opt_out_nft">NFT ऑप्ट-आउट करें</string>
+    <string name="you_are_about_to_opt">आप %1$s को ऑप्ट-आउट करने वाले हैं। जब तक आप इसे पुनः नहीं जोड़ते, तब तक आप इस NFT के साथ लेन-देन नहीं कर पाएंगे।</string>
+    <string name="opt_in_to_nft">NFT में ऑप्ट-इन करें</string>
+    <string name="opting_in_to_an_nft">NFT में ऑप्ट-इन करने के लिए न्यूनतम लेन-देन शुल्क के साथ एक लेन-देन भेजना आवश्यक है। यह आपके लेन-देन इतिहास में दिखाई देगा।</string>
+
+    <string name="this_account_doesn_t">इस खाते में इस लेन-देन के लिए पर्याप्त बैलेंस नहीं है।</string>
+
+    <string name="we_couldn_t">हम WalletConnect सत्र शुरू करने वाले ब्राउज़र का स्वचालित रूप से पता नहीं लगा सके। कृपया वापस जाने के लिए इसे %1$s पर चुनें:</string>
+    <string name="select_a_browser">एक ब्राउज़र चुनें</string>
+    <string name="switch_back_to"><annotation iconReplacement="browser_icon_res_id">[browser_icon_placeholder]</annotation> <annotation replacement="browser_name">browser_name_placeholder</annotation> पर वापस जाएँ</string>
+    <string name="account_connected">खाता कनेक्ट हुआ!</string>
+    <string name="you_ve_connected">आपने अपना खाता %1$s से कनेक्ट कर लिया है। ऑपरेशन पूरा करने के लिए अपने वेब ब्राउज़र पर वापस जाएँ।</string>
+    <string name="transaction_signed">लेन-देन पर हस्ताक्षर किए गए!</string>
+    <string name="transaction_was_sent">लेन-देन %1$s को भेजा गया। ऑपरेशन पूरा करने के लिए अपने वेब ब्राउज़र पर वापस जाएँ।</string>
+
+    <string name="select_all">सभी चुनें</string>
+    <string name="unselect_all">सभी चयन रद्द करें</string>
+
+    <string name="we_couldn_t_find">हम निर्यात के लिए योग्य कोई खाता नहीं ढूंढ सके।</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%1$d खाता</item>
+        <item quantity="other">%1$d खाते</item>
+    </plurals>
+    <string name="i_want_to_recover_an">मैं एक Algorand खाता पुनर्प्राप्त करना चाहता हूँ जो मेरे Ledger हार्डवेयर वॉलेट द्वारा समर्थित है।</string>
+    <string name="total_owned">कुल स्वामित्व</string>
+    <string name="future_transaction_detected">भविष्य का लेन-देन पाया गया</string>
+    <plurals name="select_accounts">
+        <item quantity="one">%1$d खाता चुनें</item>
+        <item quantity="other">खाते चुनें</item>
+    </plurals>
+
+    <string name="you_cannot_optin">आप इस खाते के लिए ऑप्ट-इन नहीं कर सकते: यह केवल-पढ़ने योग्य वॉच खाता है।</string>
+    <string name="you_cannot_take">आप इस खाते के लिए कोई क्रिया नहीं कर सकते: इसे इस डिवाइस से हटा दिया गया है।</string>
+
+    <string name="this_is_the_fee_charged">यह वह शुल्क है जो विकेंद्रीकृत एक्सचेंज द्वारा आपसे लिया जाता है। यह आपके द्वारा भेजी गई राशि से स्वतः काटा जाता है और न्यूनतम प्राप्त राशि में शामिल किया जाता है। यह कोई अतिरिक्त शुल्क नहीं होगा।</string>
+    <string name="we_encountered_an_unexpected">हमने एक अप्रत्याशित त्रुटि का सामना किया, कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="algo_balance_is_too_low">Algo बैलेंस बहुत कम है। न्यूनतम बैलेंस होना चाहिए <annotation replacement="algo_icon">ALGO_ICON_PLACEHOLDER</annotation> <annotation replacement="min_balance">MIN_BALANCE_PLACEHOLDER</annotation></string>
+
+    <!-- Discover -->
+    <string name="discover">खोजें</string>
+    <string name="search_for_any_asa_by">किसी भी ASA को नाम या ID से खोजें</string>
+    <string name="we_are_not_able_to_find">हम इस परिसंपत्ति को खोजने में सक्षम नहीं हैं। कृपया बाद में प्रयास करें।</string>
+    <string name="no_internet_connection">कोई इंटरनेट कनेक्शन नहीं</string>
+    <string name="you_dont_seem_to_be_connected">ऐसा लगता है कि आप इंटरनेट से कनेक्ट नहीं हैं। कृपया अपना कनेक्शन जाँचें और पुनः प्रयास करें।</string>
+    <string name="we_cant_get_that_information">हम अभी वह जानकारी प्राप्त नहीं कर सकते। कृपया बाद में प्रयास करें।</string>
+
+    <string name="transaction_confirmation_timed_out">लेन-देन पुष्टि का समय समाप्त हो गया - कृपया अपनी लेन-देन स्थिति जाँचें।</string>
+    <string name="you_are_not_opted_in">आप स्रोत टोकन में ऑप्ट-इन नहीं हैं। स्वैप करने के लिए कोई अन्य पूल या योग्य खाता चुनें।</string>
+
+    <string name="min_balance">न्यूनतम बैलेंस %1$s</string>
+    <string name="minimum_balance_is_the_minimum">न्यूनतम बैलेंस वह न्यूनतम Algo राशि है जो आपको एक खाते में रखनी होती है। यह प्रत्येक बार बढ़ता है जब खाता किसी स्मार्ट कॉन्ट्रैक्ट, ASA या NFT में ऑप्ट-इन करता है।</string>
+    <string name="asset_id_copied_to_clipboard">एसेट ID क्लिपबोर्ड पर कॉपी की गई</string>
+    <string name="pick_a_photo">इस संपर्क के लिए एक फोटो चुनें</string>
+
+    <string name="filter_assets">एसेट फ़िल्टर करें</string>
+    <string name="hide_assets_with_no_balance">बैलेंस रहित एसेट छिपाएँ</string>
+    <string name="you_can_show_hide_assets">आप शून्य बैलेंस वाले एसेट्स को दिखा या छिपा सकते हैं।</string>
+    <string name="your_accounts_don_t">आपके खातों में यह एसेट नहीं है।</string>
+    <string name="remove_asset">एसेट हटाएँ</string>
+    <string name="opt_in_to_an">किसी एसेट में ऑप्ट-इन करें</string>
+    <string name="asset_opt_out">एसेट ऑप्ट-आउट</string>
+
+    <string name="account_not_found">खाता नहीं मिला</string>
+    <string name="account_address_or_short_name">खाते का पता या संक्षिप्त नाम</string>
+
+    <string name="error_while_opting_to_the">ASA में ऑप्ट-इन करते समय त्रुटि हुई। कृपया पुनः प्रयास करें।</string>
+    <string name="retry">पुनः प्रयास करें</string>
+
+    <string name="before_interacting_with">किसी एसेट के साथ इंटरैक्ट करने से पहले, आपको अपने खाते से उसमें ऑप्ट-इन करना आवश्यक है। यह अवांछित एसेट लेन-देन को आप तक पहुँचने से रोकता है।</string>
+
+    <string name="markets">बाज़ार</string>
+    <string name="formatted_changed_percentage">%1$.2f%%</string>
+    <string name="display_nfts_in_asset_list">एसेट सूची में NFTs दिखाएँ</string>
+    <string name="nfts_assets_will_be_shown">NFT एसेट्स आपके खाते की एसेट सूची में दिखाए जाएँगे</string>
+    <string name="display_nfts_from_watch_accounts">वॉच खातों से NFTs दिखाएँ</string>
+    <string name="this_will_show_nfts">यह आपके वॉच खातों और आपके अपने खातों से NFTs दिखाएगा</string>
+    <string name="you_can_show_hide_nfts">आप ऐसे NFTs को दिखा या छिपा सकते हैं जिनमें ऑप्ट-इन किया गया है लेकिन वे स्वामित्व में नहीं हैं</string>
+    <string name="three_d_mode">3D मोड</string>
+    <string name="creator_account">निर्माता खाता</string>
+    <string name="search_nfts">NFT खोजें</string>
+    <string name="you_need_to_opt_in">अपने वॉलेट में NFT ट्रांसफर करने के लिए आपको NFT ASA ID में ऑप्ट-इन करना होगा। सर्च बार में ASA ID पेस्ट करें।</string>
+    <string name="you_need_to_opt_in_to">अपने वॉलेट में NFT ट्रांसफर करने के लिए आपको NFT ASA ID में ऑप्ट-इन करना आवश्यक है।</string>
+
+    <string name="round">राउंड</string>
+
+    <string name="this_asset_is">यह एसेट पहले से ही हटाने की प्रक्रिया में है।</string>
+
+    <string name="accounts_imported">खाते आयात किए गए</string>
+    <plurals name="n_accounts_were_imported_from_pera_web">
+        <item quantity="one">%1$d खाता Pera Web से आयात किया गया</item>
+        <item quantity="other">%1$d खाते Pera Web से आयात किए गए</item>
+    </plurals>
+    <string name="explore_pera_mobile">Pera मोबाइल एक्सप्लोर करें</string>
+
+    <string name="unimported_accounts">अनायातित खाते</string>
+    <plurals name="n_accounts_were_not_imported_because">
+        <item quantity="one">%1$d खाता आयात नहीं किया गया क्योंकि इसे पहले ही आयात किया जा चुका है।</item>
+        <item quantity="other">%1$d खाते आयात नहीं किए गए क्योंकि उन्हें पहले ही आयात किया जा चुका है।</item>
+    </plurals>
+    <string name="your_accounts_could_not_be_imported">आपके खाते आयात नहीं किए जा सके। कृपया बाद में पुनः प्रयास करें।</string>
+
+    <string name="import_from_pera_web">Pera Web से आयात करें</string>
+    <string name="i_want_to_import_algorand">मैं Pera Web से Algorand खाते आयात करना चाहता हूँ</string>
+
+    <string name="get_your_qr_ready">Pera Web पर अपना QR तैयार करें</string>
+    <string name="go_to_web_perawallet">अपने डेस्कटॉप पर "web.perawallet.app" पर जाएँ</string>
+    <string name="go_to_settings_transfer_accounts">Settings > Transfer Accounts पर जाएँ</string>
+    <string name="select_the_accounts_you_want">वे खाते चुनें जिन्हें आप Pera Mobile में आयात करना चाहते हैं और अपना QR उत्पन्न करें</string>
+    <string name="tap_start_to_scan">QR स्कैन करने के लिए “Start” टैप करें</string>
+    <string name="scan_qr_code_on_web">Pera Web पर QR कोड स्कैन करें</string>
+    <string name="start">प्रारंभ करें</string>
+
+    <string name="importing_your_accounts">आपके खाते आयात किए जा रहे हैं</string>
+
+    <string name="get_help">सहायता प्राप्त करें</string>
+
+    <string name="couldn_t_retrieve">खाते का विवरण प्राप्त नहीं किया जा सका, कृपया पुनः प्रयास करें</string>
+    <string name="rekey_to_ledger_account">Ledger खाते में रिकि करें</string>
+    <string name="rekey_to_ledger_account_lower_case">Ledger खाते में रिकि करें</string>
+    <string name="rekey_to_standard_account">मानक खाते में रिकि करें</string>
+    <string name="rekey_to_standard_account_lower_case">मानक खाते में रिकि करें</string>
+    <string name="protect_your_account_by_delegating">अपने खाते की सुरक्षा करें किसी अन्य खाते को हस्ताक्षर सौंपकर</string>
+    <string name="future_transactions_can_only">भविष्य के लेन-देन केवल अधिकृत खाते द्वारा साइन किए जा सकेंगे।</string>
+    <string name="this_account_will_no_longer">यह खाता अब लेन-देन साइन करने में सक्षम नहीं रहेगा।</string>
+    <string name="your_account_s_public_key">आपके खाते की सार्वजनिक कुंजी, बैलेंस और कॉन्फ़िगरेशन नहीं बदलेंगे।</string>
+
+    <string name="invalid_url">अमान्य URL</string>
+
+    <string name="high_price_impact_detected">उच्च मूल्य प्रभाव पाया गया!</string>
+    <string name="it_appears_that_you_formatted">ऐसा प्रतीत होता है कि आप %<annotation replacement="price_impact_percentage">priceImpactPercentagePlaceholder</annotation> से अधिक मूल्य प्रभाव वाले स्वैप की पुष्टि करने का प्रयास कर रहे हैं।\n\nमूल्य प्रभाव के बारे में अधिक जानने के लिए — यह कैसे गणना किया जाता है और यह आपके स्वैप के कुल मूल्य को कैसे प्रभावित कर सकता है — कृपया Tinyman के <annotation custom="faq_url">FAQ अनुभाग</annotation> पर जाएँ।</string>
+    <string name="the_signing_account_has">साइनिंग खाता किसी ऐसे खाते में रिकि किया गया है जो आपके वॉलेट में नहीं है या गलत कॉन्फ़िगर है। कृपया सुनिश्चित करें कि अधिकृत खाता आपके वॉलेट में जोड़ा गया है, और यदि यह एक Ledger खाता है तो यह सही तरीके से कनेक्टेड है।</string>
+    <string name="caution_price_impact">सावधानी! मूल्य प्रभाव <annotation replacement="price_impact_percentage">priceImpactPercentagePlaceholder</annotation>% से अधिक है, जिसका अर्थ है कि इस पूल में तरलता कम हो सकती है। कृपया स्वैप की पुष्टि करने से पहले परिणामों को समझ लें।</string>
+    <string name="this_swap_can_not_be">यह स्वैप निष्पादित नहीं किया जा सकता क्योंकि मूल्य प्रभाव बहुत अधिक है। मूल्य प्रभाव और उसके कार्य के बारे में अधिक जानने के लिए <annotation custom="faq_url">यहाँ</annotation> जाएँ।</string>
+
+    <plurals name="requested_permission">
+        <item quantity="one">%1$d अनुरोधित अनुमति</item>
+        <item quantity="other">अनुरोधित अनुमतियाँ</item>
+    </plurals>
+
+    <plurals name="networks">
+        <item quantity="one">%1$d नेटवर्क</item>
+        <item quantity="other">नेटवर्क</item>
+    </plurals>
+
+    <plurals name="walletconnect_events">
+        <item quantity="one">%1$d WalletConnect घटना</item>
+        <item quantity="other">WalletConnect घटनाएँ</item>
+    </plurals>
+    <string name="walletconnect_advanced_permissions">WalletConnect उन्नत अनुमतियाँ</string>
+    <string name="walletconnect_is_a_communications_protocol">WalletConnect एक संचार प्रोटोकॉल है जो web3 के लिए वॉलेट और dApp को सुरक्षित रूप से कनेक्ट और इंटरैक्ट करने में सक्षम बनाता है। प्रत्येक नए संस्करण के साथ, WalletConnect तीसरे पक्ष की परियोजनाओं से आने वाले लेन-देन अनुरोधों को संभालने, साइन करने और प्रदर्शित करने के नए तरीके प्रस्तुत करता है।</string>
+    <string name="extend">विस्तारित करें</string>
+
+    <string name="extend_validity_to_date">वैधता बढ़ाएँ: <annotation replacement="extended_session_validity_date">extendedSessionValidityDatePlaceholder</annotation></string>
+    <string name="you_can_extend_the_expiration">आप इस सत्र की समाप्ति तिथि को 1 सप्ताह तक बढ़ा सकते हैं, लेकिन <annotation font="dmsans_medium"><annotation replacement="max_extendable_session_validity_date">maxExtendableSessionValidityDatePlaceholder</annotation></annotation> से आगे नहीं।</string>
+    <string name="this_session_is_using">यह सत्र WalletConnect V1 का उपयोग कर रहा है</string>
+    <string name="connection_date">कनेक्शन तिथि</string>
+    <string name="expiration_date">समाप्ति तिथि</string>
+    <string name="connected_with">के साथ कनेक्टेड</string>
+    <string name="advanced_permissions">उन्नत अनुमतियाँ</string>
+    <string name="supported_methods">समर्थित विधियाँ</string>
+    <string name="supported_events">समर्थित घटनाएँ</string>
+    <string name="extend_session_validity">सत्र वैधता बढ़ाएँ</string>
+    <string name="session_extended_successfully">सत्र सफलतापूर्वक विस्तारित किया गया</string>
+    <string name="session_disconnected_successfully">सत्र सफलतापूर्वक डिस्कनेक्ट किया गया</string>
+    <string name="session_status">सत्र स्थिति</string>
+    <string name="pinging">पिंग हो रहा है…</string>
+    <string name="active">सक्रिय</string>
+    <string name="failed">विफल</string>
+    <string name="check_status">स्थिति जाँचें</string>
+    <string name="we_couldn_t_automatically_detect">हम आपके द्वारा शुरू किए गए WalletConnect सत्र का ब्राउज़र स्वचालित रूप से पहचान नहीं सके। कृपया इसे चुनें ताकि आप <annotation replacement="peer_name">peer_name_placeholder</annotation> पर वापस जाकर अपना कार्य पूरा कर सकें:</string>
+    <string name="you_are_connected">आप <annotation replacement="peer_name">peerNamePlaceholder</annotation> से जुड़े हुए हैं</string>
+    <string name="this_session_is_valid_until"><annotation type="color">यह सत्र मान्य है जब तक:</annotation>\n<annotation font="dmsans_medium"><annotation replacement="session_expiry_date">sessionExpiryDate</annotation></annotation></string>
+
+    <string name="please_return_to">कृपया <annotation replacement="peer_name">peerNamePlaceholder</annotation> पर लौटें ताकि आप अपना कार्य जारी रखकर पूरा कर सकें। आप सभी जुड़े सत्रों को समर्पित सेटिंग्स पृष्ठ में पा सकते हैं।</string>
+
+    <string name="please_return_to_complete_your_operation">कृपया <annotation replacement="peer_name">peerMetaNamePlaceholder</annotation> पर लौटें ताकि आप अपना कार्य पूरा कर सकें।</string>
+    <string name="please_select_your_browser_to_return">कृपया अपना ब्राउज़र चुनें ताकि आप <annotation replacement="peer_name">peerMetaNamePlaceholder</annotation> पर लौटकर अपना कार्य पूरा कर सकें:</string>
+    <string name="the_transaction_has_been_signed_and_sent">लेन-देन पर हस्ताक्षर किए जा चुके हैं और इसे <annotation replacement="peer_name">peer_name_placeholder</annotation> को भेजा गया है। कृपया शेष प्रक्रिया के लिए <annotation replacement="peer_name">peer_name_placeholder</annotation> पर जाएँ।\n\nयह WalletConnect सत्र अपनी अधिकतम वैधता के करीब है, जिसे इससे आगे नहीं बढ़ाया जा सकता: <annotation replacement="max_extendable_session_expiry_date">maxExtendableSessionExpiryDatePlaceholder</annotation>\n\nइस तिथि के बाद, सत्र स्वचालित रूप से डिस्कनेक्ट हो जाएगा और आपको फिर से कनेक्ट करना होगा।</string>
+    <string name="disconnected">डिस्कनेक्ट किया गया</string>
+    <string name="connected_on_date"><annotation replacement="connection_date">connectionDatePlaceholder</annotation> पर कनेक्ट किया गया</string>
+    <string name="expires_on_date"><annotation replacement="expiration_date">expirationDatePlaceholder</annotation> पर समाप्त होता है</string>
+
+    <!-- region WalletConnect Error Messages -->
+    <string name="transaction_request_rejected_user">लेन-देन अनुरोध अस्वीकृत: उपयोगकर्ता ने लेन-देन अनुरोध को अस्वीकार कर दिया।</string>
+    <string name="missing_transactions_this_transaction">लेन-देन गुम: इस अनुरोध में एक या अधिक लेन-देन अनुपस्थित हैं। आपकी सुरक्षा के लिए, AlgoKit Wallet उन अनुरोधों पर हस्ताक्षर की अनुमति नहीं देगा जो संपूर्ण लेन-देन समूह प्रदर्शित नहीं करते हैं। इस समस्या को ठीक करने के लिए कृपया dApp से संपर्क करें।</string>
+    <string name="transaction_request_pending_user">लेन-देन अनुरोध लंबित: उपयोगकर्ता के पास वर्तमान में एक और लेन-देन अनुरोध प्रगति पर है।</string>
+    <string name="network_mismatch_error_this">नेटवर्क असंगति त्रुटि: यह dApp और AlgoKit Wallet वर्तमान में अलग-अलग नेटवर्क पर काम कर रहे हैं। कृपया सुनिश्चित करें कि दोनों Mainnet या Testnet पर चल रहे हों।</string>
+    <string name="missing_private_keys_pera">निजी कुंजी गायब: AlgoKit Wallet को लेन-देन अनुरोध पर हस्ताक्षर करने के लिए एक या अधिक निजी कुंजियाँ नहीं मिलीं।</string>
+    <string name="unsupported_transaction_type_this">असमर्थित लेन-देन प्रकार: इस अनुरोध में एक या अधिक असमर्थित लेन-देन प्रकार शामिल हैं।</string>
+    <string name="multisig_required_this_transaction">मल्टी-सिग आवश्यक: यह लेन-देन अनुरोध एक मल्टीसिग हस्ताक्षर की आवश्यकता रखता है, जो वर्तमान में AlgoKit Wallet द्वारा समर्थित नहीं है।</string>
+    <string name="transaction_limit_this_transaction">लेन-देन सीमा: इस अनुरोध में %1$d लेन-देन शामिल हैं, जो AlgoKit Wallet की सीमा से अधिक हैं।</string>
+    <string name="arbitrary_data_limit_this">मनमाना डेटा सीमा: इस अनुरोध में %1$d डेटा शामिल है, जो AlgoKit Wallet की सीमा से अधिक है।</string>
+    <string name="invalid_request_format_pera">अमान्य अनुरोध प्रारूप: AlgoKit Wallet लेन-देन अनुरोध को पार्स करने में असमर्थ है।</string>
+    <string name="invalid_arbitrary_data_request">अमान्य प्रारूप: AlgoKit Wallet मनमाने डेटा अनुरोध को पार्स करने में असमर्थ है।</string>
+    <string name="invalid_public_key_transaction">अमान्य सार्वजनिक कुंजी: इस अनुरोध में एक या अधिक अमान्य खाता पते शामिल हैं।</string>
+    <string name="invalid_asset_id_transaction">अमान्य एसेट ID: इस अनुरोध में एक या अधिक अमान्य एसेट ID शामिल हैं।</string>
+    <string name="invalid_input_pera_wallet">अमान्य इनपुट: AlgoKit Wallet लेन-देन अनुरोध पर हस्ताक्षर नहीं कर सकता।</string>
+    <string name="transaction_group_is_missing">लेन-देन समूह में हस्ताक्षरकर्ता खाता गायब है: AlgoKit Wallet के पास एक या अधिक लेन-देन समूहों पर हस्ताक्षर करने के लिए आवश्यक खाते नहीं हैं।</string>
+    <string name="missing_signer_account_pera">हस्ताक्षरकर्ता खाता गायब: AlgoKit Wallet के पास एक या अधिक खाते नहीं हैं जो इस अनुरोध पर हस्ताक्षर करने के लिए आवश्यक हैं।</string>
+    <string name="unauthorized_wc_method_connected">अनधिकृत WC_Method: कनेक्टेड सत्र को %1$s प्रकार के मेथड के साथ लेन-देन अनुरोधों पर हस्ताक्षर करने की अनुमति नहीं है।</string>
+    <string name="unauthorized_wc_event_connected">अनधिकृत WC_Event: कनेक्टेड सत्र को %1$s प्रकार की घटना के साथ अनुरोधों पर हस्ताक्षर करने की अनुमति नहीं है।</string>
+    <string name="unauthorized_wc_chain_connected">अनधिकृत WC_Chain: कनेक्टेड सत्र को %1$s में लेन-देन अनुरोधों पर हस्ताक्षर करने की अनुमति नहीं है।</string>
+    <string name="user_rejected_chain_this">User_Rejected_Chain: यह dApp आपके खाते से %1$s पर कनेक्ट करने का प्रयास कर रहा है, लेकिन AlgoKit Wallet %2$s पर सेट है।</string>
+    <string name="unsupported_blockchain_pera_wallet">असमर्थित ब्लॉकचेन: AlgoKit Wallet वर्तमान में केवल Algorand ब्लॉकचेन को समर्थन करता है।</string>
+    <string name="unsupported_wc_method_pera">असमर्थित WC_Method: AlgoKit Wallet वर्तमान में इस dApp द्वारा अनुरोधित एक या अधिक WalletConnect विधियों का समर्थन नहीं करता है।</string>
+    <string name="unsupported_wc_events_pera">असमर्थित WC_Events: AlgoKit Wallet वर्तमान में इस dApp द्वारा अनुरोधित एक या अधिक WalletConnect घटनाओं का समर्थन नहीं करता है।</string>
+    <string name="pera_wallet_could_not_locate">AlgoKit Wallet इस dApp द्वारा उपयोग किए गए WalletConnect सत्र का पता नहीं लगा सका। कृपया डिस्कनेक्ट करें और पुनः प्रयास करें।</string>
+    <string name="connection_failed_upper_case">कनेक्शन विफल</string>
+    <string name="confirmation_failed">पुष्टि विफल</string>
+    <string name="wc_session_not_found">WC सत्र नहीं मिला</string>
+    <!-- endregion -->
+
+    <string name="select_your_backup_file">अपनी बैकअप फ़ाइल चुनें</string>
+    <string name="uploading_three_dots">अपलोड हो रहा है…</string>
+    <string name="upload_successful">अपलोड सफल</string>
+    <string name="replace_file">फ़ाइल बदलें</string>
+    <string name="upload_failed">अपलोड विफल</string>
+    <string name="select_file">फ़ाइल चुनें</string>
+    <string name="this_file_type_isn_t_supported">यह फ़ाइल प्रकार समर्थित नहीं है</string>
+    <string name="algorand_secure_backup">Algorand सुरक्षित बैकअप</string>
+    <string name="i_want_to_restore_my">मैं अपने खातों को Algorand सुरक्षित बैकअप फ़ाइल और 12-शब्द कुंजी का उपयोग करके पुनर्स्थापित करना चाहता हूँ</string>
+    <string name="not_backed_up">बैकअप नहीं किया गया (%1$d)</string>
+    <string name="algorand_secure_n_backup">Algorand सुरक्षित\nबैकअप</string>
+    <string name="backup_your_accounts_using">अपने खातों का बैकअप Algorand सुरक्षित बैकअप प्रोटोकॉल का उपयोग करके लें। आप एक एन्क्रिप्टेड टेक्स्ट फ़ाइल उत्पन्न करेंगे जो आपके खातों का प्रतिनिधित्व करती है और भविष्य में उन्हें डिक्रिप्ट करने के लिए 12-शब्द कुंजी का उपयोग करती है।</string>
+    <string name="select_your_accounts">अपने खाते चुनें</string>
+    <string name="select_one_some_or_all">अपने बैकअप फ़ाइल में शामिल करने के लिए एक, कुछ या सभी खाते चुनें।</string>
+    <string name="store_your_12_word_key">अपनी 12-शब्द कुंजी सहेजें</string>
+    <string name="record_or_save_your_12">अपनी 12-शब्द कुंजी को सुरक्षित रूप से रिकॉर्ड या सहेजें। <annotation font="dmsans_medium"><annotation custom="learn_more_click">अधिक जानें</annotation></annotation></string>
+    <string name="save_your_backup_file">अपनी बैकअप फ़ाइल सहेजें</string>
+    <string name="download_your_backup_to">अपने डिवाइस पर किसी सुरक्षित स्थान पर अपनी बैकअप फ़ाइल डाउनलोड करें।</string>
+
+    <string name="we_couldn_t_find_any_accounts">हम कोई भी ऐसा खाता नहीं ढूंढ सके जो बैकअप के लिए उपयुक्त हो।</string>
+    <string name="have_you_stored_your_key">क्या आपने अपनी कुंजी सहेजी है?</string>
+    <string name="store_your_key_somewhere_secure">अपनी कुंजी को किसी सुरक्षित स्थान पर सहेजें, जैसे पासवर्ड मैनेजर में। यदि आप अपनी कुंजी खो देते हैं, तो आप अपनी बैकअप फ़ाइल तक हमेशा के लिए पहुंच खो देंगे।</string>
+    <string name="create_backup_file">बैकअप फ़ाइल बनाएं</string>
+    <string name="show_key_again">कुंजी फिर से दिखाएं</string>
+    <string name="create_new_key">नई कुंजी बनाएं</string>
+    <string name="you_are_about_to_reset">आप अपनी Algorand Secure Backup कुंजी को रीसेट करने वाले हैं। आप एक नई 12-शब्द कुंजी बनाएंगे जिसका उपयोग इस डिवाइस से बनाई गई सभी भविष्य की ASB फ़ाइलों को एन्क्रिप्ट और डिक्रिप्ट करने के लिए किया जाएगा।\n\nआपकी पिछली ASB फ़ाइलें आपकी पुरानी 12-शब्द कुंजी से एन्क्रिप्टेड रहेंगी। कृपया आगे बढ़ने से पहले सुनिश्चित करें कि यह सुरक्षित रूप से सहेजी गई है।</string>
+    <string name="i_understand_proceed">मैं समझता हूँ, आगे बढ़ें</string>
+    <string name="copy_to_clipboard">क्लिपबोर्ड पर कॉपी करें</string>
+    <string name="create_new_12_word_key">नई 12-शब्द कुंजी बनाएं</string>
+    <string name="store_your_n_12_word_key">अपनी\n12-शब्द कुंजी सहेजें</string>
+    <string name="i_ve_stored_my_key">मैंने अपनी कुंजी सहेज ली है</string>
+    <string name="your_12_word_key_is">आपकी 12-शब्द कुंजी का उपयोग आपके द्वारा बनाई गई किसी भी Algorand Secure Backup फ़ाइल को डिक्रिप्ट करने के लिए किया जाता है।\n\nअपनी 12-शब्द कुंजी को सुरक्षित रूप से सहेजें।\n<annotation font="dmsans_medium"><annotation custom="url_click">कैसे जानें</annotation></annotation> Pera Learn के साथ।</string>
+    <string name="review_your_n_12_word_key">अपनी\n12-शब्द कुंजी की समीक्षा करें</string>
+    <string name="you_stored_your_key_during">आपने अपनी कुंजी को पहले के किसी बैकअप के दौरान सहेजा था। अब इसकी समीक्षा करें ताकि यह सुनिश्चित हो सके कि यह अभी भी सुरक्षित रूप से संग्रहीत है।\n\n<annotation font="dmsans_medium"><annotation custom="url_click">अधिक जानें</annotation></annotation> Pera Learn के साथ</string>
+    <string name="key_copied_as_text">कुंजी को टेक्स्ट के रूप में कॉपी किया गया</string>
+    <string name="save_backup_file">बैकअप फ़ाइल सहेजें</string>
+    <string name="your_backup_file_is_ready">आपकी बैकअप फ़ाइल तैयार है</string>
+    <string name="save_your_file_somewhere_secure">अपनी फ़ाइल को किसी सुरक्षित स्थान पर सहेजें, अपनी 12-शब्द कुंजी से अलग स्थान पर। <annotation font="dmsans_medium"><annotation custom="url_click">अधिक जानें</annotation></annotation></string>
+    <string name="an_error_occurred_while_generating">आपका Algorand Secure Backup बनाते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें या <annotation font="dmsans_medium"><annotation custom="url_click">सपोर्ट से संपर्क करें</annotation></annotation></string>
+    <string name="backup_file_copied_to">बैकअप फ़ाइल को टेक्स्ट के रूप में क्लिपबोर्ड पर कॉपी किया गया</string>
+    <string name="can_t_save_backup_file">बैकअप फ़ाइल सहेज नहीं सकते</string>
+    <string name="please_allow_pera_wallet_to">कृपया AlgoKit Wallet को आपके डिवाइस पर फ़ोटो और मीडिया तक पहुँचने की अनुमति दें ताकि आपकी फ़ाइल सहेजी जा सके।</string>
+    <string name="have_you_stored_your">क्या आपने अपनी बैकअप फ़ाइल सहेज ली है?</string>
+    <string name="if_you_lose_your_algorand">यदि आप अपनी Algorand Secure Backup फ़ाइल खो देते हैं, तो आप अपने खातों को पुनर्स्थापित नहीं कर पाएंगे।</string>
+    <string name="yes_i_stored_my_file">हाँ, मैंने अपनी फ़ाइल सहेज ली है</string>
+    <string name="show_backup_file_again">बैकअप फ़ाइल फिर से दिखाएं</string>
+
+    <string name="select_your_n_backup_file">अपनी\nबैकअप फ़ाइल चुनें</string>
+    <string name="to_restore_your_wallet">अपना वॉलेट पुनर्स्थापित करने के लिए, अपनी बैकअप फ़ाइल चुनें या पेस्ट करें।</string>
+    <string name="paste_backup_file_text">बैकअप फ़ाइल टेक्स्ट पेस्ट करें</string>
+    <string name="unable_to_parse_file">बैकअप फ़ाइल को पार्स नहीं किया जा सका: JSON स्वरूपण त्रुटि।</string>
+    <string name="unable_to_parse_key_name">बैकअप फ़ाइल को पार्स नहीं किया जा सका: <annotation replacement="key_name">keyNamePlaceholder</annotation> मौजूद नहीं है</string>
+    <string name="backup_file_was_generated_with">बैकअप फ़ाइल Algorand Secure Backup Format के असमर्थित संस्करण के साथ बनाई गई थी।</string>
+    <string name="unable_to_parse_suite">बैकअप फ़ाइल को पार्स नहीं किया जा सका: Cipher Suite अज्ञात है</string>
+    <string name="backup_file_successfully_pasted">बैकअप फ़ाइल सफलतापूर्वक पेस्ट की गई</string>
+    <string name="enter_12_word_key">12-शब्द कुंजी दर्ज करें</string>
+    <string name="wrong_12_word_key">गलत 12-शब्द कुंजी</string>
+    <string name="please_try_again_by_entering">कृपया सही 12-शब्द कुंजी दर्ज करके पुनः प्रयास करें।</string>
+    <string name="choose_accounts_n_to_restore">खाते चुनें\nजिन्हें पुनर्स्थापित करना है</string>
+    <string name="restore_account">खाता पुनर्स्थापित करें (%1$d)</string>
+    <string name="nothing_to_paste">पेस्ट करने के लिए कुछ नहीं</string>
+    <string name="nothing_is_copied_to_the">क्लिपबोर्ड में कुछ भी कॉपी नहीं किया गया है। सुनिश्चित करें कि आपने अपनी बैकअप फ़ाइल कॉपी की है।</string>
+
+    <plurals name="accounts_restored">
+        <item quantity="one">%1$d खाता पुनर्स्थापित किया गया</item>
+        <item quantity="other">खाते पुनर्स्थापित किए गए</item>
+    </plurals>
+    <plurals name="accounts_were_restored">
+        <item quantity="one">%1$d 1 खाता बैकअप फ़ाइल से पुनर्स्थापित किया गया</item>
+        <item quantity="other">%1$d खाते बैकअप फ़ाइल से पुनर्स्थापित किए गए</item>
+    </plurals>
+
+    <plurals name="account_was_not_restored_because_exist">
+        <item quantity="one">%1$d 1 खाता पुनर्स्थापित नहीं किया गया क्योंकि यह पहले से आपके वॉलेट में मौजूद है</item>
+        <item quantity="other">%1$d खाते पुनर्स्थापित नहीं किए गए क्योंकि वे पहले से आपके वॉलेट में मौजूद हैं</item>
+    </plurals>
+    <plurals name="account_was_not_restored_because_unsupported">
+        <item quantity="one">%1$d 1 खाता पुनर्स्थापित नहीं किया गया क्योंकि इसमें असमर्थित खाता प्रकार है</item>
+        <item quantity="other">%1$d खाते पुनर्स्थापित नहीं किए गए क्योंकि उनमें असमर्थित खाता प्रकार हैं</item>
+    </plurals>
+    <plurals name="account_was_not_restored">
+        <item quantity="one">%1$d 1 खाता पुनर्स्थापित नहीं किया गया। यह पहले से आपके वॉलेट में मौजूद हो सकता है या असमर्थित प्रकार का हो सकता है</item>
+        <item quantity="other">%1$d खाते पुनर्स्थापित नहीं किए गए। वे पहले से आपके वॉलेट में मौजूद हो सकते हैं या असमर्थित प्रकार के हो सकते हैं</item>
+    </plurals>
+
+    <string name="buy_sell">खरीदें / बेचें</string>
+    <string name="see_all_options_to_buy">अपनी क्रिप्टो खरीदने या बेचने के सभी विकल्प देखें</string>
+    <string name="buy_crypto">क्रिप्टो खरीदें</string>
+    <string name="sell_crypto">क्रिप्टो बेचें</string>
+
+    <string name="use_apple_pay_credit_cards">Apple Pay, क्रेडिट कार्ड या बैंक ट्रांसफर का उपयोग करें</string>
+    <string name="use_instant_ach">अपने यूएस बैंक खाते के साथ Instant ACH का उपयोग करें</string>
+    <string name="use_credit_card_bank_transfer">150+ देशों से क्रेडिट कार्ड या बैंक ट्रांसफर का उपयोग करें</string>
+    <string name="buy_gift_cards_with_bidali">Bidali के साथ गिफ्ट कार्ड खरीदें</string>
+    <string name="you_can_use_your_algo">आप अपने Algo, USDC या USDt बैलेंस का उपयोग कर सकते हैं</string>
+
+    <string name="buy_gift_cards_with_crypto">क्रिप्टो के साथ गिफ्ट कार्ड खरीदें</string>
+    <string name="buy_gift_cards">गिफ्ट कार्ड खरीदें</string>
+    <string name="you_can_use_your_algo_or">आप अपने ALGO या USDC बैलेंस का उपयोग करके हजारों ब्रांड्स से गिफ्ट कार्ड और मोबाइल टॉपअप खरीद सकते हैं!</string>
+    <string name="you_can_not_purchase_bidali">आप TestNet पर खरीदारी नहीं कर सकते। कृपया Bidali का उपयोग करने के लिए सेटिंग्स से MainNet पर वापस स्विच करें।</string>
+
+    <string name="buy_usdc">USDC खरीदें</string>
+    <string name="choose_an_account_to_proceed">आगे बढ़ने के लिए एक खाता चुनें</string>
+    <string name="use_another_account_s_private">इस खाते के लिए लेन-देन पर हस्ताक्षर करने के लिए किसी अन्य खाते की निजी कुंजी का उपयोग करें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="remove_a_ledger_device_from">अपने खाते से एक Ledger डिवाइस हटाएँ। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="rekey_your_account_to">अपने खाते को किसी अन्य मानक खाते से पुनः-कुंजी (Rekey) करें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="future_transactions_can_only_be">भविष्य के लेन-देन केवल नए प्रतिनिधि खाते द्वारा हस्ताक्षरित किए जा सकेंगे।</string>
+    <string name="your_ledger_device_will_no_longer">आपका Ledger डिवाइस अब लेन-देन पर हस्ताक्षर करने के लिए आवश्यक नहीं होगा। इससे सुरक्षा की एक परत हट जाती है।</string>
+    <string name="future_transactions_will_be_signed">भविष्य के लेन-देन नए मानक खाते द्वारा हस्ताक्षरित किए जाएंगे।</string>
+    <string name="this_account_will_continue">यह खाता स्वयं के लिए लेन-देन पर हस्ताक्षर करने में असमर्थ रहेगा।</string>
+    <string name="summary_of_rekey">Rekey का सारांश</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="currently_rekeyed">वर्तमान में पुनः-कुंजीकृत</string>
+    <string name="you_are_about_to_rekey">आप इस खाते को पुनः-कुंजी (Rekey) करने वाले हैं। यह अब स्वयं लेन-देन पर हस्ताक्षर नहीं कर सकेगा। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="you_are_about_to_rekey_this">आप इस खाते को किसी अन्य अधिकृत पते पर पुनः-कुंजी करने वाले हैं। नया पता इसकी ओर से लेन-देन पर हस्ताक्षर करने में सक्षम होगा। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="process_will_continue_in_the_background">प्रक्रिया पृष्ठभूमि में जारी रहेगी।</string>
+    <string name="your_previous_rekey_will">आपका पिछला Rekey प्रतिस्थापित किया जाएगा</string>
+    <string name="account_address_will_no_longer_be_auth"><annotation replacement="account_address">accountNamePlaceholder</annotation> अब <annotation replacement="auth_account_address">authAccountNamePlaceholder</annotation> के लिए लेन-देन पर हस्ताक्षर करने के लिए अधिकृत नहीं रहेगा। जारी रखने से पहले इसके प्रभावों को समझना सुनिश्चित करें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="change_the_ledger_account_signing">अपने वॉलेट के लिए Ledger खाते के हस्ताक्षर को बदलें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="back_your_standard_account_with">अधिक सुरक्षा के लिए अपने मानक खाते को एक Ledger डिवाइस से लिंक करें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="rekey_your_account_to_a_different_account">अपने खाते को किसी अन्य खाते से पुनः-कुंजी करें जो एक Ledger डिवाइस से जुड़ा है। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="future_transactions_will_be_signed_by">भविष्य के लेन-देन नए खाते द्वारा हस्ताक्षरित किए जाएंगे।</string>
+    <string name="ff_you_already_have_a_ledger">यदि आपके पास पहले से ही इस खाते से जुड़ा एक Ledger डिवाइस है, तो आपका पुराना Ledger अब इससे जुड़ा नहीं रहेगा।</string>
+    <string name="please_make_sure_that_your_ledger">कृपया सुनिश्चित करें कि आपका Ledger डिवाइस अनलॉक है और ब्लूटूथ सक्षम है। अपने Ledger पर Algorand ऐप लॉन्च करें ताकि इसे सूची में देखा जा सके:</string>
+    <string name="account_type">खाते का प्रकार</string>
+
+    <string name="standard">मानक</string>
+    <string name="ledger">Ledger</string>
+    <string name="watch">Watch</string>
+    <string name="rekeyed">पुनः-कुंजीकृत</string>
+    <string name="no_auth">कोई अनुमति नहीं</string>
+    <string name="unknown">अज्ञात</string>
+    <string name="rekeyed_to">Rekeyed to</string>
+    <string name="your_account_is_a_hd_wallet_address">वॉलेट जो आपको एक ही कुंजी से नए खाते बनाने की अनुमति देता है।</string>
+    <string name="your_account_is_a_standard">आपका खाता एक मानक Algorand खाता है। इसे पुनः-कुंजी नहीं किया गया है और यह किसी Ledger डिवाइस से जुड़ा नहीं है। इसे इसकी कुंजियों के साथ आपके वॉलेट में जोड़ा गया था।</string>
+    <string name="your_account_is_a_Ledger">आपका खाता एक Ledger खाता है। इसे सीधे हार्डवेयर डिवाइस से आपके वॉलेट में जोड़ा गया था। इस खाते के सभी लेन-देन को आपके Ledger पर पुष्टि करनी होगी।</string>
+    <string name="this_account_was_not">यह खाता इसकी कुंजियों के साथ आपके वॉलेट में नहीं जोड़ा गया था। यह केवल पढ़ने योग्य है और अन्य खातों के साथ बातचीत नहीं कर सकता या लेन-देन को अधिकृत नहीं कर सकता।</string>
+    <string name="your_account_doesn_t">आपके खाते में कोई प्रमाणीकरण जानकारी नहीं है। आप संपत्तियाँ नहीं भेज सकते या लेन-देन पर हस्ताक्षर नहीं कर सकते। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="your_account_is_rekeyed">आपका खाता एक ऐसे Algorand खाते से पुनः-कुंजी किया गया है जो आपके वॉलेट में नहीं है। आप संपत्तियाँ नहीं भेज सकते या लेन-देन पर हस्ताक्षर नहीं कर सकते। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="your_account_is_rekeyed_to">आपका खाता किसी अन्य मानक Algorand खाते से पुनः-कुंजी किया गया है। इस खाते के लिए लेन-देन अन्य खाते द्वारा अधिकृत किए जाएंगे। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="your_account_is_rekeyed_to_an">आपका खाता एक ऐसे Algorand खाते से पुनः-कुंजी किया गया है जो आपके वॉलेट में नहीं है। आप संपत्तियाँ नहीं भेज सकते या लेन-देन पर हस्ताक्षर नहीं कर सकते।</string>
+    <string name="your_account_is_rekeyed_to_another">आपका खाता किसी अन्य मानक Algorand खाते से पुनः-कुंजी किया गया है। इस खाते के लेन-देन दूसरे खाते द्वारा अधिकृत किए जाएंगे।</string>
+    <string name="your_account_is_rekeyed_to_unknown">* पुनः-कुंजीकृत खाते के प्रकार का कोई रिकॉर्ड नहीं मिला\n\nआपका खाता किसी अन्य Algorand खाते से पुनः-कुंजी किया गया है। इस खाते के लेन-देन दूसरे खाते द्वारा अधिकृत किए जाएंगे।</string>
+    <string name="no_record_of_original_account">* मूल खाते के प्रकार का कोई रिकॉर्ड नहीं मिला\n\nआपका खाता किसी अन्य मानक Algorand खाते से पुनः-कुंजी किया गया है। इस खाते के लेन-देन दूसरे खाते द्वारा अधिकृत किए जाएंगे। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="your_account_is_rekeyed_to_an_account_on">आपका खाता एक Ledger हार्डवेयर डिवाइस पर स्थित खाते से पुनः-कुंजी किया गया है। इस खाते के लेन-देन Ledger डिवाइस पर अधिकृत किए जाने चाहिए।</string>
+    <string name="no_record_of_original_account_type">* मूल खाते के प्रकार का कोई रिकॉर्ड नहीं मिला\n\nआपका खाता एक Ledger हार्डवेयर डिवाइस पर स्थित खाते से पुनः-कुंजी किया गया है। इस खाते के लेन-देन Ledger डिवाइस पर अधिकृत किए जाने चाहिए। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="you_are_about_to_undo_this">आप इस खाते की पुनः-कुंजी प्रक्रिया को पूर्ववत करने वाले हैं। आप खाते को उसकी अधिकृत पते का उपयोग करके वापस उसी पर पुनः-कुंजी करेंगे। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+
+    <string name="undo_rekey">Rekey पूर्ववत करें</string>
+    <string name="show_address">पता दिखाएं</string>
+    <string name="rekeyed_to_account_name">%1$s पर Rekeyed</string>
+    <string name="rekey_successfully_undone">Rekey सफलतापूर्वक पूर्ववत किया गया</string>
+    <string name="the_account_has_been_reverted">खाता %1$s को उसकी मूल स्थिति में वापस कर दिया गया है</string>
+    <string name="your_previous_rekey_will_be_undone">आपका पिछला Rekey पूर्ववत किया जाएगा</string>
+    <string name="auth_account_will_no_longer_be"><annotation replacement="auth_account_address">authAccountAddressPlaceholder</annotation> अब <annotation replacement="account_address">accountAddressPlaceholder</annotation> के लिए लेन-देन पर हस्ताक्षर करने के लिए अधिकृत नहीं रहेगा। जारी रखने से पहले इसके प्रभावों को समझना सुनिश्चित करें। <annotation font="dmsans_medium"><annotation custom="learn_more">अधिक जानें</annotation></annotation></string>
+    <string name="this_action_is_not_available">यह क्रिया इस खाते के प्रकार के लिए उपलब्ध नहीं है</string>
+    <string name="fetching_rekeyed_accounts">Rekey किए गए खातों को प्राप्त किया जा रहा है…</string>
+    <string name="add_rekeyed_accounts">Rekey किए गए खाते जोड़ें</string>
+    <string name="skip_for_now">अभी के लिए छोड़ें</string>
+    <string name="account_details">खाते का विवरण</string>
+
+    <plurals name="rekeyed_accounts_found">
+        <item quantity="one">%1$d 1 Rekey किया गया खाता मिला</item>
+        <item quantity="other">%1$d Rekey किए गए खाते मिले</item>
+    </plurals>
+
+    <plurals name="you_have_rekeyed_accounts">
+        <item quantity="one">%1$d एक Rekey किया गया खाता इस खाते के पते से जुड़ा है। इसका मतलब है कि आप अभी जो खाता जोड़े हैं उससे उस खाते के लेन-देन पर हस्ताक्षर कर सकते हैं।</item>
+        <item quantity="other">आपके पास %1$d Rekey किए गए खाते हैं। इसका मतलब है कि आप अभी जो खाता जोड़े हैं उससे उन खातों के लेन-देन पर हस्ताक्षर कर सकते हैं।\n\nवे Rekey किए गए खाते चुनें जिन्हें आप अपने वॉलेट में जोड़ना चाहते हैं:</item>
+    </plurals>
+
+    <string name="the_account_name_was_successfully_rekeyed_formatted">खाता %1$s सफलतापूर्वक Rekey किया गया।</string>
+    <string name="start_process">प्रक्रिया शुरू करें</string>
+    <string name="choose_the_account_rekey">वह खाता चुनें जिसे आप Rekey करना चाहते हैं। यहां चयनित खाता स्रोत खाते के सभी लेन-देन पर हस्ताक्षर करने के लिए जिम्मेदार होगा।</string>
+    <plurals name="you_can_t_remove_this_account">
+        <item quantity="one">आप इस खाते को तब तक नहीं हटा सकते जब तक कि इसका %1$d Rekey किया गया खाता न हटा दिया जाए</item>
+        <item quantity="other">आप इस खाते को तब तक नहीं हटा सकते जब तक कि इसके %1$d Rekey किए गए खाते न हटा दिए जाएं</item>
+    </plurals>
+    <string name="choose_accounts_to_add">जोड़ने के लिए खाते चुनें</string>
+    <string name="have_you_backed_up_your">क्या आपने अपने खाते का बैकअप लिया है?</string>
+    <string name="if_you_don_t_have">यदि आपके पास इस खाते का पासफ़्रेज़ नहीं है या खाता Ledger डिवाइस से बैकअप नहीं है या किसी Auth Account द्वारा प्रबंधित नहीं है, तो इस खाते और इसके फंड तक पहुंच हमेशा के लिए खो जाएगी।</string>
+    <string name="yes_continue">हाँ, जारी रखें</string>
+    <string name="no_keep_account">नहीं, खाता रखें</string>
+    <string name="please_review_and_sign_formatted">कृपया अपने Ledger डिवाइस %1$s पर लेन-देन की समीक्षा करें और हस्ताक्षर करें।</string>
+    <string name="verification_will_continue_on_ledger">सत्यापन Ledger पर जारी रहेगा। सत्यापन रद्द करने के लिए, Ledger से रद्द करें।</string>
+
+    <string name="percentage_must_be_between">प्रतिशत %1$.2f%% और %2$.0f%% के बीच होना चाहिए</string>
+    <string name="failed_to_fetch_rekeyed">Rekey किए गए खाते प्राप्त करने में विफल</string>
+
+    <string name="vote_key">Vote Key</string>
+    <string name="selection_key">Selection Key</string>
+    <string name="state_proof_key">State Proof Key</string>
+    <string name="valid_first_round">Valid First Round</string>
+    <string name="valid_last_round">Valid Last Round</string>
+    <string name="vote_key_dilution">Vote Key Dilution</string>
+    <string name="participation_status">भागीदारी स्थिति</string>
+    <string name="participating">भाग ले रहा है</string>
+    <string name="not_participating">भाग नहीं ले रहा</string>
+    <string name="online">ऑनलाइन</string>
+    <string name="offline">ऑफ़लाइन</string>
+
+    <string name="import_a_wallet">एक वॉलेट आयात करें</string>
+    <string name="import_an_account">एक खाता आयात करें</string>
+    <string name="import_an_existing">कई तरीकों से मौजूदा Algorand खाता आयात करें या अपना Ledger पेयर करें</string>
+    <string name="watch_an_address">एक पता देखें</string>
+    <string name="monitor_an_algorand_address">किसी Algorand पते की निगरानी उसके पते को प्रदान करके करें</string>
+    <string name="recover_an_account_with_qr">QR कोड से खाता पुनर्प्राप्त करें</string>
+    <string name="i_want_to_recover_qr">मैं अपना Algorand खाता अपने QR कोड का उपयोग करके पुनर्प्राप्त करना चाहता हूँ</string>
+    <string name="because_you_have_already">क्योंकि आपके पास पहले से ही एक Falcon24 वॉलेट है</string>
+
+    <string name="action_required">कार्रवाई आवश्यक</string>
+    <string name="you_need_to_backup_account">आपको अपने खाते के पासफ़्रेज़ का बैकअप लेना होगा</string>
+    <string name="you_need_to_backup">आपको बैकअप लेना होगा\nपासफ़्रेज़ का</string>
+    <string name="backup_now">अभी बैकअप लें</string>
+
+    <string name="unsigned_requests">Unsigned अनुरोध</string>
+    <string name="arbitrary_data">Arbitrary डेटा</string>
+    <string name="arbitrary_data_request">Arbitrary डेटा अनुरोध</string>
+    <string name="arbitrary_data_details">Arbitrary डेटा विवरण</string>
+    <string name="data">डेटा</string>
+    <string name="your_data_is_being_processed">आपका डेटा प्रोसेस किया जा रहा है!</string>
+    <string name="the_data_has_been_signed">डेटा पर हस्ताक्षर किए गए हैं और इसे <annotation replacement="peer_name">peer_name_placeholder</annotation> को भेजा गया है। कृपया शेष प्रक्रिया के लिए <annotation replacement="peer_name">peer_name_placeholder</annotation> पर जाएं।</string>
+
+    <string name="buying_algo_through_pera_wallet">AlgoKit Wallet के माध्यम से Algo खरीदना इस समय उपलब्ध नहीं है</string>
+    <string name="open_in_pera_explorer">Pera Explorer में खोलें</string>
+    <string name="buy_algo_with_meld">Meld के साथ ALGO खरीदें</string>
+    <string name="continue_with_meld">Meld के साथ जारी रखें</string>
+    <string name="meld_offers">Meld स्थानीय मुद्रा के साथ ALGO खरीदने का सबसे तेज़ तरीका प्रदान करता है। क्रेडिट कार्ड या बैंक ट्रांसफर से क्रिप्टो खरीदें। यह तेज़, सरल और सुरक्षित है।\n*अमेरिका में उपलब्ध नहीं।</string>
+    <string name="you_can_not_purchase">आप TestNet पर खरीदारी नहीं कर सकते। कृपया Meld का उपयोग करने के लिए सेटिंग्स से MainNet पर स्विच करें।</string>
+    <string name="meld">MELD</string>
+
+    <string name="you_cant_send_this_asset">आप यह संपत्ति सीधे नहीं भेज सकते क्योंकि प्राप्तकर्ता ने Opt-in नहीं किया है। लेकिन आप इसे उसके इनबॉक्स पते पर भेज सकते हैं। <annotation custom="read_more_click">और पढ़ें</annotation></string>
+    <string name="the_fee_above_will_be">ऊपर दिया गया शुल्क लेन-देन शुल्क और प्राप्तकर्ता की न्यूनतम शेष राशि की आवश्यकता को पूरा करने के लिए उपयोग किया जाएगा। यदि प्राप्तकर्ता संपत्ति अस्वीकार करता है, तो आपको कुछ भी वापस नहीं मिलेगा।</string>
+    <string name="protocol_and_min_balance_fees">प्रोटोकॉल और न्यूनतम बैलेंस शुल्क:</string>
+    <string name="send_to_receiver">रिसीवर को भेजें</string>
+    <string name="send_to_asset_inbox">एसेट इनबॉक्स में भेजें</string>
+
+    <plurals name="asset_requests">
+        <item quantity="one">%1$d एसेट अनुरोध</item>
+        <item quantity="other">%1$d एसेट अनुरोध</item>
+    </plurals>
+
+    <string name="dialpad_1">1</string>
+    <string name="dialpad_2">2</string>
+    <string name="dialpad_3">3</string>
+    <string name="dialpad_4">4</string>
+    <string name="dialpad_5">5</string>
+    <string name="dialpad_6">6</string>
+    <string name="dialpad_7">7</string>
+    <string name="dialpad_8">8</string>
+    <string name="dialpad_9">9</string>
+    <string name="dialpad_period">.</string>
+    <string name="dialpad_0">0</string>
+
+    <plurals name="incoming_assets">
+        <item quantity="one">%1$d 1 आने वाला एसेट</item>
+        <item quantity="other">%1$d आने वाले एसेट्स</item>
+    </plurals>
+
+    <string name="asset_transfer_requests">एसेट ट्रांसफर अनुरोध</string>
+    <string name="asset_transfer_request">एसेट ट्रांसफर अनुरोध</string>
+    <string name="asset_inbox">एसेट इनबॉक्स</string>
+    <string name="rejecting_requests">अनुरोध अस्वीकार किए जा रहे हैं</string>
+    <string name="this_feature_as_an_inbox">यह सुविधा आपके खाते के लिए एक इनबॉक्स के रूप में कार्य करती है। अन्य लोग आपको एसेट्स और NFTs भेज सकते हैं, भले ही आपने उन्हें प्राप्त करने के लिए स्पष्ट रूप से ऑप्ट-इन न किया हो। यहां से, आप एसेट ट्रांसफर अनुरोधों को स्वीकार या अस्वीकार करना चुन सकते हैं।</string>
+
+    <string name="reject">अस्वीकार करें</string>
+    <string name="claim">क्लेम करें</string>
+
+    <plurals name="sender_plural">
+        <item quantity="one">%1$d प्रेषक</item>
+        <item quantity="other">प्रेषक</item>
+    </plurals>
+
+    <string name="you_will_receive_algo">आपको ऑप्ट-इन खर्चों की भरपाई के लिए %1$s ALGO प्राप्त होंगे।</string>
+    <string name="if_you_reject_this_request">यदि आप इस अनुरोध को अस्वीकार करते हैं, तो आने वाला एसेट स्थायी रूप से परिसंचरण से हटा दिया जाएगा। इसे प्रेषक को वापस नहीं किया जाएगा। इसके बजाय, इस अपरिवर्तनीय प्रक्रिया के पूरा होने पर आपको %1$s ALGO प्राप्त होंगे। कृपया ध्यान दें कि एक बार अस्वीकार करने के बाद एसेट को पुनर्प्राप्त नहीं किया जा सकता।</string>
+
+    <string name="x_number_of">x %1$d</string>
+    <string name="plus_number_more">+%1$d और</string>
+    <string name="senders">प्रेषक</string>
+    <string name="no_pending_asset_transfer">कोई लंबित एसेट ट्रांसफर अनुरोध नहीं</string>
+    <string name="when_you_have_an_asset">जब आपके पास एसेट ट्रांसफर अनुरोध होंगे, तो आप उन्हें यहां देख सकते हैं। इस सुविधा के बारे में अधिक जानने के लिए जानकारी आइकन पर टैप करें।</string>
+    <string name="you_dont_have_enough_algos">आपके पास इस क्रिया को पूरा करने के लिए पर्याप्त ALGO नहीं हैं।</string>
+
+    <string name="before_sending_an_asset">एसेट इनबॉक्स के माध्यम से किसी एसेट या NFT को भेजने से पहले, सुनिश्चित करें कि दूसरी पार्टी अपने इनबॉक्स तक पहुंच सकती है। कुछ मामलों में, दूसरी पार्टी अपने इनबॉक्स तक पहुंच नहीं सकती और एसेट या NFT पुनर्प्राप्त नहीं किया जा सकेगा। इनमें एक्सचेंज पर भेजना या ऐसे वॉलेट पर भेजना शामिल है जिसे उपयोगकर्ता एक्सेस नहीं कर सकता। केवल उन्हीं वॉलेट्स पर एसेट या NFT भेजें जो Pera (या अन्य संगत वॉलेट्स) का उपयोग करते हैं। <annotation url="https://support.perawallet.app"><annotation type="bold"><annotation type="color">अधिक पढ़ें</annotation></annotation></annotation></string>
+    <string name="failed_to_map_the_response">प्रतिक्रिया को मैप करने में विफल</string>
+    <string name="failed_to_create_transactions">लेन-देन बनाने में विफल</string>
+
+    <string name="cards">कार्ड्स</string>
+    <string name="get_the_worlds_first">दुनिया का पहला web3 Mastercard प्राप्त करें।</string>
+    <string name="insufficient_algo_balance_claim">ALGO बैलेंस अपर्याप्त है। कृपया क्लेम करने के लिए अधिक ALGO जोड़ें।</string>
+    <string name="insufficient_algo_balance_reject">ALGO बैलेंस अपर्याप्त है। कृपया अस्वीकार करने के लिए अधिक ALGO जोड़ें।</string>
+
+    <string name="key_reg_transaction_title">लेन-देन हस्ताक्षर अनुरोध</string>
+    <string name="choose_account_for_txn_signature_request">यहां चयनित खाता अगले लेन-देन हस्ताक्षर अनुरोध के लिए जिम्मेदार होगा।</string>
+    <string name="type">प्रकार</string>
+
+    <string name="express_send">एक्सप्रेस भेजें</string>
+    <string name="your_receiving_wallet">आपका रिसीविंग वॉलेट ऑप्ट-इन नहीं है। इसे एसेट प्राप्त करने के लिए ऑप्ट-इन करने की आवश्यकता है।\n\nPera इस प्रक्रिया को सरल बनाता है, एक सहज अनुभव के लिए कई लेन-देन को एक साथ जोड़कर।</string>
+    <string name="how_this_asset_transfer">यह एसेट ट्रांसफर कैसे कार्य करता है?</string>
+    <string name="your_sending_account_will_send">आपका भेजने वाला खाता एसेट में ऑप्ट-इन करने के लिए आवश्यक शुल्क भेजेगा</string>
+    <string name="your_receiving_account_will_be">आपका रिसीविंग खाता एसेट में ऑप्ट-इन किया जाएगा</string>
+    <string name="your_sending_account_over">आपका भेजने वाला खाता एसेट भेजेगा</string>
+    <string name="do_not_show_this_again">इसे दोबारा न दिखाएं</string>
+
+    <string name="xnote">xNote</string>
+    <string name="try_stake">स्टेक करने का प्रयास करें</string>
+    <string name="pera_wallet_now_provides">AlgoKit Wallet अब विभिन्न dApps के साथ स्टेक करने का आसान और तेज़ तरीका प्रदान करता है।</string>
+    <string name="stake_in_pera">Pera में स्टेक करें</string>
+    <string name="save">सहेजें</string>
+    <string name="downloading_title">%1$s डाउनलोड किया जा रहा है</string>
+    <string name="download_started">डाउनलोड शुरू हुआ: ID %1$d</string>
+    <string name="download_completed">डाउनलोड पूरा हुआ: ID %1$d</string>
+
+    <string name="you_dont_have_any">आपके पास %1$s से मेल खाने वाला कोई अधिकृत खाता नहीं है</string>
+
+    <string name="mnemonic_type_falcon24_title">Falcon24</string>
+    <string name="mnemonic_type_falcon24_description">नया इंटरऑपरेबल फॉर्मेट जो पोस्ट-क्वांटम रेजिस्टेंट वॉलेट्स और खातों जैसी महत्वपूर्ण सुविधाएँ सक्षम करता है</string>
+    <string name="mnemonic_type_falcon24_footer">24 कुंजी स्मरणीय कुंजियाँ</string>
+
+    <string name="mnemonic_type_universal_title">Universal</string>
+    <string name="mnemonic_type_universal_description">नया इंटरऑपरेबल फॉर्मेट जो HD Wallet जैसी सुविधाएँ सक्षम करता है</string>
+    <string name="mnemonic_type_universal_footer">24 कुंजी स्मरणीय कुंजियाँ</string>
+
+    <string name="mnemonic_type_algo25_title">Algo25</string>
+    <string name="mnemonic_type_algo25_description">लेगेसी फॉर्मेट जो विशेष रूप से Algorand पारिस्थितिकी तंत्र के लिए है</string>
+    <string name="mnemonic_type_algo25_footer">25 कुंजी स्मरणीय कुंजियाँ</string>
+
+    <string name="bottom_sheet_mnemonic_type_title">अपना Mnemonic प्रकार चुनें</string>
+    <string name="recommended">सिफारिश की गई</string>
+    <string name="hd_wallet">HD वॉलेट #</string>
+    <string name="wallet_number">वॉलेट #%1$d</string>
+    <string name="select_hd_wallet">HD वॉलेट चुनें</string>
+    <string name="create_your_new_account_under">एक मौजूदा HD वॉलेट के अंतर्गत अपना नया खाता बनाएं</string>
+
+    <string name="create_legacy_algo25_account">पुराना Algo25 खाता बनाएं</string>
+    <string name="create_legacy_hd_account">पुराना Universal HD खाता बनाएं</string>
+
+    <string name="migration_viewer">माइग्रेशन व्यूअर</string>
+    <string name="migration_troubleshooter">माइग्रेशन समस्या निवारक</string>
+    <string name="clear_new_accounts">पोस्ट v6 खाते साफ़ करें</string>
+    <string name="migrate">माइग्रेट करें</string>
+    <string name="no_accounts">(कोई खाते उपलब्ध नहीं)</string>
+
+    <string name="error_state_message_default">आपका डेटा लोड करते समय कुछ गलत हुआ। कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।</string>
+
+    <string name="select_accounts_to_add">जोड़ने के लिए खाते चुनें</string>
+    <string name="select_address_to_add">जोड़ने के लिए पते चुनें</string>
+    <string name="already_imported">पहले से आयात किया गया</string>
+    <string name="searching_your_accounts">"आपके खातों की खोज की जा रही है"</string>
+    <string name="main_address">मुख्य पता</string>
+    <string name="scan_new_addresses">नए पते स्कैन करें</string>
+
+    <plurals name="select_accounts_to_add_desc">
+        <item quantity="zero">%1$d हमें इस वॉलेट से कोई पते पंजीकृत नहीं मिले</item>
+        <item quantity="one">%1$d हमें इस वॉलेट से एक पता पंजीकृत मिला</item>
+        <item quantity="other">हमें इस वॉलेट से %1$d पते पंजीकृत मिले</item>
+    </plurals>
+
+    <plurals name="search_address_count">
+        <item quantity="zero">कोई पते नहीं</item>
+        <item quantity="one">%1$d 1 पता</item>
+        <item quantity="other">%1$d पते</item>
+    </plurals>
+
+    <string name="select_the_rekeyed_accounts_you">वे Rekey किए गए खाते चुनें जिन्हें आप अपने वॉलेट में जोड़ना चाहते हैं:</string>
+
+    <string name="open">%1$s खोलें</string>
+    <string name="manage_credentials">क्रेडेंशियल प्रबंधित करें</string>
+    <string name="authentication_error">प्रमाणीकरण त्रुटि: %1$s</string>
+    <string name="authentication_failed">प्रमाणीकरण विफल</string>
+    <string name="failed_to_validate_rp">RP को सत्यापित करने में विफल</string>
+    <string name="use_your_screen_lock">अपना स्क्रीन लॉक उपयोग करें</string>
+    <string name="use_fingerprint">जारी रखने के लिए अपनी फिंगरप्रिंट का उपयोग करें</string>
+    <string name="unknown_failure">अज्ञात विफलता</string>
+    <string name="biometric_error_code_with_message">"बायोमेट्रिक त्रुटि कोड: %1$s संदेश के साथ: "</string>
+    <string name="other_providers_error_message">" फ्लो विफल होने का संकेत देता है। Pera इस फ्लो को रोककर हैंडल करता है। अन्य प्रदाता इसे अलग तरह से संभाल सकते हैं"</string>
+    <string name="unexpected_create_request_found_in_intent">Intent में अप्रत्याशित Create Request मिला</string>
+    <string name="incoming_call_is_not_privileged_to_get_the_origin">इनकमिंग कॉल को स्रोत प्राप्त करने की अनुमति नहीं है</string>
+    <string name="privileged_allowlist_is_not_formatted_properly">प्रिविलेज्ड अलाउलिस्ट सही तरीके से स्वरूपित नहीं है</string>
+    <string name="platform">प्लेटफ़ॉर्म</string>
+    <string name="cred_id">credId</string>
+    <string name="could_not_retrieve_gpm_allowlist">GPM अलाउलिस्ट पुनर्प्राप्त नहीं की जा सकी</string>
+    <string name="extra_intent_data">EXTRA_INTENT_DATA</string>
+    <string name="is_auto_selected">IS_AUTO_SELECTED</string>
+    <string name="unable_to_extract_data_from_intent">Intent से डेटा निकालने में असमर्थ</string>
+    <string name="empty" />
+    <string name="select_universal_wallet">Universal वॉलेट चुनें</string>
+    <string name="create_your_new_hd_account">एक मौजूदा Universal वॉलेट के अंतर्गत अपना नया खाता बनाएं</string>
+
+    <string name="select_falcon24_wallet">Falcon24 वॉलेट चुनें</string>
+    <string name="create_your_new_falcon24_account">एक मौजूदा Falcon24 वॉलेट के अंतर्गत अपना नया खाता बनाएं</string>
+
+    <string name="recover_a_wallet">एक वॉलेट पुनर्प्राप्त करें</string>
+    <string name="i_want_to_recover_wallet">मैं एक Algorand वॉलेट पुनर्प्राप्त करना चाहता हूँ।</string>
+
+    <string name="new_to_algorand">Algorand पर नए हैं?</string>
+    <string name="already_have_an_account">पहले से एक खाता है?</string>
+
+    <string name="please_note_we_currently">कृपया ध्यान दें: वर्तमान में हम Universal और Ledger वॉलेट्स का बैकअप समर्थन नहीं करते हैं</string>
+
+    <string name="rescan_rekeyed_accounts">Rekey किए गए खातों को फिर से स्कैन करें</string>
+    <string name="import_any_rekeyed_accounts">किसी भी Rekey किए गए खातों को आयात करें</string>
+    <string name="no_rekeyed_accounts_found">कोई Rekey किए गए खाते नहीं मिले</string>
+    <string name="we_have_scanned_the_blockchain">हमने ब्लॉकचेन को स्कैन किया है और कोई ऐसा खाता नहीं मिला जो आयातित न हो।</string>
+    <string name="tap_value_to_hide_your">अपना बैलेंस छिपाने के लिए मूल्य पर टैप करें</string>
+    <string name="nobody_can_see_my_screen">कोई भी मेरी स्क्रीन नहीं देख सकता।</string>
+    <string name="i_risk_losing_all_my">यदि मैं अपना रिकवरी वाक्यांश किसी के साथ साझा करता हूं, तो मैं अपने सभी फंड खोने का जोखिम उठाता हूं।</string>
+    <string name="my_funds_are_permanently_lost">यदि मैं अपना रिकवरी वाक्यांश खो देता हूं और अपने वॉलेट तक पहुंच खो देता हूं, तो मेरे फंड स्थायी रूप से खो जाएंगे।</string>
+    <string name="pera_employees_will_never_ask">Algorand Foundation और Pera कर्मचारी कभी भी आपका रिकवरी वाक्यांश नहीं मांगेंगे।</string>
+    <string name="confirm_and_acknowledge_the_following">निम्नलिखित की पुष्टि करें और स्वीकार करें:</string>
+    <string name="keep_it_secret_keep_it">इसे गुप्त रखें। इसे सुरक्षित रखें।</string>
+    <string name="reveal_passphrase">पासफ़्रेज़ दिखाएं</string>
+    <string name="you_need_to_backup_passphrase">आपको पासफ़्रेज़ का बैकअप लेना होगा</string>
+    <string name="invite_friends">दोस्तों को आमंत्रित करें</string>
+    <string name="menu">मेनू</string>
+    <string name="share_pera_wallet_download">AlgoKit Wallet डाउनलोड लिंक अपने दोस्तों के साथ साझा करें।</string>
+    <string name="simply_the_best_algorand">सिर्फ सबसे अच्छा Algorand वॉलेट।</string>
+    <string name="you_are_all_set">आप पूरी तरह तैयार हैं!</string>
+    <string name="we_will_inform_this">जब हम आपके देश में लॉन्च करेंगे, तो हम इस डिवाइस को पुश नोटिफिकेशन के माध्यम से सूचित करेंगे।</string>
+    <string name="go_to_cards">कार्ड्स पर जाएं</string>
+    <string name="create_pera_card">Pera कार्ड बनाएं</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+
+    <string name="mainnet_warning">Mainnet अस्वीकरण</string>
+    <string name="mainnet_warning_desc">इस कोड का अभी तक ऑडिट नहीं हुआ है। Mainnet का उपयोग वास्तविक फंड को जोखिम में डाल सकता है। सावधानी से आगे बढ़ें।</string>
+
+    <string name="localization_screen_title">भाषा</string>
+    <string name="italian">इतालवी</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="hindi">हिन्दी</string>
+
+    <!-- Account Types -->
+    <string name="account_type_hd">खाता HD</string>
+    <string name="account_type_algo25">खाता Algo25</string>
+    <string name="account_type_falcon24">खाता Falcon24</string>
+    <string name="account_type_watch">खाता देखे गए</string>
+    <string name="account_type_ledger">खाता Ledger</string>
+
+    <string name="send_funds_to_another_account">किसी अन्य खाते में धन भेजें</string>
+    <string name="dispenser_add_funds_to_your_account">डिस्पेंसर - अपने खाते में धन जोड़ें</string>
+    <string name="send_algo">ALGO भेजें</string>
+
+</resources>
