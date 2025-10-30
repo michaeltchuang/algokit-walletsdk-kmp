@@ -32,7 +32,7 @@ jobs:
       - name: "Run Unit Tests"
         run: ./gradlew test
       - name: "Archive App Unit Tests Report"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: "app-unit-tests-results"
@@ -54,7 +54,7 @@ jobs:
       - name: "Run Lint Checks"
         run: ./gradlew lint
       - name: "Archive App Lint Test Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: "app-lint-results"
@@ -76,7 +76,7 @@ jobs:
       - name: "Run Compose Android App Checks"
         run: ./gradlew composeDemoApp:packageReleaseBundle
       - name: "Archive Compose Android App Check Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: "compose-android-app-results"
@@ -98,7 +98,7 @@ jobs:
       - name: "Run Compose iOS App Checks"
         run: ./gradlew composeDemoApp:compileKotlinIosSimulatorArm64
       - name: "Archive Compose iOS App Check Results"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ always() }}
         with:
           name: "compose-ios-app-results"
