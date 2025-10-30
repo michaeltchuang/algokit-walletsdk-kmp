@@ -87,12 +87,11 @@ timeline
             : ✅ Account Details - Add copy address button
             : ✅ Onboarding - Encrypt secret keys in DB
             : ✅ GitOps - Setup Maven Central for library releases
-            : ✅ Account Details - Add testnet dispenser link
+            : ✅ Account Details - Add testnet dispenser, transaction history links
             : ✅ Transaction - Send Algo using account detail or QR code flows (between accounts)
-            : ✅ GitOps - Setup Play store for demo Android app releases
+            : ✅ GitOps - Setup stores for demo Android/iOS app releases
             : ✅ Settings - Localization (Italian, Hindi)
-            : 🔄 Account Details - Add Transaction History
-            : 🔄 GitOps - Setup App store for demo iOS app releases
+            : Onboarding - Add Watch Accounts
 
 
     section Future

@@ -9,6 +9,7 @@ import com.michaeltchuang.walletsdk.core.foundation.StateDelegate
 import com.michaeltchuang.walletsdk.core.foundation.StateViewModel
 import com.michaeltchuang.walletsdk.core.network.domain.usecase.GetCurrentNetworkUseCase
 import com.michaeltchuang.walletsdk.core.network.model.AlgorandNetwork
+import com.michaeltchuang.walletsdk.core.network.utils.getExplorerBaseUrl
 import kotlinx.coroutines.launch
 
 class AccountDetailViewModel(
@@ -27,10 +28,12 @@ class AccountDetailViewModel(
     private fun loadAccountState() {
         viewModelScope.launch {
             getCurrentNetworkUseCase().collect { network ->
+                val explorerBaseUrl = getExplorerBaseUrl()
                 stateDelegate.updateState {
                     ViewState.Content(
                         currentNetwork = network,
                         isTestNet = network == AlgorandNetwork.TESTNET,
+                        explorerBaseUrl = explorerBaseUrl,
                     )
                 }
             }
@@ -60,6 +63,7 @@ class AccountDetailViewModel(
         data class Content(
             val currentNetwork: AlgorandNetwork,
             val isTestNet: Boolean,
+            val explorerBaseUrl: String,
         ) : ViewState
     }
 
