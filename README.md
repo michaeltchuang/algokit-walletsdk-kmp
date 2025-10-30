@@ -284,6 +284,8 @@ Development happens in this open source repo for the AlgoKit Wallet SDK. Algoran
 
 ## Testing
 
+This project is tested with BrowserStack (open source license).
+
 For QR code importing, you can use a tool like [Cyber Chef](https://gchq.github.io/CyberChef/#recipe=Generate_QR_Code('PNG',5,4,'Medium')) to get QR codes online
 
 ### 24 word account
