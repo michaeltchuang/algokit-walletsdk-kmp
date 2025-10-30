@@ -3,6 +3,8 @@ name: "BrowserStack Instrumented Tests"
 on:
   workflow_dispatch:
   push:
+  pull_request:
+    types: [ opened, synchronize ]
   pull_request_target:
     types: [ opened, synchronize ]
 
@@ -15,6 +17,12 @@ concurrency:
 
 jobs:
   browserstack:
+    # Avoid duplicate runs: skip pull_request for forks, skip pull_request_target for same-repo
+    if: >
+      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository) ||
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout Code"
