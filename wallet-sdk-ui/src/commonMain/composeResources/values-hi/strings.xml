@@ -24,7 +24,7 @@
     <string name="validator_detail_confirm_stake">पुष्टि करें</string>
     <string name="validator_detail_button_wait_message">ब्लॉकचेन पर नई स्थिति को मान्यता प्राप्त करने में कुछ सेकंड लगेंगे</string>
 
-    <string name="app_name">AlgoKit Wallet Test App</string>
+    <string name="app_name">WalletSDK Demo</string>
     <string name="please_scan_your_fingerprint_or">कृपया आगे बढ़ने के लिए अपनी उंगली या चेहरे को स्कैन करें।</string>
     <string name="cancel">रद्द करें</string>
     <string name="share_via">के माध्यम से साझा करें</string>

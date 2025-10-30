@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Portafoglio demo AlgoKit</string>
+    <string name="app_name_topbar">Portafoglio demo AlgoKit</string>
     <string name="open_github">Apri github</string>
 
     <!-- Bottom Navigation Screen -->

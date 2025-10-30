@@ -1,7 +1,7 @@
 package com.michaeltchuang.walletsdk.demo.ui.navigation
 
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.Res
-import algokit_walletsdk_kmp.composedemoapp.generated.resources.app_name
+import algokit_walletsdk_kmp.composedemoapp.generated.resources.app_name_topbar
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_qr_scan
 import algokit_walletsdk_kmp.composedemoapp.generated.resources.ic_settings
 import androidx.compose.foundation.clickable
@@ -38,7 +38,7 @@ fun TopBar() {
             ),
         title = {
             Text(
-                localizedStringResource(Res.string.app_name),
+                localizedStringResource(Res.string.app_name_topbar),
                 maxLines = 1,
             )
         },

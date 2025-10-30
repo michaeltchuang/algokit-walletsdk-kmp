@@ -26,7 +26,7 @@
     <string name="validator_detail_confirm_stake">Confirm</string>
     <string name="validator_detail_button_wait_message">It will take a few seconds for the new state to be recognized on the blockchain</string>
 
-    <string name="app_name">AlgoKit Wallet Test App</string>
+    <string name="app_name">WalletSDK Demo</string>
     <string name="please_scan_your_fingerprint_or">Please scan your fingerprint or your face to proceed.</string>
     <string name="cancel">Cancel</string>
     <string name="share_via">Share via</string>
