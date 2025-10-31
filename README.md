@@ -91,12 +91,12 @@ timeline
             : ✅ Transaction - Send Algo using account detail or QR code flows (between accounts)
             : ✅ GitOps - Setup stores for demo Android/iOS app releases
             : ✅ Settings - Localization (Italian, Hindi)
+            : ✅ Testing - Setup unit test coverage foundation
             : Onboarding - Add Watch Accounts
 
 
     section Future
     2026Q1  : Transaction - Integrate new AlgoKit-Core Transact rust library
-            : Testing - Setup unit test coverage foundation
             : Onboarding - Passkeys / Liquid Auth
             : Onboarding - Rekey flow
             : Onboarding - Recover HD account flow

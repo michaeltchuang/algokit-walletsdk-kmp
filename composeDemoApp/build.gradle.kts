@@ -42,10 +42,6 @@ kotlin {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
-            dependencies {
-                debugImplementation(libs.compose.ui.testManifest)
-                implementation(libs.compose.ui.test.junit4)
-            }
         }
     }
 
@@ -152,6 +148,12 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+
+    // Add Android Instrumented Test dependencies
+    dependencies {
+        androidTestImplementation(libs.compose.ui.test.junit4)
+        debugImplementation(libs.compose.ui.testManifest)
     }
 
     // Load signing config from system environment first, then local.properties

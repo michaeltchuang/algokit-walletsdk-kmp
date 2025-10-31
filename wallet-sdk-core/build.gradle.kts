@@ -20,8 +20,9 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
     id("kotlin-parcelize")
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
+    alias(libs.plugins.spmForKmp)
     alias(libs.plugins.maven.publish)
+    alias(libs.plugins.kotlinx.kover)
 }
 
 kotlin {
@@ -148,13 +149,20 @@ kotlin {
             implementation(libs.bignum)
             implementation(libs.compottie)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+        }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-        androidUnitTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.mockk)
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.junit)
+                implementation(libs.mockk)
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutines.test)
+            }
         }
     }
 }
@@ -253,6 +261,30 @@ mavenPublishing {
             connection.set("scm:git:git://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
             developerConnection.set("scm:git:ssh://github.com/michaeltchuangllc/algokit-walletsdk-kmp.git")
             url.set("https://github.com/michaeltchuangllc/algokit-walletsdk-kmp")
+        }
+    }
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                // Exclude generated code
+                classes("*.BuildConfig")
+                classes("*_Factory")
+                classes("*_MembersInjector")
+                classes("*Dagger*")
+                classes("*_Provide*")
+
+                // Exclude Android/Compose generated code
+                classes("*.databinding.*")
+                classes("*.di.*")
+                classes("androidx.compose.*")
+
+                // Exclude test utilities
+                packages("*.test")
+                packages("*.testing")
+            }
         }
     }
 }
