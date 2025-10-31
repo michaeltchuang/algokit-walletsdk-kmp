@@ -51,13 +51,12 @@ junit = "4.13.2"
 junitKtx = "1.2.1"
 khex = "1.1.2"
 koin = "4.0.1-Beta1"
-kotlin = "2.2.10"
+kotlin = "2.2.21"
 kotlinfixture = "1.2.0"
 kotlinxDatetime = "0.6.2"
 kotlinxSerialization = "1.7.3"
-kotlinStdlib = "2.2.10"
 kover = "0.8.3"
-ksp = "2.2.10-2.0.2"
+ksp = "2.2.21-2.0.4"
 ktlint = "13.0.0"
 ktor = "3.0.0"
 ktorContentNegotiation = "3.0.0"
@@ -80,6 +79,7 @@ qrkit = "3.0.5"
 review = "2.0.2"
 room = "2.7.0"
 sqlite = "2.5.0"
+spmForKmp = "1.0.0-Beta06"
 runner = "1.6.2"
 tink = "1.14.0"
 walletConnectBom = "1.34.1"
@@ -240,7 +240,7 @@ kotlinx-coroutines-iosSimulatorArm64 = { module = "org.jetbrains.kotlinx:kotlinx
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 
 [bundles]
 firebase = ["firebase-analytics",
@@ -260,9 +260,11 @@ compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 gradle-play-publisher = { id = "com.github.triplet.play", version.ref = "gradlePlayPublisher" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
+spmForKmp = { id = "io.github.frankois944.spmForKmp", version.ref = "spmForKmp" }

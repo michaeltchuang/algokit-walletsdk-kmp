@@ -35,6 +35,9 @@ replay_pid*
 # Build directory
 build/
 
+# Exported iOS SDK
+wallet-sdk-core/exportedAlgorandIosSdk/
+
 # Local configuration file (sdk path, etc)
 local.properties
 

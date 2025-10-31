@@ -20,9 +20,9 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.room)
     id("kotlin-parcelize")
-    id("io.github.frankois944.spmForKmp") version "1.0.0-Beta06"
+    alias(libs.plugins.spmForKmp)
     alias(libs.plugins.maven.publish)
-    id("org.jetbrains.kotlinx.kover") version "0.8.3"
+    alias(libs.plugins.kotlinx.kover)
 }
 
 kotlin {
