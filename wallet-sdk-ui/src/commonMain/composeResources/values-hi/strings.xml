@@ -644,7 +644,7 @@
 
     <string name="email_address">ईमेल पता</string>
     <string name="enter_your_email">अपना ईमेल दर्ज करें</string>
-    <string name="i_agree_to_share">मैं Pera के साथ अपना ईमेल पता साझा करने और वॉलेट सुविधाओं के बारे में अपडेट प्राप्त करने के लिए सहमत हूँ।</string>
+    <string name="i_agree_to_share">मैं WalletSDK के साथ अपना ईमेल पता साझा करने और वॉलेट सुविधाओं के बारे में अपडेट प्राप्त करने के लिए सहमत हूँ।</string>
     <string name="not_available">उपलब्ध नहीं</string>
     <string name="your_walletconnect_request_failed">आपका WalletConnect अनुरोध निम्न त्रुटि के साथ विफल हुआ:\n\n<annotation replacement="error_message">errorMessagePlaceholder</annotation>\n\nकृपया उस dApp पर वापस जाकर पुनः प्रयास करें जहाँ से आपने अनुरोध आरंभ किया था।</string>
     <string name="add_an_account">एक खाता जोड़ें</string>
