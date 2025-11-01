@@ -85,13 +85,12 @@ timeline
     section In Progress 🔄
     2025Q4  : ✅ Transaction - Sign KeyReg online/offline flow with QR code flow
             : ✅ Onboarding - Encrypt secret keys in DB
-            : ✅ GitOps - Setup Maven Central for library releases
+            : ✅ GitOps - Setup Maven Central for library releases & CLA agreement bot
             : ✅ Account Details - Add copy address button, testnet dispenser, transaction history links
             : ✅ Transaction - Send Algo using account detail or QR code flows (between accounts)
             : ✅ GitOps - Setup stores for demo Android/iOS app releases
             : ✅ Settings - Localization (Italian, Hindi)
             : ✅ Testing - Setup unit test coverage foundation
-            : ✅ GitOps - Add CLA agreement github action
             : Onboarding - Add Watch Accounts
 
 
